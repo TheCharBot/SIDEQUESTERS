@@ -1,5 +1,5 @@
 #include "event_handler.hpp"
-
+//event handle, draw_all, init_all, update_all, and camera stuff
 void init_all(){
     init_map();
     init_player();
@@ -14,7 +14,12 @@ void update_all(){
     
     update_map();
     update_player();
+    cam.target.x = player_pos.x - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
+    cam.target.y = player_pos.y - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);
+
     
+    cam.target.x = Clamp(cam.target.x, 0, (map_to_load.width*scale) - (WINDOW_WIDTH * scale));
+    cam.target.y = Clamp(cam.target.y, 0, (map_to_load.height*scale) - (WINDOW_HEIGHT * scale));
 }
 
 void draw_all(){
