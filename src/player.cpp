@@ -2,18 +2,22 @@
 
 Vector2 player_pos;
 
-Rectangle *current_anim_arr;
+Rectangle *current_anim_arr = player_walk_down;
 Rectangle player_normal_hitbox;
 
 int player_pos_x_save;
 int player_pos_y_save;
 
+
+int max_animation_frames = 12;
+int current_animation_frame = 0;
+
 void init_player()
 {
-    
+
     player_pos.x = (WINDOW_WIDTH * scale) / 2;
-    player_pos.y = (WINDOW_HEIGHT * scale) / 2+120;
-    player_normal_hitbox = {player_pos.x, player_pos.y, float(PLAYER_HITBOX_WIDTH*scale), float(PLAYER_HITBOX_HEIGHT*scale)};
+    player_pos.y = (WINDOW_HEIGHT * scale) / 2 + 120;
+    player_normal_hitbox = {player_pos.x, player_pos.y, float(PLAYER_HITBOX_WIDTH * scale), float(PLAYER_HITBOX_HEIGHT * scale)};
     player_tex = LoadTexture(PLAYER_TEX_PATH);
 };
 
@@ -25,21 +29,27 @@ void update_player()
     if (IsKeyDown(KEY_W))
     {
         player_pos.y -= PLAYER_SPEED * scale;
-        
+
         current_anim_arr = player_walk_up;
-        
+        current_animation_frame = 0;
+        max_animation_frames = 12;
     }
     if (IsKeyDown(KEY_S))
     {
         player_pos.y += PLAYER_SPEED * scale;
         current_anim_arr = player_walk_down;
-        
-        
+        current_animation_frame = 0;
+        max_animation_frames = 12;
     }
-    //vertical hitbox rebuild
-    player_normal_hitbox = {player_pos.x+PLAYER_HITBOX_X_OFFSET*scale, player_pos.y+PLAYER_HITBOX_Y_OFFSET*scale, float(PLAYER_HITBOX_WIDTH*scale), float(PLAYER_HITBOX_HEIGHT*scale)};
-    //vertical collision check
-    for (const Rectangle& r : map_surface_rects)
+    // vertical hitbox rebuild
+    player_normal_hitbox = {
+        player_pos.x + PLAYER_HITBOX_X_OFFSET * scale,
+        player_pos.y + PLAYER_HITBOX_Y_OFFSET * scale,
+        float(PLAYER_HITBOX_WIDTH * scale),
+        float(PLAYER_HITBOX_HEIGHT * scale)
+    };
+    // vertical collision check
+    for (const Rectangle &r : map_surface_rects)
     {
         if (CheckCollisionRecs(player_normal_hitbox, r))
         {
@@ -52,19 +62,25 @@ void update_player()
     {
         player_pos.x += PLAYER_SPEED * scale;
         current_anim_arr = player_walk_right;
-        
-        
+        current_animation_frame = 0;
+        max_animation_frames = 8;
     }
     if (IsKeyDown(KEY_A))
     {
         player_pos.x -= PLAYER_SPEED * scale;
         current_anim_arr = player_walk_left;
-        
+        current_animation_frame = 0;
+        max_animation_frames = 8;
     }
-    //horizontal hitbox rebuild
-    player_normal_hitbox = {player_pos.x+PLAYER_HITBOX_X_OFFSET*scale, player_pos.y+PLAYER_HITBOX_Y_OFFSET*scale, float(PLAYER_HITBOX_WIDTH*scale), float(PLAYER_HITBOX_HEIGHT*scale)};
-    //horizontal collision check
-    for (const Rectangle& r : map_surface_rects)
+    // horizontal hitbox rebuild
+    player_normal_hitbox = {
+        player_pos.x + PLAYER_HITBOX_X_OFFSET * scale,
+        player_pos.y + PLAYER_HITBOX_Y_OFFSET * scale,
+        float(PLAYER_HITBOX_WIDTH * scale),
+        float(PLAYER_HITBOX_HEIGHT * scale)
+    };
+    // horizontal collision check
+    for (const Rectangle &r : map_surface_rects)
     {
         if (CheckCollisionRecs(player_normal_hitbox, r))
         {
@@ -73,16 +89,16 @@ void update_player()
         }
     }
 
-    
-    player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width*scale) - (PLAYER_SPRITE_WIDTH * scale));
-    player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height*scale) - (PLAYER_SPRITE_HEIGHT * scale));
-    
+    player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width * scale) - (PLAYER_SPRITE_WIDTH * scale));
+    player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height * scale) - (PLAYER_SPRITE_HEIGHT * scale));
+
+
+
     // std::cout << player_pos.x << "  " << player_pos.y << "\n";
 }
 
 void draw_player()
 {
-    
+
     DrawTexturePro(player_tex, player_idle_down, {player_pos.x, player_pos.y, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
-    
 };

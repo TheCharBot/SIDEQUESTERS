@@ -8,6 +8,16 @@
 
 extern Vector2 player_pos;
 
+extern Rectangle *current_anim_arr;
+extern Rectangle player_normal_hitbox;
+
+extern int player_pos_x_save;
+extern int player_pos_y_save;
+
+
+extern int max_animation_frames;
+extern int current_animation_frame;
+
 extern void init_player();
 extern void update_player();
 extern void draw_player();
