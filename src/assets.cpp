@@ -1,25 +1,20 @@
 #include "assets.hpp"
 
 
+//non-constant asset stuff
+
+// player-focused stuff
 Texture2D player_tex;
-
+//(i know i can use pointers but they scary)
 Rectangle player_idle_up_arr[1] = {
-    player_idle_up
-};
-
+    player_idle_up};
 Rectangle player_idle_down_arr[1] = {
-    player_idle_down
-};
-
+    player_idle_down};
 Rectangle player_idle_right_arr[1] = {
-    player_idle_right
-};
-
+    player_idle_right};
 Rectangle player_idle_left_arr[1] = {
-    player_idle_left
-};
-
-//player-focused rects, in player_tex
+    player_idle_left};
+// player-focused rects, in player_tex
 Rectangle player_walk_down[12] = {
     player_walk_down_1,
     player_walk_down_2,
@@ -32,9 +27,7 @@ Rectangle player_walk_down[12] = {
     player_walk_down_9,
     player_walk_down_10,
     player_walk_down_11,
-    player_walk_down_12
-};
-
+    player_walk_down_12};
 Rectangle player_walk_up[12] = {
     player_walk_up_1,
     player_walk_up_2,
@@ -47,9 +40,7 @@ Rectangle player_walk_up[12] = {
     player_walk_up_9,
     player_walk_up_10,
     player_walk_up_11,
-    player_walk_up_12
-};
-
+    player_walk_up_12};
 Rectangle player_walk_right[8] = {
     player_walk_right_1,
     player_walk_right_2,
@@ -60,7 +51,6 @@ Rectangle player_walk_right[8] = {
     player_walk_right_7,
     player_walk_right_8,
 };
-
 Rectangle player_walk_left[8] = {
     player_walk_left_1,
     player_walk_left_2,
@@ -71,7 +61,6 @@ Rectangle player_walk_left[8] = {
     player_walk_left_7,
     player_walk_left_8,
 };
-
 Rectangle player_idle_down = {0, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_idle_up = {32, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_idle_right = {64, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
@@ -116,4 +105,3 @@ Rectangle player_walk_left_5 = {128, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEI
 Rectangle player_walk_left_6 = {160, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_7 = {192, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_8 = {224, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-

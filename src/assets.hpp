@@ -26,8 +26,7 @@ extern Texture2D wrong_map;
 #define MAP_1_RECT_4_Y 185
 #define MAP_1_RECT_4_WIDTH 198
 #define MAP_1_RECT_4_HEIGHT 80
-//198, 265, 282, 55
-//282, 185, 198, 80
+
 
 // Player-focused textures and paths
 extern Texture2D player_tex;
@@ -39,7 +38,9 @@ extern Texture2D player_tex;
 #define PLAYER_HITBOX_X_OFFSET 6
 #define PLAYER_HITBOX_Y_OFFSET 38
 #define PLAYER_ANIMATION_INTERVAL 5
+#define PLAYER_SPEED 2
 
+//Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
 extern Rectangle player_idle_right_arr[1];
@@ -48,6 +49,7 @@ extern Rectangle player_walk_down[12];
 extern Rectangle player_walk_up[12];
 extern Rectangle player_walk_right[8];
 extern Rectangle player_walk_left[8];
+//Player-focused image rects
 
 extern Rectangle player_idle_down;
 extern Rectangle player_idle_up;
@@ -93,8 +95,19 @@ extern Rectangle player_walk_left_5;
 extern Rectangle player_walk_left_6;
 extern Rectangle player_walk_left_7;
 extern Rectangle player_walk_left_8;
-//Player-focused image rects
 
+//start portal image and rects
+extern Texture2D start_portal_tex;
+#define START_PORTAL_X 224
+#define START_PORTAL_Y 37
+#define START_PORTAL_WIDTH 32
+#define START_PORTAL_HEIGHT 44
+#define PORTAL_TEX_PATH "gfx/non_const_assets/start_portal/start_portal_tex.png"
+extern Rectangle start_portal_1;
+extern Rectangle start_portal_2;
+extern Rectangle start_portal_3;
+extern Rectangle start_portal_4;
+extern Rectangle start_portal_emination;
 
 
 #endif

@@ -4,14 +4,18 @@
 #include "raylib.h"
 #include "raymath.h"
 #include <vector>
+#include <functional>
 #include <iostream>
+#include <memory>
 
 //this file is only for settings and global vars, use assets for specific things
 
 #define WINDOW_WIDTH 320
 #define WINDOW_HEIGHT 180
 
-#define PLAYER_SPEED 2
+
+
+
 
 extern Camera2D cam;
 

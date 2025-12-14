@@ -151,12 +151,15 @@ void update_player()
             }
         }
 
+        //making sure the player is at least inside the screen
+        player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width * scale) - (PLAYER_SPRITE_WIDTH * scale));
+        player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height * scale) - (PLAYER_SPRITE_HEIGHT * scale));
+
+
     }
     
-    //making sure the player is at least inside the screen
-    player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width * scale) - (PLAYER_SPRITE_WIDTH * scale));
-    player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height * scale) - (PLAYER_SPRITE_HEIGHT * scale));
-
+    
+    
     //animation thingy
     animation_frame_5++;
         if(animation_frame_5 >= PLAYER_ANIMATION_INTERVAL){
