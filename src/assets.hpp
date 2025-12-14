@@ -38,6 +38,12 @@ extern Texture2D player_tex;
 #define PLAYER_HITBOX_HEIGHT 10
 #define PLAYER_HITBOX_X_OFFSET 6
 #define PLAYER_HITBOX_Y_OFFSET 38
+#define PLAYER_ANIMATION_INTERVAL 5
+
+extern Rectangle player_idle_up_arr[1];
+extern Rectangle player_idle_down_arr[1];
+extern Rectangle player_idle_right_arr[1];
+extern Rectangle player_idle_left_arr[1];
 extern Rectangle player_walk_down[12];
 extern Rectangle player_walk_up[12];
 extern Rectangle player_walk_right[8];

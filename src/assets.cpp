@@ -3,6 +3,21 @@
 
 Texture2D player_tex;
 
+Rectangle player_idle_up_arr[1] = {
+    player_idle_up
+};
+
+Rectangle player_idle_down_arr[1] = {
+    player_idle_down
+};
+
+Rectangle player_idle_right_arr[1] = {
+    player_idle_right
+};
+
+Rectangle player_idle_left_arr[1] = {
+    player_idle_left
+};
 
 //player-focused rects, in player_tex
 Rectangle player_walk_down[12] = {
@@ -101,3 +116,4 @@ Rectangle player_walk_left_5 = {128, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEI
 Rectangle player_walk_left_6 = {160, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_7 = {192, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_8 = {224, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+
