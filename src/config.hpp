@@ -21,6 +21,8 @@ extern Camera2D cam;
 
 extern Vector2 default_rot;
 
+#define ANIMATION_INTERVAL 5
+
 #define TEN_EIGHTY_SCALE 6
 #define FOURTEEN_FORTY_SCALE 8
 #define FOUR_K_SCALE 12

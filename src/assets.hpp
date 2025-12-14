@@ -37,7 +37,6 @@ extern Texture2D player_tex;
 #define PLAYER_HITBOX_HEIGHT 10
 #define PLAYER_HITBOX_X_OFFSET 6
 #define PLAYER_HITBOX_Y_OFFSET 38
-#define PLAYER_ANIMATION_INTERVAL 5
 #define PLAYER_SPEED 2
 
 //Player-focused image rect arrays
@@ -103,6 +102,7 @@ extern Texture2D start_portal_tex;
 #define START_PORTAL_WIDTH 32
 #define START_PORTAL_HEIGHT 44
 #define PORTAL_TEX_PATH "gfx/non_const_assets/start_portal/start_portal_tex.png"
+extern Rectangle start_portal_animation[4];
 extern Rectangle start_portal_1;
 extern Rectangle start_portal_2;
 extern Rectangle start_portal_3;

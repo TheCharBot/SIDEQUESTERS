@@ -18,6 +18,10 @@ public:
     Vector2 pos{};
     Rectangle img_rect;
     Rectangle rect;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+
     virtual ~Entity() = default;
 
     virtual void load() {}
@@ -30,7 +34,9 @@ class Start_portal : public Entity {
 public:
     Start_portal();
     ~Start_portal() override;
-    
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
     void load() override;
     void update() override;
     void draw() override;

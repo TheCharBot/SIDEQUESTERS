@@ -15,14 +15,14 @@ extern int player_pos_x_save;
 extern int player_pos_y_save;
 
 
-extern int max_animation_frames;
-extern int current_animation_frame;
-extern int animation_frame_5;
+extern int player_max_animation_frames;
+extern int player_current_animation_frame;
+extern int player_animation_frame_5;
 
 
 extern void init_player();
 
-extern void vertical_collision_check();
+
 extern void update_player();
 extern void draw_player();
 

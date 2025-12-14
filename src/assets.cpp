@@ -3,6 +3,19 @@
 
 //non-constant asset stuff
 
+Rectangle start_portal_1 = {0, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
+Rectangle start_portal_2 = {48, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
+Rectangle start_portal_3 = {96, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
+Rectangle start_portal_4 = {144, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
+Rectangle start_portal_animation[4] = {
+    start_portal_1,
+    start_portal_2, 
+    start_portal_3,
+    start_portal_4
+};
+Rectangle start_portal_emination;
+
+
 // player-focused stuff
 Texture2D player_tex;
 //(i know i can use pointers but they scary)

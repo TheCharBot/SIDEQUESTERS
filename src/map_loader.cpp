@@ -36,7 +36,7 @@ void load_map(int map)
     switch (map)
     {
     case 0:
-       
+        entities.clear();
         UnloadTexture(map_to_load);
         starting_map = LoadTexture(STARTING_MAP_TEX_PATH);
         map_to_load = starting_map;
@@ -63,7 +63,7 @@ void load_map(int map)
 
         break;
     default:
-        
+        entities.clear();
         UnloadTexture(map_to_load);
         wrong_map = LoadTexture(WRONG_MAP_TEX_PATH);
         map_to_load = wrong_map;

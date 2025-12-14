@@ -10,10 +10,10 @@ int player_pos_x_save;
 int player_pos_y_save;
 
 
-int max_animation_frames = 12;
-int current_animation_frame = 0;
+int player_max_animation_frames = 12;
+int player_current_animation_frame = 0;
 
-int animation_frame_5 = 0;
+int player_animation_frame_5 = 0;
 
 enum Facing{UP, DOWN, RIGHT, LEFT};
 Facing facing;
@@ -45,36 +45,36 @@ void update_player()
     {
         facing = UP;
         current_anim_arr = player_walk_up;
-        if(max_animation_frames != 12){
-            current_animation_frame = 0;
-            max_animation_frames = 12;
+        if(player_max_animation_frames != 12){
+            player_current_animation_frame = 0;
+            player_max_animation_frames = 12;
         }
     }
     else if (player_movement.y > 0)
     {
         facing = DOWN;
         current_anim_arr = player_walk_down;
-        if(max_animation_frames != 12){
-            current_animation_frame = 0;
-            max_animation_frames = 12;
+        if(player_max_animation_frames != 12){
+            player_current_animation_frame = 0;
+            player_max_animation_frames = 12;
         }
     }
     else if (player_movement.x > 0)
     {
         facing = RIGHT;
         current_anim_arr = player_walk_right;
-        if(max_animation_frames != 8){
-            current_animation_frame = 0;
-            max_animation_frames = 8;
+        if(player_max_animation_frames != 8){
+            player_current_animation_frame = 0;
+            player_max_animation_frames = 8;
         }
     }
     else if (player_movement.x < 0)
     {
         facing = LEFT;
         current_anim_arr = player_walk_left;
-        if(max_animation_frames != 8){
-            current_animation_frame = 0;
-            max_animation_frames = 8;
+        if(player_max_animation_frames != 8){
+            player_current_animation_frame = 0;
+            player_max_animation_frames = 8;
         }
     }
 
@@ -82,30 +82,30 @@ void update_player()
     if(player_movement.x == 0 && player_movement.y == 0){
         if(facing == UP){
             current_anim_arr = player_idle_up_arr;
-            if(max_animation_frames != 1){
-                current_animation_frame = 0;
-                max_animation_frames = 1;
+            if(player_max_animation_frames != 1){
+                player_current_animation_frame = 0;
+                player_max_animation_frames = 1;
             }
         }
         if(facing == DOWN){
             current_anim_arr = player_idle_down_arr;
-            if(max_animation_frames != 1){
-                current_animation_frame = 0;
-                max_animation_frames = 1;
+            if(player_max_animation_frames != 1){
+                player_current_animation_frame = 0;
+                player_max_animation_frames = 1;
             }
         }
         if(facing == RIGHT){
             current_anim_arr = player_idle_right_arr;
-            if(max_animation_frames != 1){
-                current_animation_frame = 0;
-                max_animation_frames = 1;
+            if(player_max_animation_frames != 1){
+                player_current_animation_frame = 0;
+                player_max_animation_frames = 1;
             }
         }
         if(facing == LEFT){
             current_anim_arr = player_idle_left_arr;
-            if(max_animation_frames != 1){
-                current_animation_frame = 0;
-                max_animation_frames = 1;
+            if(player_max_animation_frames != 1){
+                player_current_animation_frame = 0;
+                player_max_animation_frames = 1;
             }
         }
     }
@@ -161,13 +161,13 @@ void update_player()
     
     
     //animation thingy
-    animation_frame_5++;
-        if(animation_frame_5 >= PLAYER_ANIMATION_INTERVAL){
-            current_animation_frame++;
-            if(current_animation_frame >= max_animation_frames){
-                current_animation_frame = 0;
+    player_animation_frame_5++;
+        if(player_animation_frame_5 >= ANIMATION_INTERVAL){
+            player_current_animation_frame++;
+            if(player_current_animation_frame >= player_max_animation_frames){
+                player_current_animation_frame = 0;
             }
-            animation_frame_5 = 0;
+            player_animation_frame_5 = 0;
         }
     
     // std::cout << player_pos.x << "  " << player_pos.y << "\n";
@@ -175,5 +175,5 @@ void update_player()
 
 void draw_player()
 {  
-    DrawTexturePro(player_tex, current_anim_arr[current_animation_frame], {player_pos.x, player_pos.y, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(player_tex, current_anim_arr[player_current_animation_frame], {player_pos.x, player_pos.y, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
 };
