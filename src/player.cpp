@@ -34,10 +34,13 @@ void update_player()
 
     player_movement = {0, 0};
 
+    //movement calculations with a seperate vector
     if (IsKeyDown(KEY_W)) player_movement.y -= 1;
     if (IsKeyDown(KEY_S)) player_movement.y += 1;
     if (IsKeyDown(KEY_A)) player_movement.x -= 1;
     if (IsKeyDown(KEY_D)) player_movement.x += 1;
+
+    //animation array calculations
     if (player_movement.y < 0)
     {
         facing = UP;
@@ -74,6 +77,8 @@ void update_player()
             max_animation_frames = 8;
         }
     }
+
+    //idle animation calculations
     if(player_movement.x == 0 && player_movement.y == 0){
         if(facing == UP){
             current_anim_arr = player_idle_up_arr;
@@ -105,7 +110,7 @@ void update_player()
         }
     }
 
-    // Normalize diagonal movement
+    // normalize diagonal movement
     if (player_movement.x != 0 || player_movement.y != 0)
     {
         player_movement = Vector2Normalize(player_movement);
@@ -148,10 +153,11 @@ void update_player()
 
     }
     
-
+    //making sure the player is at least inside the screen
     player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width * scale) - (PLAYER_SPRITE_WIDTH * scale));
     player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height * scale) - (PLAYER_SPRITE_HEIGHT * scale));
 
+    //animation thingy
     animation_frame_5++;
         if(animation_frame_5 >= PLAYER_ANIMATION_INTERVAL){
             current_animation_frame++;
@@ -165,77 +171,6 @@ void update_player()
 }
 
 void draw_player()
-{
-    
+{  
     DrawTexturePro(player_tex, current_anim_arr[current_animation_frame], {player_pos.x, player_pos.y, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
 };
-
-
-
-// if (IsKeyDown(KEY_W))
-//     {
-//         player_pos.y -= PLAYER_SPEED * scale;
-
-//         if(max_animation_frames != 12){
-//             current_animation_frame = 0;
-//             max_animation_frames = 12;
-//         }
-//         current_anim_arr = player_walk_up;
-            
-        
-//     }
-//     if (IsKeyDown(KEY_S))
-//     {
-//         player_pos.y += PLAYER_SPEED * scale;
-        
-//         if(max_animation_frames != 12){
-//             current_animation_frame = 0;
-//             max_animation_frames = 12;
-//         }
-//         current_anim_arr = player_walk_down;
-            
-    
-//     }
-//     // vertical hitbox rebuild
-    
-//     if (IsKeyDown(KEY_D))
-//     {
-//         player_pos.x += PLAYER_SPEED * scale;
-        
-//         if(max_animation_frames != 8){
-//             current_animation_frame = 0;
-//             max_animation_frames = 8;
-//         }
-//         current_anim_arr = player_walk_right;
-            
-        
-//     }
-//     if (IsKeyDown(KEY_A))
-//     {
-//         player_pos.x -= PLAYER_SPEED * scale;
-        
-//         if(max_animation_frames != 8){
-//             current_animation_frame = 0;
-//             max_animation_frames = 8;
-//         }
-//         current_anim_arr = player_walk_left;
-            
-        
-//     }
-    
-//     // horizontal hitbox rebuild
-//     player_normal_hitbox = {
-//         player_pos.x + PLAYER_HITBOX_X_OFFSET * scale,
-//         player_pos.y + PLAYER_HITBOX_Y_OFFSET * scale,
-//         float(PLAYER_HITBOX_WIDTH * scale),
-//         float(PLAYER_HITBOX_HEIGHT * scale)
-//     };
-//     // horizontal collision check
-//     for (const Rectangle &r : map_surface_rects)
-//     {
-//         if (CheckCollisionRecs(player_normal_hitbox, r))
-//         {
-//             player_pos.x = player_pos_x_save;
-//             break;
-//         }
-//     }
