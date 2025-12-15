@@ -101,7 +101,7 @@ extern Texture2D start_portal_tex;
 #define START_PORTAL_Y 37
 #define START_PORTAL_WIDTH 32
 #define START_PORTAL_HEIGHT 44
-#define PORTAL_TEX_PATH "gfx/non_const_assets/start_portal/start_portal_tex.png"
+#define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
 extern Rectangle start_portal_animation[4];
 extern Rectangle start_portal_1;
 extern Rectangle start_portal_2;
@@ -109,5 +109,16 @@ extern Rectangle start_portal_3;
 extern Rectangle start_portal_4;
 extern Rectangle start_portal_emination;
 
+//bulldozer image and rects
+extern Texture2D start_bulldozer_tex;
+#define START_BULLDOZER_X 6
+#define START_BULLDOZER_Y 110
+#define START_BULLDOZER_WIDTH 112
+#define START_BULLDOZER_HEIGHT 80
+#define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
+extern Rectangle start_bulldozer_animation[3];
+extern Rectangle start_bulldozer_1;
+extern Rectangle start_bulldozer_2;
+extern Rectangle start_bulldozer_3;
 
 #endif

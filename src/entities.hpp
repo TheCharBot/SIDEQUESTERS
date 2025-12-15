@@ -29,6 +29,19 @@ public:
     virtual void draw() = 0;
 };
 
+class Start_bulldozer : public Entity {
+public:
+    Start_bulldozer();
+    ~Start_bulldozer() override;
+    
+    void load() override;
+    void update() override;
+    void draw() override;
+
+private:
+    Texture2D tex{};
+};
+
 
 class Start_portal : public Entity {
 public:

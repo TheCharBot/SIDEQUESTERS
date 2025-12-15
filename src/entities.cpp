@@ -2,13 +2,19 @@
 
 
 
+Start_bulldozer::Start_bulldozer(){
+    pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
+}
 
 
 
-// std::vector<int> load_list;
 
+
+
+
+//portal stuff
 Start_portal::Start_portal() {
-    // optional: initial position
+    
     max_animation_frames = 4;
     current_animation_frame = 0;
     animation_frame_5 = 0;
@@ -44,3 +50,4 @@ void Start_portal::draw() {
     
     DrawTexturePro(tex, start_portal_animation[current_animation_frame], {pos.x*scale, pos.y*scale, float(START_PORTAL_WIDTH*scale), float(START_PORTAL_HEIGHT*scale)}, {0, 0}, 0, WHITE);
 }
+
