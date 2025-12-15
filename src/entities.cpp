@@ -6,9 +6,20 @@ Start_bulldozer::Start_bulldozer(){
     pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
 }
 
+Start_bulldozer::~Start_bulldozer(){
+    // pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
+}
 
 
+void Start_bulldozer::load(){
 
+}
+void Start_bulldozer::update(){
+
+}
+void Start_bulldozer::draw(){
+
+}
 
 
 
