@@ -21,9 +21,9 @@ Facing facing;
 void init_player()
 {
 
-    player_pos.x = (WINDOW_WIDTH) / 2;
-    player_pos.y = (WINDOW_HEIGHT) / 2 + 40;
-    player_normal_hitbox = {player_pos.x, player_pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
+    player_pos.x = (WINDOW_WIDTH * scale) / 2;
+    player_pos.y = (WINDOW_HEIGHT * scale) / 2 + 40;
+    player_normal_hitbox = {player_pos.x, player_pos.y, float(PLAYER_HITBOX_WIDTH * scale), float(PLAYER_HITBOX_HEIGHT * scale)};
     player_tex = LoadTexture(PLAYER_TEX_PATH);
 };
 
@@ -115,14 +115,14 @@ void update_player()
     {
         player_movement = Vector2Normalize(player_movement);
 
-        player_pos.x += player_movement.x * PLAYER_SPEED;
+        player_pos.x += player_movement.x * PLAYER_SPEED * scale;
         
         //player hitbox rebuild
         player_normal_hitbox = {
-            player_pos.x + PLAYER_HITBOX_X_OFFSET,
-            player_pos.y + PLAYER_HITBOX_Y_OFFSET,
-            float(PLAYER_HITBOX_WIDTH),
-            float(PLAYER_HITBOX_HEIGHT)
+            player_pos.x + PLAYER_HITBOX_X_OFFSET * scale,
+            player_pos.y + PLAYER_HITBOX_Y_OFFSET * scale,
+            float(PLAYER_HITBOX_WIDTH * scale),
+            float(PLAYER_HITBOX_HEIGHT * scale)
         };
         // horizontal collision check
         for (const Rectangle &r : map_surface_rects)
@@ -133,13 +133,13 @@ void update_player()
                 break;
             }
         }
-        player_pos.y += player_movement.y * PLAYER_SPEED;
+        player_pos.y += player_movement.y * PLAYER_SPEED * scale;
         //player hitbox rebuild
         player_normal_hitbox = {
-            player_pos.x + PLAYER_HITBOX_X_OFFSET,
-            player_pos.y + PLAYER_HITBOX_Y_OFFSET,
-            float(PLAYER_HITBOX_WIDTH),
-            float(PLAYER_HITBOX_HEIGHT)
+            player_pos.x + PLAYER_HITBOX_X_OFFSET * scale,
+            player_pos.y + PLAYER_HITBOX_Y_OFFSET * scale,
+            float(PLAYER_HITBOX_WIDTH * scale),
+            float(PLAYER_HITBOX_HEIGHT * scale)
         };
         // vertical collision check
         for (const Rectangle &r : map_surface_rects)
@@ -175,5 +175,5 @@ void update_player()
 
 void draw_player()
 {  
-    DrawTexturePro(player_tex, current_anim_arr[player_current_animation_frame], {player_pos.x*scale, player_pos.y*scale, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(player_tex, current_anim_arr[player_current_animation_frame], {player_pos.x, player_pos.y, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
 };

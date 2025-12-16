@@ -49,10 +49,10 @@ void load_map(int map)
         // load_list.push_back(std::move(portal));
         
 
-        map_surface_rects.push_back({float((MAP_1_RECT_1_X)), float((MAP_1_RECT_1_Y)), float(MAP_1_RECT_1_WIDTH), float(MAP_1_RECT_1_HEIGHT)});
-        map_surface_rects.push_back({float((MAP_1_RECT_2_X)), float((MAP_1_RECT_2_Y)), float(MAP_1_RECT_2_WIDTH), float(MAP_1_RECT_2_HEIGHT)});
-        map_surface_rects.push_back({float((MAP_1_RECT_3_X)), float((MAP_1_RECT_3_Y)), float(MAP_1_RECT_3_WIDTH), float(MAP_1_RECT_3_HEIGHT)});
-        map_surface_rects.push_back({float((MAP_1_RECT_4_X)), float((MAP_1_RECT_4_Y)), float(MAP_1_RECT_4_WIDTH), float(MAP_1_RECT_4_HEIGHT)});
+        map_surface_rects.push_back({float((MAP_1_RECT_1_X * scale)), float((MAP_1_RECT_1_Y * scale)), float(MAP_1_RECT_1_WIDTH * scale), float(MAP_1_RECT_1_HEIGHT * scale)});
+        map_surface_rects.push_back({float((MAP_1_RECT_2_X * scale)), float((MAP_1_RECT_2_Y * scale)), float(MAP_1_RECT_2_WIDTH * scale), float(MAP_1_RECT_2_HEIGHT * scale)});
+        map_surface_rects.push_back({float((MAP_1_RECT_3_X * scale)), float((MAP_1_RECT_3_Y * scale)), float(MAP_1_RECT_3_WIDTH * scale), float(MAP_1_RECT_3_HEIGHT * scale)});
+        map_surface_rects.push_back({float((MAP_1_RECT_4_X * scale)), float((MAP_1_RECT_4_Y * scale)), float(MAP_1_RECT_4_WIDTH * scale), float(MAP_1_RECT_4_HEIGHT * scale)});
         
         entities.push_back(std::make_unique<Start_portal>());
         entities.push_back(std::make_unique<Start_bulldozer>());
