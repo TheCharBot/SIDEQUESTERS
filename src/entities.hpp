@@ -39,6 +39,7 @@ public:
     void draw() override;
 
 private:
+    bool collided;
     Texture2D tex{};
 };
 
@@ -50,11 +51,13 @@ public:
     int max_animation_frames;
     int current_animation_frame;
     int animation_frame_5;
+    
     void load() override;
     void update() override;
     void draw() override;
 
 private:
+    
     Texture2D tex{};
 };
 

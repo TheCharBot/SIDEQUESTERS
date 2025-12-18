@@ -3,7 +3,9 @@
 void init_all(){
     init_map();
     init_player();
-    load_map(0);
+    if(current_map != 1){
+        load_map(1);
+    }
     cam.target = { 0.0f, 0.0f };
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
@@ -26,6 +28,7 @@ void update_all(){
 void draw_all(){
     BeginMode2D(cam);
     draw_map();
-    draw_player();
     for (auto& e : entities) e->draw();
+    draw_player();
+    EndMode2D();
 };

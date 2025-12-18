@@ -5,6 +5,7 @@
 Start_bulldozer::Start_bulldozer(){
     current_animation_frame = 0;
     pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
+    collided = false;
 }
 
 Start_bulldozer::~Start_bulldozer(){
@@ -16,12 +17,30 @@ void Start_bulldozer::load(){
     tex = LoadTexture(BULLDOZER_TEX_PATH);
 }
 void Start_bulldozer::update(){
-    if(player_normal_hitbox.y <= BULLDOZER_TRIGGER_Y*scale){
-        
+    rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
+    if(player_normal_hitbox.y <= BULLDOZER_TRIGGER_Y){
+        player_move_mode = 0;
+        if(player_normal_hitbox.y>160){
+            player_pos.y-=PLAYER_SPEED;
+        }
+        if(pos.x<190){
+            pos.x+=BULLDOZER_SPEED;
+        }
+        if(CheckCollisionRecs(player_normal_hitbox, rect)){
+            collided = true;
+            
+        }
+
     }
+    
 }
 void Start_bulldozer::draw(){
+    
     DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x*scale, pos.y*scale, float(START_BULLDOZER_WIDTH*scale), float(START_BULLDOZER_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+    if(collided){
+        DrawRectangle(0, 0, map_to_load.width*scale, map_to_load.height*scale, BLACK);
+        collided = false;
+    }
 }
 
 

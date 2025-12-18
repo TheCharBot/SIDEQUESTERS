@@ -2,8 +2,7 @@
 
 Start_portal start_portal;
 
-Texture2D starting_map;
-Texture2D wrong_map;
+
 Texture2D map_to_load;
 
 int current_map;
@@ -23,6 +22,7 @@ void init_map()
 {
     map_pos.x = 0;
     map_pos.y = 0;
+    
     // starting_map = LoadTexture("gfx/maps/map_1.png");
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
@@ -37,11 +37,24 @@ void load_map(int map)
     {
     case 0:
         entities.clear();
+        map_surface_rects.clear();
+        
         UnloadTexture(map_to_load);
-        starting_map = LoadTexture(STARTING_MAP_TEX_PATH);
-        map_to_load = starting_map;
+       
+        map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
         
         current_map = 0;
+
+        break;
+    case 1:
+        entities.clear();
+        map_surface_rects.clear();
+
+        UnloadTexture(map_to_load);
+       
+        map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
+        
+        current_map = 1;
         //works, but inefficient, FIND BETTER WAY (later)
         // auto portal = std::make_unique<Start_portal>();
         // portal->load();
@@ -60,16 +73,18 @@ void load_map(int map)
 
         break;
 
-    case 1:
+    case 2:
 
         break;
     default:
         entities.clear();
+        map_surface_rects.clear();
+
         UnloadTexture(map_to_load);
-        wrong_map = LoadTexture(WRONG_MAP_TEX_PATH);
-        map_to_load = wrong_map;
         
-        current_map = -1;
+        map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+        
+        current_map = 0;
 
         break;
     }

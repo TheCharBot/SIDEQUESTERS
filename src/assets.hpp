@@ -5,8 +5,14 @@
 
 // Put sprite rects and other things here, paths, x defaults, etc
 
-// Map-focused textures and paths
+// Map-focused stuff
+extern Texture2D map_to_load;
+extern Rectangle temp_rect;
+extern Vector2 map_pos;
+extern std::vector<Rectangle> map_surface_rects;
+extern std::vector<Rectangle> map_load_rects;
 extern Texture2D starting_map;
+extern int current_map;;
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1.png"
 extern Texture2D wrong_map;
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
@@ -28,7 +34,18 @@ extern Texture2D wrong_map;
 #define MAP_1_RECT_4_HEIGHT 80
 
 
-// Player-focused textures and paths
+
+// Player-focused stuff
+extern Vector2 player_pos;
+extern Rectangle *current_anim_arr;
+extern Rectangle player_normal_hitbox;
+extern int player_pos_x_save;
+extern int player_pos_y_save;
+extern int player_move_mode;
+extern int total_cutscene_frames;
+extern int player_max_animation_frames;
+extern int player_current_animation_frame;
+extern int player_animation_frame_5;
 extern Texture2D player_tex;
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 #define PLAYER_SPRITE_WIDTH 32
@@ -113,9 +130,10 @@ extern Rectangle start_portal_emination;
 extern Texture2D start_bulldozer_tex;
 #define START_BULLDOZER_X 6
 #define START_BULLDOZER_Y 110
-#define START_BULLDOZER_WIDTH 112
-#define START_BULLDOZER_HEIGHT 80
+#define START_BULLDOZER_WIDTH 99
+#define START_BULLDOZER_HEIGHT 75
 #define BULLDOZER_TRIGGER_Y 185
+#define BULLDOZER_SPEED 5
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
 extern Rectangle start_bulldozer_animation[3];
 extern Rectangle start_bulldozer_1;

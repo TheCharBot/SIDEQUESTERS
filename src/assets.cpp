@@ -1,6 +1,9 @@
 #include "assets.hpp"
 
 
+//map stuff
+int map_inited = 0;
+
 //non-constant asset stuff
 Rectangle start_bulldozer_animation[3] = {
     start_bulldozer_1,
