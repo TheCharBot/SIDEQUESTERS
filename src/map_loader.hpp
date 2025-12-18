@@ -8,7 +8,7 @@
 
 
 extern void init_map();
-
+extern void reset_player(Vector2 spawn);
 extern void load_map(int map);
 extern void update_map();
 extern void draw_map();

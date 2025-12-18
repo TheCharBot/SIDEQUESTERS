@@ -9,15 +9,12 @@ Rectangle player_normal_hitbox;
 int player_pos_x_save;
 int player_pos_y_save;
 
-int total_cutscene_frames;
-int current_cutscene_frame;
+int player_move_mode;
 
-int player_move_mode = 1;
+int player_max_animation_frames;
+int player_current_animation_frame;
 
-int player_max_animation_frames = 12;
-int player_current_animation_frame = 0;
-
-int player_animation_frame_5 = 0;
+int player_animation_frame_5;
 
 enum Facing
 {
@@ -31,8 +28,11 @@ Facing facing;
 void init_player()
 {
     player_move_mode = 1;
-    player_pos.x = 224;
-    player_pos.y = 208;
+    player_pos.x = PLAYER_START_MAP_POS_X;
+    player_pos.y = PLAYER_START_MAP_POS_Y;
+    player_max_animation_frames = 12;
+    player_current_animation_frame = 0;
+    player_animation_frame_5 = 0;
     player_normal_hitbox = {player_pos.x, player_pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
     player_tex = LoadTexture(PLAYER_TEX_PATH);
 };
@@ -41,7 +41,11 @@ void update_player()
 {
     if (player_move_mode == 0)
     {
-        
+        player_normal_hitbox = {
+            player_pos.x + PLAYER_HITBOX_X_OFFSET,
+            player_pos.y + PLAYER_HITBOX_Y_OFFSET,
+            float(PLAYER_HITBOX_WIDTH),
+            float(PLAYER_HITBOX_HEIGHT)};
     }
     if (player_move_mode == 1)
     {
@@ -183,8 +187,8 @@ void update_player()
             }
 
             // making sure the player is at least inside the screen
-            player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width * scale) - (PLAYER_SPRITE_WIDTH * scale));
-            player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height * scale) - (PLAYER_SPRITE_HEIGHT * scale));
+            player_pos.x = Clamp(player_pos.x, 0, (map_to_load.width) - (PLAYER_SPRITE_WIDTH));
+            player_pos.y = Clamp(player_pos.y, 0, (map_to_load.height) - (PLAYER_SPRITE_HEIGHT));
         }
     }
     player_animation_frame_5++;
@@ -198,10 +202,10 @@ void update_player()
         player_animation_frame_5 = 0;
     }
     player_normal_hitbox = {
-                player_pos.x + PLAYER_HITBOX_X_OFFSET,
-                player_pos.y + PLAYER_HITBOX_Y_OFFSET,
-                float(PLAYER_HITBOX_WIDTH),
-                float(PLAYER_HITBOX_HEIGHT)};
+        player_pos.x + PLAYER_HITBOX_X_OFFSET,
+        player_pos.y + PLAYER_HITBOX_Y_OFFSET,
+        float(PLAYER_HITBOX_WIDTH),
+        float(PLAYER_HITBOX_HEIGHT)};
     // animation thingy
 
     // std::cout << player_pos.x << "  " << player_pos.y << "\n";

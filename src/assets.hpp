@@ -12,7 +12,8 @@ extern Vector2 map_pos;
 extern std::vector<Rectangle> map_surface_rects;
 extern std::vector<Rectangle> map_load_rects;
 extern Texture2D starting_map;
-extern int current_map;;
+extern int current_map;
+extern int requested_map;
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1.png"
 extern Texture2D wrong_map;
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
@@ -42,7 +43,6 @@ extern Rectangle player_normal_hitbox;
 extern int player_pos_x_save;
 extern int player_pos_y_save;
 extern int player_move_mode;
-extern int total_cutscene_frames;
 extern int player_max_animation_frames;
 extern int player_current_animation_frame;
 extern int player_animation_frame_5;
@@ -55,6 +55,8 @@ extern Texture2D player_tex;
 #define PLAYER_HITBOX_X_OFFSET 6
 #define PLAYER_HITBOX_Y_OFFSET 38
 #define PLAYER_SPEED 2
+#define PLAYER_START_MAP_POS_X 224
+#define PLAYER_START_MAP_POS_Y 208
 
 //Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];

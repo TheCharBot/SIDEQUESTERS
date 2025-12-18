@@ -9,6 +9,10 @@ Start_bulldozer::Start_bulldozer(){
 }
 
 Start_bulldozer::~Start_bulldozer(){
+    if (tex.id != 0) {
+        UnloadTexture(tex);
+    }
+    rect = {};
     // pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
 }
 
@@ -29,6 +33,7 @@ void Start_bulldozer::update(){
         if(CheckCollisionRecs(player_normal_hitbox, rect)){
             collided = true;
             
+            
         }
 
     }
@@ -40,6 +45,8 @@ void Start_bulldozer::draw(){
     if(collided){
         DrawRectangle(0, 0, map_to_load.width*scale, map_to_load.height*scale, BLACK);
         collided = false;
+        requested_map = 2;
+        
     }
 }
 
@@ -59,6 +66,7 @@ Start_portal::~Start_portal() {
     if (tex.id != 0) {
         UnloadTexture(tex);
     }
+    rect = {};
 }
 
 void Start_portal::load() {
