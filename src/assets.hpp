@@ -13,6 +13,7 @@ public:
     int max_animation_frames;
     int current_animation_frame;
     int animation_frame_5;
+    
 
     virtual ~Entity() = default;
 
@@ -25,7 +26,7 @@ public:
 extern Texture2D map_to_load;
 extern Rectangle temp_rect;
 extern Vector2 map_pos;
-extern std::vector<Rectangle> map_surface_rects;
+extern std::vector<Rectangle> collision_rects;
 extern std::vector<Rectangle> map_load_rects;
 extern Texture2D starting_map;
 extern int current_map;
@@ -50,7 +51,12 @@ extern Texture2D wrong_map;
 #define MAP_1_RECT_4_WIDTH 198
 #define MAP_1_RECT_4_HEIGHT 80
 
+struct Drawable{
+    float y;
+    std::function<void()> draw_function;
+};
 
+extern std::vector<Drawable> draw_list;
 
 // Player-focused stuff
 struct Player{
@@ -65,6 +71,7 @@ struct Player{
     int current_animation_frame;
     int animation_frame_5;
     Texture2D tex;
+    int draw_order;
 };
 
 extern Player player;

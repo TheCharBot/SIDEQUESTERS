@@ -14,7 +14,11 @@ void update_all(){
     
     update_map();
     update_player();
-    for (auto& e : entities) e->update();
+    for (auto& e : entities){
+        e->update();
+    } 
+    
+    
     cam.target.x = player.pos.x*scale - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
     cam.target.y = player.pos.y*scale - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);
 
@@ -32,7 +36,18 @@ void update_all(){
 void draw_all(){
     BeginMode2D(cam);
     draw_map();
-    for (auto& e : entities) e->draw();
+    for (auto& e : entities){
+        e->draw();
+    } 
+    
     draw_player();
+    for (auto& e : entities){
+        if(e->pos.y>player.pos.y){
+            e->draw();
+            
+        }
+    } 
+    
+        
     EndMode2D();
 };

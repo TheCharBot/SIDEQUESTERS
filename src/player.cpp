@@ -148,7 +148,7 @@ void update_player()
                 float(PLAYER_HITBOX_WIDTH),
                 float(PLAYER_HITBOX_HEIGHT)};
             // horizontal collision check
-            for (const Rectangle &r : map_surface_rects)
+            for (const Rectangle &r : collision_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, r))
                 {
@@ -164,7 +164,7 @@ void update_player()
                 float(PLAYER_HITBOX_WIDTH),
                 float(PLAYER_HITBOX_HEIGHT)};
             // vertical collision check
-            for (const Rectangle &r : map_surface_rects)
+            for (const Rectangle &r : collision_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, r))
                 {
