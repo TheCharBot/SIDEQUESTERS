@@ -29,7 +29,18 @@ Rectangle start_portal_emination;
 
 
 // player-focused stuff
-Texture2D player_tex;
+struct player_struct{
+    Vector2 pos;
+    Rectangle *current_anim_arr;
+    Rectangle normal_hitbox;
+    int pos_x_save;
+    int pos_y_save;
+    int move_mode;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    Texture2D tex;
+};
 //(i know i can use pointers but they scary)
 Rectangle player_idle_up_arr[1] = {
     player_idle_up};

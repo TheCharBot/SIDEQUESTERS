@@ -13,21 +13,7 @@
 
 
 
-class Entity {
-public:
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
 
-    virtual ~Entity() = default;
-
-    virtual void load() {}
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
 
 class Start_bulldozer : public Entity {
 public:

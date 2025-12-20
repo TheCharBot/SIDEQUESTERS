@@ -24,8 +24,8 @@ void init_map()
 }
 
 void reset_player(Vector2 spawn) {
-    player_pos = spawn;
-    player_move_mode = 1;
+    player.pos = spawn;
+    player.move_mode = 1;
 }
 
 
@@ -75,13 +75,18 @@ void load_map(int map)
 
         break;
 
-    // case 2:
+    case 2:
+        reset_player({0, 0});
+        
+        entities.clear();
+        map_surface_rects.clear();
 
-    //     break;
+        UnloadTexture(map_to_load);
+        map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+        break;
     default:
         reset_player({0, 0});
-        player_pos.x = 0;
-        player_pos.y = 0;
+        
         entities.clear();
         map_surface_rects.clear();
 

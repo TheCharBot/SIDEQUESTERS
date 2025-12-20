@@ -22,15 +22,15 @@ void Start_bulldozer::load(){
 }
 void Start_bulldozer::update(){
     rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
-    if(player_normal_hitbox.y <= BULLDOZER_TRIGGER_Y){
-        player_move_mode = 0;
-        if(player_normal_hitbox.y>160){
-            player_pos.y-=PLAYER_SPEED;
+    if(player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y){
+        player.move_mode = 0;
+        if(player.normal_hitbox.y>160){
+            player.pos.y-=PLAYER_SPEED;
         }
-        if(pos.x<190){
+        if(pos.x<MAX_BULLDOZER_X){
             pos.x+=BULLDOZER_SPEED;
         }
-        if(CheckCollisionRecs(player_normal_hitbox, rect)){
+        if(CheckCollisionRecs(player.normal_hitbox, rect)){
             collided = true;
             
             

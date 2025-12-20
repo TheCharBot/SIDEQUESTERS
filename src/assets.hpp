@@ -5,6 +5,22 @@
 
 // Put sprite rects and other things here, paths, x defaults, etc
 
+class Entity {
+public:
+    Vector2 pos{};
+    Rectangle img_rect;
+    Rectangle rect;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+
+    virtual ~Entity() = default;
+
+    virtual void load() {}
+    virtual void update() = 0;
+    virtual void draw() = 0;
+};
+
 // Map-focused stuff
 extern Texture2D map_to_load;
 extern Rectangle temp_rect;
@@ -14,8 +30,8 @@ extern std::vector<Rectangle> map_load_rects;
 extern Texture2D starting_map;
 extern int current_map;
 extern int requested_map;
-#define STARTING_MAP_TEX_PATH "gfx/maps/map_1.png"
 extern Texture2D wrong_map;
+#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 #define MAP_1_RECT_1_X 0
 #define MAP_1_RECT_1_Y 0
@@ -37,16 +53,21 @@ extern Texture2D wrong_map;
 
 
 // Player-focused stuff
-extern Vector2 player_pos;
-extern Rectangle *current_anim_arr;
-extern Rectangle player_normal_hitbox;
-extern int player_pos_x_save;
-extern int player_pos_y_save;
-extern int player_move_mode;
-extern int player_max_animation_frames;
-extern int player_current_animation_frame;
-extern int player_animation_frame_5;
-extern Texture2D player_tex;
+struct Player{
+    Vector2 pos;
+    Vector2 movement;
+    Rectangle *current_anim_arr;
+    Rectangle normal_hitbox;
+    int pos_x_save;
+    int pos_y_save;
+    int move_mode;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    Texture2D tex;
+};
+
+extern Player player;
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 #define PLAYER_SPRITE_WIDTH 32
 #define PLAYER_SPRITE_HEIGHT 48
@@ -136,6 +157,8 @@ extern Texture2D start_bulldozer_tex;
 #define START_BULLDOZER_HEIGHT 75
 #define BULLDOZER_TRIGGER_Y 185
 #define BULLDOZER_SPEED 5
+#define MAX_BULLDOZER_X 190
+#define BULLDOZER_CUTSCENE_TRIGGER_X 160
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
 extern Rectangle start_bulldozer_animation[3];
 extern Rectangle start_bulldozer_1;

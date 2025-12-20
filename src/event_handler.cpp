@@ -15,8 +15,8 @@ void update_all(){
     update_map();
     update_player();
     for (auto& e : entities) e->update();
-    cam.target.x = player_pos.x*scale - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
-    cam.target.y = player_pos.y*scale - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);
+    cam.target.x = player.pos.x*scale - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
+    cam.target.y = player.pos.y*scale - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);
 
     
     cam.target.x = Clamp(cam.target.x, 0, (map_to_load.width*scale) - (WINDOW_WIDTH * scale));
