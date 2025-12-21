@@ -84,6 +84,16 @@ void load_map(int map)
         collision_rects.push_back(MAP_2_RECT_8);
         collision_rects.push_back(MAP_2_RECT_9);
         collision_rects.push_back(MAP_2_RECT_10);
+        collision_rects.push_back(MAP_2_RECT_11);
+        collision_rects.push_back(MAP_2_RECT_12);
+        collision_rects.push_back(MAP_2_RECT_13);
+        collision_rects.push_back(MAP_2_RECT_14);
+        collision_rects.push_back(MAP_2_RECT_15);
+        collision_rects.push_back(MAP_2_RECT_16);
+        collision_rects.push_back(MAP_2_RECT_17);
+        collision_rects.push_back(MAP_2_RECT_18);
+        collision_rects.push_back(MAP_2_RECT_19);
+        collision_rects.push_back(MAP_2_RECT_20);
 
         break;
     default:

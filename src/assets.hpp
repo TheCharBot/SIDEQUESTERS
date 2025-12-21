@@ -44,6 +44,16 @@ extern int requested_map;
 #define MAP_2_RECT_8 {256, 451, 112, 101}
 #define MAP_2_RECT_9 {416, 451, 112, 101}
 #define MAP_2_RECT_10 {576, 451, 112, 101}
+#define MAP_2_RECT_11 {512, 114, 16, 13}
+#define MAP_2_RECT_12 {560, 130, 16, 13}
+#define MAP_2_RECT_13 {528, 146, 16, 13}
+#define MAP_2_RECT_14 {592, 146, 16, 13}
+#define MAP_2_RECT_15 {605, 77, 21, 20}
+#define MAP_2_RECT_16 {449, 118, 15, 74}
+#define MAP_2_RECT_17 {466, 145, 7, 41}
+#define MAP_2_RECT_18 {418, 327, 13, 24}
+#define MAP_2_RECT_19 {434, 311, 13, 24}
+#define MAP_2_RECT_20 {450, 327, 13, 24}
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 
 
