@@ -1,5 +1,5 @@
 #include "event_handler.hpp"
-//event handle, draw_all, init_all, update_all, and camera stuff
+//event handler, draw_all, init_all, update_all, and camera stuff
 void init_all(){
     init_map();
     init_player();

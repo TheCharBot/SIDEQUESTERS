@@ -1,11 +1,10 @@
 #include "entities.hpp"
 
-std::vector<Drawable> draw_list;
 
 Start_bulldozer::Start_bulldozer(){
    
     current_animation_frame = 0;
-    pos = {START_BULLDOZER_X, START_BULLDOZER_Y+20};
+    pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
     collided = false;
 }
 
@@ -23,21 +22,21 @@ void Start_bulldozer::load(){
 }
 void Start_bulldozer::update(){
     rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
-    // if(player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y){
-    //     player.move_mode = 0;
-    //     if(player.normal_hitbox.y>160){
-    //         player.pos.y-=PLAYER_SPEED;
-    //     }
-    //     if(pos.x<MAX_BULLDOZER_X){
-    //         pos.x+=BULLDOZER_SPEED;
-    //     }
-    //     if(CheckCollisionRecs(player.normal_hitbox, rect)){
-    //         collided = true;
+    if(player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y){
+        player.move_mode = 0;
+        if(player.normal_hitbox.y>160){
+            player.pos.y-=PLAYER_SPEED;
+        }
+        if(pos.x<MAX_BULLDOZER_X){
+            pos.x+=BULLDOZER_SPEED;
+        }
+        if(CheckCollisionRecs(player.normal_hitbox, rect)){
+            collided = true;
             
             
-    //     }
+        }
 
-    // }
+    }
     
 }
 void Start_bulldozer::draw(){

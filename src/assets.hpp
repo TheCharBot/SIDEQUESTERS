@@ -21,35 +21,31 @@ public:
     virtual void update() = 0;
     virtual void draw() = 0;
 };
-
+extern std::vector<std::unique_ptr<Entity>> entities;
 // Map-focused stuff
 extern Texture2D map_to_load;
-extern Rectangle temp_rect;
-extern Vector2 map_pos;
 extern std::vector<Rectangle> collision_rects;
 extern std::vector<Rectangle> map_load_rects;
-extern Texture2D starting_map;
 extern int current_map;
 extern int requested_map;
-extern Texture2D wrong_map;
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+#define MAP_1_RECT_1 {0, 0, 480, 135}
+#define MAP_1_RECT_2 {0, 185, 198, 135}
+#define MAP_1_RECT_3 {198, 265, 282, 55}
+#define MAP_1_RECT_4 {282, 185, 198, 80}
+#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
+#define MAP_2_RECT_1 {130, 0, 535, 65}
+#define MAP_2_RECT_2 {666, 0, 134, 97}
+#define MAP_2_RECT_3 {733, 97, 67, 543}
+#define MAP_2_RECT_4 {336, 99, 112, 101}
+#define MAP_2_RECT_5 {176, 259, 112, 101}
+#define MAP_2_RECT_6 {496, 259, 112, 101}
+#define MAP_2_RECT_7 {96, 451, 112, 101}
+#define MAP_2_RECT_8 {256, 451, 112, 101}
+#define MAP_2_RECT_9 {416, 451, 112, 101}
+#define MAP_2_RECT_10 {576, 451, 112, 101}
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
-#define MAP_1_RECT_1_X 0
-#define MAP_1_RECT_1_Y 0
-#define MAP_1_RECT_1_WIDTH 480
-#define MAP_1_RECT_1_HEIGHT 135
-#define MAP_1_RECT_2_X 0
-#define MAP_1_RECT_2_Y 185
-#define MAP_1_RECT_2_WIDTH 198
-#define MAP_1_RECT_2_HEIGHT 135
-#define MAP_1_RECT_3_X 198
-#define MAP_1_RECT_3_Y 265
-#define MAP_1_RECT_3_WIDTH 282
-#define MAP_1_RECT_3_HEIGHT 55
-#define MAP_1_RECT_4_X 282
-#define MAP_1_RECT_4_Y 185
-#define MAP_1_RECT_4_WIDTH 198
-#define MAP_1_RECT_4_HEIGHT 80
+
 
 struct Drawable{
     float y;

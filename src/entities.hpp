@@ -47,6 +47,6 @@ private:
     Texture2D tex{};
 };
 
-extern std::vector<std::unique_ptr<Entity>> entities;
+
 
 #endif
