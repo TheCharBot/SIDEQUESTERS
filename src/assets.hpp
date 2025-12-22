@@ -5,6 +5,23 @@
 
 // Put sprite rects and other things here, paths, x defaults, etc
 
+enum Map_names{
+    WRONG_MAP,
+    START_MAP,
+    VILLAGE_MAP,
+    INSIDE_VILLAGE_HOUSE_1,
+    INSIDE_VILLAGE_HOUSE_2,
+    INSIDE_VILLAGE_WINDMILL,
+    INSIDE_VILLAGE_HOUSE_3,
+    INSIDE_VILLAGE_HOUSE_4,
+    INSIDE_VILLAGE_HOUSE_5,
+    INSIDE_VILLAGE_HOUSE_6,
+    INSIDE_VILLAGE_HOUSE_7,
+    DARK_FOREST_NORTH,
+    DARK_FOREST_SOUTH,
+
+};
+
 class Entity {
 public:
     Vector2 pos{};
@@ -21,6 +38,24 @@ public:
     virtual void update() = 0;
     virtual void draw() = 0;
 };
+
+class Interactable_element : public Entity{
+    public:
+    Vector2 pos{};
+    Rectangle img_rect;
+    Rectangle rect;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    
+    
+
+    virtual ~Interactable_element() = default;
+    //load for loading texture data, dont load in constructor
+    virtual void load() {}
+    virtual void update() = 0;
+    virtual void draw() = 0;
+};
 extern std::vector<std::unique_ptr<Entity>> entities;
 // Map-focused stuff
 struct Load_rects{
@@ -31,7 +66,8 @@ extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
 extern int current_map;
-extern int requested_map;
+extern Map_names requested_map;
+extern Vector2 requested_player_pos;
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}

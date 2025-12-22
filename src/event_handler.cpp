@@ -3,7 +3,7 @@
 void init_all(){
     init_map();
     init_player();
-    
+    request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
     cam.target = { 0.0f, 0.0f };
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
@@ -25,11 +25,11 @@ void update_all(){
     
     cam.target.x = Clamp(cam.target.x, 0, (map_to_load.width*scale) - (WINDOW_WIDTH * scale));
     cam.target.y = Clamp(cam.target.y, 0, (map_to_load.height*scale) - (WINDOW_HEIGHT * scale));
-    if (requested_map != -1) {
+    if (requested_map != WRONG_MAP) {
         if(current_map != requested_map){
-            load_map(requested_map);
+            load_map(requested_map, requested_player_pos);
         }
-        requested_map = -1;
+        requested_map = WRONG_MAP;
     }
 }
 

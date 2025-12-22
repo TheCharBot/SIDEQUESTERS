@@ -5,7 +5,8 @@ Start_portal start_portal;
 Texture2D map_to_load;
 
 int current_map;
-int requested_map = 1;
+Map_names requested_map;
+Vector2 requested_player_pos;
 
 Vector2 map_pos;
 
@@ -24,6 +25,12 @@ void init_map()
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
 
+void request_map(Map_names wanted_map, Vector2 wanted_player_spawn){
+    requested_map = wanted_map;
+    requested_player_pos = wanted_player_spawn;
+}
+
+//call before you change requested map, or something like that( might not work? might reload too many times?)
 void reset_player(Vector2 spawn) {
     player.pos = spawn;
     player.move_mode = 1;
@@ -36,11 +43,12 @@ void reset_loaded(){
     UnloadTexture(map_to_load);
 };
 
-void load_map(int map)
+void load_map(Map_names map, Vector2 new_player_pos)
 {
+    reset_player(new_player_pos);
     switch (map)
     {
-    case 0:
+    case WRONG_MAP:
         //resetting to default config for new map, plus spawning the player at a predetermined spot
         reset_player({0, 0});
         reset_loaded();
@@ -50,8 +58,8 @@ void load_map(int map)
         current_map = 0;
 
         break;
-    case 1:
-        reset_player({PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
+    case START_MAP:
+        
         reset_loaded();
 
         map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
@@ -69,8 +77,8 @@ void load_map(int map)
             e->load();
         break;
 
-    case 2:
-        reset_player({PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});
+    case VILLAGE_MAP:
+        
         reset_loaded();
 
         map_to_load = LoadTexture(VILLAGE_MAP_PATH);
@@ -98,8 +106,8 @@ void load_map(int map)
         collision_rects.push_back(MAP_2_RECT_20);
         collision_rects.push_back(MAP_2_RECT_21);
 
-        map_load_rects.push_back({MAP_2_LOAD_RECT_1, 3});
-        map_load_rects.push_back({MAP_2_LOAD_RECT_2, 4});
+        map_load_rects.push_back({MAP_2_LOAD_RECT_1, DARK_FOREST_NORTH});
+        map_load_rects.push_back({MAP_2_LOAD_RECT_2, DARK_FOREST_SOUTH});
         entities.push_back(std::make_unique<Village_windmill>());
         for (auto &e : entities)
             e->load();
@@ -114,6 +122,7 @@ void load_map(int map)
 
         break;
     }
+    
 };
 
 void update_map() {

@@ -82,7 +82,9 @@ void Start_bulldozer::update()
         }
         if (CheckCollisionRecs(player.normal_hitbox, rect))
         {
-            collided = true;
+            // collided = true;
+            request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});
+        
         }
     }
 }
@@ -90,12 +92,12 @@ void Start_bulldozer::draw()
 {
 
     DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(START_BULLDOZER_WIDTH * scale), float(START_BULLDOZER_HEIGHT * scale)}, {0, 0}, 0, WHITE);
-    if (collided)
-    {
-        DrawRectangle(0, 0, map_to_load.width * scale, map_to_load.height * scale, BLACK);
-        collided = false;
-        requested_map = 2;
-    }
+    // if (collided)
+    // {
+    //     DrawRectangle(0, 0, map_to_load.width * scale, map_to_load.height * scale, BLACK);
+    //     collided = false;
+        
+    // }
 }
 
 // portal stuff
