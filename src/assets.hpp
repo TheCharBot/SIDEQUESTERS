@@ -16,7 +16,7 @@ public:
     
 
     virtual ~Entity() = default;
-
+    //load for loading texture data, dont load in constructor
     virtual void load() {}
     virtual void update() = 0;
     virtual void draw() = 0;
@@ -57,12 +57,8 @@ extern int requested_map;
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 
 
-struct Drawable{
-    float y;
-    std::function<void()> draw_function;
-};
 
-extern std::vector<Drawable> draw_list;
+
 
 // Player-focused stuff
 struct Player{
@@ -149,7 +145,7 @@ extern Rectangle player_walk_left_7;
 extern Rectangle player_walk_left_8;
 
 //start portal image and rects
-extern Texture2D start_portal_tex;
+
 #define START_PORTAL_X 224
 #define START_PORTAL_Y 37
 #define START_PORTAL_WIDTH 32
@@ -163,7 +159,7 @@ extern Rectangle start_portal_4;
 extern Rectangle start_portal_emination;
 
 //bulldozer image and rects
-extern Texture2D start_bulldozer_tex;
+
 #define START_BULLDOZER_X 6
 #define START_BULLDOZER_Y 110
 #define START_BULLDOZER_WIDTH 99
@@ -177,5 +173,22 @@ extern Rectangle start_bulldozer_animation[3];
 extern Rectangle start_bulldozer_1;
 extern Rectangle start_bulldozer_2;
 extern Rectangle start_bulldozer_3;
+
+//windmill stuff
+#define VILLAGE_WINDMILL_X 299
+#define VILLAGE_WINDMILL_Y 188
+#define VILLAGE_WINDMILL_WIDTH 144
+#define VILLAGE_WINDMILL_HEIGHT 192
+#define VILLAGE_WINDMILL_RECT_OFFSET_X 30
+#define VILLAGE_WINDMILL_RECT_OFFSET_Y 132
+#define VILLAGE_WINDMILL_RECT_WIDTH 80
+#define VILLAGE_WINDMILL_RECT_HEIGHT 32
+#define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
+extern Rectangle village_windmill_animation[4];
+extern Rectangle village_windmill_1;
+extern Rectangle village_windmill_2;
+extern Rectangle village_windmill_3;
+extern Rectangle village_windmill_4;
+
 
 #endif

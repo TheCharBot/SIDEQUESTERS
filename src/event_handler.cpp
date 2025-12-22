@@ -42,7 +42,7 @@ void draw_all(){
     
     draw_player();
     for (auto& e : entities){
-        if(e->pos.y>player.pos.y){
+        if(e->rect.y>player.normal_hitbox.y){
             e->draw();
             
         }

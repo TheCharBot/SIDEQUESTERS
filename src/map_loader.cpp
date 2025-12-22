@@ -73,7 +73,7 @@ void load_map(int map)
 
         map_to_load = LoadTexture(VILLAGE_MAP_PATH);
 
-
+        
         collision_rects.push_back(MAP_2_RECT_1);
         collision_rects.push_back(MAP_2_RECT_2);
         collision_rects.push_back(MAP_2_RECT_3);
@@ -95,6 +95,9 @@ void load_map(int map)
         collision_rects.push_back(MAP_2_RECT_19);
         collision_rects.push_back(MAP_2_RECT_20);
 
+        entities.push_back(std::make_unique<Village_windmill>());
+        for (auto &e : entities)
+            e->load();
         break;
     default:
         reset_player({0, 0});

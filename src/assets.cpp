@@ -1,7 +1,27 @@
 #include "assets.hpp"
 
 
+
+// windmill stuff
+
+Rectangle village_windmill_1 = {96, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
+Rectangle village_windmill_2 = {240, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
+Rectangle village_windmill_3 = {384, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
+Rectangle village_windmill_4 = {528, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
+Rectangle village_windmill_animation[4] = {
+    village_windmill_1,
+    village_windmill_2,
+    village_windmill_3,
+    village_windmill_4
+};
+
+
+
 //map stuff
+
+
+
+
 int map_inited = 0;
 
 //non-constant asset stuff

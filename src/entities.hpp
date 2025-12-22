@@ -11,7 +11,22 @@
 #include "player.hpp"
 
 
+class Village_windmill : public Entity{
+    public:
+        Village_windmill();
+        ~Village_windmill() override;
+        
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
 
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Texture2D tex{};
+};
 
 
 
