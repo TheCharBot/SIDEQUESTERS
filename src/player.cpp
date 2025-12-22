@@ -193,6 +193,13 @@ void update_player()
         player.pos.y + PLAYER_HITBOX_Y_OFFSET,
         float(PLAYER_HITBOX_WIDTH),
         float(PLAYER_HITBOX_HEIGHT)};
+    for(int i = 0; i < int(map_load_rects.size()); i++){
+        
+        if(CheckCollisionRecs(player.normal_hitbox, map_load_rects[i].rect)){
+            requested_map = map_load_rects[i].map_to_load_struct;
+            std::cout << "working?";
+        }
+    }
     // animation thingy
 
     // std::cout << player.pos.x << "  " << player.pos.y << "\n";

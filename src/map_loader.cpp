@@ -11,6 +11,7 @@ Vector2 map_pos;
 
 Rectangle temp_rect;
 
+std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
 
@@ -30,6 +31,7 @@ void reset_player(Vector2 spawn) {
 
 void reset_loaded(){
     entities.clear();
+    map_load_rects.clear();
     collision_rects.clear();
     UnloadTexture(map_to_load);
 };
@@ -68,7 +70,7 @@ void load_map(int map)
         break;
 
     case 2:
-        reset_player({0, 0});
+        reset_player({PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});
         reset_loaded();
 
         map_to_load = LoadTexture(VILLAGE_MAP_PATH);
@@ -94,7 +96,10 @@ void load_map(int map)
         collision_rects.push_back(MAP_2_RECT_18);
         collision_rects.push_back(MAP_2_RECT_19);
         collision_rects.push_back(MAP_2_RECT_20);
+        collision_rects.push_back(MAP_2_RECT_21);
 
+        map_load_rects.push_back({MAP_2_LOAD_RECT_1, 3});
+        map_load_rects.push_back({MAP_2_LOAD_RECT_2, 4});
         entities.push_back(std::make_unique<Village_windmill>());
         for (auto &e : entities)
             e->load();

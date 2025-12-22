@@ -23,9 +23,13 @@ public:
 };
 extern std::vector<std::unique_ptr<Entity>> entities;
 // Map-focused stuff
+struct Load_rects{
+    Rectangle rect;
+    int map_to_load_struct;
+};
+extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
-extern std::vector<Rectangle> map_load_rects;
 extern int current_map;
 extern int requested_map;
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
@@ -54,6 +58,9 @@ extern int requested_map;
 #define MAP_2_RECT_18 {418, 327, 13, 24}
 #define MAP_2_RECT_19 {434, 311, 13, 24}
 #define MAP_2_RECT_20 {450, 327, 13, 24}
+#define MAP_2_RECT_21 {129, 96, 110, 44}
+#define MAP_2_LOAD_RECT_1 {10, 0, 1, 640}
+#define MAP_2_LOAD_RECT_2 {0, 629, 734, 1}
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 
 
@@ -87,6 +94,8 @@ extern Player player;
 #define PLAYER_SPEED 2
 #define PLAYER_START_MAP_POS_X 224
 #define PLAYER_START_MAP_POS_Y 208
+#define PLAYER_VILLAGE_MAP_POS_X 267
+#define PLAYER_VILLAGE_MAP_POS_Y 128
 
 //Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
