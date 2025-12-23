@@ -198,6 +198,7 @@ void update_player()
 
         if (CheckCollisionRecs(player.normal_hitbox, map_load_rects[i].rect))
         {
+            requested_player_pos = map_load_rects[i].spawnpoint;
             requested_map = Map_names(map_load_rects[i].map_to_load_struct);
         }
     }

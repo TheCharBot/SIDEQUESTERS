@@ -1,6 +1,9 @@
 #include "event_handler.hpp"
+
 //event handler, draw_all, init_all, update_all, and camera stuff
 void init_all(){
+    
+    // current_music = LoadMusicStream(START_MUSIC_PATH);
     init_map();
     init_player();
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
@@ -8,9 +11,13 @@ void init_all(){
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
     cam.zoom = 1.0f;    
+    
+    PlayMusicStream(current_music);
+    SetMusicVolume(current_music, 1.0f);
 }
 
 void update_all(){
+    UpdateMusicStream(current_music);
     
     update_map();
     update_player();

@@ -61,13 +61,17 @@ extern std::vector<std::unique_ptr<Entity>> entities;
 struct Load_rects{
     Rectangle rect;
     int map_to_load_struct;
+    Vector2 spawnpoint;
 };
+
+
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
 extern int current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
+#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}
@@ -95,13 +99,54 @@ extern Vector2 requested_player_pos;
 #define MAP_2_RECT_19 {434, 311, 13, 24}
 #define MAP_2_RECT_20 {450, 327, 13, 24}
 #define MAP_2_RECT_21 {129, 96, 110, 44}
-#define MAP_2_LOAD_RECT_1 {10, 0, 1, 640}
-#define MAP_2_LOAD_RECT_2 {0, 629, 734, 1}
-#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
+//loader rects for other maps
+//NAME the RECTS PLEASE!!!!!!!
+#define MAP_2_DARK_FOREST_NORTH_LOAD {10, 0, 1, 640}
+#define MAP_2_DARK_FOREST_SOUTH_LOAD {0, 629, 734, 1}
+#define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
+#define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
+#define MAP_2_VILLAGE_HOUSE_3_LOAD {543, 361, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_4_LOAD {143, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_5_LOAD {303, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
+
+
+//constant village house load rects for my sanity
+#define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
+#define PLAYER_VILLAGE_HOUSE_START_POS {134, 125}
+#define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {383, 167}
+#define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {223, 327}
+#define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {543, 327}
+#define VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT {143, 519}
+#define VILLAGE_HOUSE_5_OUTSIDE_SPAWNPOINT {303, 519}
+#define VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT {463, 519}
+#define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {623, 519}
+#define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {358, 319}
+
+//wall rects for houses
+#define VILLAGE_HOUSE_RECT_1 {56, 48, 176, 20}//wall
+#define VILLAGE_HOUSE_RECT_2 {228, 68, 4, 88}//wall
+#define VILLAGE_HOUSE_RECT_3 {56, 68, 4, 88}//wall
+#define VILLAGE_HOUSE_RECT_4 {60, 156, 75, 20}//wall
+#define VILLAGE_HOUSE_RECT_5 {153, 156, 75, 20}//wall
+
+//village house 1 stuff
+#define VILLAGE_HOUSE_1_RECT_6 {60, 68, 78, 37}
+#define VILLAGE_HOUSE_1_RECT_7 {191, 68, 37, 45}
+
+//village house 2 stuff
 
 
 
 
+
+
+
+//music stuff
+extern Music current_music;
+#define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
 
 // Player-focused stuff
 struct Player{
@@ -235,5 +280,14 @@ extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
+//village house stuff
+#define VILLAGE_HOUSE_1_PATH "gfx/maps/inside_village_houses/inside_village_house_1.png"
+#define VILLAGE_HOUSE_2_PATH "gfx/maps/inside_village_houses/inside_village_house_2.png"
+#define VILLAGE_HOUSE_3_PATH "gfx/maps/inside_village_houses/inside_village_house_3.png"
+#define VILLAGE_HOUSE_4_PATH "gfx/maps/inside_village_houses/inside_village_house_4.png"
+#define VILLAGE_WINDMILL_INSIDE_PATH "gfx/maps/inside_village_houses/inside_village_windmill.png"
+#define VILLAGE_HOUSE_5_PATH "gfx/maps/inside_village_houses/inside_village_house_5.png"
+#define VILLAGE_HOUSE_6_PATH "gfx/maps/inside_village_houses/inside_village_house_6.png"
+#define VILLAGE_HOUSE_7_PATH "gfx/maps/inside_village_houses/inside_village_house_7.png"
 
 #endif

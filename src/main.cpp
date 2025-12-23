@@ -5,20 +5,26 @@
 //16x16 sprites at 320x180 is just way too good
 int main() 
 {
+
     InitWindow(WINDOW_WIDTH*scale, WINDOW_HEIGHT*scale, "SIDEQUESTERS");
+    InitAudioDevice();
     SetTargetFPS(60);
     Image icon;
     icon = LoadImage("gfx/icon/icon.png");
     SetWindowIcon(icon);
     UnloadImage(icon);
     
+    
     init_all();
+    
     
     //Game Loop
     
     while(WindowShouldClose() == false) 
     {
         //Game Logic
+  
+        
         update_all();
 
         
