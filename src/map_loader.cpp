@@ -53,11 +53,12 @@ void reset_loaded(){
         UnloadTexture(map_to_load);
     }
     //unloading the current music to prevent mem leak
-    if(current_music.stream.buffer != nullptr){
-        StopMusicStream(current_music);
-        UnloadMusicStream(current_music);
-        current_music = {};
-    }
+    //add back in when you have good music
+    // if(current_music.stream.buffer != nullptr){
+    //     StopMusicStream(current_music);
+    //     UnloadMusicStream(current_music);
+    //     current_music = {};
+    // }
     
 };
 

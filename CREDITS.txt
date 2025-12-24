@@ -1,0 +1,6 @@
+Tools Used: 
+- Aseprite
+- VSCode 
+
+Special Thanks to:
+- 
