@@ -310,10 +310,10 @@ void load_map(Map_names map, Vector2 new_player_pos)
     case DARK_FOREST_NORTH:
         load_dark_forest_north();
         break;
-    case DARK_FOREST_SOUTH:
-        break;
-    case DARK_FOREST_CENTER:
-        break;
+    // case DARK_FOREST_SOUTH:
+    //     break;
+    // case DARK_FOREST_CENTER:
+    //     break;
     default:
         //loading the wrong map, or loading a nonexistent map
         reset_player({0, 0});
