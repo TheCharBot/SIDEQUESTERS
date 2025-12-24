@@ -4,6 +4,9 @@
 
 //©2025 Charles Von Dollen, TheCharbot
 //16x16 sprites at 320x180 is just way too good
+
+//TODO: make map 3, 4, and 5
+//Later TODO: make enemy AI and item / combat system
 int main() 
 {
 

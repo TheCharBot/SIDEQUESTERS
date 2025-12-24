@@ -128,7 +128,7 @@ void load_village_map(){
         MAP_2_RECT_21
     });
     add_load_rects({
-        {MAP_2_DARK_FOREST_NORTH_LOAD, DARK_FOREST_NORTH, {0, 0}},//check
+        {MAP_2_DARK_FOREST_NORTH_LOAD, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE},//check
         {MAP_2_DARK_FOREST_SOUTH_LOAD, DARK_FOREST_SOUTH, {0, 0}},//check
         {MAP_2_VILLAGE_HOUSE_1_LOAD, INSIDE_VILLAGE_HOUSE_1, PLAYER_VILLAGE_HOUSE_START_POS},//check
         {MAP_2_VILLAGE_HOUSE_2_LOAD, INSIDE_VILLAGE_HOUSE_2, PLAYER_VILLAGE_HOUSE_START_POS},//check
@@ -247,6 +247,28 @@ void load_village_house_7(){
     });
 };
 
+void load_dark_forest_north(){
+    reset_loaded();
+    map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
+    add_collisions({
+        MAP_3_RECT_1,
+        MAP_3_RECT_2,
+        MAP_3_RECT_3,
+        MAP_3_RECT_4,
+        MAP_3_RECT_5,
+        MAP_3_RECT_6,
+        MAP_3_RECT_7
+    });
+    add_load_rects({
+        {DARK_FOREST_NORTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH}, 
+        {DARK_FOREST_NORTH_TO_CENTER, DARK_FOREST_CENTER, {0, 0}}});
+}
+
+void load_dark_forest_south(){
+    reset_loaded();
+    map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
+}
+
 void load_map(Map_names map, Vector2 new_player_pos)
 {
     reset_player(new_player_pos);
@@ -283,6 +305,14 @@ void load_map(Map_names map, Vector2 new_player_pos)
         break;
     case INSIDE_VILLAGE_HOUSE_7:
         load_village_house_7();
+        break;
+
+    case DARK_FOREST_NORTH:
+        load_dark_forest_north();
+        break;
+    case DARK_FOREST_SOUTH:
+        break;
+    case DARK_FOREST_CENTER:
         break;
     default:
         //loading the wrong map, or loading a nonexistent map

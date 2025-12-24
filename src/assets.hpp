@@ -19,6 +19,7 @@ enum Map_names{
     INSIDE_VILLAGE_HOUSE_7,
     DARK_FOREST_NORTH,
     DARK_FOREST_SOUTH,
+    DARK_FOREST_CENTER,
 
 };
 
@@ -98,9 +99,19 @@ extern Vector2 requested_player_pos;
 #define MAP_2_RECT_19 {434, 311, 13, 24}
 #define MAP_2_RECT_20 {450, 327, 13, 24}
 #define MAP_2_RECT_21 {129, 96, 110, 44}
+
+//Dark Forest North stuff
+#define MAP_3_RECT_1 {32, 0, 928, 85}
+#define MAP_3_RECT_2 {0, 85, 32, 300}
+#define MAP_3_RECT_3 {112, 176, 818, 117}
+#define MAP_3_RECT_4 {928, 293, 32, 300}
+#define MAP_3_RECT_5 {33, 385, 815, 116}
+#define MAP_3_RECT_6 {0, 501, 32, 139}
+#define MAP_3_RECT_7 {112, 593, 816, 47}
+
 //loader rects for other maps
-//NAME the RECTS PLEASE!!!!!!!
-#define MAP_2_DARK_FOREST_NORTH_LOAD {10, 0, 1, 640}
+//NAME the LOAD RECTS PLEASE!!!!!!!
+#define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
 #define MAP_2_DARK_FOREST_SOUTH_LOAD {0, 629, 734, 1}
 #define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
@@ -111,6 +122,8 @@ extern Vector2 requested_player_pos;
 #define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
 
+//next time, do load points like this: in the format "destination spawnpoint from origin"
+#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {925, 106}
 
 //constant village house load rects for my sanity
 #define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
@@ -135,12 +148,14 @@ extern Vector2 requested_player_pos;
 #define VILLAGE_HOUSE_1_RECT_6 {60, 68, 78, 37}
 #define VILLAGE_HOUSE_1_RECT_7 {191, 68, 37, 45}
 
-//village house 2 stuff
+//village house 2 stuff (finish later, get other things done now)
+//(leave blank for now)
 
-
-
-
-
+//more dark forest north stuff
+//actually, make load rects look like this, in the format of "origin to destination"
+#define DARK_FOREST_NORTH_TO_VILLAGE {945, 87, 1, 89}
+#define DARK_FOREST_NORTH_TO_CENTER {32, 639, 80, 1}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {18, 106}
 
 
 //music stuff
@@ -281,6 +296,11 @@ extern Rectangle village_windmill_4;
 
 //paths to things
 //map paths
+#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
+
+#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+
+#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
 #define VILLAGE_HOUSE_1_PATH "gfx/maps/inside_village_houses/inside_village_house_1.png"
 #define VILLAGE_HOUSE_2_PATH "gfx/maps/inside_village_houses/inside_village_house_2.png"
 #define VILLAGE_HOUSE_3_PATH "gfx/maps/inside_village_houses/inside_village_house_3.png"
@@ -289,9 +309,12 @@ extern Rectangle village_windmill_4;
 #define VILLAGE_HOUSE_5_PATH "gfx/maps/inside_village_houses/inside_village_house_5.png"
 #define VILLAGE_HOUSE_6_PATH "gfx/maps/inside_village_houses/inside_village_house_6.png"
 #define VILLAGE_HOUSE_7_PATH "gfx/maps/inside_village_houses/inside_village_house_7.png"
-#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
-#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
-#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+
+#define DARK_FOREST_NORTH_PATH "gfx/maps/map_3_dark_forest_north.png"
+#define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
+#define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
+
+
 //music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
 #define VILLAGE_MUSIC_PATH "sfx/village/Village.mp3"
