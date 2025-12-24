@@ -49,7 +49,7 @@ Start_bulldozer::Start_bulldozer()
 
     current_animation_frame = 0;
     pos = {START_BULLDOZER_X, START_BULLDOZER_Y};
-    collided = false;
+    fallen = false;
 }
 
 Start_bulldozer::~Start_bulldozer()
@@ -82,9 +82,13 @@ void Start_bulldozer::update()
         }
         if (CheckCollisionRecs(player.normal_hitbox, rect))
         {
-            // collided = true;
-            request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});
-        
+            if(pos.x >= 232){request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});}
+            
+            else{pos.x+=BULLDOZER_SPEED;
+            player.pos.x+=BULLDOZER_SPEED;}
+            
+            
+            
         }
     }
 }
@@ -92,9 +96,11 @@ void Start_bulldozer::draw()
 {
 
     DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(START_BULLDOZER_WIDTH * scale), float(START_BULLDOZER_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    
+        
     // if (collided)
     // {
-    //     DrawRectangle(0, 0, map_to_load.width * scale, map_to_load.height * scale, BLACK);
+    //     
     //     collided = false;
         
     // }

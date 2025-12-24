@@ -5,34 +5,24 @@
     },
     "activeFile": "",
     "expandedProjectPaths": [
-        "."
     ],
     "fileStates": {
-        "village.tmx": {
-            "scale": 2,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 373.75,
-                "y": 291.25
-            }
-        },
-        "village_tileset.tsx": {
+        "dark_forest_tileset.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_2_tiled_data",
-    "map.height": 40,
+    "last.imagePath": "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_tiled_data",
+    "map.height": 60,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 50,
+    "map.width": 60,
     "openFiles": [
     ],
-    "project": "village_2.tiled-project",
+    "project": "dark_forest.tiled-project",
     "recentFiles": [
-        "village_tileset.tsx",
-        "village.tmx"
+        "dark_forest_tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

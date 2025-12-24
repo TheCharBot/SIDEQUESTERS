@@ -48,9 +48,11 @@ void reset_loaded(){
     entities.clear();
     map_load_rects.clear();
     collision_rects.clear();
+    //unloading current map for efficiency
     if(map_to_load.id != 0){
         UnloadTexture(map_to_load);
     }
+    //unloading the current music to prevent mem leak
     if(current_music.stream.buffer != nullptr){
         StopMusicStream(current_music);
         UnloadMusicStream(current_music);
@@ -74,10 +76,10 @@ void load_start_map(){
     
     reset_loaded();
 
-    current_music = LoadMusicStream(START_MUSIC_PATH);
+    
     map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
 
-    PlayMusicStream(current_music);
+    
     current_map = 1;
     //proprietary collisions for map 1 (can't reuse - sorry)
     add_collisions({
@@ -97,6 +99,8 @@ void load_start_map(){
 void load_village_map(){
     reset_loaded();
 
+
+    
     map_to_load = LoadTexture(VILLAGE_MAP_PATH);
 
     add_collisions({
@@ -280,6 +284,7 @@ void load_map(Map_names map, Vector2 new_player_pos)
         load_village_house_7();
         break;
     default:
+        //loading the wrong map, or loading a nonexistent map
         reset_player({0, 0});
         reset_loaded();
 

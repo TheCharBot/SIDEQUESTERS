@@ -71,13 +71,12 @@ extern std::vector<Rectangle> collision_rects;
 extern int current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
-#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
-#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}
 #define MAP_1_RECT_3 {198, 265, 282, 55}
 #define MAP_1_RECT_4 {282, 185, 198, 80}
-#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
+
 #define MAP_2_RECT_1 {130, 0, 535, 65}
 #define MAP_2_RECT_2 {666, 0, 134, 97}
 #define MAP_2_RECT_3 {733, 97, 67, 543}
@@ -146,7 +145,7 @@ extern Vector2 requested_player_pos;
 
 //music stuff
 extern Music current_music;
-#define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
+
 
 // Player-focused stuff
 struct Player{
@@ -165,7 +164,7 @@ struct Player{
 };
 
 extern Player player;
-#define PLAYER_TEX_PATH "gfx/player/player_tex.png"
+
 #define PLAYER_SPRITE_WIDTH 32
 #define PLAYER_SPRITE_HEIGHT 48
 #define PLAYER_HITBOX_WIDTH 13
@@ -240,7 +239,7 @@ extern Rectangle player_walk_left_8;
 #define START_PORTAL_Y 37
 #define START_PORTAL_WIDTH 32
 #define START_PORTAL_HEIGHT 44
-#define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
+
 extern Rectangle start_portal_animation[4];
 extern Rectangle start_portal_1;
 extern Rectangle start_portal_2;
@@ -258,7 +257,7 @@ extern Rectangle start_portal_emination;
 #define BULLDOZER_SPEED 5
 #define MAX_BULLDOZER_X 190
 #define BULLDOZER_CUTSCENE_TRIGGER_X 160
-#define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
+
 extern Rectangle start_bulldozer_animation[3];
 extern Rectangle start_bulldozer_1;
 extern Rectangle start_bulldozer_2;
@@ -273,14 +272,15 @@ extern Rectangle start_bulldozer_3;
 #define VILLAGE_WINDMILL_RECT_OFFSET_Y 132
 #define VILLAGE_WINDMILL_RECT_WIDTH 80
 #define VILLAGE_WINDMILL_RECT_HEIGHT 32
-#define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
+
 extern Rectangle village_windmill_animation[4];
 extern Rectangle village_windmill_1;
 extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
-//village house stuff
+//paths to things
+//map paths
 #define VILLAGE_HOUSE_1_PATH "gfx/maps/inside_village_houses/inside_village_house_1.png"
 #define VILLAGE_HOUSE_2_PATH "gfx/maps/inside_village_houses/inside_village_house_2.png"
 #define VILLAGE_HOUSE_3_PATH "gfx/maps/inside_village_houses/inside_village_house_3.png"
@@ -289,5 +289,18 @@ extern Rectangle village_windmill_4;
 #define VILLAGE_HOUSE_5_PATH "gfx/maps/inside_village_houses/inside_village_house_5.png"
 #define VILLAGE_HOUSE_6_PATH "gfx/maps/inside_village_houses/inside_village_house_6.png"
 #define VILLAGE_HOUSE_7_PATH "gfx/maps/inside_village_houses/inside_village_house_7.png"
+#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
+#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
+#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+//music paths
+#define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
+#define VILLAGE_MUSIC_PATH "sfx/village/Village.mp3"
+#define VILLAGE_HOUSE_MUSIC_PATH "sfx/village/Inside VIllage House.mp3"
+//entities and misc assets paths
+#define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
+#define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
+#define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
+//player texture path
+#define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 
 #endif

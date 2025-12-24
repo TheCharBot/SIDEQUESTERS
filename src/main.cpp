@@ -1,6 +1,7 @@
 #include "config.hpp"
 
 #include "event_handler.hpp"
+
 //©2025 Charles Von Dollen, TheCharbot
 //16x16 sprites at 320x180 is just way too good
 int main() 

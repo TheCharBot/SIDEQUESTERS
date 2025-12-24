@@ -40,7 +40,7 @@ public:
     void draw() override;
 
 private:
-    bool collided;
+    bool fallen;
     Texture2D tex{};
 };
 

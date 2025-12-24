@@ -14,7 +14,9 @@
 #define WINDOW_WIDTH 320
 #define WINDOW_HEIGHT 180
 
-
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 1
+#define VERSION_PATCH 0
 
 
 
