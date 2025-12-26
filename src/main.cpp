@@ -5,6 +5,8 @@
 //©2025 Charles Von Dollen, TheCharbot
 //16x16 sprites at 320x180 is just way too good
 
+//Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"
+
 //TODO: make map 3, 4, and 5
 //Later TODO: make enemy AI and item / combat system
 int main() 
@@ -37,10 +39,7 @@ int main()
         
         //Game Drawing
         draw_all();
-        // DrawRectangle(float((MAP_1_RECT_1_X * scale)), float((MAP_1_RECT_1_Y * scale)), float(MAP_1_RECT_1_WIDTH * scale), float(MAP_1_RECT_1_HEIGHT * scale), RED);
-        // DrawRectangle(float((MAP_1_RECT_4_X * scale)), float((MAP_1_RECT_4_Y * scale)), float(MAP_1_RECT_4_WIDTH * scale), float(MAP_1_RECT_4_HEIGHT * scale), RED);
-        // DrawRectangle(float((MAP_1_RECT_2_X * scale)), float((MAP_1_RECT_2_Y * scale)), float(MAP_1_RECT_2_WIDTH * scale), float(MAP_1_RECT_2_HEIGHT * scale), RED);
-        // DrawRectangle(float((MAP_1_RECT_3_X * scale)), float((MAP_1_RECT_3_Y * scale)), float(MAP_1_RECT_3_WIDTH * scale), float(MAP_1_RECT_3_HEIGHT * scale), RED);
+        
         
         // DrawRectangle(player_normal_hitbox.x, player_normal_hitbox.y, player_normal_hitbox.width, player_normal_hitbox.height, GREEN);
         EndDrawing();

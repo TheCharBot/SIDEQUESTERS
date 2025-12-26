@@ -1,0 +1,72 @@
+{
+    "activeFile": "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_center.tmx": {
+            "scale": 1.2359895833333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.1820403691375,
+                "y": 480.18204036913744
+            }
+        },
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_north.tmx": {
+            "scale": 1.853984375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 479.7775062154987,
+                "y": 320.1213602460916
+            }
+        },
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 319.75,
+                "y": 342.75
+            }
+        },
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "dark_forest_center.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.5,
+                "y": 480
+            }
+        },
+        "dark_forest_north.tmx": {
+            "scale": 1.853984375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 474.92309637183433,
+                "y": 198.76111415448148
+            }
+        },
+        "dark_forest_south.tmx": {
+            "scale": 1.853984375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.1213602460916,
+                "y": 480.0471956512578
+            }
+        },
+        "dark_forest_tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "openFiles": [
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx"
+    ],
+    "project": "",
+    "recentFiles": [
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx",
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_north.tmx",
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_center.tmx"
+    ]
+}

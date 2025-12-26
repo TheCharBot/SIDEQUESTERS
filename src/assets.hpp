@@ -109,10 +109,27 @@ extern Vector2 requested_player_pos;
 #define MAP_3_RECT_6 {0, 501, 32, 139}
 #define MAP_3_RECT_7 {112, 593, 816, 47}
 
+//dark forest south stuff
+#define MAP_4_RECT_1 {0, 0, 272, 133}
+#define MAP_4_RECT_2 {352, 0, 16, 133}
+#define MAP_4_RECT_3 {368, 0, 240, 21}
+#define MAP_4_RECT_4 {608, 0, 32, 433}
+#define MAP_4_RECT_5 {352, 433, 288, 68}
+#define MAP_4_RECT_6 {352, 501, 64, 176}
+#define MAP_4_RECT_7 {497, 592, 63, 277}
+#define MAP_4_RECT_8 {176, 769, 320, 100}
+#define MAP_4_RECT_9 {176, 225, 80, 544}
+#define MAP_4_RECT_10 {256, 225, 256, 116}
+#define MAP_4_RECT_11 {449, 112, 63, 113}
+#define MAP_4_RECT_12 {0, 225, 96, 644}
+
+
+
+
 //loader rects for other maps
 //NAME the LOAD RECTS PLEASE!!!!!!!
 #define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
-#define MAP_2_DARK_FOREST_SOUTH_LOAD {0, 629, 734, 1}
+#define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 629, 58, 1}
 #define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
 #define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
@@ -122,8 +139,11 @@ extern Vector2 requested_player_pos;
 #define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
 
-//next time, do load points like this: in the format "destination spawnpoint from origin"
+//next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
 #define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {925, 106}
+#define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {300, 8}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {18, 106}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {300 , 581}
 
 //constant village house load rects for my sanity
 #define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
@@ -154,8 +174,10 @@ extern Vector2 requested_player_pos;
 //more dark forest north stuff
 //actually, make load rects look like this, in the format of "origin to destination"
 #define DARK_FOREST_NORTH_TO_VILLAGE {945, 87, 1, 89}
-#define DARK_FOREST_NORTH_TO_CENTER {32, 639, 80, 1}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {18, 106}
+#define DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER {32, 639, 80, 1}
+
+#define DARK_FOREST_SOUTH_TO_VILLAGE {281, 39, 60, 1}
+
 
 
 //music stuff
@@ -175,7 +197,7 @@ struct Player{
     int current_animation_frame;
     int animation_frame_5;
     Texture2D tex;
-    int draw_order;
+    double health = 3;
 };
 
 extern Player player;
