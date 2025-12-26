@@ -2,76 +2,70 @@
 #define ASSETS_HPP
 
 #include "config.hpp"
+#include "game_objects.hpp"
 
 // Put sprite rects and other things here, paths, x defaults, etc
+//order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
 
-enum Map_names{
-    WRONG_MAP,
-    START_MAP,
-    VILLAGE_MAP,
-    INSIDE_VILLAGE_HOUSE_1,
-    INSIDE_VILLAGE_HOUSE_2,
-    INSIDE_VILLAGE_WINDMILL,
-    INSIDE_VILLAGE_HOUSE_3,
-    INSIDE_VILLAGE_HOUSE_4,
-    INSIDE_VILLAGE_HOUSE_5,
-    INSIDE_VILLAGE_HOUSE_6,
-    INSIDE_VILLAGE_HOUSE_7,
-    DARK_FOREST_NORTH,
-    DARK_FOREST_SOUTH,
-    DARK_FOREST_CENTER,
+//editable globals
 
-};
+//Player-focused image rect arrays
+extern Rectangle player_idle_up_arr[1];
+extern Rectangle player_idle_down_arr[1];
+extern Rectangle player_idle_right_arr[1];
+extern Rectangle player_idle_left_arr[1];
+extern Rectangle player_walk_down[12];
+extern Rectangle player_walk_up[12];
+extern Rectangle player_walk_right[8];
+extern Rectangle player_walk_left[8];
+//Player-focused image rects
 
-class Entity {
-public:
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    
-
-    virtual ~Entity() = default;
-    //load for loading texture data, dont load in constructor
-    virtual void load() {}
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
-
-class Interactable_element : public Entity{
-    public:
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    
-    
-
-    virtual ~Interactable_element() = default;
-    //load for loading texture data, dont load in constructor
-    virtual void load() {}
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
-extern std::vector<std::unique_ptr<Entity>> entities;
-// Map-focused stuff
-struct Load_rects{
-    Rectangle rect;
-    int map_to_load_struct;
-    Vector2 spawnpoint;
-};
+extern Rectangle player_idle_down;
+extern Rectangle player_idle_up;
+extern Rectangle player_idle_right;
+extern Rectangle player_idle_left;
+extern Rectangle player_walk_down_1;
+extern Rectangle player_walk_down_2;
+extern Rectangle player_walk_down_3;
+extern Rectangle player_walk_down_4;
+extern Rectangle player_walk_down_5;
+extern Rectangle player_walk_down_6;
+extern Rectangle player_walk_down_7;
+extern Rectangle player_walk_down_8;
+extern Rectangle player_walk_down_9;
+extern Rectangle player_walk_down_10;
+extern Rectangle player_walk_down_11;
+extern Rectangle player_walk_down_12;
+extern Rectangle player_walk_up_1;
+extern Rectangle player_walk_up_2;
+extern Rectangle player_walk_up_3;
+extern Rectangle player_walk_up_4;
+extern Rectangle player_walk_up_5;
+extern Rectangle player_walk_up_6;
+extern Rectangle player_walk_up_7;
+extern Rectangle player_walk_up_8;
+extern Rectangle player_walk_up_9;
+extern Rectangle player_walk_up_10;
+extern Rectangle player_walk_up_11;
+extern Rectangle player_walk_up_12;
+extern Rectangle player_walk_right_1;
+extern Rectangle player_walk_right_2;
+extern Rectangle player_walk_right_3;
+extern Rectangle player_walk_right_4;
+extern Rectangle player_walk_right_5;
+extern Rectangle player_walk_right_6;
+extern Rectangle player_walk_right_7;
+extern Rectangle player_walk_right_8;
+extern Rectangle player_walk_left_1;
+extern Rectangle player_walk_left_2;
+extern Rectangle player_walk_left_3;
+extern Rectangle player_walk_left_4;
+extern Rectangle player_walk_left_5;
+extern Rectangle player_walk_left_6;
+extern Rectangle player_walk_left_7;
+extern Rectangle player_walk_left_8;
 
 
-extern std::vector<Load_rects> map_load_rects;
-extern Texture2D map_to_load;
-extern std::vector<Rectangle> collision_rects;
-extern int current_map;
-extern Map_names requested_map;
-extern Vector2 requested_player_pos;
 
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}
@@ -181,26 +175,7 @@ extern Vector2 requested_player_pos;
 
 
 //music stuff
-extern Music current_music;
 
-
-// Player-focused stuff
-struct Player{
-    Vector2 pos;
-    Vector2 movement;
-    Rectangle *current_anim_arr;
-    Rectangle normal_hitbox;
-    int pos_x_save;
-    int pos_y_save;
-    int move_mode;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    Texture2D tex;
-    double health = 3;
-};
-
-extern Player player;
 
 #define PLAYER_SPRITE_WIDTH 32
 #define PLAYER_SPRITE_HEIGHT 48
@@ -214,61 +189,6 @@ extern Player player;
 #define PLAYER_VILLAGE_MAP_POS_X 267
 #define PLAYER_VILLAGE_MAP_POS_Y 128
 
-//Player-focused image rect arrays
-extern Rectangle player_idle_up_arr[1];
-extern Rectangle player_idle_down_arr[1];
-extern Rectangle player_idle_right_arr[1];
-extern Rectangle player_idle_left_arr[1];
-extern Rectangle player_walk_down[12];
-extern Rectangle player_walk_up[12];
-extern Rectangle player_walk_right[8];
-extern Rectangle player_walk_left[8];
-//Player-focused image rects
-
-extern Rectangle player_idle_down;
-extern Rectangle player_idle_up;
-extern Rectangle player_idle_right;
-extern Rectangle player_idle_left;
-extern Rectangle player_walk_down_1;
-extern Rectangle player_walk_down_2;
-extern Rectangle player_walk_down_3;
-extern Rectangle player_walk_down_4;
-extern Rectangle player_walk_down_5;
-extern Rectangle player_walk_down_6;
-extern Rectangle player_walk_down_7;
-extern Rectangle player_walk_down_8;
-extern Rectangle player_walk_down_9;
-extern Rectangle player_walk_down_10;
-extern Rectangle player_walk_down_11;
-extern Rectangle player_walk_down_12;
-extern Rectangle player_walk_up_1;
-extern Rectangle player_walk_up_2;
-extern Rectangle player_walk_up_3;
-extern Rectangle player_walk_up_4;
-extern Rectangle player_walk_up_5;
-extern Rectangle player_walk_up_6;
-extern Rectangle player_walk_up_7;
-extern Rectangle player_walk_up_8;
-extern Rectangle player_walk_up_9;
-extern Rectangle player_walk_up_10;
-extern Rectangle player_walk_up_11;
-extern Rectangle player_walk_up_12;
-extern Rectangle player_walk_right_1;
-extern Rectangle player_walk_right_2;
-extern Rectangle player_walk_right_3;
-extern Rectangle player_walk_right_4;
-extern Rectangle player_walk_right_5;
-extern Rectangle player_walk_right_6;
-extern Rectangle player_walk_right_7;
-extern Rectangle player_walk_right_8;
-extern Rectangle player_walk_left_1;
-extern Rectangle player_walk_left_2;
-extern Rectangle player_walk_left_3;
-extern Rectangle player_walk_left_4;
-extern Rectangle player_walk_left_5;
-extern Rectangle player_walk_left_6;
-extern Rectangle player_walk_left_7;
-extern Rectangle player_walk_left_8;
 
 //start portal image and rects
 
@@ -315,6 +235,12 @@ extern Rectangle village_windmill_1;
 extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
+
+
+
+
+
+
 
 //paths to things
 //map paths

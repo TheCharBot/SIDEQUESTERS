@@ -4,6 +4,7 @@
 void init_all(){
     
     // current_music = LoadMusicStream(START_MUSIC_PATH);
+    gui_init();
     init_map();
     init_player();
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
@@ -38,6 +39,7 @@ void update_all(){
         }
         requested_map = WRONG_MAP;
     }
+    gui_update();
 }
 
 void draw_all(){
@@ -55,6 +57,7 @@ void draw_all(){
         }
     } 
     
-        
+    
     EndMode2D();
+    gui_draw();
 };
