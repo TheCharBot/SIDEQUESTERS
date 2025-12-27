@@ -53,11 +53,11 @@ void draw_all(){
     for (auto& e : entities){
         if(e->rect.y>player.normal_hitbox.y){
             e->draw();
-            
         }
     } 
     
     
     EndMode2D();
     gui_draw();
+    
 };

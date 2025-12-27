@@ -203,6 +203,17 @@ void update_player()
         }
     }
 
+    if(IsKeyDown(KEY_Q)){
+        //TODO: add item 1 use
+    }
+    else if(IsKeyDown(KEY_E)){
+        //TODO: add item 2 use
+    }
+    else if(IsKeyDown(KEY_Z)){
+        //TODO: add item 3 use
+    } 
+    
+
     // animation thingy
 
     // std::cout << player.pos.x << "  " << player.pos.y << "\n";

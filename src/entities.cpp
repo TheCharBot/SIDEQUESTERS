@@ -69,8 +69,11 @@ void Start_bulldozer::load()
 void Start_bulldozer::update()
 {
     rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
+    //checking if the player is at a Specific y value
     if (player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y)
     {
+        is_inv_open = false;
+        //running cutscene magic
         player.move_mode = 0;
         if (player.normal_hitbox.y > 160)
         {
@@ -82,10 +85,11 @@ void Start_bulldozer::update()
         }
         if (CheckCollisionRecs(player.normal_hitbox, rect))
         {
+            //why is this number not in assets?
             if(pos.x >= 232){request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});}
             
             else{pos.x+=BULLDOZER_SPEED;
-            player.pos.x+=BULLDOZER_SPEED;}
+            player.pos.x+=BULLDOZER_SPEED+PLAYER_SPEED;}
             
             
             

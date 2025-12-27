@@ -8,7 +8,7 @@ bool is_inv_open;
 
 void gui_init()
 {
-    inventory_tex = LoadTexture("gfx/gui/inventory.png");
+    inventory_tex = LoadTexture("gfx/gui/inventory_tex.png");
 }
 
 void gui_update()
@@ -18,6 +18,7 @@ void gui_update()
         if(is_inv_open){
             player.move_mode = 0;
             player.current_animation_frame = 0;
+            
         }
         else{player.move_mode = 1;}
     }
@@ -25,4 +26,7 @@ void gui_update()
 
 void gui_draw()
 {
+    if(is_inv_open){
+        DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
+    }
 }

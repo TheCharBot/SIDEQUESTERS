@@ -15,14 +15,14 @@
 #define WINDOW_HEIGHT 180
 
 #define VERSION_MAJOR 0
-#define VERSION_MINOR 1
+#define VERSION_MINOR 3
 #define VERSION_PATCH 0
 
 
 
 extern Camera2D cam;
 
-extern Vector2 default_rot;
+
 
 #define ANIMATION_INTERVAL 5
 
