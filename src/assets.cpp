@@ -2,7 +2,42 @@
 
 
 
+//IM SORRY. It couldnt be avoided. 
+Inventory_slot inventory_slots[28] = {
+    {{48, 32}, 0, false},
+    {{80, 32}, 0, false},
+    {{112, 32}, 0, false},
+    {{147, 32}, 0, false},
+    {{182, 32}, 0, false},
+    {{214, 32}, 0, false},
+    {{246, 32}, 0, false},
+    {{48, 64}, 0, false},
+    {{80, 64}, 0, false},
+    {{112, 64}, 0, false},
+    {{147, 64}, 0, false},
+    {{182, 64}, 0, false},
+    {{214, 64}, 0, false},
+    {{246, 64}, 0, false},
+    {{48, 96}, 0, false},
+    {{80, 96}, 0, false},
+    {{112, 96}, 0, false},
+    {{147, 96}, 0, false},
+    {{182, 96}, 0, false},
+    {{214, 96}, 0, false},
+    {{246, 96}, 0, false},
+    {{48, 128}, 0, false},
+    {{80, 128}, 0, false},
+    {{112, 128}, 0, false},
+    {{147, 128}, 0, false},
+    {{182, 128}, 0, false},
+    {{214, 128}, 0, false},
+    {{246, 128}, 0, false},
+    
+};
+
 // windmill stuff
+
+
 
 Rectangle village_windmill_1 = {96, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
 Rectangle village_windmill_2 = {240, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};

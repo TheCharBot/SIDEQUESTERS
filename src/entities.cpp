@@ -89,7 +89,7 @@ void Start_bulldozer::update()
             if(pos.x >= 232){request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});}
             
             else{pos.x+=BULLDOZER_SPEED;
-            player.pos.x+=BULLDOZER_SPEED+PLAYER_SPEED;}
+            player.pos.x+=BULLDOZER_SPEED;}
             
             
             

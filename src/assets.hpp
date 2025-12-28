@@ -8,7 +8,26 @@
 //order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
 
 //editable globals
+extern std::vector<Load_rects> map_load_rects;
+extern Texture2D map_to_load;
+extern std::vector<Rectangle> collision_rects;
+extern int current_map;
+extern Map_names requested_map;
+extern Vector2 requested_player_pos;
+extern Inventory_slot inventory_slots[28];
 
+extern Music current_music;
+extern std::vector<std::unique_ptr<Entity>> entities;
+
+//GUI globals
+extern Texture2D inventory_tex;
+extern Texture2D items_tex;
+extern Vector2 inventory_pos;
+extern std::vector<Item> player_inventory;
+extern bool is_inv_open;
+
+//player globals
+extern Player player;
 //Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -177,6 +196,7 @@ extern Rectangle player_walk_left_8;
 //music stuff
 
 
+//constants defines (not rects)
 #define PLAYER_SPRITE_WIDTH 32
 #define PLAYER_SPRITE_HEIGHT 48
 #define PLAYER_HITBOX_WIDTH 13
@@ -189,6 +209,8 @@ extern Rectangle player_walk_left_8;
 #define PLAYER_VILLAGE_MAP_POS_X 267
 #define PLAYER_VILLAGE_MAP_POS_Y 128
 
+#define ITEM_SPRITE_WIDTH 32
+#define ITEM_SPRITE_HEIGHT 32
 
 //start portal image and rects
 
@@ -273,5 +295,8 @@ extern Rectangle village_windmill_4;
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
 //player texture path
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
+//gui and items sheet paths
+#define INVENTORY_PATH "gfx/gui/inventory_tex.png"
+#define ITEM_SHEET_PATH "gfx/items_tex.png"
 
 #endif

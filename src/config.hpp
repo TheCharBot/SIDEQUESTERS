@@ -14,6 +14,8 @@
 #define WINDOW_WIDTH 320
 #define WINDOW_HEIGHT 180
 
+
+//implement version major when a playable state is reached. add to version minor if a new map is made. add to version path if the game is released with bugs
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 3
 #define VERSION_PATCH 0

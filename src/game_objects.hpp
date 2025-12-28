@@ -7,6 +7,8 @@
 
 //map globals
 
+//also items 
+
 
 enum Map_names{
     WRONG_MAP,
@@ -41,13 +43,15 @@ enum Buff_types{
 };
 
 enum Item_names{
+    STICK, 
     WEAK_BOW,
     WEAK_SWORD,
     SACRED_BARK,
-    STICK, 
+    
 
 };
 
+//figure out good way to document quests
 enum Quests{
     SACRED_BARK_FROM_DARK_FOREST,
 
@@ -65,7 +69,7 @@ struct Melee_weapon_item{
     int damage;
     double speed;
     Rectangle hitbox;
-    Rectangle img_rect;
+    
 };
 
 struct Range_weapon_item{
@@ -73,7 +77,7 @@ struct Range_weapon_item{
     double speed;
     double range;
     Rectangle hitbox;
-    Rectangle img_rect;
+    
     Rectangle projectile_img_rect;
 };
 
@@ -84,17 +88,17 @@ struct Consumable{
 };
 
 struct Quest_item{
-    Item_names name;
-    Rectangle img_rect;
+    
     Quests quest;
 };
 
 struct Dungeon_item{
-    Item_names name;
-    Rectangle img_rect;
+    
 };
 
 struct Item{
+    Item_names name;
+    Rectangle img_rect;
     Item_types type;
     union {
         Melee_weapon_item melee;
@@ -120,6 +124,12 @@ struct Player{
     Texture2D tex;
     double health = 3;
     
+};
+
+struct Inventory_slot{
+    Vector2 pos;
+    int amount_in_slot;
+    bool filled;
 };
 
 class Entity {
@@ -157,24 +167,11 @@ class Interactable_element : public Entity{
     virtual void draw() = 0;
 };
 
-extern std::vector<Load_rects> map_load_rects;
-extern Texture2D map_to_load;
-extern std::vector<Rectangle> collision_rects;
-extern int current_map;
-extern Map_names requested_map;
-extern Vector2 requested_player_pos;
+extern Item Stick;
 
 
-extern Music current_music;
-extern std::vector<std::unique_ptr<Entity>> entities;
 
-//GUI globals
-extern Texture2D inventory_tex;
-extern Vector2 inventory_pos;
-extern std::vector<Item> inventory;
-extern bool is_inv_open;
-
-//player globals
-extern Player player;
 
 #endif
+
+

@@ -5,6 +5,7 @@
 
 #include "player.hpp"
 #include "assets.hpp"
+#include "items.hpp"
 
 extern void gui_init();
 extern void gui_update();

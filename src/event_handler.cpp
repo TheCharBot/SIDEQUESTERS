@@ -4,9 +4,11 @@
 void init_all(){
     
     // current_music = LoadMusicStream(START_MUSIC_PATH);
+    init_items();
     gui_init();
     init_map();
     init_player();
+    
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
     cam.target = { 0.0f, 0.0f };
     cam.offset = {0, 0};

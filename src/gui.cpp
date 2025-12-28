@@ -2,13 +2,18 @@
 
 
 Texture2D inventory_tex;
-Vector2 inventory_pos;
-std::vector<Item> inventory;
+Texture2D items_tex;
+Vector2 inventory_pos = {0, 0};
+std::vector<Item> player_inventory = {};
+
 bool is_inv_open;
 
 void gui_init()
 {
-    inventory_tex = LoadTexture("gfx/gui/inventory_tex.png");
+    
+    player_inventory.push_back(Stick);
+    inventory_tex = LoadTexture(INVENTORY_PATH);
+    items_tex = LoadTexture(ITEM_SHEET_PATH);
 }
 
 void gui_update()
@@ -28,5 +33,9 @@ void gui_draw()
 {
     if(is_inv_open){
         DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
+        for(Item &i : player_inventory){
+            
+            DrawTexturePro(items_tex, i.img_rect, {inventory_slots[i.inventory_index].pos.x*scale, inventory_slots[i.inventory_index].pos.y*scale, i.img_rect.width*scale, i.img_rect.height*scale}, {0, 0}, 0, WHITE);
+        }
     }
 }
