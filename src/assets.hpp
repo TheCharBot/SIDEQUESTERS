@@ -15,12 +15,15 @@ extern int current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
 extern Inventory_slot inventory_slots[28];
+extern Inventory_cursor inv_cursor;
+
 
 extern Music current_music;
 extern std::vector<std::unique_ptr<Entity>> entities;
 
 //GUI globals
 extern Texture2D inventory_tex;
+extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
 extern Vector2 inventory_pos;
 extern std::vector<Item> player_inventory;
@@ -28,6 +31,18 @@ extern bool is_inv_open;
 
 //player globals
 extern Player player;
+
+
+//inited items
+extern Item Stick;
+extern Item inv_cursor_held_item;
+
+//inventory cursor animation
+extern Rectangle inv_cursor_1;
+extern Rectangle inv_cursor_2;
+extern Rectangle inv_cursor_anim[2];
+
+
 //Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -209,8 +224,8 @@ extern Rectangle player_walk_left_8;
 #define PLAYER_VILLAGE_MAP_POS_X 267
 #define PLAYER_VILLAGE_MAP_POS_Y 128
 
-#define ITEM_SPRITE_WIDTH 32
-#define ITEM_SPRITE_HEIGHT 32
+#define ITEM_SPRITE_WIDTH 16
+#define ITEM_SPRITE_HEIGHT 16
 
 //start portal image and rects
 
@@ -298,5 +313,6 @@ extern Rectangle village_windmill_4;
 //gui and items sheet paths
 #define INVENTORY_PATH "gfx/gui/inventory_tex.png"
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
+#define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 
 #endif

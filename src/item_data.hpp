@@ -9,7 +9,7 @@
 #define STICK_SPEED 1
 
 //then rects in the image (if the size of the image gets too big ill probably split it, but its still always loaded in vram, so im kinda stuck)
-#define STICK_RECT {0, 0, ITEM_SPRITE_WIDTH, ITEM_SPRITE_HEIGHT}
+#define STICK_SPRITE_RECT {0, 0, ITEM_SPRITE_WIDTH, ITEM_SPRITE_HEIGHT}
 
 
 

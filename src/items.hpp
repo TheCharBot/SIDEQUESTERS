@@ -8,6 +8,8 @@
 
 //just data usage for items
 
+
+
 extern void init_stick();
 
 extern void init_items();

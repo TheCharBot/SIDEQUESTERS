@@ -129,7 +129,16 @@ struct Player{
 struct Inventory_slot{
     Vector2 pos;
     int amount_in_slot;
-    bool filled;
+    Item filled_with;
+};
+
+struct Inventory_cursor{
+    int inv_slot_index;
+    Item held_item;
+    int current_anim_frame;
+    int max_anim_frames;
+    int anim_frame_5;
+
 };
 
 class Entity {
@@ -167,7 +176,6 @@ class Interactable_element : public Entity{
     virtual void draw() = 0;
 };
 
-extern Item Stick;
 
 
 
