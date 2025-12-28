@@ -61,9 +61,9 @@ void inv_cursor_update(){
     //picking up an item
     if(IsKeyPressed(KEY_Q)){
         //works!!!!!!! was not expecting that!!!!!
-        temp_item = inv_cursor.held_item;
-        inv_cursor.held_item = inventory_slots[inv_cursor.inv_slot_index].filled_with;
-        inventory_slots[inv_cursor.inv_slot_index].filled_with = temp_item;
+        
+        Item &slot_item = inventory_slots[inv_cursor.inv_slot_index].filled_with;
+        std::swap(inv_cursor.held_item, slot_item);
         
         
     }
