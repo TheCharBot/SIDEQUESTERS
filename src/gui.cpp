@@ -7,6 +7,7 @@ Texture2D items_tex;
 Vector2 inventory_pos = {0, 0};
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
+Item temp_item;
 
 
 bool is_inv_open;
@@ -14,7 +15,7 @@ bool is_inv_open;
 void gui_init()
 {
     
-    player_inventory.push_back(Stick);
+    add_item_to_inventory(Stick, 23);
     inventory_tex = LoadTexture(INVENTORY_PATH);
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
@@ -57,9 +58,12 @@ void inv_cursor_update(){
     if(inv_cursor.inv_slot_index < 0){
         inv_cursor.inv_slot_index = 0;
     }
+    //picking up an item
     if(IsKeyPressed(KEY_Q)){
-        
+        //works!!!!!!! was not expecting that!!!!!
+        temp_item = inv_cursor.held_item;
         inv_cursor.held_item = inventory_slots[inv_cursor.inv_slot_index].filled_with;
+        inventory_slots[inv_cursor.inv_slot_index].filled_with = temp_item;
         
         
     }
@@ -69,15 +73,14 @@ void gui_update()
 {
     //maybe a performance problem but whatever
     inv_cursor_update();
-    for(Item &i : player_inventory){
-        inventory_slots[i.inventory_index].filled_with = i;
-    }
+    
     if(IsKeyPressed(KEY_TAB)){
         is_inv_open = !is_inv_open;
         if(is_inv_open){
             player.move_mode = 0;
             player.current_animation_frame = 0;
             
+
         }
         else{player.move_mode = 1;}
     }
@@ -91,11 +94,13 @@ void gui_draw()
         //drawing cursor
         DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
         //drawing held item
+        
         DrawTexturePro(items_tex, inv_cursor.held_item.img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
         //drawing items
-        for(Item &i : player_inventory){
+        for(Inventory_slot &s : inventory_slots){
             
-            DrawTexturePro(items_tex, i.img_rect, {inventory_slots[i.inventory_index].pos.x*scale, inventory_slots[i.inventory_index].pos.y*scale, i.img_rect.width*scale, i.img_rect.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(items_tex, s.filled_with.img_rect, {s.pos.x*scale, s.pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+            
         }
     }
 }

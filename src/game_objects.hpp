@@ -106,7 +106,7 @@ struct Item{
         Consumable consumable;
         Quest_item quest_requirement;
     };
-    int inventory_index;
+    
 };
 
 // Player-focused stuff

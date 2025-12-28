@@ -204,11 +204,7 @@ void update_player()
     }
 
     if(IsKeyDown(KEY_Q)){
-        for(Item &i : player_inventory){
-            if(i.inventory_index == 23){
-                //works. implement other stuff for hotbar item 1 here.
-            }
-        }
+        //TODO: add item 1 use
     }
     else if(IsKeyDown(KEY_E)){
         //TODO: add item 2 use
