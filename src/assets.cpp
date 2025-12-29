@@ -37,8 +37,8 @@ Inventory_slot inventory_slots[28] = {
     
 };
 
-Rectangle inv_cursor_1 = {0, 0, 32, 16};
-Rectangle inv_cursor_2 = {0, 32, 30, 18};
+Rectangle inv_cursor_1 = {0, 0, 32, 18};
+Rectangle inv_cursor_2 = {0, 32, 32, 18};
 Rectangle inv_cursor_anim[2] = {
     inv_cursor_1,
     inv_cursor_2

@@ -14,7 +14,7 @@ bool is_inv_open;
 
 void gui_init()
 {
-    
+    inv_cursor_init();
     add_item_to_inventory(Stick, 23);
     inventory_tex = LoadTexture(INVENTORY_PATH);
     items_tex = LoadTexture(ITEM_SHEET_PATH);
@@ -31,7 +31,7 @@ void inv_cursor_init(){
 
 void inv_cursor_update(){   
     inv_cursor.anim_frame_5++;
-    if (inv_cursor.anim_frame_5 >= ANIMATION_INTERVAL+5)
+    if (inv_cursor.anim_frame_5 >= ANIMATION_INTERVAL+10)
     {
         inv_cursor.current_anim_frame++;
         if (inv_cursor.current_anim_frame >= inv_cursor.max_anim_frames)
@@ -92,7 +92,8 @@ void gui_draw()
         //drawing inventory
         DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
         //drawing cursor
-        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
+        
+        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x-3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y-1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
         //drawing held item
         
         DrawTexturePro(items_tex, inv_cursor.held_item.img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
