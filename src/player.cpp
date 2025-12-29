@@ -208,21 +208,28 @@ void update_player()
             
             if(inventory_slots[23].filled_with){
                 //implement item 1 usage here
-                std::cout << "WORKING!!!!";
+                std::cout << "WORKING1";
             }
-            else{
-                //do nothing
-                std::cout << "NOTHING IN SLOT 23!!!";
-            }
+            else{}
             
             
             
         }
         else if(IsKeyPressed(KEY_E)){
-            //TODO: add item 2 use
+            if(inventory_slots[24].filled_with){
+                //implement item 2 usage here
+                std::cout << "WORKING2";
+                }
+            else{
+                
+            }
         }
         else if(IsKeyPressed(KEY_Z)){
-            //TODO: add item 3 use
+            if(inventory_slots[25].filled_with){
+                //implement item 3 usage here
+                std::cout << "WORKING3";
+            }
+            else{}
         } 
     }
     

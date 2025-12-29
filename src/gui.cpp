@@ -16,6 +16,7 @@ void gui_init()
 {
     inv_cursor_init();
     add_item_to_inventory(Stick, 23);
+    add_item_to_inventory(Stick, 24);
     inventory_tex = LoadTexture(INVENTORY_PATH);
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
