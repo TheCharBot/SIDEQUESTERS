@@ -22,7 +22,7 @@ void gui_init()
 }
 
 void inv_cursor_init(){
-    inv_cursor.held_item = {};
+    inv_cursor.held_item.reset();
     inv_cursor.inv_slot_index = 0;
     inv_cursor.max_anim_frames = 2;
     inv_cursor.current_anim_frame = 0;
@@ -62,8 +62,10 @@ void inv_cursor_update(){
     if(IsKeyPressed(KEY_Q)){
         //works!!!!!!! was not expecting that!!!!!
         
-        Item &slot_item = inventory_slots[inv_cursor.inv_slot_index].filled_with;
-        std::swap(inv_cursor.held_item, slot_item);
+        auto &slot = inventory_slots[inv_cursor.inv_slot_index];
+
+        std::swap(inv_cursor.held_item, slot.filled_with);
+        
         
         
     }
@@ -72,7 +74,9 @@ void inv_cursor_update(){
 void gui_update()
 {
     //maybe a performance problem but whatever
+    if(is_inv_open){
     inv_cursor_update();
+    }
     
     if(IsKeyPressed(KEY_TAB)){
         is_inv_open = !is_inv_open;
@@ -82,7 +86,10 @@ void gui_update()
             
 
         }
-        else{player.move_mode = 1;}
+        else{
+            
+            player.move_mode = 1;
+        }
     }
 }
 
@@ -96,12 +103,19 @@ void gui_draw()
         DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x-3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y-1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
         //drawing held item
         
-        DrawTexturePro(items_tex, inv_cursor.held_item.img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
         //drawing items
         for(Inventory_slot &s : inventory_slots){
-            
-            DrawTexturePro(items_tex, s.filled_with.img_rect, {s.pos.x*scale, s.pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
-            
+            if (!s.filled_with) continue; // IMPORTANT
+
+            DrawTexturePro(
+                items_tex,
+                s.filled_with->img_rect,
+                { s.pos.x * scale, s.pos.y * scale,
+                float(ITEM_SPRITE_WIDTH * scale),
+                float(ITEM_SPRITE_HEIGHT * scale) },
+                {0, 0}, 0, WHITE
+            );
         }
     }
 }

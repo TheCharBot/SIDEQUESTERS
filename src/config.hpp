@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 #include <algorithm>
+#include <optional>
 
 //this file is only for settings and global vars, use assets for specific things
 

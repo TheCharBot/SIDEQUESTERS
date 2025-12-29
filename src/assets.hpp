@@ -35,6 +35,7 @@ extern Player player;
 
 //inited items
 extern Item Stick;
+extern Item null_item;
 extern Item inv_cursor_held_item;
 
 //inventory cursor animation

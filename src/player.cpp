@@ -202,16 +202,29 @@ void update_player()
             requested_map = Map_names(map_load_rects[i].map_to_load_struct);
         }
     }
-
-    if(IsKeyDown(KEY_Q)){
-        //TODO: add item 1 use
+    
+    if(!is_inv_open){
+        if(IsKeyPressed(KEY_Q)){
+            
+            if(inventory_slots[23].filled_with){
+                //implement item 1 usage here
+                std::cout << "WORKING!!!!";
+            }
+            else{
+                //do nothing
+                std::cout << "NOTHING IN SLOT 23!!!";
+            }
+            
+            
+            
+        }
+        else if(IsKeyPressed(KEY_E)){
+            //TODO: add item 2 use
+        }
+        else if(IsKeyPressed(KEY_Z)){
+            //TODO: add item 3 use
+        } 
     }
-    else if(IsKeyDown(KEY_E)){
-        //TODO: add item 2 use
-    }
-    else if(IsKeyDown(KEY_Z)){
-        //TODO: add item 3 use
-    } 
     
 
     // animation thingy

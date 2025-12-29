@@ -29,6 +29,7 @@ enum Map_names{
 };
 
 enum Item_types{
+    
     COMBAT_MELEE,
     COMBET_RANGED,
     QUEST_ITEM,
@@ -43,6 +44,7 @@ enum Buff_types{
 };
 
 enum Item_names{
+    
     STICK, 
     WEAK_BOW,
     WEAK_SWORD,
@@ -129,12 +131,13 @@ struct Player{
 struct Inventory_slot{
     Vector2 pos;
     int amount_in_slot;
-    Item filled_with;
+    std::optional<Item> filled_with;
+    
 };
 
 struct Inventory_cursor{
     int inv_slot_index;
-    Item held_item;
+    std::optional<Item> held_item;
     int current_anim_frame;
     int max_anim_frames;
     int anim_frame_5;

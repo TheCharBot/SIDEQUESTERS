@@ -1,7 +1,9 @@
 #include "items.hpp"
 
 
+
 Item Stick;
+
 
 void init_stick(){
     Stick.img_rect = STICK_SPRITE_RECT;
