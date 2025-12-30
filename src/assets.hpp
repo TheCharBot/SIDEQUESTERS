@@ -100,6 +100,32 @@ extern Rectangle player_walk_left_6;
 extern Rectangle player_walk_left_7;
 extern Rectangle player_walk_left_8;
 
+//player attack rects
+
+extern Rectangle player_sword_slash_down_1;
+extern Rectangle player_sword_slash_down_2;
+extern Rectangle player_sword_slash_down_3;
+extern Rectangle player_sword_slash_down_4;
+extern Rectangle player_sword_slash_down_5;
+extern Rectangle player_sword_slash_up_1;
+extern Rectangle player_sword_slash_up_2;
+extern Rectangle player_sword_slash_up_3;
+extern Rectangle player_sword_slash_up_4;
+extern Rectangle player_sword_slash_up_5;
+extern Rectangle player_sword_slash_right_1;
+extern Rectangle player_sword_slash_right_2;
+extern Rectangle player_sword_slash_right_3;
+extern Rectangle player_sword_slash_right_4;
+extern Rectangle player_sword_slash_right_5;
+extern Rectangle player_sword_slash_left_1;
+extern Rectangle player_sword_slash_left_2;
+extern Rectangle player_sword_slash_left_3;
+extern Rectangle player_sword_slash_left_4;
+extern Rectangle player_sword_slash_left_5;
+extern Rectangle player_sword_slash_down_arr[5];
+extern Rectangle player_sword_slash_up_arr[5];
+extern Rectangle player_sword_slash_right_arr[5];
+extern Rectangle player_sword_slash_left_arr[5];
 
 
 #define MAP_1_RECT_1 {0, 0, 480, 135}
@@ -158,7 +184,7 @@ extern Rectangle player_walk_left_8;
 //loader rects for other maps
 //NAME the LOAD RECTS PLEASE!!!!!!!
 #define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
-#define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 629, 58, 1}
+#define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 639, 58, 1}
 #define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
 #define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
@@ -169,22 +195,22 @@ extern Rectangle player_walk_left_8;
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
 
 //next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
-#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {925, 106}
-#define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {300, 8}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {18, 106}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {300 , 581}
+#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {904, 90}
+#define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {280, -10}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {-4, 90}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280 , 559}
 
 //constant village house load rects for my sanity
 #define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
-#define PLAYER_VILLAGE_HOUSE_START_POS {134, 125}
-#define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {383, 167}
-#define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {223, 327}
-#define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {543, 327}
-#define VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT {143, 519}
-#define VILLAGE_HOUSE_5_OUTSIDE_SPAWNPOINT {303, 519}
-#define VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT {463, 519}
-#define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {623, 519}
-#define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {358, 319}
+#define PLAYER_VILLAGE_HOUSE_START_POS {113, 123}
+#define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {361, 165}
+#define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {201, 325}
+#define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {521, 325}
+#define VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT {121, 517}
+#define VILLAGE_HOUSE_5_OUTSIDE_SPAWNPOINT {281, 517}
+#define VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT {441, 517}
+#define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {601, 517}
+#define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {338, 320}
 
 //wall rects for houses
 #define VILLAGE_HOUSE_RECT_1 {56, 48, 176, 20}//wall
@@ -202,10 +228,11 @@ extern Rectangle player_walk_left_8;
 
 //more dark forest north stuff
 //actually, make load rects look like this, in the format of "origin to destination"
-#define DARK_FOREST_NORTH_TO_VILLAGE {945, 87, 1, 89}
+#define DARK_FOREST_NORTH_TO_VILLAGE {945, 109, 1, 89}
 #define DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER {32, 639, 80, 1}
 
-#define DARK_FOREST_SOUTH_TO_VILLAGE {281, 39, 60, 1}
+//dark forest south stuffs
+#define DARK_FOREST_SOUTH_TO_VILLAGE {281, 26, 60, 1}
 
 
 
@@ -213,15 +240,15 @@ extern Rectangle player_walk_left_8;
 
 
 //constants defines (not rects)
-#define PLAYER_SPRITE_WIDTH 32
-#define PLAYER_SPRITE_HEIGHT 48
+#define PLAYER_SPRITE_WIDTH 64
+#define PLAYER_SPRITE_HEIGHT 64
 #define PLAYER_HITBOX_WIDTH 13
 #define PLAYER_HITBOX_HEIGHT 10
-#define PLAYER_HITBOX_X_OFFSET 6
-#define PLAYER_HITBOX_Y_OFFSET 38
+#define PLAYER_HITBOX_X_OFFSET 25
+#define PLAYER_HITBOX_Y_OFFSET 42
 #define PLAYER_SPEED 2
-#define PLAYER_START_MAP_POS_X 224
-#define PLAYER_START_MAP_POS_Y 208
+#define PLAYER_START_MAP_POS_X 209
+#define PLAYER_START_MAP_POS_Y 196
 #define PLAYER_VILLAGE_MAP_POS_X 267
 #define PLAYER_VILLAGE_MAP_POS_Y 128
 

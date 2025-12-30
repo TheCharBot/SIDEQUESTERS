@@ -151,46 +151,97 @@ Rectangle player_walk_left[8] = {
     player_walk_left_8,
 };
 Rectangle player_idle_down = {0, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_idle_up = {32, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_idle_right = {64, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_idle_left = {96, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_1 = {0, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_2 = {32, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_3 = {64, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_4 = {96, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_5 = {128, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_6 = {160, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_7 = {192, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_8 = {224, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_9 = {256, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_10 = {288, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_11 = {320, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_down_12 = {352, 48, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_1 = {0, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_2 = {32, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_3 = {64, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_4 = {96, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_5 = {128, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_6 = {160, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_7 = {192, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_8 = {224, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_9 = {256, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_10 = {288, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_11 = {320, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_up_12 = {352, 96, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_1 = {0, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_2 = {32, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_3 = {64, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_4 = {96, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_5 = {128, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_6 = {160, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_7 = {192, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_right_8 = {224, 144, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_1 = {0, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_2 = {32, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_3 = {64, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_4 = {96, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_5 = {128, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_6 = {160, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_7 = {192, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-Rectangle player_walk_left_8 = {224, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_idle_up = {64, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_idle_right = {128, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_idle_left = {192, 0, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_1 = {0, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_2 = {64, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_3 = {128, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_4 = {192, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_5 = {256, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_6 = {320, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_7 = {384, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_8 = {448, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_9 = {512, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_10 = {576, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_11 = {640, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_down_12 = {704, 64, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_1 = {0, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_2 = {64, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_3 = {128, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_4 = {192, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_5 = {256, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_6 = {320, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_7 = {384, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_8 = {448, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_9 = {512, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_10 = {576, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_11 = {640, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_up_12 = {704, 128, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_1 = {0, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_2 = {64, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_3 = {128, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_4 = {192, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_5 = {256, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_6 = {320, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_7 = {384, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_right_8 = {448, 192, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_1 = {0, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_2 = {64, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_3 = {128, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_4 = {192, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_5 = {256, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_6 = {320, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_7 = {384, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_walk_left_8 = {448, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+
+
+Rectangle player_sword_slash_down_1 = {0, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_down_2 = {64, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_down_3 = {128, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_down_4 = {192, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_down_5 = {256, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_up_1 = {0, 384, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_up_2 = {64, 384, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_up_3 = {128, 384, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_up_4 = {192, 384, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_up_5 = {256, 384, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_right_1 = {0, 448, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_right_2 = {64, 448, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_right_3 = {128, 448, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_right_4 = {192, 448, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_right_5 = {256, 448, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_left_1 = {0, 512, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_left_2 = {64, 512, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_left_3 = {128, 512, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_left_4 = {192, 512, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+Rectangle player_sword_slash_left_5 = {256, 512, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
+
+Rectangle player_sword_slash_down_arr[5] = {
+    player_sword_slash_down_1,
+    player_sword_slash_down_2,
+    player_sword_slash_down_3,
+    player_sword_slash_down_4,
+    player_sword_slash_down_5,
+};
+Rectangle player_sword_slash_up_arr[5] = {
+    player_sword_slash_up_1,
+    player_sword_slash_up_2,
+    player_sword_slash_up_3,
+    player_sword_slash_up_4,
+    player_sword_slash_up_5,
+};
+Rectangle player_sword_slash_right_arr[5] = {
+    player_sword_slash_right_1,
+    player_sword_slash_right_2,
+    player_sword_slash_right_3,
+    player_sword_slash_right_4,
+    player_sword_slash_right_5,
+};
+Rectangle player_sword_slash_left_arr[5] = {
+    player_sword_slash_left_1,
+    player_sword_slash_left_2,
+    player_sword_slash_left_3,
+    player_sword_slash_left_4,
+    player_sword_slash_left_5,
+};

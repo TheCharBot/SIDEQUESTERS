@@ -31,7 +31,7 @@ enum Map_names{
 enum Item_types{
     
     COMBAT_MELEE,
-    COMBET_RANGED,
+    COMBAT_RANGED,
     QUEST_ITEM,
     CONSUMABLE,
     DUNGEON

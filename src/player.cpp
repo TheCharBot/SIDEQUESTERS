@@ -174,8 +174,9 @@ void update_player()
             }
 
             // making sure the player is at least inside the screen
-            player.pos.x = Clamp(player.pos.x, 0, (map_to_load.width) - (PLAYER_SPRITE_WIDTH));
-            player.pos.y = Clamp(player.pos.y, 0, (map_to_load.height) - (PLAYER_SPRITE_HEIGHT));
+            //i dont know why there is an 8 there - ???
+            player.pos.x = Clamp(player.pos.x, -23, (map_to_load.width) - (PLAYER_SPRITE_WIDTH-40));
+            player.pos.y = Clamp(player.pos.y, -16, (map_to_load.height) - (PLAYER_SPRITE_HEIGHT-12));
         }
     }
     player.animation_frame_5++;
@@ -208,7 +209,16 @@ void update_player()
             
             if(inventory_slots[23].filled_with){
                 //implement item 1 usage here
-                std::cout << "WORKING1";
+                if(inventory_slots[23].filled_with->type == COMBAT_MELEE){
+                    //TODO: implement item use!
+                    // player.current_anim_arr = player_sword_slash_down_arr;
+                    // player.max_animation_frames = 5;
+                }
+                if(inventory_slots[23].filled_with->type == COMBAT_RANGED){}
+                if(inventory_slots[23].filled_with->type == QUEST_ITEM){}
+                if(inventory_slots[23].filled_with->type == CONSUMABLE){}
+                if(inventory_slots[23].filled_with->type == DUNGEON){}
+                
             }
             else{}
             
@@ -218,7 +228,12 @@ void update_player()
         else if(IsKeyPressed(KEY_E)){
             if(inventory_slots[24].filled_with){
                 //implement item 2 usage here
-                std::cout << "WORKING2";
+                if(inventory_slots[24].filled_with->type == COMBAT_MELEE){}
+                if(inventory_slots[24].filled_with->type == COMBAT_RANGED){}
+                if(inventory_slots[24].filled_with->type == QUEST_ITEM){}
+                if(inventory_slots[24].filled_with->type == CONSUMABLE){}
+                if(inventory_slots[24].filled_with->type == DUNGEON){}
+                
                 }
             else{
                 
@@ -227,7 +242,12 @@ void update_player()
         else if(IsKeyPressed(KEY_Z)){
             if(inventory_slots[25].filled_with){
                 //implement item 3 usage here
-                std::cout << "WORKING3";
+                if(inventory_slots[25].filled_with->type == COMBAT_MELEE){}
+                if(inventory_slots[25].filled_with->type == COMBAT_RANGED){}
+                if(inventory_slots[25].filled_with->type == QUEST_ITEM){}
+                if(inventory_slots[25].filled_with->type == CONSUMABLE){}
+                if(inventory_slots[25].filled_with->type == DUNGEON){}
+                
             }
             else{}
         } 

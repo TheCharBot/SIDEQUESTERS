@@ -76,7 +76,7 @@ void gui_update()
 {
     //maybe a performance problem but whatever
     if(is_inv_open){
-    inv_cursor_update();
+        inv_cursor_update();
     }
     
     if(IsKeyPressed(KEY_TAB)){
@@ -102,9 +102,10 @@ void gui_draw()
         //drawing cursor
         
         DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x-3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y-1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
-        //drawing held item
-        
-        DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        //drawing held item if there is a held item
+        if(inv_cursor.held_item){
+            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        }
         //drawing items
         for(Inventory_slot &s : inventory_slots){
             if (!s.filled_with) continue; // IMPORTANT
