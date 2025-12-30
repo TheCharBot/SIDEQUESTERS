@@ -26,6 +26,7 @@ void init_player()
 
 void update_player()
 {
+    //dont move at all - mostly for cutscenes
     if (player.move_mode == 0)
     {
         player.normal_hitbox = {
@@ -34,6 +35,7 @@ void update_player()
             float(PLAYER_HITBOX_WIDTH),
             float(PLAYER_HITBOX_HEIGHT)};
     }
+    // full collision movement
     if (player.move_mode == 1)
     {
         player.pos_x_save = player.pos.x;
@@ -179,6 +181,23 @@ void update_player()
             player.pos.y = Clamp(player.pos.y, -16, (map_to_load.height) - (PLAYER_SPRITE_HEIGHT-12));
         }
     }
+
+    //dont move and keep animation - for attacking
+    //actually kinda works!
+    if(player.move_mode == 2){
+        player.normal_hitbox = {
+            player.pos.x + PLAYER_HITBOX_X_OFFSET,
+            player.pos.y + PLAYER_HITBOX_Y_OFFSET,
+            float(PLAYER_HITBOX_WIDTH),
+            float(PLAYER_HITBOX_HEIGHT)};
+        if (player.current_animation_frame >= player.max_animation_frames-1)
+        {
+            player.move_mode = 1;
+        
+            // player.current_animation_frame = 0;
+        }
+    }
+
     player.animation_frame_5++;
     if (player.animation_frame_5 >= ANIMATION_INTERVAL)
     {
@@ -211,8 +230,25 @@ void update_player()
                 //implement item 1 usage here
                 if(inventory_slots[23].filled_with->type == COMBAT_MELEE){
                     //TODO: implement item use!
-                    // player.current_anim_arr = player_sword_slash_down_arr;
-                    // player.max_animation_frames = 5;
+                    
+                    if(facing == DOWN){
+                        player.current_anim_arr = player_sword_slash_down_arr;
+                    }
+                    if(facing == UP){
+                        player.current_anim_arr = player_sword_slash_up_arr;
+                    }
+                    if(facing == LEFT){
+                        player.current_anim_arr = player_sword_slash_left_arr;
+                    }
+                    if(facing == RIGHT){
+                        player.current_anim_arr = player_sword_slash_right_arr;
+                    }
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 5;
+                    player.move_mode = 2;
+                    
+                    
+                    
                 }
                 if(inventory_slots[23].filled_with->type == COMBAT_RANGED){}
                 if(inventory_slots[23].filled_with->type == QUEST_ITEM){}
@@ -228,11 +264,32 @@ void update_player()
         else if(IsKeyPressed(KEY_E)){
             if(inventory_slots[24].filled_with){
                 //implement item 2 usage here
-                if(inventory_slots[24].filled_with->type == COMBAT_MELEE){}
-                if(inventory_slots[24].filled_with->type == COMBAT_RANGED){}
-                if(inventory_slots[24].filled_with->type == QUEST_ITEM){}
-                if(inventory_slots[24].filled_with->type == CONSUMABLE){}
-                if(inventory_slots[24].filled_with->type == DUNGEON){}
+                if(inventory_slots[23].filled_with->type == COMBAT_MELEE){
+                    //TODO: implement item use!
+                    
+                    if(facing == DOWN){
+                        player.current_anim_arr = player_sword_slash_down_arr;
+                    }
+                    if(facing == UP){
+                        player.current_anim_arr = player_sword_slash_up_arr;
+                    }
+                    if(facing == LEFT){
+                        player.current_anim_arr = player_sword_slash_left_arr;
+                    }
+                    if(facing == RIGHT){
+                        player.current_anim_arr = player_sword_slash_right_arr;
+                    }
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 5;
+                    player.move_mode = 2;
+                    
+                    
+                    
+                }
+                if(inventory_slots[23].filled_with->type == COMBAT_RANGED){}
+                if(inventory_slots[23].filled_with->type == QUEST_ITEM){}
+                if(inventory_slots[23].filled_with->type == CONSUMABLE){}
+                if(inventory_slots[23].filled_with->type == DUNGEON){}
                 
                 }
             else{
@@ -242,11 +299,32 @@ void update_player()
         else if(IsKeyPressed(KEY_Z)){
             if(inventory_slots[25].filled_with){
                 //implement item 3 usage here
-                if(inventory_slots[25].filled_with->type == COMBAT_MELEE){}
-                if(inventory_slots[25].filled_with->type == COMBAT_RANGED){}
-                if(inventory_slots[25].filled_with->type == QUEST_ITEM){}
-                if(inventory_slots[25].filled_with->type == CONSUMABLE){}
-                if(inventory_slots[25].filled_with->type == DUNGEON){}
+                if(inventory_slots[23].filled_with->type == COMBAT_MELEE){
+                    //TODO: implement item use!
+                    
+                    if(facing == DOWN){
+                        player.current_anim_arr = player_sword_slash_down_arr;
+                    }
+                    if(facing == UP){
+                        player.current_anim_arr = player_sword_slash_up_arr;
+                    }
+                    if(facing == LEFT){
+                        player.current_anim_arr = player_sword_slash_left_arr;
+                    }
+                    if(facing == RIGHT){
+                        player.current_anim_arr = player_sword_slash_right_arr;
+                    }
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 5;
+                    player.move_mode = 2;
+                    
+                    
+                    
+                }
+                if(inventory_slots[23].filled_with->type == COMBAT_RANGED){}
+                if(inventory_slots[23].filled_with->type == QUEST_ITEM){}
+                if(inventory_slots[23].filled_with->type == CONSUMABLE){}
+                if(inventory_slots[23].filled_with->type == DUNGEON){}
                 
             }
             else{}
