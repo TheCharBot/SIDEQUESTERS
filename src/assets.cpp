@@ -1,10 +1,9 @@
 #include "assets.hpp"
 
+// this file is for image and other constant rects
 
-//this file is for image and other constant rects
-
-//23, 24, 25
-//IM SORRY. It couldnt be avoided. 
+// 23, 24, 25
+// IM SORRY. It couldnt be avoided.
 Inventory_slot inventory_slots[28] = {
     {{48, 32}, 0, {}},
     {{80, 32}, 0, {}},
@@ -26,27 +25,24 @@ Inventory_slot inventory_slots[28] = {
     {{147, 96}, 0, {}},
     {{182, 96}, 0, {}},
     {{214, 96}, 0, {}},
-    {{246, 96}, 0, {}}, 
+    {{246, 96}, 0, {}},
     {{48, 128}, 0, {}},
     {{80, 128}, 0, {}},
-    {{112, 128}, 0, {}},//hotbar Q
-    {{147, 128}, 0, {}},//hotbar E
-    {{182, 128}, 0, {}},//hotbar Z
+    {{112, 128}, 0, {}}, // hotbar Q
+    {{147, 128}, 0, {}}, // hotbar E
+    {{182, 128}, 0, {}}, // hotbar Z
     {{214, 128}, 0, {}},
     {{246, 128}, 0, {}},
-    
+
 };
 
 Rectangle inv_cursor_1 = {0, 0, 32, 18};
 Rectangle inv_cursor_2 = {0, 32, 32, 18};
 Rectangle inv_cursor_anim[2] = {
     inv_cursor_1,
-    inv_cursor_2
-};
+    inv_cursor_2};
 
 // windmill stuff
-
-
 
 Rectangle village_windmill_1 = {96, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
 Rectangle village_windmill_2 = {240, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT};
@@ -56,28 +52,20 @@ Rectangle village_windmill_animation[4] = {
     village_windmill_1,
     village_windmill_2,
     village_windmill_3,
-    village_windmill_4
-};
+    village_windmill_4};
 
-
-
-//map stuff
-
-
-
+// map stuff
 
 int map_inited = 0;
 
-//non-constant asset stuff
+// non-constant asset stuff
 Rectangle start_bulldozer_animation[3] = {
     start_bulldozer_1,
     start_bulldozer_2,
-    start_bulldozer_3
-};
+    start_bulldozer_3};
 Rectangle start_bulldozer_1 = {128, 0, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
 Rectangle start_bulldozer_2 = {240, 0, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
 Rectangle start_bulldozer_3 = {352, 0, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
-
 
 Rectangle start_portal_1 = {0, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
 Rectangle start_portal_2 = {48, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
@@ -85,12 +73,10 @@ Rectangle start_portal_3 = {96, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
 Rectangle start_portal_4 = {144, 0, START_PORTAL_WIDTH, START_PORTAL_HEIGHT};
 Rectangle start_portal_animation[4] = {
     start_portal_1,
-    start_portal_2, 
+    start_portal_2,
     start_portal_3,
-    start_portal_4
-};
+    start_portal_4};
 Rectangle start_portal_emination;
-
 
 // player-focused stuff
 
@@ -194,7 +180,6 @@ Rectangle player_walk_left_5 = {256, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEI
 Rectangle player_walk_left_6 = {320, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_7 = {384, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_walk_left_8 = {448, 256, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
-
 
 Rectangle player_sword_slash_down_1 = {0, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};
 Rectangle player_sword_slash_down_2 = {64, 320, PLAYER_SPRITE_WIDTH, PLAYER_SPRITE_HEIGHT};

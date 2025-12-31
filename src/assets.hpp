@@ -5,9 +5,9 @@
 #include "game_objects.hpp"
 
 // Put sprite rects and other things here, paths, x defaults, etc
-//order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
+// order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
 
-//editable globals
+// editable globals
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
@@ -17,11 +17,10 @@ extern Vector2 requested_player_pos;
 extern Inventory_slot inventory_slots[28];
 extern Inventory_cursor inv_cursor;
 
-
 extern Music current_music;
 extern std::vector<std::unique_ptr<Entity>> entities;
 
-//GUI globals
+// GUI globals
 extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
@@ -29,22 +28,20 @@ extern Vector2 inventory_pos;
 extern std::vector<Item> player_inventory;
 extern bool is_inv_open;
 
-//player globals
+// player globals
 extern Player player;
 
-
-//inited items
+// inited items
 extern Item Stick;
 extern Item null_item;
 extern Item inv_cursor_held_item;
 
-//inventory cursor animation
+// inventory cursor animation
 extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
-
-//Player-focused image rect arrays
+// Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
 extern Rectangle player_idle_right_arr[1];
@@ -53,7 +50,7 @@ extern Rectangle player_walk_down[12];
 extern Rectangle player_walk_up[12];
 extern Rectangle player_walk_right[8];
 extern Rectangle player_walk_left[8];
-//Player-focused image rects
+// Player-focused image rects
 
 extern Rectangle player_idle_down;
 extern Rectangle player_idle_up;
@@ -100,7 +97,7 @@ extern Rectangle player_walk_left_6;
 extern Rectangle player_walk_left_7;
 extern Rectangle player_walk_left_8;
 
-//player attack rects
+// player attack rects
 
 extern Rectangle player_sword_slash_down_1;
 extern Rectangle player_sword_slash_down_2;
@@ -126,7 +123,6 @@ extern Rectangle player_sword_slash_down_arr[5];
 extern Rectangle player_sword_slash_up_arr[5];
 extern Rectangle player_sword_slash_right_arr[5];
 extern Rectangle player_sword_slash_left_arr[5];
-
 
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}
@@ -155,7 +151,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_2_RECT_20 {450, 327, 13, 24}
 #define MAP_2_RECT_21 {129, 96, 110, 44}
 
-//Dark Forest North stuff
+// Dark Forest North stuff
 #define MAP_3_RECT_1 {32, 0, 928, 85}
 #define MAP_3_RECT_2 {0, 85, 32, 300}
 #define MAP_3_RECT_3 {112, 176, 818, 117}
@@ -164,7 +160,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_3_RECT_6 {0, 501, 32, 139}
 #define MAP_3_RECT_7 {112, 593, 816, 47}
 
-//dark forest south stuff
+// dark forest south stuff
 #define MAP_4_RECT_1 {0, 0, 272, 133}
 #define MAP_4_RECT_2 {352, 0, 16, 133}
 #define MAP_4_RECT_3 {368, 0, 240, 21}
@@ -178,11 +174,8 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_4_RECT_11 {449, 112, 63, 113}
 #define MAP_4_RECT_12 {0, 225, 96, 644}
 
-
-
-
-//loader rects for other maps
-//NAME the LOAD RECTS PLEASE!!!!!!!
+// loader rects for other maps
+// NAME the LOAD RECTS PLEASE!!!!!!!
 #define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
 #define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 639, 58, 1}
 #define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
@@ -194,13 +187,13 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
 
-//next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
+// next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
 #define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {904, 90}
 #define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {280, -10}
 #define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {-4, 90}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280 , 559}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280, 559}
 
-//constant village house load rects for my sanity
+// constant village house load rects for my sanity
 #define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
 #define PLAYER_VILLAGE_HOUSE_START_POS {113, 123}
 #define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {361, 165}
@@ -212,34 +205,31 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {601, 517}
 #define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {338, 320}
 
-//wall rects for houses
-#define VILLAGE_HOUSE_RECT_1 {56, 48, 176, 20}//wall
-#define VILLAGE_HOUSE_RECT_2 {228, 68, 4, 88}//wall
-#define VILLAGE_HOUSE_RECT_3 {56, 68, 4, 88}//wall
-#define VILLAGE_HOUSE_RECT_4 {60, 156, 75, 20}//wall
-#define VILLAGE_HOUSE_RECT_5 {153, 156, 75, 20}//wall
+// wall rects for houses
+#define VILLAGE_HOUSE_RECT_1 {56, 48, 176, 20}  // wall
+#define VILLAGE_HOUSE_RECT_2 {228, 68, 4, 88}   // wall
+#define VILLAGE_HOUSE_RECT_3 {56, 68, 4, 88}    // wall
+#define VILLAGE_HOUSE_RECT_4 {60, 156, 75, 20}  // wall
+#define VILLAGE_HOUSE_RECT_5 {153, 156, 75, 20} // wall
 
-//village house 1 stuff
+// village house 1 stuff
 #define VILLAGE_HOUSE_1_RECT_6 {60, 68, 78, 37}
 #define VILLAGE_HOUSE_1_RECT_7 {191, 68, 37, 45}
 
-//village house 2 stuff (finish later, get other things done now)
+// village house 2 stuff (finish later, get other things done now)
 //(leave blank for now)
 
-//more dark forest north stuff
-//actually, make load rects look like this, in the format of "origin to destination"
+// more dark forest north stuff
+// actually, make load rects look like this, in the format of "origin to destination"
 #define DARK_FOREST_NORTH_TO_VILLAGE {945, 109, 1, 89}
 #define DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER {32, 639, 80, 1}
 
-//dark forest south stuffs
+// dark forest south stuffs
 #define DARK_FOREST_SOUTH_TO_VILLAGE {281, 26, 60, 1}
 
+// music stuff
 
-
-//music stuff
-
-
-//constants defines (not rects)
+// constants defines (not rects)
 #define PLAYER_SPRITE_WIDTH 64
 #define PLAYER_SPRITE_HEIGHT 64
 #define PLAYER_HITBOX_WIDTH 13
@@ -255,7 +245,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define ITEM_SPRITE_WIDTH 16
 #define ITEM_SPRITE_HEIGHT 16
 
-//start portal image and rects
+// start portal image and rects
 
 #define START_PORTAL_X 224
 #define START_PORTAL_Y 37
@@ -269,7 +259,7 @@ extern Rectangle start_portal_3;
 extern Rectangle start_portal_4;
 extern Rectangle start_portal_emination;
 
-//bulldozer image and rects
+// bulldozer image and rects
 
 #define START_BULLDOZER_X 6
 #define START_BULLDOZER_Y 110
@@ -285,7 +275,7 @@ extern Rectangle start_bulldozer_1;
 extern Rectangle start_bulldozer_2;
 extern Rectangle start_bulldozer_3;
 
-//windmill stuff
+// windmill stuff
 #define VILLAGE_WINDMILL_X 299
 #define VILLAGE_WINDMILL_Y 188
 #define VILLAGE_WINDMILL_WIDTH 144
@@ -301,14 +291,8 @@ extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
-
-
-
-
-
-
-//paths to things
-//map paths
+// paths to things
+// map paths
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
 
 #define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
@@ -327,18 +311,17 @@ extern Rectangle village_windmill_4;
 #define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
 #define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
 
-
-//music paths
+// music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
 #define VILLAGE_MUSIC_PATH "sfx/village/Village.mp3"
 #define VILLAGE_HOUSE_MUSIC_PATH "sfx/village/Inside VIllage House.mp3"
-//entities and misc assets paths
+// entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
-//player texture path
+// player texture path
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
-//gui and items sheet paths
+// gui and items sheet paths
 #define INVENTORY_PATH "gfx/gui/inventory_tex.png"
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"

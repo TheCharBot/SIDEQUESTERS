@@ -8,7 +8,7 @@ Village_windmill::Village_windmill()
     current_animation_frame = 0;
     animation_frame_5 = 0;
     pos = {VILLAGE_WINDMILL_X, VILLAGE_WINDMILL_Y};
-    rect = {pos.x+VILLAGE_WINDMILL_RECT_OFFSET_X, pos.y+VILLAGE_WINDMILL_RECT_OFFSET_Y, VILLAGE_WINDMILL_RECT_WIDTH, VILLAGE_WINDMILL_RECT_HEIGHT};
+    rect = {pos.x + VILLAGE_WINDMILL_RECT_OFFSET_X, pos.y + VILLAGE_WINDMILL_RECT_OFFSET_Y, VILLAGE_WINDMILL_RECT_WIDTH, VILLAGE_WINDMILL_RECT_HEIGHT};
     collision_rects.push_back(rect);
 }
 
@@ -69,11 +69,11 @@ void Start_bulldozer::load()
 void Start_bulldozer::update()
 {
     rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
-    //checking if the player is at a Specific y value
+    // checking if the player is at a Specific y value
     if (player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y)
     {
         is_inv_open = false;
-        //running cutscene magic
+        // running cutscene magic
         player.move_mode = 0;
         if (player.normal_hitbox.y > 160)
         {
@@ -85,14 +85,17 @@ void Start_bulldozer::update()
         }
         if (CheckCollisionRecs(player.normal_hitbox, rect))
         {
-            //why is this number not in assets?
-            if(pos.x >= 232){request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});}
-            
-            else{pos.x+=BULLDOZER_SPEED;
-            player.pos.x+=BULLDOZER_SPEED;}
-            
-            
-            
+            // why is this number not in assets?
+            if (pos.x >= 232)
+            {
+                request_map(VILLAGE_MAP, {PLAYER_VILLAGE_MAP_POS_X, PLAYER_VILLAGE_MAP_POS_Y});
+            }
+
+            else
+            {
+                pos.x += BULLDOZER_SPEED;
+                player.pos.x += BULLDOZER_SPEED;
+            }
         }
     }
 }
@@ -100,13 +103,12 @@ void Start_bulldozer::draw()
 {
 
     DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(START_BULLDOZER_WIDTH * scale), float(START_BULLDOZER_HEIGHT * scale)}, {0, 0}, 0, WHITE);
-    
-        
+
     // if (collided)
     // {
-    //     
+    //
     //     collided = false;
-        
+
     // }
 }
 

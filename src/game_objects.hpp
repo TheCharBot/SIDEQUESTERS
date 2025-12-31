@@ -3,14 +3,14 @@
 
 #include "config.hpp"
 
-//structs, classes, etc for the game, not any data, just data structures
+// structs, classes, etc for the game, not any data, just data structures
 
-//map globals
+// map globals
 
-//also items 
+// also items
 
-
-enum Map_names{
+enum Map_names
+{
     WRONG_MAP,
     START_MAP,
     VILLAGE_MAP,
@@ -28,91 +28,100 @@ enum Map_names{
 
 };
 
-enum Item_types{
-    
+enum Item_types
+{
+
     COMBAT_MELEE,
     COMBAT_RANGED,
+    SHEILD,
     QUEST_ITEM,
     CONSUMABLE,
     DUNGEON
 };
 
-enum Buff_types{
+enum Buff_types
+{
     CURRENCY,
     HEAL,
 
 };
 
-enum Item_names{
-    
-    STICK, 
+enum Item_names
+{
+
+    STICK,
     WEAK_BOW,
     WEAK_SWORD,
     SACRED_BARK,
-    
 
 };
 
-//figure out good way to document quests
-enum Quests{
+// figure out good way to document quests
+enum Quests
+{
     SACRED_BARK_FROM_DARK_FOREST,
 
 };
 
-
 // Map-focused stuff
-struct Load_rects{
+struct Load_rects
+{
     Rectangle rect;
     int map_to_load_struct;
     Vector2 spawnpoint;
 };
 
-struct Melee_weapon_item{
+struct Melee_weapon_item
+{
     int damage;
     double speed;
     Rectangle hitbox;
-    
 };
 
-struct Range_weapon_item{
+struct Range_weapon_item
+{
     int damage;
     double speed;
     double range;
     Rectangle hitbox;
-    
+
     Rectangle projectile_img_rect;
 };
 
-struct Consumable{
+struct Consumable
+{
     Buff_types buff_type;
     int buff_strength;
     Rectangle img_rect;
 };
 
-struct Quest_item{
-    
+struct Quest_item
+{
+
     Quests quest;
 };
 
-struct Dungeon_item{
-    
+struct Dungeon_item
+{
 };
 
-struct Item{
+struct Item
+{
     Item_names name;
     Rectangle img_rect;
     Item_types type;
-    union {
+    union
+    {
         Melee_weapon_item melee;
         Range_weapon_item ranged;
         Consumable consumable;
         Quest_item quest_requirement;
     };
-    
 };
 
 // Player-focused stuff
-struct Player{
+struct Player
+{
     Vector2 pos;
     Vector2 movement;
     Rectangle *current_anim_arr;
@@ -125,26 +134,26 @@ struct Player{
     int animation_frame_5;
     Texture2D tex;
     double health = 3;
-    
 };
 
-struct Inventory_slot{
+struct Inventory_slot
+{
     Vector2 pos;
     int amount_in_slot;
     std::optional<Item> filled_with;
-    
 };
 
-struct Inventory_cursor{
+struct Inventory_cursor
+{
     int inv_slot_index;
     std::optional<Item> held_item;
     int current_anim_frame;
     int max_anim_frames;
     int anim_frame_5;
-
 };
 
-class Entity {
+class Entity
+{
 public:
     Vector2 pos{};
     Rectangle img_rect;
@@ -155,34 +164,27 @@ public:
     int move_mode;
 
     virtual ~Entity() = default;
-    //load for loading texture data, dont load in constructor
+    // load for loading texture data, dont load in constructor
     virtual void load() {}
     virtual void update() = 0;
     virtual void draw() = 0;
 };
 
-class Interactable_element : public Entity{
-    public:
+class Interactable_element : public Entity
+{
+public:
     Vector2 pos{};
     Rectangle img_rect;
     Rectangle rect;
     int max_animation_frames;
     int current_animation_frame;
     int animation_frame_5;
-    
-    
 
     virtual ~Interactable_element() = default;
-    //load for loading texture data, dont load in constructor
+    // load for loading texture data, dont load in constructor
     virtual void load() {}
     virtual void update() = 0;
     virtual void draw() = 0;
 };
 
-
-
-
-
 #endif
-
-
