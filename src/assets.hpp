@@ -1,7 +1,6 @@
 #ifndef ASSETS_HPP
 #define ASSETS_HPP
 
-#include "config.hpp"
 #include "game_objects.hpp"
 
 // Put sprite rects and other things here, paths, x defaults, etc
@@ -298,6 +297,10 @@ extern Rectangle village_windmill_4;
 //forest scourge stuff
 #define DEFAULT_SPRITE_WIDTH 64
 #define DEFAULT_SPRITE_HEIGHT 64
+#define FOREST_SCOURGE_HITBOX_OFFSET_X 28
+#define FOREST_SCOURGE_HITBOX_OFFSET_Y 31
+#define FOREST_SCOURGE_HITBOX_WIDTH 27
+#define FOREST_SCOURGE_HITBOX_HEIGHT 31
 //idle arrays
 extern Rectangle forest_scourge_idle_down_right[3];
 extern Rectangle forest_scourge_idle_up_right[3];

@@ -1,5 +1,3 @@
-#include "config.hpp"
-
 #include "event_handler.hpp"
 
 // ©2025 Charles Von Dollen, TheCharbot

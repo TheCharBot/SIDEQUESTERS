@@ -1,13 +1,6 @@
 #ifndef MAP_OBJECTS_HPP
 #define MAP_OBJECTS_HPP
 
-#include "config.hpp"
-
-
-
-
-
-#include "assets.hpp"
 #include "player.hpp"
 
 

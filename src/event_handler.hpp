@@ -1,12 +1,9 @@
 #ifndef UPDATER_HPP
 #define UPDATER_HPP
 
-#include "config.hpp"
 
 #include "map_loader.hpp"
-#include "player.hpp"
 #include "gui.hpp"
-#include "assets.hpp"
 
 
 

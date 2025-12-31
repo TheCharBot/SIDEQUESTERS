@@ -8,6 +8,12 @@
 // map globals
 
 // also items
+enum direction{
+    DOWN_RIGHT,
+    UP_RIGHT,
+    DOWN_LEFT,
+    UP_LEFT
+};
 
 enum Map_names
 {
@@ -155,6 +161,7 @@ struct Inventory_cursor
 class Entity
 {
 public:
+
     Vector2 pos{};
     Rectangle img_rect;
     Rectangle rect;
@@ -163,11 +170,12 @@ public:
     int animation_frame_5;
     int move_mode;
 
+    bool dead = false;
     virtual ~Entity() = default;
     // load for loading texture data, dont load in constructor
     virtual void load() {}
-    virtual void update() = 0;
-    virtual void draw() = 0;
+    virtual void update() {};
+    virtual void draw() {};
 };
 
 class Interactable_element : public Entity

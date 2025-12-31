@@ -28,8 +28,17 @@ void update_all()
     update_player();
     for (auto &e : entities)
     {
+
+        
         e->update();
+        
     }
+    entities.erase(
+    std::remove_if(entities.begin(), entities.end(),
+        [](const std::unique_ptr<Entity>& e) {
+            return e->dead;
+        }),
+    entities.end());
 
     cam.target.x = player.pos.x * scale - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
     cam.target.y = player.pos.y * scale - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);

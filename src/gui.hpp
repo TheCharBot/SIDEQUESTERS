@@ -1,10 +1,8 @@
 #ifndef GUI_HPP
 #define GUI_HPP
 
-#include "config.hpp"
 
 #include "player.hpp"
-#include "assets.hpp"
 #include "items.hpp"
 
 extern void gui_init();

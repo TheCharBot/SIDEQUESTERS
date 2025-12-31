@@ -1,11 +1,9 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include "config.hpp"
 
-#include "assets.hpp"
 #include "entities.hpp"
-
+#include "hostile_entities.hpp"
 
 extern void init_map();
 extern void add_collisions(std::initializer_list<Rectangle> rects);

@@ -3,6 +3,24 @@
 
 #include "assets.hpp"
 #include "config.hpp"
+#include "player.hpp"
+#include "enemy_assets.hpp"
+
+//Behavior Tree for now:
+// Selector
+// ├── Sequence (Patrol)
+// │   ├── Condition (IsPatrolling)
+// │   └── Action (Patrol)
+// ├── Sequence (Chase)
+// │   ├── Condition (IsPlayerInRange)
+// │   └── Action (Chase)
+// ├── Sequence (Attack)
+// │   ├── Condition (IsPlayerInRange)
+// │   └── Action (Attack)
+// └── Sequence (Flee)
+//     ├── Condition (IsHealthLow)
+//     └── Action (Flee)
+
 
 class Enemy_forest_scourge: public Entity{
     public:
@@ -19,9 +37,16 @@ class Enemy_forest_scourge: public Entity{
         void load() override;
         void update() override;
         void draw() override;
-    private:
         
+        void wander_patrol();
+        void chase();
+        void attack();
+        void run_away();
+    private:
+        int health;
+        int random_index;
         Rectangle *current_anim_arr;
+        Rectangle hitbox;
         Texture2D tex;
 };
 

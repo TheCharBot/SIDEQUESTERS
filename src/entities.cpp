@@ -10,6 +10,7 @@ Village_windmill::Village_windmill()
     pos = {VILLAGE_WINDMILL_X, VILLAGE_WINDMILL_Y};
     rect = {pos.x + VILLAGE_WINDMILL_RECT_OFFSET_X, pos.y + VILLAGE_WINDMILL_RECT_OFFSET_Y, VILLAGE_WINDMILL_RECT_WIDTH, VILLAGE_WINDMILL_RECT_HEIGHT};
     collision_rects.push_back(rect);
+    
 }
 
 Village_windmill::~Village_windmill()
