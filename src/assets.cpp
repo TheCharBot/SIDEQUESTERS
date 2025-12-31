@@ -230,3 +230,157 @@ Rectangle player_sword_slash_left_arr[5] = {
     player_sword_slash_left_4,
     player_sword_slash_left_5,
 };
+
+
+
+
+//forest scourge stuff
+Rectangle forest_scourge_idle_down_right[3] = {
+    forest_scourge_idle_down_right_1,
+    forest_scourge_idle_down_right_2,
+    forest_scourge_idle_down_right_3
+};
+Rectangle forest_scourge_idle_up_right[3] = {
+    forest_scourge_idle_up_right_1,
+    forest_scourge_idle_up_right_2,
+    forest_scourge_idle_up_right_3
+};
+Rectangle forest_scourge_idle_down_left[3] = {
+    forest_scourge_idle_down_left_1,
+    forest_scourge_idle_down_left_2,
+    forest_scourge_idle_down_left_3
+};
+Rectangle forest_scourge_idle_up_left[3] = {
+    forest_scourge_idle_up_left_1,
+    forest_scourge_idle_up_left_2,
+    forest_scourge_idle_up_left_3
+};
+Rectangle forest_scourge_walk_down_right[7] = {
+    forest_scourge_walk_down_right_1,
+    forest_scourge_walk_down_right_2,
+    forest_scourge_walk_down_right_3,
+    forest_scourge_walk_down_right_4,
+    forest_scourge_walk_down_right_5,
+    forest_scourge_walk_down_right_6,
+    forest_scourge_walk_down_right_7
+};
+Rectangle forest_scourge_walk_down_left[7] = {
+    forest_scourge_walk_down_left_1,
+    forest_scourge_walk_down_left_2,
+    forest_scourge_walk_down_left_3,
+    forest_scourge_walk_down_left_4,
+    forest_scourge_walk_down_left_5,
+    forest_scourge_walk_down_left_6,
+    forest_scourge_walk_down_left_7
+};
+Rectangle forest_scourge_walk_up_right[7] = {
+    forest_scourge_walk_up_right_1,
+    forest_scourge_walk_up_right_2,
+    forest_scourge_walk_up_right_3,
+    forest_scourge_walk_up_right_4,
+    forest_scourge_walk_up_right_5,
+    forest_scourge_walk_up_right_6,
+    forest_scourge_walk_up_right_7
+};
+Rectangle forest_scourge_walk_up_left[7] = {
+    forest_scourge_walk_up_left_1,
+    forest_scourge_walk_up_left_2,
+    forest_scourge_walk_up_left_3,
+    forest_scourge_walk_up_left_4,
+    forest_scourge_walk_up_left_5,
+    forest_scourge_walk_up_left_6,
+    forest_scourge_walk_up_left_7
+};
+//attacking arrays
+Rectangle forest_scourge_attack_down_right[5] = {
+    forest_scourge_attack_down_right_1,
+    forest_scourge_attack_down_right_2,
+    forest_scourge_attack_down_right_3,
+    forest_scourge_attack_down_right_4,
+    forest_scourge_attack_down_right_5
+};
+Rectangle forest_scourge_attack_down_left[5] = {
+    forest_scourge_attack_down_left_1,
+    forest_scourge_attack_down_left_2,
+    forest_scourge_attack_down_left_3,
+    forest_scourge_attack_down_left_4,
+    forest_scourge_attack_down_left_5
+};
+Rectangle forest_scourge_attack_up_right[5] = {
+    forest_scourge_attack_up_right_1,
+    forest_scourge_attack_up_right_2,
+    forest_scourge_attack_up_right_3,
+    forest_scourge_attack_up_right_4,
+    forest_scourge_attack_up_right_5
+};
+Rectangle forest_scourge_attack_up_left[5] = {
+    forest_scourge_attack_up_left_1,
+    forest_scourge_attack_up_left_2,
+    forest_scourge_attack_up_left_3,
+    forest_scourge_attack_up_left_4,
+    forest_scourge_attack_up_left_5
+};
+
+
+Rectangle forest_scourge_idle_down_right_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_down_right_2 = {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_down_right_3 = {128, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_right_1 = {192, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_right_2 = {256, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_right_3 = {320, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_down_left_1 = {0, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_down_left_2 = {64, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_down_left_3 = {128, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_left_1 = {192, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_left_2 = {256, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_idle_up_left_3 = {320, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+//walk animations
+Rectangle forest_scourge_walk_down_right_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_6 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_right_7 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_6 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_down_left_7 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_6 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_right_7 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_6 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_walk_up_left_7 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+//attack animations 
+Rectangle forest_scourge_attack_down_right_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_right_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_right_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_right_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_right_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_left_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_left_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_left_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_left_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_down_left_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_right_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_right_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_right_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_right_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_right_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_left_1 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_left_2 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_left_3 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_left_4 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle forest_scourge_attack_up_left_5 = {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};

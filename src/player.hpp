@@ -4,7 +4,7 @@
 #include "config.hpp"
 
 #include "assets.hpp"
-#include "map_loader.hpp"
+
 
 
 extern void init_player();

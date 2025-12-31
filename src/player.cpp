@@ -284,7 +284,7 @@ void update_player()
                 // implement item 2 usage here
                 if (inventory_slots[24].filled_with->type == COMBAT_MELEE)
                 {
-                    // TODO: implement item use!
+                    
 
                     if (facing == DOWN)
                     {
@@ -333,7 +333,7 @@ void update_player()
                 // implement item 3 usage here
                 if (inventory_slots[25].filled_with->type == COMBAT_MELEE)
                 {
-                    // TODO: implement item use!
+                    
 
                     if (facing == DOWN)
                     {

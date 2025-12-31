@@ -1,6 +1,6 @@
 #include "map_loader.hpp"
 Music current_music{};
-Start_portal start_portal;
+
 
 Texture2D map_to_load;
 

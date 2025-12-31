@@ -7,6 +7,9 @@
 // Put sprite rects and other things here, paths, x defaults, etc
 // order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
 
+//fine. ill put it here. but i wont be happy!
+extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
+
 // editable globals
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
@@ -290,6 +293,89 @@ extern Rectangle village_windmill_1;
 extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
+
+
+//forest scourge stuff
+#define DEFAULT_SPRITE_WIDTH 64
+#define DEFAULT_SPRITE_HEIGHT 64
+//idle arrays
+extern Rectangle forest_scourge_idle_down_right[3];
+extern Rectangle forest_scourge_idle_up_right[3];
+extern Rectangle forest_scourge_idle_down_left[3];
+extern Rectangle forest_scourge_idle_up_left[3];
+//walking arrays
+extern Rectangle forest_scourge_walk_down_right[7];
+extern Rectangle forest_scourge_walk_down_left[7];
+extern Rectangle forest_scourge_walk_up_right[7];
+extern Rectangle forest_scourge_walk_up_left[7];
+//attacking arrays
+extern Rectangle forest_scourge_attack_down_right[5];
+extern Rectangle forest_scourge_attack_down_left[5];
+extern Rectangle forest_scourge_attack_up_right[5];
+extern Rectangle forest_scourge_attack_up_left[5];
+//idle animations - before it sees the player
+extern Rectangle forest_scourge_idle_down_right_1;
+extern Rectangle forest_scourge_idle_down_right_2;
+extern Rectangle forest_scourge_idle_down_right_3;
+extern Rectangle forest_scourge_idle_up_right_1;
+extern Rectangle forest_scourge_idle_up_right_2;
+extern Rectangle forest_scourge_idle_up_right_3;
+extern Rectangle forest_scourge_idle_down_left_1;
+extern Rectangle forest_scourge_idle_down_left_2;
+extern Rectangle forest_scourge_idle_down_left_3;
+extern Rectangle forest_scourge_idle_up_left_1;
+extern Rectangle forest_scourge_idle_up_left_2;
+extern Rectangle forest_scourge_idle_up_left_3;
+//walk animations - scuffed, but it works for now
+extern Rectangle forest_scourge_walk_down_right_1;
+extern Rectangle forest_scourge_walk_down_right_2;
+extern Rectangle forest_scourge_walk_down_right_3;
+extern Rectangle forest_scourge_walk_down_right_4;
+extern Rectangle forest_scourge_walk_down_right_5;
+extern Rectangle forest_scourge_walk_down_right_6;
+extern Rectangle forest_scourge_walk_down_right_7;
+extern Rectangle forest_scourge_walk_down_left_1;
+extern Rectangle forest_scourge_walk_down_left_2;
+extern Rectangle forest_scourge_walk_down_left_3;
+extern Rectangle forest_scourge_walk_down_left_4;
+extern Rectangle forest_scourge_walk_down_left_5;
+extern Rectangle forest_scourge_walk_down_left_6;
+extern Rectangle forest_scourge_walk_down_left_7;
+extern Rectangle forest_scourge_walk_up_right_1;
+extern Rectangle forest_scourge_walk_up_right_2;
+extern Rectangle forest_scourge_walk_up_right_3;
+extern Rectangle forest_scourge_walk_up_right_4;
+extern Rectangle forest_scourge_walk_up_right_5;
+extern Rectangle forest_scourge_walk_up_right_6;
+extern Rectangle forest_scourge_walk_up_right_7;
+extern Rectangle forest_scourge_walk_up_left_1;
+extern Rectangle forest_scourge_walk_up_left_2;
+extern Rectangle forest_scourge_walk_up_left_3;
+extern Rectangle forest_scourge_walk_up_left_4;
+extern Rectangle forest_scourge_walk_up_left_5;
+extern Rectangle forest_scourge_walk_up_left_6;
+extern Rectangle forest_scourge_walk_up_left_7;
+//attack animations (im now thinking that i should make a better way of storing all of these)
+extern Rectangle forest_scourge_attack_down_right_1;
+extern Rectangle forest_scourge_attack_down_right_2;
+extern Rectangle forest_scourge_attack_down_right_3;
+extern Rectangle forest_scourge_attack_down_right_4;
+extern Rectangle forest_scourge_attack_down_right_5;
+extern Rectangle forest_scourge_attack_down_left_1;
+extern Rectangle forest_scourge_attack_down_left_2;
+extern Rectangle forest_scourge_attack_down_left_3;
+extern Rectangle forest_scourge_attack_down_left_4;
+extern Rectangle forest_scourge_attack_down_left_5;
+extern Rectangle forest_scourge_attack_up_right_1;
+extern Rectangle forest_scourge_attack_up_right_2;
+extern Rectangle forest_scourge_attack_up_right_3;
+extern Rectangle forest_scourge_attack_up_right_4;
+extern Rectangle forest_scourge_attack_up_right_5;
+extern Rectangle forest_scourge_attack_up_left_1;
+extern Rectangle forest_scourge_attack_up_left_2;
+extern Rectangle forest_scourge_attack_up_left_3;
+extern Rectangle forest_scourge_attack_up_left_4;
+extern Rectangle forest_scourge_attack_up_left_5;
 
 // paths to things
 // map paths
