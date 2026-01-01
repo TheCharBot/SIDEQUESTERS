@@ -294,6 +294,8 @@ void load_dark_forest_south()
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
     for (auto &e : entities)
         e->load();
 }

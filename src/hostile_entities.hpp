@@ -26,7 +26,7 @@ extern void unload_enemy_textures();
 class Enemy_forest_scourge: public Entity{
     public:
         Vector2 pos{};
-        Rectangle rect;
+        
         int max_animation_frames;
         int current_animation_frame;
         int animation_frame_5;
@@ -53,7 +53,7 @@ class Enemy_forest_scourge: public Entity{
         Wander_directions wander_mode;
         int wander_state;
         Rectangle *current_anim_arr;
-        Rectangle hitbox;
+        
         //use static shared when there are multiple instances
         
         Vector2 originial_pos;

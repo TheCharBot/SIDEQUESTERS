@@ -34,6 +34,8 @@ int main()
         // Game Drawing
         draw_all();
 
+        //uncomment these 2 for helpful debug stuff!
+        // std::cout << GetFPS() << "\n";
         // DrawRectangle(player_normal_hitbox.x, player_normal_hitbox.y, player_normal_hitbox.width, player_normal_hitbox.height, GREEN);
         EndDrawing();
         

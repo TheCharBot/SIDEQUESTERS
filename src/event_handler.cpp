@@ -64,6 +64,7 @@ void draw_all()
     for (auto &e : entities)
     {
         e->draw();
+        
     }
 
     draw_player();
@@ -72,6 +73,7 @@ void draw_all()
         if (e->rect.y > player.normal_hitbox.y)
         {
             e->draw();
+            
         }
     }
 
