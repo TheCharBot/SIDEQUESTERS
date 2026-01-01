@@ -8,11 +8,17 @@
 // map globals
 
 // also items
-enum direction{
+enum Direction{
     DOWN_RIGHT,
     UP_RIGHT,
     DOWN_LEFT,
     UP_LEFT
+};
+
+enum Wander_directions{
+    UP_DOWN,
+    LEFT_RIGHT,
+    RANDOM
 };
 
 enum Map_names

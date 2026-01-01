@@ -1,6 +1,6 @@
 #include "event_handler.hpp"
 
-// ©2025 Charles Von Dollen, TheCharbot
+// ©2025, 2026 Charles Von Dollen, TheCharbot
 // 16x16 sprites at 320x180 is just way too good
 
 // Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"
@@ -36,6 +36,7 @@ int main()
 
         // DrawRectangle(player_normal_hitbox.x, player_normal_hitbox.y, player_normal_hitbox.width, player_normal_hitbox.height, GREEN);
         EndDrawing();
+        
     }
 
     CloseWindow();

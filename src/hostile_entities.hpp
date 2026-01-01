@@ -21,6 +21,7 @@
 //     ├── Condition (IsHealthLow)
 //     └── Action (Flee)
 
+extern void unload_enemy_textures();
 
 class Enemy_forest_scourge: public Entity{
     public:
@@ -29,6 +30,8 @@ class Enemy_forest_scourge: public Entity{
         int max_animation_frames;
         int current_animation_frame;
         int animation_frame_5;
+        static Texture2D shared_tex;
+        static bool texture_loaded;
 
         Enemy_forest_scourge();
 
@@ -38,16 +41,25 @@ class Enemy_forest_scourge: public Entity{
         void update() override;
         void draw() override;
         
-        void wander_patrol();
+        void wander();
         void chase();
         void attack();
         void run_away();
+        void decide_action();
     private:
+        Direction direction;
         int health;
         int random_index;
+        Wander_directions wander_mode;
+        int wander_state;
         Rectangle *current_anim_arr;
         Rectangle hitbox;
-        Texture2D tex;
+        //use static shared when there are multiple instances
+        
+        Vector2 originial_pos;
 };
+
+
+
 
 #endif

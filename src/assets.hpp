@@ -13,7 +13,7 @@ extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
-extern int current_map;
+extern Map_names current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
 extern Inventory_slot inventory_slots[28];
@@ -301,6 +301,8 @@ extern Rectangle village_windmill_4;
 #define FOREST_SCOURGE_HITBOX_OFFSET_Y 31
 #define FOREST_SCOURGE_HITBOX_WIDTH 27
 #define FOREST_SCOURGE_HITBOX_HEIGHT 31
+#define FOREST_SCOURGE_HEALTH 2
+#define FOREST_SCOURGE_SPEED 1
 //idle arrays
 extern Rectangle forest_scourge_idle_down_right[3];
 extern Rectangle forest_scourge_idle_up_right[3];

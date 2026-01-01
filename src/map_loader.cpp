@@ -4,7 +4,7 @@ Music current_music{};
 
 Texture2D map_to_load;
 
-int current_map;
+Map_names current_map;
 Map_names requested_map;
 Vector2 requested_player_pos;
 
@@ -58,6 +58,7 @@ void reset_loaded()
     {
         UnloadTexture(map_to_load);
     }
+    unload_enemy_textures();
     // unloading the current music to prevent mem leak
     // add back in when you have good music
     //  if(current_music.stream.buffer != nullptr){
@@ -76,8 +77,10 @@ void load_wrong_map()
     // setting the map texture, i didn't want to figure out how to use any tmx software
     map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
     // setting the current map for sanity
-    current_map = 0;
+    current_map = WRONG_MAP;
 };
+
+
 
 void load_start_map()
 {
@@ -86,7 +89,7 @@ void load_start_map()
 
     map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
 
-    current_map = 1;
+    current_map = START_MAP;
     // proprietary collisions for map 1 (can't reuse - sorry)
     add_collisions({MAP_1_RECT_1,
                     MAP_1_RECT_2,
@@ -105,7 +108,7 @@ void load_village_map()
     reset_loaded();
 
     map_to_load = LoadTexture(VILLAGE_MAP_PATH);
-
+    current_map = VILLAGE_MAP;
     add_collisions({
         MAP_2_RECT_1,
         MAP_2_RECT_2,
@@ -151,6 +154,8 @@ void load_village_house_1()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_1_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_1;
+
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -166,6 +171,7 @@ void load_village_house_2()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_2_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_2;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -179,6 +185,7 @@ void load_village_house_3()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_3_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_3;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -192,6 +199,7 @@ void load_village_house_4()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_4_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_4;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -205,6 +213,7 @@ void load_village_house_5()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_5_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_5;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -218,6 +227,7 @@ void load_village_house_6()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_6_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_6;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -231,6 +241,7 @@ void load_village_house_7()
 {
     reset_loaded();
     map_to_load = LoadTexture(VILLAGE_HOUSE_7_PATH);
+    current_map = INSIDE_VILLAGE_HOUSE_7;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -245,6 +256,7 @@ void load_dark_forest_north()
 {
     reset_loaded();
     map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
+    current_map = DARK_FOREST_NORTH;
     add_collisions({MAP_3_RECT_1,
                     MAP_3_RECT_2,
                     MAP_3_RECT_3,
@@ -260,6 +272,7 @@ void load_dark_forest_south()
 {
     reset_loaded();
     map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
+    current_map = DARK_FOREST_SOUTH;
     add_collisions({
         MAP_4_RECT_1,
         MAP_4_RECT_2,
@@ -275,6 +288,11 @@ void load_dark_forest_south()
         MAP_4_RECT_12,
     });
     add_load_rects({{DARK_FOREST_SOUTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH}});
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     for (auto &e : entities)
         e->load();
@@ -333,7 +351,7 @@ void load_map(Map_names map, Vector2 new_player_pos)
 
         map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
 
-        current_map = 0;
+        current_map = WRONG_MAP;
 
         break;
     }

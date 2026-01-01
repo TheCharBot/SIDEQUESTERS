@@ -1,5 +1,17 @@
 #include "hostile_entities.hpp"
 
+Texture2D Enemy_forest_scourge::shared_tex = {};
+bool Enemy_forest_scourge::texture_loaded = false;
+
+void unload_enemy_textures()
+{
+    //add all the enemy textures that spawn more than one per map, call when loading map, in reset_loaded
+    if (Enemy_forest_scourge::texture_loaded) {
+        UnloadTexture(Enemy_forest_scourge::shared_tex);
+    }
+}
+
+
 Enemy_forest_scourge::Enemy_forest_scourge()
 {
     current_anim_arr = forest_scourge_walk_down_right;
@@ -7,31 +19,76 @@ Enemy_forest_scourge::Enemy_forest_scourge()
     current_animation_frame = 0;
     animation_frame_5 = 0;
     dead = false;
-    health = 2;
-    pos = {104, 144};
-    hitbox = {pos.x+FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y+FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    health = FOREST_SCOURGE_HEALTH;
+    direction = DOWN_RIGHT;
+    wander_state = 1;
+    hitbox = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
 }
 
 Enemy_forest_scourge::~Enemy_forest_scourge()
 {
-    if(tex.id != 0){
-        UnloadTexture(tex);
-    }
+    //really put nothing here - ???
 }
 
 void Enemy_forest_scourge::load()
 {
-    random_index = rand() % 6;
-    tex = LoadTexture("gfx/enemies/forest_scourge/forest_scourge_tex.png");
+    if (!texture_loaded)
+    {
+        shared_tex = LoadTexture(
+            "gfx/enemies/forest_scourge/forest_scourge_tex.png");
+        texture_loaded = true;
+    }
+    if (current_map == DARK_FOREST_SOUTH)
+    {
+        random_index = rand() % 6;
+        switch (random_index)
+        {
+        case 0:
+            wander_mode = LEFT_RIGHT;
+            pos = {100, 150};
+            std::cout << "1";
+            break;
+        case 1:
+            wander_mode = RANDOM;
+            pos = {380, 30};
+            std::cout << "2";
+            break;
+        case 2:
+            wander_mode = UP_DOWN;
+            pos = {520, 345};
+            std::cout << "3";
+            break;
+        case 3:
+            wander_mode = RANDOM;
+            pos = {280, 412};
+            std::cout << "4";
+            break;
+        case 4:
+            wander_mode = UP_DOWN;
+            pos = {425, 685};
+            std::cout << "5";
+            break;
+        case 5:
+            wander_mode = RANDOM;
+            pos = {105, 875};
+            std::cout << "6";
+            break;
+        default:
+            wander_mode = LEFT_RIGHT;
+            pos = {100, 150};
+            std::cout << "1";
+            break;
+        }
+    }
+
+    originial_pos = pos;
 }
 
 void Enemy_forest_scourge::update()
 {
-    hitbox = {pos.x+FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y+FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
-    if(CheckCollisionRecs(hitbox, player.normal_hitbox)){
-        health = 0;
-    }
-    if(health <= 0){
+    hitbox = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    if (health <= 0)
+    {
         dead = true;
     }
     animation_frame_5++;
@@ -44,17 +101,100 @@ void Enemy_forest_scourge::update()
         }
         animation_frame_5 = 0;
     }
-    
-    
+    wander();
 }
 
 void Enemy_forest_scourge::draw()
 {
-    DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x*scale, pos.y*scale, (float)DEFAULT_SPRITE_WIDTH*scale, (float)DEFAULT_SPRITE_HEIGHT*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(shared_tex, current_anim_arr[current_animation_frame], {pos.x * scale, pos.y * scale, (float)DEFAULT_SPRITE_WIDTH * scale, (float)DEFAULT_SPRITE_HEIGHT * scale}, {0, 0}, 0, WHITE);
 }
 
-void Enemy_forest_scourge::wander_patrol()
+void Enemy_forest_scourge::wander()
 {
+    switch (wander_mode)
+    {
+    case UP_DOWN:
+        if (wander_state == 1)
+        {
+            if (pos.y >= originial_pos.y - 100)
+            {
+                pos.y -= FOREST_SCOURGE_SPEED;
+                // for(Rectangle &r : collision_rects){
+
+                // }
+            }
+            else
+            {
+                wander_state = 2;
+            }
+        }
+        if (wander_state == 2)
+        {
+            if (pos.y <= originial_pos.y + 100)
+            {
+                pos.y += FOREST_SCOURGE_SPEED;
+            }
+            else
+            {
+                wander_state = 1;
+            }
+        }
+        break;
+    case LEFT_RIGHT:
+        if (wander_state == 1)
+        {
+            if (pos.x >= originial_pos.x - 100)
+            {
+                pos.x -= FOREST_SCOURGE_SPEED;
+                // for(Rectangle &r : collision_rects){
+
+                // }
+            }
+            else
+            {
+                wander_state = 2;
+            }
+        }
+        if (wander_state == 2)
+        {
+            if (pos.x <= originial_pos.x + 100)
+            {
+                pos.x += FOREST_SCOURGE_SPEED;
+            }
+            else
+            {
+                wander_state = 1;
+            }
+        }
+        break;
+    case RANDOM:
+        if (wander_state == 1)
+        {
+            if (pos.x >= originial_pos.x - 100)
+            {
+                pos.x -= FOREST_SCOURGE_SPEED;
+                // for(Rectangle &r : collision_rects){
+
+                // }
+            }
+            else
+            {
+                wander_state = 2;
+            }
+        }
+        if (wander_state == 2)
+        {
+            if (pos.x <= originial_pos.x + 100)
+            {
+                pos.x += FOREST_SCOURGE_SPEED;
+            }
+            else
+            {
+                wander_state = 1;
+            }
+        }
+        break;
+    }
 }
 
 void Enemy_forest_scourge::chase()
@@ -66,5 +206,9 @@ void Enemy_forest_scourge::attack()
 }
 
 void Enemy_forest_scourge::run_away()
+{
+}
+
+void Enemy_forest_scourge::decide_action()
 {
 }
