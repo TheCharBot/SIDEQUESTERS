@@ -83,7 +83,7 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    
+    wander_mode = RANDOM;
     originial_pos = pos;
 }
 
@@ -105,6 +105,10 @@ void Enemy_forest_scourge::update()
         animation_frame_5 = 0;
     }
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    
+    pos.x = Clamp(pos.x, 0, map_to_load.width);
+    pos.y = Clamp(pos.y, 0, map_to_load.height);
+    
     decide_action();
 }
 
@@ -196,6 +200,7 @@ void Enemy_forest_scourge::wander()
         break;
     case RANDOM:
     //implement by randomly alternating between left and right and up and down movement
+    // just randomizing a ton of stuff in a very random way
         if (wander_state == 1)
         {
             if (pos.x >= originial_pos.x - 100)
@@ -205,13 +210,14 @@ void Enemy_forest_scourge::wander()
                 rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
                 for(Rectangle &r : collision_rects){
                     if(CheckCollisionRecs(rect, r)){
-                        wander_state = 2;
+                        pos.x += FOREST_SCOURGE_SPEED*2;
+                        wander_state = (rand() % 4)+1;
                     }
                 }
             }
             else
             {
-                wander_state = 2;
+                wander_state = (rand() % 4)+1;
                 
             }
         }
@@ -224,15 +230,68 @@ void Enemy_forest_scourge::wander()
                 rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
                 for(Rectangle &r : collision_rects){
                     if(CheckCollisionRecs(rect, r)){
-                        wander_state = 1;
+                        pos.x -= FOREST_SCOURGE_SPEED*2;
+                        wander_state = (rand() % 4)+1;
                     }
                 }
             }
             else
             {
-                wander_state = 1;
+                wander_state = (rand() % 4)+1;
 
             }
+        }
+        if (wander_state == 3)
+        {
+            if (pos.y <= originial_pos.y + 100)
+            {
+                
+                pos.y += FOREST_SCOURGE_SPEED;
+                rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+                for(Rectangle &r : collision_rects){
+                    if(CheckCollisionRecs(rect, r)){
+                        pos.y -= FOREST_SCOURGE_SPEED*2;
+                        wander_state = (rand() % 4)+1;
+                    }
+                }
+            }
+            else
+            {
+                wander_state = (rand() % 4)+1;
+
+            }
+        }
+        if (wander_state == 4)
+        {
+            if (pos.y >= originial_pos.y - 100)
+            {
+                
+                pos.y -= FOREST_SCOURGE_SPEED;
+                rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+                for(Rectangle &r : collision_rects){
+                    if(CheckCollisionRecs(rect, r)){
+                        pos.y += FOREST_SCOURGE_SPEED*2;
+                        wander_state = (rand() % 4)+1;
+                    }
+                }
+            }
+            else
+            {
+                wander_state = (rand() % 4)+1;
+                
+            }
+        }
+        if(pos.x <= 0){
+        wander_state = (rand() % 4)+1;
+        }
+        if(pos.x >= map_to_load.width){
+            wander_state = (rand() % 4)+1;
+        }
+        if(pos.y <= 0){
+            wander_state = (rand() % 4)+1;
+        }
+        if(pos.y >= map_to_load.height){
+            wander_state = (rand() % 4)+1;
         }
         break;
     }
@@ -286,5 +345,5 @@ void Enemy_forest_scourge::run_away()
 void Enemy_forest_scourge::decide_action()
 {
     
-    chase();
+    wander();
 }
