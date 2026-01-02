@@ -303,6 +303,14 @@ extern Rectangle village_windmill_4;
 #define FOREST_SCOURGE_HITBOX_HEIGHT 16
 #define FOREST_SCOURGE_HEALTH 2
 #define FOREST_SCOURGE_SPEED 1
+#define FOREST_SCOURGE_CHASE_DETECT_OFFSET_X 32
+#define FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y 32
+#define FOREST_SCOURGE_CHASE_DETECT_WIDTH 128
+#define FOREST_SCOURGE_CHASE_DETECT_HEIGHT 128
+#define FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X 32
+#define FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y 32
+#define FOREST_SCOURGE_ATTACK_DETECT_WIDTH 32
+#define FOREST_SCOURGE_ATTACK_DETECT_HEIGHT 32
 //idle arrays
 extern Rectangle forest_scourge_idle_down_right[3];
 extern Rectangle forest_scourge_idle_up_right[3];
@@ -310,14 +318,11 @@ extern Rectangle forest_scourge_idle_down_left[3];
 extern Rectangle forest_scourge_idle_up_left[3];
 //walking arrays
 extern Rectangle forest_scourge_walk_down_right[7];
-extern Rectangle forest_scourge_walk_down_left[7];
-extern Rectangle forest_scourge_walk_up_right[7];
 extern Rectangle forest_scourge_walk_up_left[7];
 //attacking arrays
-extern Rectangle forest_scourge_attack_down_right[5];
-extern Rectangle forest_scourge_attack_down_left[5];
-extern Rectangle forest_scourge_attack_up_right[5];
-extern Rectangle forest_scourge_attack_up_left[5];
+extern Rectangle forest_scourge_attack_down_right[6];
+extern Rectangle forest_scourge_attack_up_left[6];
+
 //idle animations - before it sees the player
 extern Rectangle forest_scourge_idle_down_right_1;
 extern Rectangle forest_scourge_idle_down_right_2;
@@ -332,6 +337,7 @@ extern Rectangle forest_scourge_idle_up_left_1;
 extern Rectangle forest_scourge_idle_up_left_2;
 extern Rectangle forest_scourge_idle_up_left_3;
 //walk animations - scuffed, but it works for now
+//really, the game only uses up left and down right, the rest is kinda pointless, none of the little guys are left handed, sorry
 extern Rectangle forest_scourge_walk_down_right_1;
 extern Rectangle forest_scourge_walk_down_right_2;
 extern Rectangle forest_scourge_walk_down_right_3;
@@ -339,20 +345,6 @@ extern Rectangle forest_scourge_walk_down_right_4;
 extern Rectangle forest_scourge_walk_down_right_5;
 extern Rectangle forest_scourge_walk_down_right_6;
 extern Rectangle forest_scourge_walk_down_right_7;
-extern Rectangle forest_scourge_walk_down_left_1;
-extern Rectangle forest_scourge_walk_down_left_2;
-extern Rectangle forest_scourge_walk_down_left_3;
-extern Rectangle forest_scourge_walk_down_left_4;
-extern Rectangle forest_scourge_walk_down_left_5;
-extern Rectangle forest_scourge_walk_down_left_6;
-extern Rectangle forest_scourge_walk_down_left_7;
-extern Rectangle forest_scourge_walk_up_right_1;
-extern Rectangle forest_scourge_walk_up_right_2;
-extern Rectangle forest_scourge_walk_up_right_3;
-extern Rectangle forest_scourge_walk_up_right_4;
-extern Rectangle forest_scourge_walk_up_right_5;
-extern Rectangle forest_scourge_walk_up_right_6;
-extern Rectangle forest_scourge_walk_up_right_7;
 extern Rectangle forest_scourge_walk_up_left_1;
 extern Rectangle forest_scourge_walk_up_left_2;
 extern Rectangle forest_scourge_walk_up_left_3;
@@ -366,21 +358,13 @@ extern Rectangle forest_scourge_attack_down_right_2;
 extern Rectangle forest_scourge_attack_down_right_3;
 extern Rectangle forest_scourge_attack_down_right_4;
 extern Rectangle forest_scourge_attack_down_right_5;
-extern Rectangle forest_scourge_attack_down_left_1;
-extern Rectangle forest_scourge_attack_down_left_2;
-extern Rectangle forest_scourge_attack_down_left_3;
-extern Rectangle forest_scourge_attack_down_left_4;
-extern Rectangle forest_scourge_attack_down_left_5;
-extern Rectangle forest_scourge_attack_up_right_1;
-extern Rectangle forest_scourge_attack_up_right_2;
-extern Rectangle forest_scourge_attack_up_right_3;
-extern Rectangle forest_scourge_attack_up_right_4;
-extern Rectangle forest_scourge_attack_up_right_5;
+extern Rectangle forest_scourge_attack_down_right_6;
 extern Rectangle forest_scourge_attack_up_left_1;
 extern Rectangle forest_scourge_attack_up_left_2;
 extern Rectangle forest_scourge_attack_up_left_3;
 extern Rectangle forest_scourge_attack_up_left_4;
 extern Rectangle forest_scourge_attack_up_left_5;
+extern Rectangle forest_scourge_attack_up_left_6;
 
 // paths to things
 // map paths
