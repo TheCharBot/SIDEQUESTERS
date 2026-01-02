@@ -195,6 +195,7 @@ void Enemy_forest_scourge::wander()
         }
         break;
     case RANDOM:
+    //implement by randomly alternating between left and right and up and down movement
         if (wander_state == 1)
         {
             if (pos.x >= originial_pos.x - 100)
@@ -239,6 +240,39 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
+    float dt = GetFrameTime();
+
+    Vector2 dir = Vector2Normalize(Vector2Subtract(player.pos, pos));
+    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_SPEED * scale * dt * scale); // throw another * scale in there for good measure (im happy - it all works :) )
+
+    // seperate x and y movement
+    //this is VERY helpful and should DEFINENTLY be saved!!! both ^ and v !!!
+    //! SAVE THIS
+    pos.x += velocity.x;
+
+    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    for (const Rectangle& r : collision_rects)
+    {
+        if (CheckCollisionRecs(rect, r))
+        {
+            
+            pos.x -= velocity.x;
+            break;
+        }
+    }
+
+    
+    pos.y += velocity.y;
+
+    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    for (const Rectangle& r : collision_rects)
+    {
+        if (CheckCollisionRecs(rect, r))
+        {
+            pos.y -= velocity.y;
+            break;
+        }
+    }
 }
 
 void Enemy_forest_scourge::attack()
@@ -252,5 +286,5 @@ void Enemy_forest_scourge::run_away()
 void Enemy_forest_scourge::decide_action()
 {
     
-    wander();
+    chase();
 }

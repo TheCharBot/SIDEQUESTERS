@@ -53,7 +53,8 @@ class Enemy_forest_scourge: public Entity{
         Wander_directions wander_mode;
         int wander_state;
         Rectangle *current_anim_arr;
-        
+        Rectangle chase_detect_rect;
+        Rectangle attack_detect_rect;
         //use static shared when there are multiple instances
         
         Vector2 originial_pos;
