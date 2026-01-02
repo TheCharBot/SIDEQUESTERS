@@ -15,7 +15,9 @@ void unload_enemy_textures()
 
 Enemy_forest_scourge::Enemy_forest_scourge()
 {
-
+    health = FOREST_SCOURGE_HEALTH;
+    can_take_damage = true;
+    iframe_timer = 0.0f;
     current_anim_arr = forest_scourge_walk_down_right;
     max_animation_frames = 7;
     current_animation_frame = 0;
@@ -27,7 +29,8 @@ Enemy_forest_scourge::Enemy_forest_scourge()
     pos = {0, 0};
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
-    attack_detect_rect = {pos.x+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT}; // replace w/ macros later
+    attack_detect_rect = {pos.x+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT}; 
+    attack_hit_rect = {};
 }
 
 Enemy_forest_scourge::~Enemy_forest_scourge()
@@ -112,12 +115,45 @@ void Enemy_forest_scourge::update()
     pos.x = Clamp(pos.x, 0, map_to_load.width);
     pos.y = Clamp(pos.y, 0, map_to_load.height);
 
+    if (!can_take_damage)
+    {
+        iframe_timer -= GetFrameTime();
+        if (iframe_timer <= 0.0f)
+        {
+            can_take_damage = true;
+            iframe_timer = 0.0f;
+        }
+    }
+    
     decide_action();
+    
 }
 
 void Enemy_forest_scourge::draw()
 {
     DrawTexturePro(shared_tex, current_anim_arr[current_animation_frame], {pos.x * scale, pos.y * scale, float(DEFAULT_SPRITE_WIDTH * scale), float(DEFAULT_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+}
+
+void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
+{
+    if (!can_take_damage)
+        return;
+    if(can_take_damage){
+        //implement knockback
+        health -= damage;
+        if(health < 0){
+            health = 0;
+        }
+        can_take_damage = false;
+        iframe_timer = PLAYER_IFRAME_TIME;
+        Vector2 dir = Vector2Normalize(
+        Vector2Subtract(pos, hit_source_pos)
+        );
+
+        
+        
+        pos = Vector2Add(pos, Vector2Scale(dir, KNOCKBACK_DIST));
+    }
 }
 
 void Enemy_forest_scourge::wander()
@@ -240,7 +276,7 @@ void Enemy_forest_scourge::chase()
     float dt = GetFrameTime();
 
     Vector2 dir = Vector2Normalize(Vector2Subtract(player.pos, pos));
-    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_SPEED * scale * dt * scale * 2); // throw another * scale in there for good measure (im happy - it all works :) )
+    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_SPEED * scale * dt * scale); // throw another * scale in there for good measure (im happy - it all works :) )
 
     // seperate x and y movement
     // this is VERY helpful and should DEFINENTLY be saved!!! both ^ and v !!!
@@ -284,11 +320,13 @@ void Enemy_forest_scourge::chase()
 
 void Enemy_forest_scourge::attack()
 {
-    // first, change the animation arrays for moving
     
     current_anim_arr = forest_scourge_attack_down_right;
     max_animation_frames = 6;
-    
+    attack_hit_rect = {pos.x+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y+FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, FOREST_SCOURGE_ATTACK_WIDTH, FOREST_SCOURGE_ATTACK_HEIGHT};
+    if(CheckCollisionRecs(attack_hit_rect, player.normal_hitbox)){
+        damage_player(FOREST_SCOURGE_DAMAGE);
+    }
 }
 
 void Enemy_forest_scourge::run_away()
@@ -298,13 +336,20 @@ void Enemy_forest_scourge::run_away()
 
 void Enemy_forest_scourge::decide_action()
 {
-    
-    if (CheckCollisionRecs(chase_detect_rect, player.normal_hitbox))
-        chase();
+    if(CheckCollisionRecs(rect, player.attack_hitbox)){
+        //make a player.active_damage thing or whatever
+        take_damage(0.3f, player.pos);
+    }
+    if (CheckCollisionRecs(chase_detect_rect, player.normal_hitbox)){
+        chase(); 
+        attack_hit_rect = {};
+    }
     if(CheckCollisionRecs(attack_detect_rect, player.normal_hitbox))
         attack();
     
-    else
-        wander();
+    else{
+        wander(); 
+        attack_hit_rect = {};
+    }
 }
-// dang - 286 lines for a single enemy? thats crazy
+// dang - 330 lines for a single enemy? thats crazy

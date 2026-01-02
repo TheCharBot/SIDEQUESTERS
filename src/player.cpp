@@ -22,18 +22,212 @@ void init_player()
     player.animation_frame_5 = 0;
     player.normal_hitbox = {player.pos.x, player.pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
     player.tex = LoadTexture(PLAYER_TEX_PATH);
+    player.attack_hitbox = {};
 };
+
+void damage_player(float damage)
+{
+    if (!player.can_take_damage)
+        return;
+    if (player.can_take_damage)
+    {
+        // implement damage taking here
+        player.health -= damage;
+        if (player.health < 0)
+        {
+            player.health = 0;
+        }
+        player.can_take_damage = false;
+        player.iframe_timer = PLAYER_IFRAME_TIME;
+    }
+};
+
+void player_update_iframes()
+{
+    if (!player.can_take_damage)
+    {
+        player.iframe_timer -= GetFrameTime();
+        if (player.iframe_timer <= 0.0f)
+        {
+            player.can_take_damage = true;
+            player.iframe_timer = 0.0f;
+        }
+    }
+}
+
+void rebuild_hitbox()
+{
+    player.normal_hitbox = {
+        player.pos.x + PLAYER_HITBOX_X_OFFSET,
+        player.pos.y + PLAYER_HITBOX_Y_OFFSET,
+        float(PLAYER_HITBOX_WIDTH),
+        float(PLAYER_HITBOX_HEIGHT)};
+}
+// you can basically copy/paste these 3
+void hotbar_slot_1_stuff()
+{
+    if (inventory_slots[23].filled_with)
+    {
+        // implement item 1 usage here
+        if (inventory_slots[23].filled_with->type == COMBAT_MELEE)
+        {
+
+            if (facing == DOWN)
+            {
+                player.current_anim_arr = player_sword_slash_down_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+            }
+            if (facing == UP)
+            {
+                player.current_anim_arr = player_sword_slash_up_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+            }
+            if (facing == LEFT)
+            {
+                player.current_anim_arr = player_sword_slash_left_arr;
+                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+            }
+            if (facing == RIGHT)
+            {
+                player.current_anim_arr = player_sword_slash_right_arr;
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+            }
+            player.current_animation_frame = 0;
+            player.max_animation_frames = 5;
+            player.move_mode = 2;
+        }
+        if (inventory_slots[23].filled_with->type == COMBAT_RANGED)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == SHEILD)
+        {
+        }
+        if (inventory_slots[23].filled_with->type == QUEST_ITEM)
+        {
+        }
+        if (inventory_slots[23].filled_with->type == CONSUMABLE)
+        {
+        }
+        if (inventory_slots[23].filled_with->type == DUNGEON)
+        {
+        }
+    }
+    else
+    {
+    }
+}
+void hotbar_slot_2_stuff()
+{
+    if (inventory_slots[24].filled_with)
+    {
+        // implement item 2 usage here
+        if (inventory_slots[24].filled_with->type == COMBAT_MELEE)
+        {
+
+            if (facing == DOWN)
+            {
+                player.current_anim_arr = player_sword_slash_down_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+            }
+            if (facing == UP)
+            {
+                player.current_anim_arr = player_sword_slash_up_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+            }
+            if (facing == LEFT)
+            {
+                player.current_anim_arr = player_sword_slash_left_arr;
+                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+            }
+            if (facing == RIGHT)
+            {
+                player.current_anim_arr = player_sword_slash_right_arr;
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+            }
+            player.current_animation_frame = 0;
+            player.max_animation_frames = 5;
+            player.move_mode = 2;
+        }
+        if (inventory_slots[24].filled_with->type == COMBAT_RANGED)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == SHEILD)
+        {
+        }
+        if (inventory_slots[24].filled_with->type == QUEST_ITEM)
+        {
+        }
+        if (inventory_slots[24].filled_with->type == CONSUMABLE)
+        {
+        }
+        if (inventory_slots[24].filled_with->type == DUNGEON)
+        {
+        }
+    }
+    else
+    {
+    }
+}
+void hotbar_slot_3_stuff()
+{
+    if (inventory_slots[25].filled_with)
+    {
+        // implement item 3 usage here
+        if (inventory_slots[25].filled_with->type == COMBAT_MELEE)
+        {
+
+            if (facing == DOWN)
+            {
+                player.current_anim_arr = player_sword_slash_down_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+            }
+            if (facing == UP)
+            {
+                player.current_anim_arr = player_sword_slash_up_arr;
+                player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+            }
+            if (facing == LEFT)
+            {
+                player.current_anim_arr = player_sword_slash_left_arr;
+                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+            }
+            if (facing == RIGHT)
+            {
+                player.current_anim_arr = player_sword_slash_right_arr;
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+            }
+            player.current_animation_frame = 0;
+            player.max_animation_frames = 5;
+            player.move_mode = 2;
+        }
+        if (inventory_slots[25].filled_with->type == COMBAT_RANGED)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == SHEILD)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == QUEST_ITEM)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == CONSUMABLE)
+        {
+        }
+        if (inventory_slots[25].filled_with->type == DUNGEON)
+        {
+        }
+    }
+    else
+    {
+    }
+}
 
 void update_player()
 {
+    player.attack_hitbox = {};
     // dont move at all - mostly for cutscenes
     if (player.move_mode == 0)
     {
-        player.normal_hitbox = {
-            player.pos.x + PLAYER_HITBOX_X_OFFSET,
-            player.pos.y + PLAYER_HITBOX_Y_OFFSET,
-            float(PLAYER_HITBOX_WIDTH),
-            float(PLAYER_HITBOX_HEIGHT)};
+        rebuild_hitbox();
     }
     // full collision movement
     if (player.move_mode == 1)
@@ -144,11 +338,7 @@ void update_player()
             player.pos.x += player.movement.x * PLAYER_SPEED;
 
             // player hitbox rebuild
-            player.normal_hitbox = {
-                player.pos.x + PLAYER_HITBOX_X_OFFSET,
-                player.pos.y + PLAYER_HITBOX_Y_OFFSET,
-                float(PLAYER_HITBOX_WIDTH),
-                float(PLAYER_HITBOX_HEIGHT)};
+            rebuild_hitbox();
             // horizontal collision check
             for (const Rectangle &r : collision_rects)
             {
@@ -160,11 +350,7 @@ void update_player()
             }
             player.pos.y += player.movement.y * PLAYER_SPEED;
             // player hitbox rebuild
-            player.normal_hitbox = {
-                player.pos.x + PLAYER_HITBOX_X_OFFSET,
-                player.pos.y + PLAYER_HITBOX_Y_OFFSET,
-                float(PLAYER_HITBOX_WIDTH),
-                float(PLAYER_HITBOX_HEIGHT)};
+            rebuild_hitbox();
             // vertical collision check
             for (const Rectangle &r : collision_rects)
             {
@@ -186,11 +372,7 @@ void update_player()
     // actually unexpectedly works!
     if (player.move_mode == 2)
     {
-        player.normal_hitbox = {
-            player.pos.x + PLAYER_HITBOX_X_OFFSET,
-            player.pos.y + PLAYER_HITBOX_Y_OFFSET,
-            float(PLAYER_HITBOX_WIDTH),
-            float(PLAYER_HITBOX_HEIGHT)};
+        rebuild_hitbox();
         if (player.current_animation_frame >= player.max_animation_frames - 1)
         {
             player.move_mode = 1;
@@ -209,11 +391,7 @@ void update_player()
         }
         player.animation_frame_5 = 0;
     }
-    player.normal_hitbox = {
-        player.pos.x + PLAYER_HITBOX_X_OFFSET,
-        player.pos.y + PLAYER_HITBOX_Y_OFFSET,
-        float(PLAYER_HITBOX_WIDTH),
-        float(PLAYER_HITBOX_HEIGHT)};
+    rebuild_hitbox();
     for (int i = 0; i < int(map_load_rects.size()); i++)
     {
 
@@ -229,154 +407,24 @@ void update_player()
     {
         if (IsKeyPressed(KEY_Q))
         {
-
-            if (inventory_slots[23].filled_with)
-            {
-                // implement item 1 usage here
-                if (inventory_slots[23].filled_with->type == COMBAT_MELEE)
-                {
-                    // TODO: implement item use!
-
-                    if (facing == DOWN)
-                    {
-                        player.current_anim_arr = player_sword_slash_down_arr;
-                    }
-                    if (facing == UP)
-                    {
-                        player.current_anim_arr = player_sword_slash_up_arr;
-                    }
-                    if (facing == LEFT)
-                    {
-                        player.current_anim_arr = player_sword_slash_left_arr;
-                    }
-                    if (facing == RIGHT)
-                    {
-                        player.current_anim_arr = player_sword_slash_right_arr;
-                    }
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 5;
-                    player.move_mode = 2;
-                }
-                if (inventory_slots[23].filled_with->type == COMBAT_RANGED)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == SHEILD)
-                {
-                }
-                if (inventory_slots[23].filled_with->type == QUEST_ITEM)
-                {
-                }
-                if (inventory_slots[23].filled_with->type == CONSUMABLE)
-                {
-                }
-                if (inventory_slots[23].filled_with->type == DUNGEON)
-                {
-                }
-            }
-            else
-            {
-            }
+            hotbar_slot_1_stuff();
         }
         else if (IsKeyPressed(KEY_E))
         {
-            if (inventory_slots[24].filled_with)
-            {
-                // implement item 2 usage here
-                if (inventory_slots[24].filled_with->type == COMBAT_MELEE)
-                {
-                    
-
-                    if (facing == DOWN)
-                    {
-                        player.current_anim_arr = player_sword_slash_down_arr;
-                    }
-                    if (facing == UP)
-                    {
-                        player.current_anim_arr = player_sword_slash_up_arr;
-                    }
-                    if (facing == LEFT)
-                    {
-                        player.current_anim_arr = player_sword_slash_left_arr;
-                    }
-                    if (facing == RIGHT)
-                    {
-                        player.current_anim_arr = player_sword_slash_right_arr;
-                    }
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 5;
-                    player.move_mode = 2;
-                }
-                if (inventory_slots[24].filled_with->type == COMBAT_RANGED)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == SHEILD)
-                {
-                }
-                if (inventory_slots[24].filled_with->type == QUEST_ITEM)
-                {
-                }
-                if (inventory_slots[24].filled_with->type == CONSUMABLE)
-                {
-                }
-                if (inventory_slots[24].filled_with->type == DUNGEON)
-                {
-                }
-            }
-            else
-            {
-            }
+            hotbar_slot_2_stuff();
         }
         else if (IsKeyPressed(KEY_Z))
         {
-            if (inventory_slots[25].filled_with)
-            {
-                // implement item 3 usage here
-                if (inventory_slots[25].filled_with->type == COMBAT_MELEE)
-                {
-                    
-
-                    if (facing == DOWN)
-                    {
-                        player.current_anim_arr = player_sword_slash_down_arr;
-                    }
-                    if (facing == UP)
-                    {
-                        player.current_anim_arr = player_sword_slash_up_arr;
-                    }
-                    if (facing == LEFT)
-                    {
-                        player.current_anim_arr = player_sword_slash_left_arr;
-                    }
-                    if (facing == RIGHT)
-                    {
-                        player.current_anim_arr = player_sword_slash_right_arr;
-                    }
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 5;
-                    player.move_mode = 2;
-                }
-                if (inventory_slots[25].filled_with->type == COMBAT_RANGED)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == SHEILD)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == QUEST_ITEM)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == CONSUMABLE)
-                {
-                }
-                if (inventory_slots[25].filled_with->type == DUNGEON)
-                {
-                }
-            }
-            else
-            {
-            }
+            hotbar_slot_3_stuff();
         }
     }
-
+    player_update_iframes();
+    if (player.health <= 0)
+    {
+        // implement game over screen or something here
+        CloseWindow();
+        std::cout << "YOU LOSE!\n";
+    }
     // animation thingy
 
     // std::cout << player.pos.x << "  " << player.pos.y << "\n";

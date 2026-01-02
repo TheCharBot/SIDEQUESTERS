@@ -6,7 +6,7 @@
 // Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"
 
 // done TODO: make map 3, 4, and 5
-// TODO: make enemy AI and item / combat system
+// TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
 int main()
 {
 

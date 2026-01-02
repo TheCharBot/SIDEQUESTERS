@@ -43,6 +43,9 @@ extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
+constexpr float PLAYER_IFRAME_TIME = 0.8f; // seconds
+constexpr float ENEMY_IFRAME_TIME = 0.6f; // seconds
+constexpr float KNOCKBACK_DIST = 20.0f;
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -301,8 +304,9 @@ extern Rectangle village_windmill_4;
 #define FOREST_SCOURGE_HITBOX_OFFSET_Y 31
 #define FOREST_SCOURGE_HITBOX_WIDTH 11
 #define FOREST_SCOURGE_HITBOX_HEIGHT 16
-#define FOREST_SCOURGE_HEALTH 2
+#define FOREST_SCOURGE_HEALTH 1.4f
 #define FOREST_SCOURGE_SPEED 1
+#define FOREST_SCOURGE_DAMAGE 0.2
 #define FOREST_SCOURGE_CHASE_DETECT_OFFSET_X 32
 #define FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y 32
 #define FOREST_SCOURGE_CHASE_DETECT_WIDTH 128
@@ -311,6 +315,8 @@ extern Rectangle village_windmill_4;
 #define FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y 32
 #define FOREST_SCOURGE_ATTACK_DETECT_WIDTH 32
 #define FOREST_SCOURGE_ATTACK_DETECT_HEIGHT 32
+#define FOREST_SCOURGE_ATTACK_WIDTH 32
+#define FOREST_SCOURGE_ATTACK_HEIGHT 16
 //idle arrays
 extern Rectangle forest_scourge_idle_down_right[3];
 extern Rectangle forest_scourge_idle_up_right[3];

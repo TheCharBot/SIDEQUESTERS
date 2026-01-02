@@ -30,6 +30,7 @@ class Enemy_forest_scourge: public Entity{
         int max_animation_frames;
         int current_animation_frame;
         int animation_frame_5;
+        //use static shared when there are multiple instances
         static Texture2D shared_tex;
         static bool texture_loaded;
 
@@ -40,7 +41,8 @@ class Enemy_forest_scourge: public Entity{
         void load() override;
         void update() override;
         void draw() override;
-        
+
+        void take_damage(float damage, Vector2 hit_source_pos);
         void wander();
         void chase();
         void attack();
@@ -48,15 +50,18 @@ class Enemy_forest_scourge: public Entity{
         void decide_action();
     private:
         Direction direction;
-        int health;
+        
         int random_index;
         Wander_directions wander_mode;
         int wander_state;
         Rectangle *current_anim_arr;
         Rectangle chase_detect_rect;
         Rectangle attack_detect_rect;
-        //use static shared when there are multiple instances
+        Rectangle attack_hit_rect;
         
+        float health;
+        bool can_take_damage;
+        float iframe_timer;
         Vector2 originial_pos;
 };
 

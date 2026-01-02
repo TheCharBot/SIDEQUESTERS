@@ -145,7 +145,12 @@ struct Player
     int current_animation_frame;
     int animation_frame_5;
     Texture2D tex;
-    double health = 3;
+    float health = 3.0f;
+    bool can_take_damage = true;
+    float iframe_timer = 0.0f;
+    Rectangle attack_hitbox;
+
+
 };
 
 struct Inventory_slot
