@@ -58,7 +58,7 @@ class Enemy_forest_scourge: public Entity{
         Rectangle chase_detect_rect;
         Rectangle attack_detect_rect;
         Rectangle attack_hit_rect;
-        
+        float hit_flash_timer;
         float health;
         bool can_take_damage;
         float iframe_timer;

@@ -105,14 +105,14 @@ void gui_draw()
     if (is_inv_open)
     {
         // drawing inventory
-        DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
+        DrawTextureEx(inventory_tex, inventory_pos, 0, 1, WHITE);
         // drawing cursor
 
-        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3) * scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1) * scale, inv_cursor_anim[inv_cursor.current_anim_frame].width * scale, inv_cursor_anim[inv_cursor.current_anim_frame].height * scale}, {0, 0}, 0, WHITE);
+        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3), (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1), inv_cursor_anim[inv_cursor.current_anim_frame].width, inv_cursor_anim[inv_cursor.current_anim_frame].height}, {0, 0}, 0, WHITE);
         // drawing held item if there is a held item
         if (inv_cursor.held_item)
         {
-            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x * scale, inventory_slots[inv_cursor.inv_slot_index].pos.y * scale, float(ITEM_SPRITE_WIDTH * scale), float(ITEM_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x, inventory_slots[inv_cursor.inv_slot_index].pos.y, float(ITEM_SPRITE_WIDTH), float(ITEM_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE);
         }
         // drawing items
         for (Inventory_slot &s : inventory_slots)
@@ -123,9 +123,9 @@ void gui_draw()
             DrawTexturePro(
                 items_tex,
                 s.filled_with->img_rect,
-                {s.pos.x * scale, s.pos.y * scale,
-                 float(ITEM_SPRITE_WIDTH * scale),
-                 float(ITEM_SPRITE_HEIGHT * scale)},
+                {s.pos.x, s.pos.y,
+                 float(ITEM_SPRITE_WIDTH),
+                 float(ITEM_SPRITE_HEIGHT)},
                 {0, 0}, 0, WHITE);
         }
     }

@@ -42,7 +42,7 @@ void Village_windmill::update()
 
 void Village_windmill::draw()
 {
-    DrawTexturePro(tex, village_windmill_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(VILLAGE_WINDMILL_WIDTH * scale), float(VILLAGE_WINDMILL_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(tex, village_windmill_animation[current_animation_frame], {pos.x, pos.y, float(VILLAGE_WINDMILL_WIDTH), float(VILLAGE_WINDMILL_HEIGHT)}, {0, 0}, 0, WHITE);
 }
 
 Start_bulldozer::Start_bulldozer()
@@ -103,7 +103,7 @@ void Start_bulldozer::update()
 void Start_bulldozer::draw()
 {
 
-    DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(START_BULLDOZER_WIDTH * scale), float(START_BULLDOZER_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(tex, start_bulldozer_animation[current_animation_frame], {pos.x, pos.y, float(START_BULLDOZER_WIDTH), float(START_BULLDOZER_HEIGHT)}, {0, 0}, 0, WHITE);
 
     // if (collided)
     // {
@@ -158,5 +158,5 @@ void Start_portal::update()
 void Start_portal::draw()
 {
 
-    DrawTexturePro(tex, start_portal_animation[current_animation_frame], {pos.x * scale, pos.y * scale, float(START_PORTAL_WIDTH * scale), float(START_PORTAL_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(tex, start_portal_animation[current_animation_frame], {pos.x, pos.y, float(START_PORTAL_WIDTH), float(START_PORTAL_HEIGHT)}, {0, 0}, 0, WHITE);
 }

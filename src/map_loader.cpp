@@ -366,5 +366,5 @@ void update_map() {
 void draw_map()
 {
 
-    DrawTextureEx(map_to_load, {0, 0}, 0, scale, WHITE);
+    DrawTextureEx(map_to_load, {0, 0}, 0, 1, WHITE);
 }

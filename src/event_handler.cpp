@@ -15,7 +15,7 @@ void init_all()
     cam.target = {0.0f, 0.0f};
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
-    cam.zoom = 1.0f;
+    cam.zoom = scale;
 
     PlayMusicStream(current_music);
     SetMusicVolume(current_music, 1.0f);
@@ -29,11 +29,10 @@ void update_all()
     update_player();
     for (auto &e : entities)
     {
-
-        
         e->update();
-        
     }
+
+    //killing entities if they have 0 health
     entities.erase(
     std::remove_if(entities.begin(), entities.end(),
         [](const std::unique_ptr<Entity>& e) {
@@ -41,11 +40,14 @@ void update_all()
         }),
     entities.end());
 
-    cam.target.x = player.pos.x * scale - ((WINDOW_WIDTH * scale) / 2) + (PLAYER_SPRITE_WIDTH * scale / 2);
-    cam.target.y = player.pos.y * scale - ((WINDOW_HEIGHT * scale) / 2) + (PLAYER_SPRITE_HEIGHT * scale / 2);
 
-    cam.target.x = Clamp(cam.target.x, 0, (map_to_load.width * scale) - (WINDOW_WIDTH * scale));
-    cam.target.y = Clamp(cam.target.y, 0, (map_to_load.height * scale) - (WINDOW_HEIGHT * scale));
+    //setting and clamping camera
+    cam.target.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH / 2);
+    cam.target.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT / 2);
+    cam.target.x = Clamp(cam.target.x, 0, (map_to_load.width) - (WINDOW_WIDTH));
+    cam.target.y = Clamp(cam.target.y, 0, (map_to_load.height) - (WINDOW_HEIGHT));
+
+    //loading requested map at end of frame
     if (requested_map != WRONG_MAP)
     {
         if (current_map != requested_map)
@@ -76,7 +78,7 @@ void draw_all()
             
         }
     }
-
+    
     EndMode2D();
     gui_draw();
 };

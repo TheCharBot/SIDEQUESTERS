@@ -15,8 +15,8 @@ void init_player()
 {
 
     player.move_mode = 1;
-    player.pos.x = PLAYER_START_MAP_POS_X;
-    player.pos.y = PLAYER_START_MAP_POS_Y;
+    player.pos.x = 0;
+    player.pos.y = 0;
     player.max_animation_frames = 12;
     player.current_animation_frame = 0;
     player.animation_frame_5 = 0;
@@ -76,6 +76,7 @@ void hotbar_slot_1_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+                
             }
             if (facing == UP)
             {
@@ -85,12 +86,12 @@ void hotbar_slot_1_stuff()
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
-                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
-                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
@@ -223,7 +224,7 @@ void hotbar_slot_3_stuff()
 
 void update_player()
 {
-    player.attack_hitbox = {};
+    
     // dont move at all - mostly for cutscenes
     if (player.move_mode == 0)
     {
@@ -401,7 +402,7 @@ void update_player()
             requested_map = Map_names(map_load_rects[i].map_to_load_struct);
         }
     }
-
+    player.attack_hitbox = {};
     // item use for 3 slots
     if (!is_inv_open)
     {
@@ -432,5 +433,6 @@ void update_player()
 
 void draw_player()
 {
-    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x * scale, player.pos.y * scale, float(PLAYER_SPRITE_WIDTH * scale), float(PLAYER_SPRITE_HEIGHT * scale)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE);
+    
 };

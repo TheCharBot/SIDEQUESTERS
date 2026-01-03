@@ -46,6 +46,7 @@ extern Rectangle inv_cursor_anim[2];
 constexpr float PLAYER_IFRAME_TIME = 0.8f; // seconds
 constexpr float ENEMY_IFRAME_TIME = 0.6f; // seconds
 constexpr float KNOCKBACK_DIST = 20.0f;
+constexpr float HIT_FLASH_TIME = 0.1f;
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
