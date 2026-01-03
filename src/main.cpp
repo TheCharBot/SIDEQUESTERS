@@ -3,8 +3,7 @@
 // ©2025, 2026 Charles Von Dollen, TheCharbot
 // 16x16 sprites at 320x180 is just way too good
 
-// Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"
-
+// Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"     
 // done TODO: make map 3, 4, and 5
 // TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
 int main()

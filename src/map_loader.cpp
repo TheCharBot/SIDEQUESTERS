@@ -266,6 +266,16 @@ void load_dark_forest_north()
                     MAP_3_RECT_7});
     add_load_rects({{DARK_FOREST_NORTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH},
                     {DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, {0, 0}}});
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    for (auto &e : entities)
+        e->load();
 }
 
 void load_dark_forest_south()

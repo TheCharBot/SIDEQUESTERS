@@ -86,6 +86,7 @@ void health_bar_draw(){
     
     //i sorry, but i had too. i hate it too
     //but, it works, so im happy
+    //* KEEP THIS - IT WORKS
     DrawTexturePro(health_bar_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
     DrawTexturePro(health_bar_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
     for(int i = 0; i < player.max_health*10; i++){
@@ -114,11 +115,17 @@ void gui_update()
         {
             player.move_mode = 0;
             player.current_animation_frame = 0;
+            for(auto &e : entities){
+                e->move_mode = 0;
+            }
         }
         else
         {
 
             player.move_mode = 1;
+            for(auto &e : entities){
+                e->move_mode = 1;
+            }
         }
     }
 }

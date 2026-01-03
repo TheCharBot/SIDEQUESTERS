@@ -52,7 +52,7 @@ extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
 #define PLAYER_IFRAME_TIME 0.8f // seconds
-#define ENEMY_IFRAME_TIME 0.6f // seconds
+#define ENEMY_IFRAME_TIME 0.2f // seconds
 #define KNOCKBACK_DIST 20.0f
 #define HIT_FLASH_TIME 0.1f
 
