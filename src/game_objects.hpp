@@ -145,7 +145,8 @@ struct Player
     int current_animation_frame;
     int animation_frame_5;
     Texture2D tex;
-    float health = 3.0f;
+    float current_health;
+    float max_health;
     bool can_take_damage = true;
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;

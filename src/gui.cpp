@@ -3,6 +3,7 @@
 Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
+Texture2D health_bar_tex;
 Vector2 inventory_pos = {0, 0};
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
@@ -18,6 +19,7 @@ void gui_init()
     inventory_tex = LoadTexture(INVENTORY_PATH);
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
+    health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
 }
 
 void inv_cursor_init()
@@ -76,9 +78,30 @@ void inv_cursor_update()
     }
 }
 
+//TODO: IMPLEMENT HEALTHBAR
+
+void health_bar_draw(){
+    //use a for loop and multiply health by ten then draw for i in that
+    //okay, that worked too well, but remember: for some odd and unknown reason c++ likes < better than >
+    
+    //i sorry, but i had too. i hate it too
+    //but, it works, so im happy
+    DrawTexturePro(health_bar_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(health_bar_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
+    for(int i = 0; i < player.max_health*10; i++){
+        //put stuff here to draw the empty healthbar
+        DrawTexturePro(health_bar_tex, health_bar_middle_dead, {((i*health_bar_middle_dead.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle_dead.width*scale, health_bar_middle_dead.height*scale}, {0, 0}, 0, WHITE);
+    }
+    for(int i = 0; i < player.current_health*10; i++){
+        //put stuff here to draw the health in the healthbar
+        DrawTexturePro(health_bar_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
+    }
+}
+
 void gui_update()
 {
     // maybe a performance problem but whatever
+    health_bar_draw();
     if (is_inv_open)
     {
         inv_cursor_update();
@@ -102,17 +125,18 @@ void gui_update()
 
 void gui_draw()
 {
+    health_bar_draw();
     if (is_inv_open)
     {
         // drawing inventory
-        DrawTextureEx(inventory_tex, inventory_pos, 0, 1, WHITE);
+        DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
         // drawing cursor
 
-        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3), (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1), inv_cursor_anim[inv_cursor.current_anim_frame].width, inv_cursor_anim[inv_cursor.current_anim_frame].height}, {0, 0}, 0, WHITE);
+        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
         // drawing held item if there is a held item
         if (inv_cursor.held_item)
         {
-            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x, inventory_slots[inv_cursor.inv_slot_index].pos.y, float(ITEM_SPRITE_WIDTH), float(ITEM_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE);
+            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
         }
         // drawing items
         for (Inventory_slot &s : inventory_slots)
@@ -123,9 +147,9 @@ void gui_draw()
             DrawTexturePro(
                 items_tex,
                 s.filled_with->img_rect,
-                {s.pos.x, s.pos.y,
-                 float(ITEM_SPRITE_WIDTH),
-                 float(ITEM_SPRITE_HEIGHT)},
+                {s.pos.x*scale, s.pos.y*scale,
+                 float(ITEM_SPRITE_WIDTH*scale),
+                 float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
         }
     }

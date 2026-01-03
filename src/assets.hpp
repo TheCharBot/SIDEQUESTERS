@@ -26,6 +26,14 @@ extern std::vector<std::unique_ptr<Entity>> entities;
 extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
+extern Texture2D health_bar_tex;
+extern Rectangle health_bar_left_end;
+extern Rectangle health_bar_right_end;
+extern Rectangle health_bar_right_middle;
+extern Rectangle health_bar_middle;
+extern Rectangle health_bar_left_middle;
+extern Rectangle health_bar_middle_dead;
+extern Rectangle health_bar_middle_left_dead;
 extern Vector2 inventory_pos;
 extern std::vector<Item> player_inventory;
 extern bool is_inv_open;
@@ -43,10 +51,13 @@ extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
-constexpr float PLAYER_IFRAME_TIME = 0.8f; // seconds
-constexpr float ENEMY_IFRAME_TIME = 0.6f; // seconds
-constexpr float KNOCKBACK_DIST = 20.0f;
-constexpr float HIT_FLASH_TIME = 0.1f;
+#define PLAYER_IFRAME_TIME 0.8f // seconds
+#define ENEMY_IFRAME_TIME 0.6f // seconds
+#define KNOCKBACK_DIST 20.0f
+#define HIT_FLASH_TIME 0.1f
+
+#define HEALTHBAR_OFFSET_X 1
+#define HEALTHBAR_OFFSET_Y 1
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -408,5 +419,6 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define INVENTORY_PATH "gfx/gui/inventory_tex.png"
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
+#define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
 
 #endif

@@ -13,6 +13,9 @@ Facing facing;
 
 void init_player()
 {
+    //make the health stuff in constants later
+    player.current_health = 3.0f;
+    player.max_health = 3.0f;
 
     player.move_mode = 1;
     player.pos.x = 0;
@@ -32,10 +35,10 @@ void damage_player(float damage)
     if (player.can_take_damage)
     {
         // implement damage taking here
-        player.health -= damage;
-        if (player.health < 0)
+        player.current_health -= damage;
+        if (player.current_health < 0)
         {
-            player.health = 0;
+            player.current_health = 0;
         }
         player.can_take_damage = false;
         player.iframe_timer = PLAYER_IFRAME_TIME;
@@ -100,7 +103,7 @@ void hotbar_slot_1_stuff()
         if (inventory_slots[23].filled_with->type == COMBAT_RANGED)
         {
         }
-        if (inventory_slots[25].filled_with->type == SHEILD)
+        if (inventory_slots[23].filled_with->type == SHEILD)
         {
         }
         if (inventory_slots[23].filled_with->type == QUEST_ITEM)
@@ -129,6 +132,7 @@ void hotbar_slot_2_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+                
             }
             if (facing == UP)
             {
@@ -138,12 +142,12 @@ void hotbar_slot_2_stuff()
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
-                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
-                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
@@ -152,7 +156,7 @@ void hotbar_slot_2_stuff()
         if (inventory_slots[24].filled_with->type == COMBAT_RANGED)
         {
         }
-        if (inventory_slots[25].filled_with->type == SHEILD)
+        if (inventory_slots[24].filled_with->type == SHEILD)
         {
         }
         if (inventory_slots[24].filled_with->type == QUEST_ITEM)
@@ -181,6 +185,7 @@ void hotbar_slot_3_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+                
             }
             if (facing == UP)
             {
@@ -190,12 +195,12 @@ void hotbar_slot_3_stuff()
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
-                player.attack_hitbox = {player.pos.x + 32, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
-                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 48};
+                player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
@@ -420,7 +425,7 @@ void update_player()
         }
     }
     player_update_iframes();
-    if (player.health <= 0)
+    if (player.current_health <= 0)
     {
         // implement game over screen or something here
         CloseWindow();

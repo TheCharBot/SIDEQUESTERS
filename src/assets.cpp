@@ -36,6 +36,14 @@ Inventory_slot inventory_slots[28] = {
 
 };
 
+Rectangle health_bar_left_end = {1, 1, 2, 6};
+Rectangle health_bar_right_end = {14, 1, 2, 6};
+Rectangle health_bar_right_middle = {4, 1, 1, 6};
+Rectangle health_bar_middle = {6, 1, 1, 6};
+Rectangle health_bar_left_middle = {8, 1, 1, 6};
+Rectangle health_bar_middle_dead = {10, 1, 1, 6};
+Rectangle health_bar_middle_left_dead = {12, 1, 1, 6};
+
 Rectangle inv_cursor_1 = {0, 0, 32, 18};
 Rectangle inv_cursor_2 = {0, 32, 32, 18};
 Rectangle inv_cursor_anim[2] = {

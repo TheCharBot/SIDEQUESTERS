@@ -278,6 +278,11 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
+    //look, its not perfect and never will be, but i have nothing else, so im keeping it
+    //why must this be so annoying?!?!???!
+    
+    //before release, make this better
+    //TODO: make better. not urgent
     
     float dt = GetFrameTime();
 
@@ -316,7 +321,7 @@ void Enemy_forest_scourge::chase()
     }
 
 
-    if(rect.y > player.normal_hitbox.y){
+    if(rect.y < player.normal_hitbox.y){
         current_anim_arr = forest_scourge_walk_up_left;
         max_animation_frames = 7;
     }
