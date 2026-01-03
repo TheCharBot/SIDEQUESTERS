@@ -278,10 +278,11 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
+    
     float dt = GetFrameTime();
 
     Vector2 dir = Vector2Normalize(Vector2Subtract(player.pos, pos));
-    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_SPEED * scale * scale * 2 * dt); // throw another * scale in there for good measure (im happy - it all works :) )
+    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_CHASE_SPEED * dt); 
 
     // seperate x and y movement
     // this is VERY helpful and should DEFINENTLY be saved!!! both ^ and v !!!
