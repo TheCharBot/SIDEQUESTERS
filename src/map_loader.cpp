@@ -298,6 +298,7 @@ void load_dark_forest_south()
         MAP_4_RECT_12,
     });
     add_load_rects({{DARK_FOREST_SOUTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH}});
+    //tons of lil dudes
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
