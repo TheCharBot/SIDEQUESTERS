@@ -205,10 +205,17 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
 
 // next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
+//there is definently a better way to do this. whatever
 #define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {904, 90}
 #define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {280, -10}
 #define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {-4, 90}
 #define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280, 559}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_NORTH {40, 0}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_1 {907, 140}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_2 {907, 876}
+#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER {40, 580}
+#define DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 140}
+#define DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 876}
 
 // constant village house load rects for my sanity
 #define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
@@ -243,6 +250,13 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 // dark forest south stuffs
 #define DARK_FOREST_SOUTH_TO_VILLAGE {281, 26, 60, 1}
+#define DARK_FOREST_SOUTH_TO_DARK_FOREST_CENTER_1 {5, 155, 1, 57}
+#define DARK_FOREST_SOUTH_TO_DARK_FOREST_CENTER_2 {5, 893, 1, 54}
+
+//dark forest center things
+#define DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH {43, 40, 58, 1}
+#define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1 {959, 155, 1, 59}
+#define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2 {959, 893, 1, 53}
 
 // music stuff
 

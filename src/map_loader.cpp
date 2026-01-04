@@ -265,7 +265,7 @@ void load_dark_forest_north()
                     MAP_3_RECT_6,
                     MAP_3_RECT_7});
     add_load_rects({{DARK_FOREST_NORTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH},
-                    {DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, {0, 0}}});
+                    {DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_NORTH}});
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
@@ -297,7 +297,11 @@ void load_dark_forest_south()
         MAP_4_RECT_11,
         MAP_4_RECT_12,
     });
-    add_load_rects({{DARK_FOREST_SOUTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH}});
+    add_load_rects({
+        {DARK_FOREST_SOUTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH},
+        {DARK_FOREST_SOUTH_TO_DARK_FOREST_CENTER_1, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_1},
+        {DARK_FOREST_SOUTH_TO_DARK_FOREST_CENTER_2, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_2}
+    });
     //tons of lil dudes
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
@@ -309,6 +313,18 @@ void load_dark_forest_south()
     entities.push_back(std::make_unique<Enemy_forest_scourge>());
     for (auto &e : entities)
         e->load();
+}
+
+void load_dark_forest_center(){
+    reset_loaded();
+    map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
+    current_map = DARK_FOREST_CENTER;
+
+    add_load_rects({
+        {DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
+        {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
+        {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
+    });
 }
 
 void load_map(Map_names map, Vector2 new_player_pos)
@@ -354,6 +370,9 @@ void load_map(Map_names map, Vector2 new_player_pos)
         break;
     case DARK_FOREST_SOUTH:
         load_dark_forest_south();
+        break;
+    case DARK_FOREST_CENTER:
+        load_dark_forest_center();
         break;
     // case DARK_FOREST_CENTER:
     //     break;
