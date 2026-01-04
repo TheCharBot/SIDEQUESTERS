@@ -158,8 +158,8 @@ void Enemy_forest_scourge::update()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
     attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
-    pos.x = Clamp(pos.x, 0, map_to_load.width);
-    pos.y = Clamp(pos.y, 0, map_to_load.height);
+    pos.x = Clamp(pos.x, 0, map_to_load.width-DEFAULT_SPRITE_WIDTH);
+    pos.y = Clamp(pos.y, 0, map_to_load.height-DEFAULT_SPRITE_WIDTH);
 
     if (!can_take_damage)
     {

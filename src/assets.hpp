@@ -191,6 +191,26 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_4_RECT_11 {449, 112, 63, 113}
 #define MAP_4_RECT_12 {0, 225, 96, 644}
 
+//dark forest center stuff
+#define MAP_5_RECT_1 {0, 0, 32, 960}
+#define MAP_5_RECT_2 {32, 640, 256, 133}
+#define MAP_5_RECT_3 {112, 0, 48, 549}
+#define MAP_5_RECT_4 {240, 128, 48, 645}
+#define MAP_5_RECT_5 {288, 656, 112, 117}
+#define MAP_5_RECT_6 {480, 656, 80, 304}
+#define MAP_5_RECT_7 {336, 864, 144, 96}
+#define MAP_5_RECT_8 {368, 0, 80, 565}
+#define MAP_5_RECT_9 {448, 432, 192, 133}
+#define MAP_5_RECT_10 {640, 432, 112, 277}
+#define MAP_5_RECT_11 {160, 0, 208, 37}
+#define MAP_5_RECT_12 {448, 0, 448, 37}
+#define MAP_5_RECT_13 {896, 0, 64, 133}
+#define MAP_5_RECT_14 {528, 128, 288, 212}
+#define MAP_5_RECT_15 {816, 224, 16, 116}
+#define MAP_5_RECT_16 {832, 224, 128, 645}
+#define MAP_5_RECT_17 {640, 799, 192, 70}
+
+
 // loader rects for other maps
 // NAME the LOAD RECTS PLEASE!!!!!!!
 #define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}

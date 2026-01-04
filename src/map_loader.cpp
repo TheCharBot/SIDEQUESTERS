@@ -319,6 +319,26 @@ void load_dark_forest_center(){
     reset_loaded();
     map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
     current_map = DARK_FOREST_CENTER;
+    add_collisions({
+        MAP_5_RECT_1,
+        MAP_5_RECT_2,
+        MAP_5_RECT_3,
+        MAP_5_RECT_4,
+        MAP_5_RECT_5,
+        MAP_5_RECT_6,
+        MAP_5_RECT_7,
+        MAP_5_RECT_8,
+        MAP_5_RECT_9,
+        MAP_5_RECT_10,
+        MAP_5_RECT_11,
+        MAP_5_RECT_12,
+        MAP_5_RECT_13,
+        MAP_5_RECT_14,
+        MAP_5_RECT_15,
+        MAP_5_RECT_16,
+        MAP_5_RECT_17,
+    });
+
 
     add_load_rects({
         {DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
