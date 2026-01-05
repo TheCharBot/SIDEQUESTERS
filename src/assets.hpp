@@ -342,6 +342,8 @@ extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
+#define BIG_TREE_POS {31, -71}
+#define BIG_TREE_TEX_PATH "gfx/assets/big_tree/big_tree_tex.png"
 
 
 #define DEFAULT_SPRITE_WIDTH 64

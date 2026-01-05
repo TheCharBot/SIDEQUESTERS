@@ -56,5 +56,24 @@ private:
 };
 
 
+class Big_tree : public Entity {
+    public:
+        Big_tree();
+        ~Big_tree() override;
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+        
+        void load() override;
+        void update() override;
+        void draw() override;
+    private:
+        Rectangle rect1;
+        Rectangle rect2;
+        Rectangle rect3;
+        
+        Texture2D tex;
+};
+
 
 #endif

@@ -160,3 +160,37 @@ void Start_portal::draw()
 
     DrawTexturePro(tex, start_portal_animation[current_animation_frame], {pos.x, pos.y, float(START_PORTAL_WIDTH), float(START_PORTAL_HEIGHT)}, {0, 0}, 0, WHITE);
 }
+
+
+Big_tree::Big_tree()
+{
+    pos = BIG_TREE_POS;
+    rect = {pos.x, pos.y+865, 208, 1};
+    rect1 = {pos.x+4, pos.y+848, 200, 55};
+    rect2 = {pos.x+31, pos.y+903, 56, 24};
+    rect3 = {pos.x+121, pos.y+903, 56, 24};
+    collision_rects.push_back(rect1);
+    collision_rects.push_back(rect2);
+    collision_rects.push_back(rect3);
+}
+
+Big_tree::~Big_tree()
+{
+    if(tex.id != 1){
+        UnloadTexture(tex);
+    }
+}
+
+void Big_tree::load()
+{
+    tex = LoadTexture(BIG_TREE_TEX_PATH);
+}
+
+void Big_tree::update()
+{
+}
+
+void Big_tree::draw()
+{
+    DrawTextureEx(tex, pos, 0, 1, WHITE);
+}

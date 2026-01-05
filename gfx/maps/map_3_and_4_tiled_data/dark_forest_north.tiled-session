@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_center.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -29,7 +29,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 319.91869918699183,
-                "y": 522.3577235772357
+                "y": 479.2682926829268
             }
         },
         "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_tileset.tsx": {
@@ -65,21 +65,18 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data",
+    "last.imagePath": "C:/Users/CVD/Documents/C++_and_C_projects/TI84 Plus CE Projects/Minish Cap CE/src/gfx/tilesets",
     "map.height": 60,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 60,
     "openFiles": [
-        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_center.tmx",
-        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx",
-        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_tileset.tsx"
     ],
     "project": "",
     "recentFiles": [
-        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_tileset.tsx",
-        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx",
         "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_center.tmx",
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_south.tmx",
+        "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_tileset.tsx",
         "C:/Users/CVD/Documents/C++_and_C_projects/SIDEQUESTERS/gfx/maps/map_3_4_5_tiled_data/dark_forest_north.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
