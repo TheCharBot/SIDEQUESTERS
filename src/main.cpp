@@ -5,7 +5,8 @@
 
 // Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"     
 // done TODO: make map 3, 4, and 5
-// TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
+// done TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
+//TODO: implement Big Tree
 int main()
 {
 

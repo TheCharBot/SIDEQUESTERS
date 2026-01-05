@@ -150,6 +150,7 @@ struct Player
     bool can_take_damage = true;
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;
+    int active_damage;
 
 
 };

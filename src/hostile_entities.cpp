@@ -55,37 +55,37 @@ void Enemy_forest_scourge::load()
         {
         case 0:
 
-            pos = {100, 150};
+            pos = FOREST_SCOURGE_DFS_POS_1;
 
             break;
         case 1:
 
-            pos = {380, 30};
+            pos = FOREST_SCOURGE_DFS_POS_2;
 
             break;
         case 2:
 
-            pos = {520, 345};
+            pos = FOREST_SCOURGE_DFS_POS_3;
 
             break;
         case 3:
 
-            pos = {280, 412};
+            pos = FOREST_SCOURGE_DFS_POS_4;
 
             break;
         case 4:
 
-            pos = {425, 685};
+            pos = FOREST_SCOURGE_DFS_POS_5;
 
             break;
         case 5:
 
-            pos = {105, 875};
+            pos = FOREST_SCOURGE_DFS_POS_6;
 
             break;
         default:
 
-            pos = {100, 150};
+            pos = FOREST_SCOURGE_DFS_POS_1;
 
             break;
         }
@@ -97,37 +97,37 @@ void Enemy_forest_scourge::load()
         {
         case 0:
 
-            pos = {600, 100};
+            pos = FOREST_SCOURGE_DFN_POS_1;
 
             break;
         case 1:
 
-            pos = {45, 100};
+            pos = FOREST_SCOURGE_DFN_POS_2;
 
             break;
         case 2:
 
-            pos = {115, 305};
+            pos = FOREST_SCOURGE_DFN_POS_3;
 
             break;
         case 3:
 
-            pos = {855, 305};
+            pos = FOREST_SCOURGE_DFN_POS_4;
 
             break;
         case 4:
 
-            pos = {760, 510};
+            pos = FOREST_SCOURGE_DFN_POS_5;
 
             break;
         case 5:
 
-            pos = {90, 510};
+            pos = FOREST_SCOURGE_DFN_POS_6;
 
             break;
         default:
 
-            pos = {600, 100};
+            pos = FOREST_SCOURGE_DFN_POS_1;
 
             break;
         }
@@ -399,7 +399,7 @@ void Enemy_forest_scourge::decide_action()
         if (CheckCollisionRecs(rect, player.attack_hitbox))
         {
             // make a player.active_damage thing or whatever
-            take_damage(0.3f, player.pos);
+            take_damage(player.active_damage, player.pos);
         }
         if (CheckCollisionRecs(chase_detect_rect, player.normal_hitbox))
         {

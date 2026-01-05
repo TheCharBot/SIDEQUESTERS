@@ -16,7 +16,7 @@ void init_player()
     //make the health stuff in constants later
     player.current_health = 3.0f;
     player.max_health = 3.0f;
-
+    player.active_damage = 0;
     player.move_mode = 1;
     player.pos.x = 0;
     player.pos.y = 0;
@@ -26,6 +26,7 @@ void init_player()
     player.normal_hitbox = {player.pos.x, player.pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
     player.tex = LoadTexture(PLAYER_TEX_PATH);
     player.attack_hitbox = {};
+    
 };
 
 void damage_player(float damage)
@@ -79,22 +80,25 @@ void hotbar_slot_1_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-                
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == UP)
             {
                 player.current_anim_arr = player_sword_slash_up_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
                 player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
                 player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
@@ -132,22 +136,26 @@ void hotbar_slot_2_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
                 
             }
             if (facing == UP)
             {
                 player.current_anim_arr = player_sword_slash_up_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
                 player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
                 player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
@@ -185,22 +193,26 @@ void hotbar_slot_3_stuff()
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
                 
             }
             if (facing == UP)
             {
                 player.current_anim_arr = player_sword_slash_up_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
                 player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
                 player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
+                player.active_damage = inventory_slots[23].filled_with->melee.damage;
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
