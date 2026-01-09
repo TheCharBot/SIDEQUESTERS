@@ -346,16 +346,23 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         //TODO: make big tree inside template, then big tree level 1
-        {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, -1, {0, 0}}
+        {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, {0, 0}}
     });
     entities.push_back(std::make_unique<Big_tree>());
     for (auto &e : entities)
         e->load();
 }
 
-// load_big_tree_level_1(){
 
-// };
+void load_big_tree_level_1(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_1_PATH);
+    current_map = BIG_TREE_LEVEL_1;
+    // add_collisions({});
+    // add_load_rects({});
+    
+
+};
 
 void load_map(Map_names map, Vector2 new_player_pos)
 {
@@ -404,10 +411,10 @@ void load_map(Map_names map, Vector2 new_player_pos)
     case DARK_FOREST_CENTER:
         load_dark_forest_center();
         break;
-    // case BIG_TREE_LEVEL_1:
-    //     load_big_tree_level_1();
-    // case DARK_FOREST_CENTER:
-    //     break;
+    case BIG_TREE_LEVEL_1:
+        load_big_tree_level_1();
+        break;
+    
     default:
         // loading the wrong map, or loading a nonexistent map
         reset_player({0, 0});

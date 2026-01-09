@@ -424,6 +424,8 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
 #define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
 
+#define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
+
 // music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
 #define VILLAGE_MUSIC_PATH "sfx/village/Village.mp3"
