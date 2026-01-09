@@ -277,7 +277,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH {43, 40, 58, 1}
 #define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1 {959, 155, 1, 59}
 #define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2 {959, 893, 1, 53}
-
+#define DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1 {119, 841, 32, 1}
 // music stuff
 
 // constants defines (not rects)

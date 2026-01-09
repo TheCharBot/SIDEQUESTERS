@@ -37,6 +37,7 @@ enum Map_names
     DARK_FOREST_NORTH,
     DARK_FOREST_SOUTH,
     DARK_FOREST_CENTER,
+    BIG_TREE_LEVEL_1
 
 };
 

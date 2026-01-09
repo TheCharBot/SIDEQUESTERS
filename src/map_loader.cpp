@@ -136,7 +136,8 @@ void load_village_map()
         {MAP_2_DARK_FOREST_SOUTH_LOAD, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE}, // check
         {MAP_2_VILLAGE_HOUSE_1_LOAD, INSIDE_VILLAGE_HOUSE_1, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_2_LOAD, INSIDE_VILLAGE_HOUSE_2, PLAYER_VILLAGE_HOUSE_START_POS},         // check
-        {MAP_2_WINDMILL_LOAD, INSIDE_VILLAGE_WINDMILL, {0, 0}},                                       // check
+        //TODO: make inside village windmill
+        {MAP_2_WINDMILL_LOAD, -1, {0, 0}},                                       // check
         {MAP_2_VILLAGE_HOUSE_3_LOAD, INSIDE_VILLAGE_HOUSE_3, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_4_LOAD, INSIDE_VILLAGE_HOUSE_4, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_5_LOAD, INSIDE_VILLAGE_HOUSE_5, PLAYER_VILLAGE_HOUSE_START_POS},
@@ -344,11 +345,17 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
+        //TODO: make big tree inside template, then big tree level 1
+        {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, -1, {0, 0}}
     });
     entities.push_back(std::make_unique<Big_tree>());
     for (auto &e : entities)
         e->load();
 }
+
+// load_big_tree_level_1(){
+
+// };
 
 void load_map(Map_names map, Vector2 new_player_pos)
 {
@@ -397,6 +404,8 @@ void load_map(Map_names map, Vector2 new_player_pos)
     case DARK_FOREST_CENTER:
         load_dark_forest_center();
         break;
+    // case BIG_TREE_LEVEL_1:
+    //     load_big_tree_level_1();
     // case DARK_FOREST_CENTER:
     //     break;
     default:
