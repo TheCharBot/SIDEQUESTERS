@@ -54,11 +54,14 @@ void update_all()
     {
         if (current_map != requested_map)
         {
+            fade_frame_timer = SCREEN_FADE_TIME;
             load_map(requested_map, requested_player_pos);
+            
         }
         requested_map = WRONG_MAP;
     }
     gui_update();
+    
 }
 
 void draw_all()
@@ -81,6 +84,14 @@ void draw_all()
         }
     }
     
+    
     EndMode2D();
     gui_draw();
+    //probably will get cleaned up-best i can do now
+    if(fade_frame_timer >= 0){
+        
+        DrawRectangle(0, 0, map_to_load.width*scale, map_to_load.height*scale, Fade(BLACK, fade_frame_timer*6));
+        fade_frame_timer -= GetFrameTime();
+    }
+    
 };

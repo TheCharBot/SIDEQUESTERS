@@ -16,6 +16,8 @@ std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
 
+float fade_frame_timer = SCREEN_FADE_TIME;
+
 void init_map()
 {
     map_pos.x = 0;
@@ -67,6 +69,7 @@ void reset_loaded()
     //      current_music = {};
     //  }
 };
+
 
 // map loader helper functions for easier organization and readability
 void load_wrong_map()
@@ -419,6 +422,9 @@ void load_big_tree_level_2(){
         BIG_TREE_LEVEL_RECT_21,
         BIG_TREE_LEVEL_RECT_22,
     });
+    add_load_rects({
+        {BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_BIG_TREE_LEVEL_2}
+    });
 }
 
 void load_map(Map_names map, Vector2 new_player_pos)
@@ -496,4 +502,5 @@ void draw_map()
 {
 
     DrawTextureEx(map_to_load, {0, 0}, 0, 1, WHITE);
+    
 }

@@ -10,6 +10,7 @@ extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
 
 extern void reset_player(Vector2 spawn);
+
 extern void load_big_tree_level_1();
 extern void load_map(Map_names map, Vector2 new_player_pos);
 extern void update_map();

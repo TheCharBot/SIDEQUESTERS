@@ -16,6 +16,8 @@ extern std::vector<Rectangle> collision_rects;
 extern Map_names current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
+extern float fade_frame_timer;
+
 extern Inventory_slot inventory_slots[28];
 extern Inventory_cursor inv_cursor;
 
@@ -58,6 +60,7 @@ extern Rectangle inv_cursor_anim[2];
 
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
+#define SCREEN_FADE_TIME 0.3f
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -285,7 +288,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 
 
-#define BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_1 {171, 32, 35, 15}
+#define BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_1 {184, 32, 22, 15}
 
 // ----------------------------------------------------------------- SPAWNPOINTS AREA --------------------------------------------------------------------
 // next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
@@ -317,10 +320,10 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 //big tree level 1
 #define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {128, 267}
-#define BIG_TREE_LEVEL_1_SPAWNPOINT_BIG_TREE_LEVEL_2 {133, 8}
+#define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_BIG_TREE_LEVEL_2 {150, 18}
 
 //big tree level 2
-#define BIG_TREE_LEVEL_2_SPAWNPOINT_BIG_TREE_LEVEL_1 {132, -6}
+#define BIG_TREE_LEVEL_2_SPAWNPOINT_BIG_TREE_LEVEL_1 {130, -6}
 
 
 
