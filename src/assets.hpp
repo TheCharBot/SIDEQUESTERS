@@ -141,6 +141,7 @@ extern Rectangle player_sword_slash_up_arr[5];
 extern Rectangle player_sword_slash_right_arr[5];
 extern Rectangle player_sword_slash_left_arr[5];
 
+// ----------------------------------------------------------------- COLLISION RECTS AREA --------------------------------------------------------------------
 #define MAP_1_RECT_1 {0, 0, 480, 135}
 #define MAP_1_RECT_2 {0, 185, 198, 135}
 #define MAP_1_RECT_3 {198, 265, 282, 55}
@@ -211,44 +212,6 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_5_RECT_17 {640, 799, 192, 70}
 
 
-// loader rects for other maps
-// NAME the LOAD RECTS PLEASE!!!!!!!
-#define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
-#define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 639, 58, 1}
-#define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
-#define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
-#define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
-#define MAP_2_VILLAGE_HOUSE_3_LOAD {543, 361, 18, 1}
-#define MAP_2_VILLAGE_HOUSE_4_LOAD {143, 553, 18, 1}
-#define MAP_2_VILLAGE_HOUSE_5_LOAD {303, 553, 18, 1}
-#define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
-#define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
-
-// next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
-//there is definently a better way to do this. whatever
-#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {904, 90}
-#define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {280, -10}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {-4, 90}
-#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280, 559}
-#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_NORTH {40, 0}
-#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_1 {907, 140}
-#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_2 {907, 876}
-#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER {40, 580}
-#define DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 140}
-#define DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 876}
-
-// constant village house load rects for my sanity
-#define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
-#define PLAYER_VILLAGE_HOUSE_START_POS {113, 123}
-#define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {361, 165}
-#define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {201, 325}
-#define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {521, 325}
-#define VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT {121, 517}
-#define VILLAGE_HOUSE_5_OUTSIDE_SPAWNPOINT {281, 517}
-#define VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT {441, 517}
-#define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {601, 517}
-#define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {338, 320}
-
 // wall rects for houses
 #define VILLAGE_HOUSE_RECT_1 {56, 48, 176, 20}  // wall
 #define VILLAGE_HOUSE_RECT_2 {228, 68, 4, 88}   // wall
@@ -263,8 +226,44 @@ extern Rectangle player_sword_slash_left_arr[5];
 // village house 2 stuff (finish later, get other things done now)
 //(leave blank for now)
 
-// more dark forest north stuff
-// actually, make load rects look like this, in the format of "origin to destination"
+//big tree level constant rects
+#define BIG_TREE_LEVEL_RECT_1 {112, 16, 96, 16}
+#define BIG_TREE_LEVEL_RECT_2 {208, 32, 32, 16}
+#define BIG_TREE_LEVEL_RECT_3 {240, 48, 32, 16}
+#define BIG_TREE_LEVEL_RECT_4 {272, 64, 16, 32}
+#define BIG_TREE_LEVEL_RECT_5 {288, 96, 16, 32}
+#define BIG_TREE_LEVEL_RECT_6 {304, 128, 16, 80}
+#define BIG_TREE_LEVEL_RECT_7 {288, 208, 16, 32}
+#define BIG_TREE_LEVEL_RECT_8 {272, 240, 16, 80}
+#define BIG_TREE_LEVEL_RECT_9 {240, 272, 32, 16}
+#define BIG_TREE_LEVEL_RECT_10 {208, 288, 32, 16}
+#define BIG_TREE_LEVEL_RECT_11 {112, 304, 69, 16} // not for level 1
+#define BIG_TREE_LEVEL_RECT_12 {80, 288, 32, 16}
+#define BIG_TREE_LEVEL_RECT_13 {48, 272, 32, 16}
+#define BIG_TREE_LEVEL_RECT_14 {32, 240, 16, 32}
+#define BIG_TREE_LEVEL_RECT_15 {16, 208, 16, 32}
+#define BIG_TREE_LEVEL_RECT_16 {0, 128, 16, 80}
+#define BIG_TREE_LEVEL_RECT_17 {16, 96, 16, 32}
+#define BIG_TREE_LEVEL_RECT_18 {32, 64, 16, 32}
+#define BIG_TREE_LEVEL_RECT_19 {48, 48, 32, 16}
+#define BIG_TREE_LEVEL_RECT_20 {80, 32, 32, 16}
+#define BIG_TREE_LEVEL_RECT_21 {96, 304, 16, 16}
+#define BIG_TREE_LEVEL_RECT_22 {208, 304, 16, 16}
+
+// ----------------------------------------------------------------- LOAD RECTS AREA --------------------------------------------------------------------
+// loader rects for other maps
+// NAME the LOAD RECTS PLEASE!!!!!!!
+#define MAP_2_DARK_FOREST_NORTH_LOAD {8, 105, 1, 62}
+#define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 639, 58, 1}
+#define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
+#define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
+#define MAP_2_VILLAGE_HOUSE_3_LOAD {543, 361, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_4_LOAD {143, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_5_LOAD {303, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
+#define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
+
 #define DARK_FOREST_NORTH_TO_VILLAGE {945, 109, 1, 89}
 #define DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER {32, 639, 80, 1}
 
@@ -278,7 +277,44 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1 {959, 155, 1, 59}
 #define DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2 {959, 893, 1, 53}
 #define DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1 {119, 841, 32, 1}
+
+#define BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER {112, 319, 96, 1}
+
+// ----------------------------------------------------------------- SPAWNPOINTS AREA --------------------------------------------------------------------
+// next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
+//there is definently a better way to do this. whatever
+#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE {904, 90}
+#define DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE {280, -10}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH {-4, 90}
+#define VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_SOUTH {280, 559}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_NORTH {40, 0}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_1 {907, 140}
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_2 {907, 876}
+#define DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER {40, 580}
+#define DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 140}
+#define DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER {-13, 876}
+
+#define DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1 {103, 810}
+
+// constant village house load rects for my sanity
+#define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
+#define PLAYER_VILLAGE_HOUSE_START_POS {113, 123}
+#define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {361, 165}
+#define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {201, 325}
+#define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {521, 325}
+#define VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT {121, 517}
+#define VILLAGE_HOUSE_5_OUTSIDE_SPAWNPOINT {281, 517}
+#define VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT {441, 517}
+#define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {601, 517}
+#define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {338, 320}
+
+#define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {128, 267}
+
+
+
 // music stuff
+
+//----------------------------------------------------------------- OTHER CONSTANTS AREA (entities, player, etc) -----------------------------------------------------------------
 
 // constants defines (not rects)
 #define PLAYER_SPRITE_WIDTH 64

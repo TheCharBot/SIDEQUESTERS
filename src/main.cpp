@@ -6,7 +6,8 @@
 // Reminder: there must be one NPC that says "Smells like CHARACTER DEVELOPEMENT!"     
 // done TODO: make map 3, 4, and 5
 // done TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
-//TODO: implement Big Tree
+//TODO: implement Big Tree Level 1
+//TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
 int main()
 {
 
