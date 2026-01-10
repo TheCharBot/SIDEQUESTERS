@@ -250,6 +250,8 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define BIG_TREE_LEVEL_RECT_21 {96, 304, 16, 16}
 #define BIG_TREE_LEVEL_RECT_22 {208, 304, 16, 16}
 
+//ig tree level-specific rects
+#define BIG_TREE_LEVEL_1_RECT_1 {177, 47, 34, 13}
 // ----------------------------------------------------------------- LOAD RECTS AREA --------------------------------------------------------------------
 // loader rects for other maps
 // NAME the LOAD RECTS PLEASE!!!!!!!
@@ -279,6 +281,11 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1 {119, 841, 32, 1}
 
 #define BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER {112, 319, 96, 1}
+#define BIG_TREE_LEVEL_1_TO_BIG_TREE_LEVEL_2 {176, 35, 1, 25}
+
+
+
+#define BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_1 {171, 32, 35, 15}
 
 // ----------------------------------------------------------------- SPAWNPOINTS AREA --------------------------------------------------------------------
 // next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
@@ -308,7 +315,12 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT {601, 517}
 #define VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT {338, 320}
 
+//big tree level 1
 #define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {128, 267}
+#define BIG_TREE_LEVEL_1_SPAWNPOINT_BIG_TREE_LEVEL_2 {133, 8}
+
+//big tree level 2
+#define BIG_TREE_LEVEL_2_SPAWNPOINT_BIG_TREE_LEVEL_1 {132, -6}
 
 
 
@@ -461,6 +473,7 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
 
 #define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
+#define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"
 
 // music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"

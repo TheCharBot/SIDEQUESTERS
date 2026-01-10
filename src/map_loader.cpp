@@ -345,7 +345,6 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_DARK_FOREST_NORTH, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_1, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
-        //TODO: make big tree inside template, then big tree level 1
         {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER}
     });
     entities.push_back(std::make_unique<Big_tree>());
@@ -382,13 +381,45 @@ void load_big_tree_level_1(){
         BIG_TREE_LEVEL_RECT_20,
         BIG_TREE_LEVEL_RECT_21,
         BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_LEVEL_1_RECT_1
     });
     add_load_rects({
-        {BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1}
+        {BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1},
+        {BIG_TREE_LEVEL_1_TO_BIG_TREE_LEVEL_2, BIG_TREE_LEVEL_2, BIG_TREE_LEVEL_2_SPAWNPOINT_BIG_TREE_LEVEL_1}
     });
     
 
 };
+
+void load_big_tree_level_2(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_2_PATH);
+    current_map = BIG_TREE_LEVEL_2;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+    });
+}
 
 void load_map(Map_names map, Vector2 new_player_pos)
 {
@@ -439,6 +470,9 @@ void load_map(Map_names map, Vector2 new_player_pos)
         break;
     case BIG_TREE_LEVEL_1:
         load_big_tree_level_1();
+        break;
+    case BIG_TREE_LEVEL_2:
+        load_big_tree_level_2();
         break;
     
     default:
