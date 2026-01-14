@@ -410,13 +410,19 @@ void update_player()
         player.animation_frame_5 = 0;
     }
     rebuild_hitbox();
-    for (int i = 0; i < int(map_load_rects.size()); i++)
-    {
 
-        if (CheckCollisionRecs(player.normal_hitbox, map_load_rects[i].rect))
+    
+
+    for (Load_rects &r : map_load_rects)
+    {
+        
+        if (CheckCollisionRecs(player.normal_hitbox, r.rect))
         {
-            requested_player_pos = map_load_rects[i].spawnpoint;
-            requested_map = Map_names(map_load_rects[i].map_to_load_struct);
+            //make way for it to not load if the map loads w/ u on top of it like zelda
+           
+                requested_player_pos = r.spawnpoint;
+                requested_map = Map_names(r.map_to_load_struct);
+            
         }
     }
     player.attack_hitbox = {};

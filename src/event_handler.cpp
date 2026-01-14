@@ -6,7 +6,7 @@ void init_all()
 
     // current_music = LoadMusicStream(START_MUSIC_PATH);
     init_items();
-    gui_init();
+    init_gui();
     init_map();
     init_player();
 
@@ -60,7 +60,7 @@ void update_all()
         }
         requested_map = WRONG_MAP;
     }
-    gui_update();
+    update_gui();
     
 }
 
@@ -86,8 +86,8 @@ void draw_all()
     
     
     EndMode2D();
-    gui_draw();
-    //probably will get cleaned up-best i can do now
+    draw_gui();
+    //probably will get cleaned up-best i can do now for screen fading
     if(fade_frame_timer >= 0){
         
         DrawRectangle(0, 0, map_to_load.width*scale, map_to_load.height*scale, Fade(BLACK, fade_frame_timer*6));

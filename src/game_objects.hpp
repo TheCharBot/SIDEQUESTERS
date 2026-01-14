@@ -78,7 +78,7 @@ enum Item_names
 
 };
 
-// figure out good way to document quests
+// figure out good way to document quests - this works for now though
 enum Quests
 {
     SACRED_BARK_FROM_DARK_FOREST,
@@ -161,6 +161,7 @@ struct Player
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;
     int active_damage;
+    
 
 
 };

@@ -44,8 +44,7 @@ extern bool is_inv_open;
 extern Player player;
 
 // inited items
-extern Item Stick;
-extern Item null_item;
+
 extern Item inv_cursor_held_item;
 
 // inventory cursor animation
@@ -240,7 +239,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define BIG_TREE_LEVEL_RECT_8 {272, 240, 16, 80}
 #define BIG_TREE_LEVEL_RECT_9 {240, 272, 32, 16}
 #define BIG_TREE_LEVEL_RECT_10 {208, 288, 32, 16}
-#define BIG_TREE_LEVEL_RECT_11 {112, 304, 69, 16} // not for level 1
+#define BIG_TREE_LEVEL_RECT_11 {112, 304, 96, 16} // not for level 1
 #define BIG_TREE_LEVEL_RECT_12 {80, 288, 32, 16}
 #define BIG_TREE_LEVEL_RECT_13 {48, 272, 32, 16}
 #define BIG_TREE_LEVEL_RECT_14 {32, 240, 16, 32}
@@ -254,7 +253,15 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define BIG_TREE_LEVEL_RECT_22 {208, 304, 16, 16}
 
 //ig tree level-specific rects
-#define BIG_TREE_LEVEL_1_RECT_1 {177, 47, 34, 13}
+#define BIG_TREE_LEVEL_1_RECT_1 {}
+#define BIG_TREE_STAIRS_TOP_UP_RECT {173, 32, 33, 14}
+
+#define BIG_TREE_STAIRS_BOTTOM_UP_RECT_1 {194, 259, 13, 10}
+#define BIG_TREE_STAIRS_BOTTOM_UP_RECT_2 {184, 269, 23, 9}
+#define BIG_TREE_STAIRS_BOTTOM_UP_RECT_3 {173, 278, 34, 25}
+
+
+
 // ----------------------------------------------------------------- LOAD RECTS AREA --------------------------------------------------------------------
 // loader rects for other maps
 // NAME the LOAD RECTS PLEASE!!!!!!!
@@ -284,11 +291,14 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1 {119, 841, 32, 1}
 
 #define BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER {112, 319, 96, 1}
-#define BIG_TREE_LEVEL_1_TO_BIG_TREE_LEVEL_2 {176, 35, 1, 25}
 
+//do this w/ the stairs, make them all the same position so you dont go insane
+#define BIG_TREE_STAIRS_TOP_UP_LOAD_RECT {172, 23, 1, 25}
+#define BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT {185, 34, 21, 13}
 
+#define BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT {172, 278, 1, 25}
+#define BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT {185, 289, 21, 13}
 
-#define BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_1 {184, 32, 22, 15}
 
 // ----------------------------------------------------------------- SPAWNPOINTS AREA --------------------------------------------------------------------
 // next time, do load spawnpoints like this: in the format "destination spawnpoint from origin"
@@ -320,11 +330,10 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 //big tree level 1
 #define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER {128, 267}
-#define BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_BIG_TREE_LEVEL_2 {150, 18}
+#define BIG_TREE_DEFAULT_TOP_SPAWNPOINT {169, 13} //use as default for top spawnpoints
 
 //big tree level 2
-#define BIG_TREE_LEVEL_2_SPAWNPOINT_BIG_TREE_LEVEL_1 {130, -6}
-
+#define BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT {185, 234} //use as default for bottom spawnpoints
 
 
 // music stuff
@@ -477,6 +486,7 @@ extern Rectangle forest_scourge_attack_up_left_6;
 
 #define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
 #define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"
+#define BIG_TREE_LEVEL_3_PATH "gfx/maps/big_tree_levels/big_tree_level_3.png"
 
 // music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"

@@ -11,7 +11,7 @@ Item temp_item;
 
 bool is_inv_open;
 
-void gui_init()
+void init_gui()
 {
     inv_cursor_init();
     add_item_to_inventory(Stick, 23);
@@ -99,7 +99,7 @@ void health_bar_draw(){
     }
 }
 
-void gui_update()
+void update_gui()
 {
     // maybe a performance problem but whatever
     health_bar_draw();
@@ -130,7 +130,7 @@ void gui_update()
     }
 }
 
-void gui_draw()
+void draw_gui()
 {
     health_bar_draw();
     if (is_inv_open)

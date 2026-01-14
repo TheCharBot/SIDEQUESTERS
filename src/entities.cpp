@@ -165,6 +165,7 @@ void Start_portal::draw()
 Big_tree::Big_tree()
 {
     pos = BIG_TREE_POS;
+    //should probably move to macros later
     rect = {pos.x, pos.y+865, 208, 1};
     rect1 = {pos.x+4, pos.y+848, 200, 55};
     rect2 = {pos.x+31, pos.y+903, 56, 24};
