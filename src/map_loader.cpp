@@ -462,16 +462,252 @@ void load_big_tree_level_3(){
     });
     add_load_rects({
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
-        // {BIG_TREE_LEVEL_3_TO_BIG_TREE_LEVEL_4, BIG_TREE_LEVEL_4, {0, 0}}
+        {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
 }
-void load_big_tree_level_4(){}
-void load_big_tree_level_5(){}
-void load_big_tree_level_6(){}
-void load_big_tree_level_7(){}
-void load_big_tree_level_8(){}
-void load_big_tree_level_9(){}
-void load_big_tree_level_10(){}
+void load_big_tree_level_4(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_4_PATH);
+    current_map = BIG_TREE_LEVEL_4;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_1,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_2,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_3
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
+        {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_5(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_5_PATH);
+    current_map = BIG_TREE_LEVEL_5;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_TOP_UP_RECT
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
+        {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_6(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_6_PATH);
+    current_map = BIG_TREE_LEVEL_6;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_1,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_2,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_3
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
+        {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_7(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_7_PATH);
+    current_map = BIG_TREE_LEVEL_7;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_TOP_UP_RECT
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
+        {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_8(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_8_PATH);
+    current_map = BIG_TREE_LEVEL_8;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_1,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_2,
+        BIG_TREE_STAIRS_BOTTOM_UP_RECT_3
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
+        {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_9(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_9_PATH);
+    current_map = BIG_TREE_LEVEL_9;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+        BIG_TREE_STAIRS_TOP_UP_RECT
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
+        {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_10, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
+    });
+}
+void load_big_tree_level_10(){
+    reset_loaded();
+    map_to_load = LoadTexture(BIG_TREE_LEVEL_10_PATH);
+    current_map = BIG_TREE_LEVEL_10;
+    add_collisions({
+        BIG_TREE_LEVEL_RECT_1,
+        BIG_TREE_LEVEL_RECT_2,
+        BIG_TREE_LEVEL_RECT_3,
+        BIG_TREE_LEVEL_RECT_4,
+        BIG_TREE_LEVEL_RECT_5,
+        BIG_TREE_LEVEL_RECT_6,
+        BIG_TREE_LEVEL_RECT_7,
+        BIG_TREE_LEVEL_RECT_8,
+        BIG_TREE_LEVEL_RECT_9,
+        BIG_TREE_LEVEL_RECT_10,
+        BIG_TREE_LEVEL_RECT_11,
+        BIG_TREE_LEVEL_RECT_12,
+        BIG_TREE_LEVEL_RECT_13,
+        BIG_TREE_LEVEL_RECT_14,
+        BIG_TREE_LEVEL_RECT_15,
+        BIG_TREE_LEVEL_RECT_16,
+        BIG_TREE_LEVEL_RECT_17,
+        BIG_TREE_LEVEL_RECT_18,
+        BIG_TREE_LEVEL_RECT_19,
+        BIG_TREE_LEVEL_RECT_20,
+        BIG_TREE_LEVEL_RECT_21,
+        BIG_TREE_LEVEL_RECT_22,
+    });
+    add_load_rects({
+        {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
+        
+    });
+}
 
 void load_map(Map_names map, Vector2 new_player_pos)
 {
@@ -528,6 +764,27 @@ void load_map(Map_names map, Vector2 new_player_pos)
         break;
     case BIG_TREE_LEVEL_3:
         load_big_tree_level_3();
+        break;
+    case BIG_TREE_LEVEL_4:
+        load_big_tree_level_4();
+        break;
+    case BIG_TREE_LEVEL_5:
+        load_big_tree_level_5();
+        break;
+    case BIG_TREE_LEVEL_6:
+        load_big_tree_level_6();
+        break;
+    case BIG_TREE_LEVEL_7:
+        load_big_tree_level_7();
+        break;
+    case BIG_TREE_LEVEL_8:
+        load_big_tree_level_8();
+        break;
+    case BIG_TREE_LEVEL_9:
+        load_big_tree_level_9();
+        break;
+    case BIG_TREE_LEVEL_10:
+        load_big_tree_level_10();
         break;
     default:
         // loading the wrong map, or loading a nonexistent map

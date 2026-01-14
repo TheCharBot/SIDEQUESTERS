@@ -487,6 +487,13 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
 #define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"
 #define BIG_TREE_LEVEL_3_PATH "gfx/maps/big_tree_levels/big_tree_level_3.png"
+#define BIG_TREE_LEVEL_4_PATH "gfx/maps/big_tree_levels/big_tree_level_4.png"
+#define BIG_TREE_LEVEL_5_PATH "gfx/maps/big_tree_levels/big_tree_level_5.png"
+#define BIG_TREE_LEVEL_6_PATH "gfx/maps/big_tree_levels/big_tree_level_6.png"
+#define BIG_TREE_LEVEL_7_PATH "gfx/maps/big_tree_levels/big_tree_level_7.png"
+#define BIG_TREE_LEVEL_8_PATH "gfx/maps/big_tree_levels/big_tree_level_8.png"
+#define BIG_TREE_LEVEL_9_PATH "gfx/maps/big_tree_levels/big_tree_level_9.png"
+#define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
 
 // music paths
 #define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
