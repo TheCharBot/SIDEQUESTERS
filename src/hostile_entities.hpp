@@ -90,7 +90,6 @@ class The_Regrown: public Entity{
         void ground_shake_attack();
         void decide_action();
         void fall_down();
-        void play_death_animation();
     private:
         Texture2D tex;
         int random_index;
@@ -105,6 +104,7 @@ class The_Regrown: public Entity{
         Rectangle col_rect_2;
         Rectangle col_rect_3;
         bool loaded_rects;
+        bool death_anim_started;
 };
 
 

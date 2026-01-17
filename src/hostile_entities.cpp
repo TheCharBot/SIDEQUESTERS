@@ -417,7 +417,7 @@ void Enemy_forest_scourge::decide_action()
         }
     }
 }
-// dang - 419 lines for a single enemy? thats crazy
+// dang - 420 lines for a single enemy? thats crazy
 
 The_Regrown::The_Regrown()
 {
@@ -436,6 +436,7 @@ The_Regrown::The_Regrown()
     col_rect_3 = THE_REGROWN_COLLISION_RECT_3;
     loaded_rects = false;
     can_take_damage = true;
+    death_anim_started = false;
 
 }
 
@@ -444,9 +445,21 @@ The_Regrown::~The_Regrown()
     if(tex.id != 0){
         UnloadTexture(tex);
     }
-    col_rect_1 = {};
-    col_rect_2 = {};
-    col_rect_3 = {};
+     auto remove_rect = [&](const Rectangle& r)
+    {
+        collision_rects.erase(
+            std::remove_if(
+                collision_rects.begin(),
+                collision_rects.end(),
+                [&](const Rectangle& c){ return CheckCollisionRecs(c, r); }
+            ),
+            collision_rects.end()
+        );
+    };
+
+    remove_rect(col_rect_1);
+    remove_rect(col_rect_2);
+    remove_rect(col_rect_3);
     
 }
 
@@ -458,6 +471,7 @@ void The_Regrown::load()
 void The_Regrown::update()
 {   
     //constant things that should be updated every frame
+
     if(CheckCollisionRecs(rect, player.attack_hitbox)){
         take_damage(player.active_damage);
     }
@@ -472,16 +486,12 @@ void The_Regrown::update()
             iframe_timer = 0.0f;
         }
     }
-    if(health <= 0){
-        
-        if(current_anim_arr != the_regrown_die_arr){ //trying to find a unique value to be comnpared when thing dies
+    if(health <= 0 && !death_anim_started){
+            death_anim_started = true;
             move_mode = 2;
             current_anim_arr = the_regrown_die_arr;
             max_animation_frames = 14;
             current_animation_frame = 0;
-            
-        }
-        
     }
     if(!loaded_rects){
         if(player.pos.y > 75){ // TODO: replace w/ macros again
@@ -516,6 +526,11 @@ void The_Regrown::update()
             current_animation_frame++;
             if (current_animation_frame >= max_animation_frames)
             {
+                if (death_anim_started)
+                {
+                    dead = true;
+                    return; // stop updating completely
+                }
                 current_animation_frame = 0;
                 
                 move_mode = 1;
@@ -556,6 +571,7 @@ void The_Regrown::right_arm_attack()
     max_animation_frames = 5;
     current_animation_frame = 0;
 }
+
 void The_Regrown::left_arm_attack()
 {
     move_mode = 2;
@@ -564,6 +580,7 @@ void The_Regrown::left_arm_attack()
     current_animation_frame = 0;
 
 }
+
 void The_Regrown::ground_shake_attack()
 {
     move_mode = 2;
@@ -585,12 +602,4 @@ void The_Regrown::fall_down()
     max_animation_frames = 8;
     current_animation_frame = 0;
 
-}
-
-void The_Regrown::play_death_animation()
-{
-    
-    
-    
-    
 }
