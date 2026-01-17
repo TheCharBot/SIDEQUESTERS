@@ -350,7 +350,9 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER}
     });
+    
     entities.push_back(std::make_unique<Big_tree>());
+    
     for (auto &e : entities)
         e->load();
 }
@@ -707,7 +709,12 @@ void load_big_tree_level_10(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         
     });
-    entities.push_back(std::make_unique<The_Regrown>()); 
+    
+    if(!player.defeated_bosses.the_regrown_defeated){
+        entities.push_back(std::make_unique<The_Regrown>()); 
+    }
+        
+    
     for (auto &e : entities)
         e->load();
 }

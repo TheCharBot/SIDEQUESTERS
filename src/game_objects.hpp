@@ -21,6 +21,8 @@ enum Wander_directions{
     RANDOM
 };
 
+
+
 enum Map_names
 {
     WRONG_MAP,
@@ -141,6 +143,12 @@ struct Item
     };
 };
 
+struct Boss_keys{ // add bosses to this to change which ones have been defeated or not
+    bool the_regrown_defeated = false;
+};
+
+
+
 // Player-focused stuff
 struct Player
 {
@@ -161,8 +169,7 @@ struct Player
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;
     int active_damage;
-    
-
+    Boss_keys defeated_bosses;
 
 };
 

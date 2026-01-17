@@ -460,7 +460,7 @@ The_Regrown::~The_Regrown()
     remove_rect(col_rect_1);
     remove_rect(col_rect_2);
     remove_rect(col_rect_3);
-    
+    player.defeated_bosses.the_regrown_defeated = true;
 }
 
 void The_Regrown::load()
@@ -492,6 +492,7 @@ void The_Regrown::update()
             current_anim_arr = the_regrown_die_arr;
             max_animation_frames = 14;
             current_animation_frame = 0;
+            
     }
     if(!loaded_rects){
         if(player.pos.y > 75){ // TODO: replace w/ macros again
