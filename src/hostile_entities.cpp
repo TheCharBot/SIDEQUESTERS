@@ -424,11 +424,19 @@ The_Regrown::The_Regrown()
     if(current_map == BIG_TREE_LEVEL_10){
         pos = {96, -8}; //TODO: replace w/ macros later
     }
-    current_anim_arr = the_regrown_default_sprite_arr;
-    max_animation_frames = 1;
+    current_anim_arr = the_regrown_idle_arr;
+    max_animation_frames = 4;
     current_animation_frame = 0;
+    animation_frame_5 = 0;
     health = 10;
+    move_mode = 1;
+    rect = {pos.x+48, pos.y+51, 32, 30}; //TODO: replace w/ macros once finished
+    col_rect_1 = {107, 47, 35, 20};
+    col_rect_2 = {176, 47, 37, 20};
+    col_rect_3 = {142, 66, 34, 11};
+    loaded_rects = false;
     
+
 }
 
 The_Regrown::~The_Regrown()
@@ -436,6 +444,9 @@ The_Regrown::~The_Regrown()
     if(tex.id != 0){
         UnloadTexture(tex);
     }
+    col_rect_1 = {};
+    col_rect_2 = {};
+    col_rect_3 = {};
 }
 
 void The_Regrown::load()
@@ -444,24 +455,49 @@ void The_Regrown::load()
 }
 
 void The_Regrown::update()
-{
-    
-    if(health <= 0){
-        dead = true;
-    }
-    animation_frame_5++;
-    if (animation_frame_5 >= ANIMATION_INTERVAL)
-    {
-        current_animation_frame++;
-        if (current_animation_frame >= max_animation_frames)
-        {
-            current_animation_frame = 0;
+{   
+    if(!loaded_rects){
+        if(player.pos.y > 75){ // TODO: replace w/ macros again
+            collision_rects.push_back(col_rect_1);
+            collision_rects.push_back(col_rect_2);
+            collision_rects.push_back(col_rect_3);
+            loaded_rects = true;
         }
-        animation_frame_5 = 0;
     }
-    if (hit_flash_timer > 0.0f)
-        hit_flash_timer -= GetFrameTime();
-    decide_action();
+    if(move_mode == 0){}
+    if(move_mode == 1){
+    
+        if(health <= 0){
+            dead = true;
+        }
+        animation_frame_5++;
+        if (animation_frame_5 >= ANIMATION_INTERVAL)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+            }
+            animation_frame_5 = 0;
+        }
+        if (hit_flash_timer > 0.0f)
+            hit_flash_timer -= GetFrameTime();
+        decide_action();
+    }
+    if(move_mode == 2){
+        animation_frame_5++;
+        if (animation_frame_5 >= ANIMATION_INTERVAL)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+                move_mode = 1;
+            }
+            animation_frame_5 = 0;
+        }
+            
+    }
 }
 
 void The_Regrown::draw()
@@ -484,24 +520,42 @@ void The_Regrown::take_damage(float damage)
         }
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
-
     }
 }
 
 void The_Regrown::right_arm_attack()
 {
+    move_mode = 2;
+    current_anim_arr = the_regrown_attack_right_arr;
+    max_animation_frames = 5;
+    current_animation_frame = 0;
 }
 void The_Regrown::left_arm_attack()
 {
+    move_mode = 2;
+    current_anim_arr = the_regrown_attack_left_arr;
+    max_animation_frames = 5;
+    current_animation_frame = 0;
+
 }
 void The_Regrown::ground_shake_attack()
 {
+    move_mode = 2;
+    current_anim_arr = the_regrown_ground_shake_arr;
+    max_animation_frames = 6;
+    current_animation_frame = 0;
+
 }
 
 void The_Regrown::decide_action()
 {
+    right_arm_attack();
 }
 
 void The_Regrown::fall_down()
 {
+    current_anim_arr = the_regrown_entrance_arr;
+    max_animation_frames = 8;
+    current_animation_frame = 0;
+
 }

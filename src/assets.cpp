@@ -283,7 +283,7 @@ Rectangle forest_scourge_walk_up_left[7] = {
     forest_scourge_walk_up_left_6,
     forest_scourge_walk_up_left_7
 };
-//attacking arrays
+//forest scourge attacking arrays
 Rectangle forest_scourge_attack_down_right[6] = {
     forest_scourge_attack_down_right_1,
     forest_scourge_attack_down_right_2,
@@ -315,7 +315,7 @@ Rectangle forest_scourge_idle_down_left_3 = {128, 64, DEFAULT_SPRITE_WIDTH, DEFA
 Rectangle forest_scourge_idle_up_left_1 = {192, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_idle_up_left_2 = {256, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_idle_up_left_3 = {320, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
-//walk animations
+//forest scourge walk animations
 Rectangle forest_scourge_walk_down_right_1 = {0, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_walk_down_right_2 = {64, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_walk_down_right_3 = {128, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
@@ -330,7 +330,7 @@ Rectangle forest_scourge_walk_up_left_4 = {192, 320, DEFAULT_SPRITE_WIDTH, DEFAU
 Rectangle forest_scourge_walk_up_left_5 = {256, 320, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_walk_up_left_6 = {320, 320, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_walk_up_left_7 = {384, 320, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
-//attack animations 
+//forest scourge attack animations 
 Rectangle forest_scourge_attack_down_right_1 = {0, 384, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_attack_down_right_2 = {64, 384, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_attack_down_right_3 = {128, 384, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
@@ -344,5 +344,108 @@ Rectangle forest_scourge_attack_up_left_4 = {192, 448, DEFAULT_SPRITE_WIDTH, DEF
 Rectangle forest_scourge_attack_up_left_5 = {256, 448, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_attack_up_left_6 = {320, 448, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 
+Rectangle the_regrown_entrance_arr[8] = {
+    the_regrown_entrance_1,
+    the_regrown_entrance_2,
+    the_regrown_entrance_3,
+    the_regrown_entrance_4,
+    the_regrown_entrance_5,
+    the_regrown_entrance_6,
+    the_regrown_entrance_7,
+    the_regrown_entrance_8
+};
+Rectangle the_regrown_idle_arr[4] = {
+    the_regrown_idle_1, 
+    the_regrown_idle_2, 
+    the_regrown_idle_3, 
+    the_regrown_idle_4
+};
+Rectangle the_regrown_attack_right_arr[5] = {
+    the_regrown_attack_right_1,
+    the_regrown_attack_right_2,
+    the_regrown_attack_right_3,
+    the_regrown_attack_right_4,
+    the_regrown_attack_right_5
+};
+Rectangle the_regrown_attack_left_arr[5] = {
+    the_regrown_attack_left_1,
+    the_regrown_attack_left_2,
+    the_regrown_attack_left_3,
+    the_regrown_attack_left_4,
+    the_regrown_attack_left_5
+};
+Rectangle the_regrown_ground_shake_arr[6] = {
+    the_regrown_ground_shake_1,
+    the_regrown_ground_shake_2,
+    the_regrown_ground_shake_3,
+    the_regrown_ground_shake_4,
+    the_regrown_ground_shake_5,
+    the_regrown_ground_shake_6
+};
+Rectangle the_regrown_die_arr[14] = {
+    the_regrown_die_1,
+    the_regrown_die_2,
+    the_regrown_die_3,
+    the_regrown_die_4,
+    the_regrown_die_5,
+    the_regrown_die_6,
+    the_regrown_die_7,
+    the_regrown_die_8,
+    the_regrown_die_9,
+    the_regrown_die_10,
+    the_regrown_die_11,
+    the_regrown_die_12,
+    the_regrown_die_13,
+    the_regrown_die_14,
+};
+
 Rectangle the_regrown_default_sprite_arr[1] = {the_regrown_default_sprite};
 Rectangle the_regrown_default_sprite = {0, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_entrance_1 = {0, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_2 = {128, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_3 = {256, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_4 = {384, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_5 = {512, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_6 = {640, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_7 = {768, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_entrance_8 = {896, 128, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_idle_1 = {0, 256, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_idle_2 = {128, 256, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_idle_3 = {256, 256, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_idle_4 = {384, 256, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_attack_right_1 = {0, 384, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_right_2 = {128, 384, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_right_3 = {256, 384, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_right_4 = {384, 384, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_right_5 = {512, 384, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_attack_left_1 = {0, 512, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_left_2 = {128, 512, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_left_3 = {256, 512, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_left_4 = {384, 512, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_attack_left_5 = {512, 512, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_ground_shake_1 = {0, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_ground_shake_2 = {128, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_ground_shake_3 = {256, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_ground_shake_4 = {384, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_ground_shake_5 = {512, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_ground_shake_6 = {640, 640, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_die_1 = {0, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_2 = {128, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_3 = {256, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_4 = {384, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_5 = {512, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_6 = {640, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_7 = {768, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_8 = {896, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_9 = {1024, 768, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128}; //first 4 digit image extractor1!!!!11
+Rectangle the_regrown_die_10 = {0, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_11 = {128, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_12 = {256, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_13 = {384, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle the_regrown_die_14 = {512, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};

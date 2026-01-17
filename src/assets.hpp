@@ -469,7 +469,60 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define DEFAULT_SPRITE_WIDTH_128 128
 #define DEFAULT_SPRITE_HEIGHT_128 128
 extern Rectangle the_regrown_default_sprite_arr[1]; //annoying placeholder thingy (i hate pointers)
+extern Rectangle the_regrown_entrance_arr[8];
+extern Rectangle the_regrown_idle_arr[4];
+extern Rectangle the_regrown_attack_right_arr[5];
+extern Rectangle the_regrown_attack_left_arr[5];
+extern Rectangle the_regrown_ground_shake_arr[6];
+extern Rectangle the_regrown_die_arr[14];
+
 extern Rectangle the_regrown_default_sprite; // placeholder thingy
+
+extern Rectangle the_regrown_entrance_1;
+extern Rectangle the_regrown_entrance_2;
+extern Rectangle the_regrown_entrance_3;
+extern Rectangle the_regrown_entrance_4;
+extern Rectangle the_regrown_entrance_5;
+extern Rectangle the_regrown_entrance_6;
+extern Rectangle the_regrown_entrance_7;
+extern Rectangle the_regrown_entrance_8;
+
+extern Rectangle the_regrown_idle_1;
+extern Rectangle the_regrown_idle_2;
+extern Rectangle the_regrown_idle_3;
+extern Rectangle the_regrown_idle_4;
+
+extern Rectangle the_regrown_attack_right_1;
+extern Rectangle the_regrown_attack_right_2;
+extern Rectangle the_regrown_attack_right_3;
+extern Rectangle the_regrown_attack_right_4;
+extern Rectangle the_regrown_attack_right_5;
+extern Rectangle the_regrown_attack_left_1;
+extern Rectangle the_regrown_attack_left_2;
+extern Rectangle the_regrown_attack_left_3;
+extern Rectangle the_regrown_attack_left_4;
+extern Rectangle the_regrown_attack_left_5;
+extern Rectangle the_regrown_ground_shake_1;
+extern Rectangle the_regrown_ground_shake_2;
+extern Rectangle the_regrown_ground_shake_3;
+extern Rectangle the_regrown_ground_shake_4;
+extern Rectangle the_regrown_ground_shake_5;
+extern Rectangle the_regrown_ground_shake_6;
+
+extern Rectangle the_regrown_die_1;
+extern Rectangle the_regrown_die_2;
+extern Rectangle the_regrown_die_3;
+extern Rectangle the_regrown_die_4;
+extern Rectangle the_regrown_die_5;
+extern Rectangle the_regrown_die_6;
+extern Rectangle the_regrown_die_7;
+extern Rectangle the_regrown_die_8;
+extern Rectangle the_regrown_die_9;
+extern Rectangle the_regrown_die_10;
+extern Rectangle the_regrown_die_11;
+extern Rectangle the_regrown_die_12;
+extern Rectangle the_regrown_die_13;
+extern Rectangle the_regrown_die_14;
 // paths to things
 // map paths
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"

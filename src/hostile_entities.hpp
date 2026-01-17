@@ -99,6 +99,10 @@ class The_Regrown: public Entity{
         float health;
         bool can_take_damage;
         float iframe_timer;
+        Rectangle col_rect_1;
+        Rectangle col_rect_2;
+        Rectangle col_rect_3;
+        bool loaded_rects;
 };
 
 
