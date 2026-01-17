@@ -82,6 +82,7 @@ class The_Regrown: public Entity{
         void load() override;
         void update() override;
         void draw() override;
+        
 
         void take_damage(float damage);
         void right_arm_attack();
@@ -89,6 +90,7 @@ class The_Regrown: public Entity{
         void ground_shake_attack();
         void decide_action();
         void fall_down();
+        void play_death_animation();
     private:
         Texture2D tex;
         int random_index;

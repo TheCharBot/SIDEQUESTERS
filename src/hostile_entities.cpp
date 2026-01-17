@@ -422,20 +422,20 @@ void Enemy_forest_scourge::decide_action()
 The_Regrown::The_Regrown()
 {
     if(current_map == BIG_TREE_LEVEL_10){
-        pos = {96, -8}; //TODO: replace w/ macros later
+        pos = THE_REGROWN_POS; 
     }
     current_anim_arr = the_regrown_idle_arr;
     max_animation_frames = 4;
     current_animation_frame = 0;
     animation_frame_5 = 0;
-    health = 10;
+    health = THE_REGROWN_HEALTH;
     move_mode = 1;
-    rect = {pos.x+48, pos.y+51, 32, 30}; //TODO: replace w/ macros once finished
-    col_rect_1 = {107, 47, 35, 20};
-    col_rect_2 = {176, 47, 37, 20};
-    col_rect_3 = {142, 66, 34, 11};
+    rect = {pos.x+THE_REGROWN_RECT_OFFSET_X, pos.y+THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};
+    col_rect_1 = THE_REGROWN_COLLISION_RECT_1;
+    col_rect_2 = THE_REGROWN_COLLISION_RECT_2;
+    col_rect_3 = THE_REGROWN_COLLISION_RECT_3;
     loaded_rects = false;
-    
+    can_take_damage = true;
 
 }
 
@@ -447,6 +447,7 @@ The_Regrown::~The_Regrown()
     col_rect_1 = {};
     col_rect_2 = {};
     col_rect_3 = {};
+    
 }
 
 void The_Regrown::load()
@@ -456,6 +457,32 @@ void The_Regrown::load()
 
 void The_Regrown::update()
 {   
+    //constant things that should be updated every frame
+    if(CheckCollisionRecs(rect, player.attack_hitbox)){
+        take_damage(player.active_damage);
+    }
+    if (hit_flash_timer > 0.0f)
+            hit_flash_timer -= GetFrameTime();
+    if (!can_take_damage)
+    {
+        iframe_timer -= GetFrameTime();
+        if (iframe_timer <= 0.0f)
+        {
+            can_take_damage = true;
+            iframe_timer = 0.0f;
+        }
+    }
+    if(health <= 0){
+        
+        if(current_anim_arr != the_regrown_die_arr){ //trying to find a unique value to be comnpared when thing dies
+            move_mode = 2;
+            current_anim_arr = the_regrown_die_arr;
+            max_animation_frames = 14;
+            current_animation_frame = 0;
+            
+        }
+        
+    }
     if(!loaded_rects){
         if(player.pos.y > 75){ // TODO: replace w/ macros again
             collision_rects.push_back(col_rect_1);
@@ -464,12 +491,11 @@ void The_Regrown::update()
             loaded_rects = true;
         }
     }
+    //movemode things, mostly animations
     if(move_mode == 0){}
     if(move_mode == 1){
     
-        if(health <= 0){
-            dead = true;
-        }
+        
         animation_frame_5++;
         if (animation_frame_5 >= ANIMATION_INTERVAL)
         {
@@ -480,8 +506,7 @@ void The_Regrown::update()
             }
             animation_frame_5 = 0;
         }
-        if (hit_flash_timer > 0.0f)
-            hit_flash_timer -= GetFrameTime();
+        
         decide_action();
     }
     if(move_mode == 2){
@@ -492,6 +517,7 @@ void The_Regrown::update()
             if (current_animation_frame >= max_animation_frames)
             {
                 current_animation_frame = 0;
+                
                 move_mode = 1;
             }
             animation_frame_5 = 0;
@@ -514,12 +540,12 @@ void The_Regrown::take_damage(float damage)
         // implement knockback
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
+        can_take_damage = false;
+        iframe_timer = ENEMY_IFRAME_TIME;
         if (health < 0)
         {
             health = 0;
         }
-        can_take_damage = false;
-        iframe_timer = ENEMY_IFRAME_TIME;
     }
 }
 
@@ -549,13 +575,22 @@ void The_Regrown::ground_shake_attack()
 
 void The_Regrown::decide_action()
 {
-    right_arm_attack();
+    ground_shake_attack();
 }
 
 void The_Regrown::fall_down()
 {
+    move_mode = 2;
     current_anim_arr = the_regrown_entrance_arr;
     max_animation_frames = 8;
     current_animation_frame = 0;
 
+}
+
+void The_Regrown::play_death_animation()
+{
+    
+    
+    
+    
 }
