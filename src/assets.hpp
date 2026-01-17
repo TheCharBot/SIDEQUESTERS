@@ -464,6 +464,12 @@ extern Rectangle forest_scourge_attack_up_left_4;
 extern Rectangle forest_scourge_attack_up_left_5;
 extern Rectangle forest_scourge_attack_up_left_6;
 
+
+//The Regrown stuff
+#define DEFAULT_SPRITE_WIDTH_128 128
+#define DEFAULT_SPRITE_HEIGHT_128 128
+extern Rectangle the_regrown_default_sprite_arr[1]; //annoying placeholder thingy (i hate pointers)
+extern Rectangle the_regrown_default_sprite; // placeholder thingy
 // paths to things
 // map paths
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
@@ -495,10 +501,10 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define BIG_TREE_LEVEL_9_PATH "gfx/maps/big_tree_levels/big_tree_level_9.png"
 #define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
 
+#define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
+
 // music paths
-#define START_MUSIC_PATH "sfx/start/Start_cliffs.mp3"
-#define VILLAGE_MUSIC_PATH "sfx/village/Village.mp3"
-#define VILLAGE_HOUSE_MUSIC_PATH "sfx/village/Inside VIllage House.mp3"
+
 // entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"

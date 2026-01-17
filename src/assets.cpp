@@ -343,3 +343,6 @@ Rectangle forest_scourge_attack_up_left_3 = {128, 448, DEFAULT_SPRITE_WIDTH, DEF
 Rectangle forest_scourge_attack_up_left_4 = {192, 448, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_attack_up_left_5 = {256, 448, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
 Rectangle forest_scourge_attack_up_left_6 = {320, 448, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+
+Rectangle the_regrown_default_sprite_arr[1] = {the_regrown_default_sprite};
+Rectangle the_regrown_default_sprite = {0, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};

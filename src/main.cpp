@@ -8,6 +8,7 @@
 // done TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
 // done TODO: implement Big Tree Level 1
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
+//TODO: Make Start menu, save/load system, better player gfx, particles. Then your pretty much done!!!!(maybe)
 int main()
 {
 

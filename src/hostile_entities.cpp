@@ -1,5 +1,6 @@
 #include "hostile_entities.hpp"
 
+//should probably put this somewhere
 Texture2D Enemy_forest_scourge::shared_tex = {};
 bool Enemy_forest_scourge::texture_loaded = false;
 
@@ -416,4 +417,91 @@ void Enemy_forest_scourge::decide_action()
         }
     }
 }
-// dang - 330 lines for a single enemy? thats crazy
+// dang - 419 lines for a single enemy? thats crazy
+
+The_Regrown::The_Regrown()
+{
+    if(current_map == BIG_TREE_LEVEL_10){
+        pos = {96, -8}; //TODO: replace w/ macros later
+    }
+    current_anim_arr = the_regrown_default_sprite_arr;
+    max_animation_frames = 1;
+    current_animation_frame = 0;
+    health = 10;
+    
+}
+
+The_Regrown::~The_Regrown()
+{
+    if(tex.id != 0){
+        UnloadTexture(tex);
+    }
+}
+
+void The_Regrown::load()
+{
+    tex = LoadTexture(THE_REGROWN_TEX_PATH);
+}
+
+void The_Regrown::update()
+{
+    
+    if(health <= 0){
+        dead = true;
+    }
+    animation_frame_5++;
+    if (animation_frame_5 >= ANIMATION_INTERVAL)
+    {
+        current_animation_frame++;
+        if (current_animation_frame >= max_animation_frames)
+        {
+            current_animation_frame = 0;
+        }
+        animation_frame_5 = 0;
+    }
+    if (hit_flash_timer > 0.0f)
+        hit_flash_timer -= GetFrameTime();
+    decide_action();
+}
+
+void The_Regrown::draw()
+{
+    DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH_128), float(DEFAULT_SPRITE_HEIGHT_128)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
+}
+
+void The_Regrown::take_damage(float damage)
+{
+    if (!can_take_damage)
+        return;
+    if (can_take_damage)
+    {
+        // implement knockback
+        health -= damage;
+        hit_flash_timer = HIT_FLASH_TIME;
+        if (health < 0)
+        {
+            health = 0;
+        }
+        can_take_damage = false;
+        iframe_timer = ENEMY_IFRAME_TIME;
+
+    }
+}
+
+void The_Regrown::right_arm_attack()
+{
+}
+void The_Regrown::left_arm_attack()
+{
+}
+void The_Regrown::ground_shake_attack()
+{
+}
+
+void The_Regrown::decide_action()
+{
+}
+
+void The_Regrown::fall_down()
+{
+}

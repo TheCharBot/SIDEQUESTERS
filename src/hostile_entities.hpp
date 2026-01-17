@@ -65,6 +65,42 @@ class Enemy_forest_scourge: public Entity{
         Vector2 originial_pos;
 };
 
+class The_Regrown: public Entity{
+    public:
+        Vector2 pos{};
+        
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+        //use static shared when there are multiple instances
+        
+
+        The_Regrown();
+
+        ~The_Regrown() override;
+        //load for loading texture data, dont load in constructor
+        void load() override;
+        void update() override;
+        void draw() override;
+
+        void take_damage(float damage);
+        void right_arm_attack();
+        void left_arm_attack();
+        void ground_shake_attack();
+        void decide_action();
+        void fall_down();
+    private:
+        Texture2D tex;
+        int random_index;
+        Rectangle *current_anim_arr;
+        Rectangle attack_detect_rect;
+        Rectangle attack_hit_rect;
+        float hit_flash_timer;
+        float health;
+        bool can_take_damage;
+        float iframe_timer;
+};
+
 
 
 

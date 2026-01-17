@@ -707,6 +707,9 @@ void load_big_tree_level_10(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         
     });
+    entities.push_back(std::make_unique<The_Regrown>()); 
+    for (auto &e : entities)
+        e->load();
 }
 
 void load_map(Map_names map, Vector2 new_player_pos)
