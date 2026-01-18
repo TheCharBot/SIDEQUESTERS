@@ -107,6 +107,8 @@ class The_Regrown: public Entity{
         bool loaded_rects;
         bool death_anim_started;
         Rectangle active_damaging_rect;
+        float ground_attack_cooldown;
+        bool can_use_ground_attack;
 };
 
 

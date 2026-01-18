@@ -187,6 +187,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
     if (can_take_damage)
     {
         // implement knockback
+        WaitTime(damage/10);
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
         if (health < 0)
@@ -438,6 +439,8 @@ The_Regrown::The_Regrown()
     can_take_damage = true;
     death_anim_started = false;
     active_damaging_rect = {};
+    ground_attack_cooldown = 0;
+    can_use_ground_attack = true;
 }
 
 The_Regrown::~The_Regrown()
@@ -471,6 +474,11 @@ void The_Regrown::load()
 void The_Regrown::update()
 {   
     //constant things that should be updated every frame
+    ground_attack_cooldown -= GetFrameTime();
+    if(ground_attack_cooldown < 0){
+        ground_attack_cooldown = 0;
+        can_use_ground_attack = true;
+    }
     if(CheckCollisionRecs(rect, player.attack_hitbox)){
         take_damage(player.active_damage);
     }
@@ -556,11 +564,13 @@ void The_Regrown::take_damage(float damage)
         return;
     if (can_take_damage)
     {
-        // implement knockback
+        
+        WaitTime(damage/10);
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
+        
         if (health < 0)
         {
             health = 0;
@@ -597,11 +607,16 @@ void The_Regrown::left_arm_attack()
 
 void The_Regrown::ground_shake_attack()
 {
-    move_mode = 2;
-    current_anim_arr = the_regrown_ground_shake_arr;
-    max_animation_frames = 6;
-    current_animation_frame = 0;
-
+    if(can_use_ground_attack){
+        move_mode = 2;
+        current_anim_arr = the_regrown_ground_shake_arr;
+        max_animation_frames = 6;
+        current_animation_frame = 0;
+        can_use_ground_attack = false;
+        ground_attack_cooldown = THE_REGROWN_GROUND_ATTACK_COOLDOWN;
+    }
+    else{}
+    
 }
 
 void The_Regrown::decide_action()
