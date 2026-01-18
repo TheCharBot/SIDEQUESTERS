@@ -456,6 +456,6 @@ void update_player()
 
 void draw_player()
 {
-    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE);
+    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); //TODO: work on better player gfx
     
 };

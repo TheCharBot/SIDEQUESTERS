@@ -468,15 +468,7 @@ extern Rectangle forest_scourge_attack_up_left_6;
 #define DEFAULT_SPRITE_WIDTH_128 128
 #define DEFAULT_SPRITE_HEIGHT_128 128
 //The Regrown stuff
-#define THE_REGROWN_COLLISION_RECT_1 {107, 47, 35, 20}
-#define THE_REGROWN_COLLISION_RECT_2 {176, 47, 37, 20}
-#define THE_REGROWN_COLLISION_RECT_3 {142, 66, 34, 11}
-#define THE_REGROWN_HEALTH 1
-#define THE_REGROWN_RECT_OFFSET_X 48
-#define THE_REGROWN_RECT_OFFSET_Y 51
-#define THE_REGROWN_RECT_WIDTH 32
-#define THE_REGROWN_RECT_HEIGHT 30
-#define THE_REGROWN_POS {96, -8}
+
 
 extern Rectangle the_regrown_default_sprite_arr[1]; //annoying placeholder thingy (i hate pointers)
 extern Rectangle the_regrown_entrance_arr[8];

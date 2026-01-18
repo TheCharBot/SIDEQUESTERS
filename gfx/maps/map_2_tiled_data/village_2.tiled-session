@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "village.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -28,11 +28,12 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
+        "village.tmx"
     ],
     "project": "village_2.tiled-project",
     "recentFiles": [
-        "village_tileset.tsx",
-        "village.tmx"
+        "village.tmx",
+        "village_tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -437,7 +437,7 @@ The_Regrown::The_Regrown()
     loaded_rects = false;
     can_take_damage = true;
     death_anim_started = false;
-
+    active_damaging_rect = {};
 }
 
 The_Regrown::~The_Regrown()
@@ -471,7 +471,6 @@ void The_Regrown::load()
 void The_Regrown::update()
 {   
     //constant things that should be updated every frame
-
     if(CheckCollisionRecs(rect, player.attack_hitbox)){
         take_damage(player.active_damage);
     }
@@ -517,7 +516,7 @@ void The_Regrown::update()
             }
             animation_frame_5 = 0;
         }
-        
+        active_damaging_rect = {};
         decide_action();
     }
     if(move_mode == 2){
@@ -531,13 +530,17 @@ void The_Regrown::update()
                 {
                     dead = true;
                     return; // stop updating completely
+
                 }
                 current_animation_frame = 0;
                 
                 move_mode = 1;
+                
+                
             }
             animation_frame_5 = 0;
         }
+        
             
     }
 }
@@ -571,6 +574,12 @@ void The_Regrown::right_arm_attack()
     current_anim_arr = the_regrown_attack_right_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
+    
+        
+    active_damaging_rect = {73+pos.x, 71+pos.y, 31, 47}; // TODO: MACROS
+    if(CheckCollisionRecs(active_damaging_rect, player.normal_hitbox)){
+        damage_player(THE_REGROWN_ARM_DAMAGE);
+    }
 }
 
 void The_Regrown::left_arm_attack()
@@ -579,7 +588,11 @@ void The_Regrown::left_arm_attack()
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-
+    active_damaging_rect = {24+pos.x, 71+pos.y, 31, 47}; // TODO: MACROS
+    if(CheckCollisionRecs(active_damaging_rect, player.normal_hitbox)){
+        damage_player(THE_REGROWN_ARM_DAMAGE);
+    }
+    
 }
 
 void The_Regrown::ground_shake_attack()
@@ -593,7 +606,18 @@ void The_Regrown::ground_shake_attack()
 
 void The_Regrown::decide_action()
 {
-    ground_shake_attack();
+    //TODO: make attack sensing rects and implement attacking, plus make the player gfx when it gets hit better
+    // ground_shake_attack();
+    idle_animation();
+    if(CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X+pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y+pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox)){
+        right_arm_attack();
+    }
+    else if(CheckCollisionRecs({THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_X+pos.x, THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_Y+pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox)){
+        left_arm_attack();
+    }
+    else{
+        ground_shake_attack();
+    }
 }
 
 void The_Regrown::fall_down()
@@ -603,4 +627,12 @@ void The_Regrown::fall_down()
     max_animation_frames = 8;
     current_animation_frame = 0;
 
+}
+
+void The_Regrown::idle_animation()
+{
+    move_mode = 2;
+    current_anim_arr = the_regrown_idle_arr;
+    max_animation_frames = 4;
+    current_animation_frame = 0;
 }
