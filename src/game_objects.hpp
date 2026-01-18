@@ -147,6 +147,11 @@ struct Boss_keys{ // add bosses to this to change which ones have been defeated 
     bool the_regrown_defeated = false;
 };
 
+struct VFX{ // put vfx things here
+    float shake_time = 0.0f;
+    float shake_duration = 0.0f;
+    float shake_magnitude = 0.0f;
+};
 
 
 // Player-focused stuff

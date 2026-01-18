@@ -5,6 +5,7 @@
 #include "config.hpp"
 #include "player.hpp"
 #include "enemy_assets.hpp"
+#include "vfx.hpp"
 
 //Behavior Tree for now:
 // Selector

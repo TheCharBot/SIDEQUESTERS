@@ -567,7 +567,7 @@ void The_Regrown::take_damage(float damage)
         
         WaitTime(damage/10);
         health -= damage;
-        hit_flash_timer = HIT_FLASH_TIME;
+        hit_flash_timer = HIT_FLASH_TIME+damage/10;
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
         
@@ -614,6 +614,7 @@ void The_Regrown::ground_shake_attack()
         current_animation_frame = 0;
         can_use_ground_attack = false;
         ground_attack_cooldown = THE_REGROWN_GROUND_ATTACK_COOLDOWN;
+        start_screen_shake(1, 5);
     }
     else{}
     
