@@ -1,8 +1,9 @@
 #include "hostile_entities.hpp"
 
-//should probably put this somewhere
+// should probably put this somewhere
 Texture2D Enemy_forest_scourge::shared_tex = {};
 bool Enemy_forest_scourge::texture_loaded = false;
+
 
 void unload_enemy_textures()
 {
@@ -133,7 +134,7 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    
+
     originial_pos = pos;
 }
 
@@ -159,8 +160,8 @@ void Enemy_forest_scourge::update()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
     attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
-    pos.x = Clamp(pos.x, 0, map_to_load.width-DEFAULT_SPRITE_WIDTH);
-    pos.y = Clamp(pos.y, 0, map_to_load.height-DEFAULT_SPRITE_WIDTH);
+    pos.x = Clamp(pos.x, 0, map_to_load.width - DEFAULT_SPRITE_WIDTH);
+    pos.y = Clamp(pos.y, 0, map_to_load.height - DEFAULT_SPRITE_WIDTH);
 
     if (!can_take_damage)
     {
@@ -187,7 +188,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
     if (can_take_damage)
     {
         // implement knockback
-        WaitTime(damage/10);
+        WaitTime(damage / 10);
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
         if (health < 0)
@@ -422,8 +423,9 @@ void Enemy_forest_scourge::decide_action()
 
 The_Regrown::The_Regrown()
 {
-    if(current_map == BIG_TREE_LEVEL_10){
-        pos = THE_REGROWN_POS; 
+    if (current_map == BIG_TREE_LEVEL_10)
+    {
+        pos = THE_REGROWN_POS;
     }
     current_anim_arr = the_regrown_idle_arr;
     max_animation_frames = 4;
@@ -431,7 +433,7 @@ The_Regrown::The_Regrown()
     animation_frame_5 = 0;
     health = THE_REGROWN_HEALTH;
     move_mode = 1;
-    rect = {pos.x+THE_REGROWN_RECT_OFFSET_X, pos.y+THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};
+    rect = {pos.x + THE_REGROWN_RECT_OFFSET_X, pos.y + THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};
     col_rect_1 = THE_REGROWN_COLLISION_RECT_1;
     col_rect_2 = THE_REGROWN_COLLISION_RECT_2;
     col_rect_3 = THE_REGROWN_COLLISION_RECT_3;
@@ -445,25 +447,25 @@ The_Regrown::The_Regrown()
 
 The_Regrown::~The_Regrown()
 {
-    if(tex.id != 0){
+    if (tex.id != 0)
+    {
         UnloadTexture(tex);
     }
-     auto remove_rect = [&](const Rectangle& r)
+    auto remove_rect = [&](const Rectangle &r)
     {
         collision_rects.erase(
             std::remove_if(
                 collision_rects.begin(),
                 collision_rects.end(),
-                [&](const Rectangle& c){ return CheckCollisionRecs(c, r); }
-            ),
-            collision_rects.end()
-        );
+                [&](const Rectangle &c)
+                { return CheckCollisionRecs(c, r); }),
+            collision_rects.end());
     };
 
     remove_rect(col_rect_1);
     remove_rect(col_rect_2);
     remove_rect(col_rect_3);
-    player.defeated_bosses.the_regrown_defeated = true;
+    
 }
 
 void The_Regrown::load()
@@ -472,18 +474,20 @@ void The_Regrown::load()
 }
 
 void The_Regrown::update()
-{   
-    //constant things that should be updated every frame
+{
+    // constant things that should be updated every frame
     ground_attack_cooldown -= GetFrameTime();
-    if(ground_attack_cooldown < 0){
+    if (ground_attack_cooldown < 0)
+    {
         ground_attack_cooldown = 0;
         can_use_ground_attack = true;
     }
-    if(CheckCollisionRecs(rect, player.attack_hitbox)){
+    if (CheckCollisionRecs(rect, player.attack_hitbox))
+    {
         take_damage(player.active_damage);
     }
     if (hit_flash_timer > 0.0f)
-            hit_flash_timer -= GetFrameTime();
+        hit_flash_timer -= GetFrameTime();
     if (!can_take_damage)
     {
         iframe_timer -= GetFrameTime();
@@ -493,27 +497,32 @@ void The_Regrown::update()
             iframe_timer = 0.0f;
         }
     }
-    if(health <= 0 && !death_anim_started){
-            death_anim_started = true;
-            move_mode = 2;
-            current_anim_arr = the_regrown_die_arr;
-            max_animation_frames = 14;
-            current_animation_frame = 0;
-            
+    if (health <= 0 && !death_anim_started)
+    {
+        death_anim_started = true;
+        move_mode = 2;
+        current_anim_arr = the_regrown_die_arr;
+        max_animation_frames = 14;
+        current_animation_frame = 0;
+        player.defeated_bosses.the_regrown_defeated = true;
     }
-    if(!loaded_rects){
-        if(player.pos.y > 75){ // TODO: replace w/ macros again
+    if (!loaded_rects)
+    {
+        if (player.pos.y > 75)
+        { // TODO: replace w/ macros again
             collision_rects.push_back(col_rect_1);
             collision_rects.push_back(col_rect_2);
             collision_rects.push_back(col_rect_3);
             loaded_rects = true;
         }
     }
-    //movemode things, mostly animations
-    if(move_mode == 0){}
-    if(move_mode == 1){
-    
-        
+    // movemode things, mostly animations
+    if (move_mode == 0)
+    {
+    }
+    if (move_mode == 1)
+    {
+
         animation_frame_5++;
         if (animation_frame_5 >= ANIMATION_INTERVAL)
         {
@@ -527,7 +536,8 @@ void The_Regrown::update()
         active_damaging_rect = {};
         decide_action();
     }
-    if(move_mode == 2){
+    if (move_mode == 2)
+    {
         animation_frame_5++;
         if (animation_frame_5 >= ANIMATION_INTERVAL)
         {
@@ -538,24 +548,20 @@ void The_Regrown::update()
                 {
                     dead = true;
                     return; // stop updating completely
-
                 }
                 current_animation_frame = 0;
-                
+
                 move_mode = 1;
-                
-                
             }
             animation_frame_5 = 0;
         }
-        
-            
     }
 }
 
 void The_Regrown::draw()
 {
     DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH_128), float(DEFAULT_SPRITE_HEIGHT_128)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
+    
 }
 
 void The_Regrown::take_damage(float damage)
@@ -564,13 +570,13 @@ void The_Regrown::take_damage(float damage)
         return;
     if (can_take_damage)
     {
-        
-        WaitTime(damage/10);
+
+        WaitTime(damage / 10);
         health -= damage;
-        hit_flash_timer = HIT_FLASH_TIME+damage/10;
+        hit_flash_timer = HIT_FLASH_TIME + damage / 10;
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
-        
+
         if (health < 0)
         {
             health = 0;
@@ -584,10 +590,10 @@ void The_Regrown::right_arm_attack()
     current_anim_arr = the_regrown_attack_right_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-    
-        
-    active_damaging_rect = {73+pos.x, 71+pos.y, 31, 47}; // TODO: MACROS
-    if(CheckCollisionRecs(active_damaging_rect, player.normal_hitbox)){
+
+    active_damaging_rect = {73 + pos.x, 71 + pos.y, 31, 47}; // TODO: MACROS
+    if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
+    {
         damage_player(THE_REGROWN_ARM_DAMAGE);
     }
 }
@@ -598,40 +604,46 @@ void The_Regrown::left_arm_attack()
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-    active_damaging_rect = {24+pos.x, 71+pos.y, 31, 47}; // TODO: MACROS
-    if(CheckCollisionRecs(active_damaging_rect, player.normal_hitbox)){
+    active_damaging_rect = {24 + pos.x, 71 + pos.y, 31, 47}; // TODO: MACROS
+    if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
+    {
         damage_player(THE_REGROWN_ARM_DAMAGE);
     }
-    
 }
 
 void The_Regrown::ground_shake_attack()
 {
-    if(can_use_ground_attack){
+    if (can_use_ground_attack)
+    {
         move_mode = 2;
         current_anim_arr = the_regrown_ground_shake_arr;
         max_animation_frames = 6;
         current_animation_frame = 0;
         can_use_ground_attack = false;
         ground_attack_cooldown = THE_REGROWN_GROUND_ATTACK_COOLDOWN;
-        start_screen_shake(1, 5);
+        start_screen_shake(1.5, 5);
+        break_random_floor_tiles(5);
     }
-    else{}
-    
+    else
+    {
+    }
 }
 
 void The_Regrown::decide_action()
 {
-    //TODO: make attack sensing rects and implement attacking, plus make the player gfx when it gets hit better
-    // ground_shake_attack();
+    // TODO: make attack sensing rects and implement attacking, plus make the player gfx when it gets hit better
+    //  ground_shake_attack();
     idle_animation();
-    if(CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X+pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y+pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox)){
+    if (CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
+    {
         right_arm_attack();
     }
-    else if(CheckCollisionRecs({THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_X+pos.x, THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_Y+pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox)){
+    else if (CheckCollisionRecs({THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
+    {
         left_arm_attack();
     }
-    else{
+    else
+    {
         ground_shake_attack();
     }
 }
@@ -642,7 +654,6 @@ void The_Regrown::fall_down()
     current_anim_arr = the_regrown_entrance_arr;
     max_animation_frames = 8;
     current_animation_frame = 0;
-
 }
 
 void The_Regrown::idle_animation()
@@ -651,4 +662,24 @@ void The_Regrown::idle_animation()
     current_anim_arr = the_regrown_idle_arr;
     max_animation_frames = 4;
     current_animation_frame = 0;
+}
+
+void The_Regrown::break_random_floor_tiles(int amount) 
+{
+    for(int i = 0; i < amount; i++){
+        int x = GetRandomValue(0, map_to_load.width/16);
+        int y = GetRandomValue(0, map_to_load.height/16);
+        x*=16;
+        y*=16;
+        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area)){
+            // implement actually breaking the tiles here
+            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: MACROS
+            broken_floor_tiles.push_back(Vector2(x, y));
+            continue;
+        }
+        else{
+            amount++;
+            continue;
+        }
+    }
 }

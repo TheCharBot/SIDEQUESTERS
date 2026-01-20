@@ -4,6 +4,8 @@ Music current_music{};
 
 Texture2D map_to_load;
 
+Texture2D broken_tile_tex;
+
 Map_names current_map;
 Map_names requested_map;
 Vector2 requested_player_pos;
@@ -16,13 +18,13 @@ std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
 
-float fade_frame_timer = SCREEN_FADE_TIME;
+float fade_frame_timer = SCREEN_FADE_TIME; 
 
 void init_map()
 {
     map_pos.x = 0;
     map_pos.y = 0;
-
+    broken_tile_tex = LoadTexture(BROKEN_TILE_TEX_PATH);
     // starting_map = LoadTexture("gfx/maps/map_1.png");
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
@@ -55,6 +57,7 @@ void reset_loaded()
     entities.clear();
     map_load_rects.clear();
     collision_rects.clear();
+    broken_floor_tiles.clear();
     // unloading current map for efficiency
     if (map_to_load.id != 0)
     {

@@ -73,6 +73,9 @@ void draw_all()
 {
     BeginMode2D(cam);
     draw_map();
+    for(Vector2 &v : broken_floor_tiles){
+        DrawTexturePro(broken_tile_tex, {48, 0, 16, 16}, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //TODO: MACROS AGAAAAAAIN
+    }
     for (auto &e : entities)
     {
         e->draw();

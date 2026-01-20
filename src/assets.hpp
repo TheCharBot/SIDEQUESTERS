@@ -16,6 +16,8 @@ extern std::vector<Rectangle> collision_rects;
 extern Map_names current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
+extern Texture2D broken_tile_tex;
+extern std::vector<Vector2> broken_floor_tiles;
 extern float fade_frame_timer;
 
 extern Inventory_slot inventory_slots[28];
@@ -525,6 +527,8 @@ extern Rectangle the_regrown_die_11;
 extern Rectangle the_regrown_die_12;
 extern Rectangle the_regrown_die_13;
 extern Rectangle the_regrown_die_14;
+
+extern Rectangle the_regrown_possible_destructable_tile_area;
 // paths to things
 // map paths
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
@@ -571,5 +575,7 @@ extern Rectangle the_regrown_die_14;
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
+
+#define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 
 #endif

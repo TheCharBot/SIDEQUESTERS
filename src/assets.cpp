@@ -449,3 +449,6 @@ Rectangle the_regrown_die_11 = {128, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRI
 Rectangle the_regrown_die_12 = {256, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 Rectangle the_regrown_die_13 = {384, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 Rectangle the_regrown_die_14 = {512, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
+Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
+std::vector<Vector2> broken_floor_tiles;

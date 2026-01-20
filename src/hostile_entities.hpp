@@ -49,6 +49,7 @@ class Enemy_forest_scourge: public Entity{
         void attack();
         void run_away();
         void decide_action();
+        
     private:
         Direction direction;
         
@@ -92,6 +93,7 @@ class The_Regrown: public Entity{
         void decide_action();
         void fall_down();
         void idle_animation();
+        void break_random_floor_tiles(int amount);
     private:
         Texture2D tex;
         int random_index;
@@ -110,6 +112,7 @@ class The_Regrown: public Entity{
         Rectangle active_damaging_rect;
         float ground_attack_cooldown;
         bool can_use_ground_attack;
+        
 };
 
 
