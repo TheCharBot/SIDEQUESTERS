@@ -35,18 +35,9 @@ void update_all()
         e->update();
     }
 
-    //killing entities if they have 0 health
-    entities.erase(
-    std::remove_if(entities.begin(), entities.end(),
-        [](const std::unique_ptr<Entity>& e) {
-            return e->dead;
-        }),
-    entities.end());
-    if (vfx.shake_time > 0.0f)
-    {
-        vfx.shake_time -= GetFrameTime();
-    }
-    cam.offset = shake_screen();
+    //killing entities if they are dead
+    kill_things_that_are_dead();
+    update_vfx();
 
     //setting and clamping camera
     cam.target.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH / 2);
@@ -55,16 +46,7 @@ void update_all()
     cam.target.y = Clamp(cam.target.y, 0, (map_to_load.height) - (WINDOW_HEIGHT));
 
     //loading requested map at end of frame
-    if (requested_map != WRONG_MAP)
-    {
-        if (current_map != requested_map)
-        {
-            fade_frame_timer = SCREEN_FADE_TIME;
-            load_map(requested_map, requested_player_pos);
-            
-        }
-        requested_map = WRONG_MAP;
-    }
+    load_requested_map();
     update_gui();
     
 }
@@ -74,7 +56,14 @@ void draw_all()
     BeginMode2D(cam);
     draw_map();
     for(Vector2 &v : broken_floor_tiles){
-        DrawTexturePro(broken_tile_tex, {48, 0, 16, 16}, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //TODO: MACROS AGAAAAAAIN
+        DrawTexturePro(broken_tile_tex, BROKEN_TILE_RECT, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //TODO: MACROS AGAAAAAAIN
+    }
+    for(Ground_item &g : ground_items){
+        
+        DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // TODO: MACROS
+        if(g.can_be_picked_up){ //drawing the "pickup" message thing
+            DrawTexturePro(items_tex, ITEM_PICKUP_DIALOG_RECT, {g.pos.x+16, g.pos.y, 64, 16}, {0, 0}, 0, WHITE);//TODO: MACROS
+        }
     }
     for (auto &e : entities)
     {
@@ -92,7 +81,7 @@ void draw_all()
         }
     }
     
-    
+    // DrawRectangle(player.normal_hitbox.x, player.normal_hitbox.y, player.normal_hitbox.width, player.normal_hitbox.height, GREEN);
     EndMode2D();
     draw_gui();
     //probably will get cleaned up-best i can do now for screen fading

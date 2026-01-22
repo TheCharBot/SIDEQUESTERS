@@ -23,3 +23,12 @@ Vector2 shake_screen(){
         GetRandomValue(-100, 100) / 100.0f * strength
     };
 }
+
+void update_vfx()
+{
+    if (vfx.shake_time > 0.0f)
+    {
+        vfx.shake_time -= GetFrameTime();
+    }
+    cam.offset = shake_screen();
+}

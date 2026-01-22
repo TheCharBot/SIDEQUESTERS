@@ -4,9 +4,13 @@
 #include "assets.hpp"
 #include "config.hpp"
 
+//visual effects such as screen shake and stuff, or really any GUI that needs to be drawn before camera mode is turned off
+
 extern VFX vfx;
 extern void init_vfx();
-void start_screen_shake(float duration, float magnitude);
-Vector2 shake_screen();
+extern void start_screen_shake(float duration, float magnitude);
+extern Vector2 shake_screen();
+extern void update_vfx();
+
 
 #endif

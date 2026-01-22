@@ -18,6 +18,7 @@ extern Map_names requested_map;
 extern Vector2 requested_player_pos;
 extern Texture2D broken_tile_tex;
 extern std::vector<Vector2> broken_floor_tiles;
+extern std::vector<Ground_item> ground_items;
 extern float fade_frame_timer;
 
 extern Inventory_slot inventory_slots[28];
@@ -53,6 +54,9 @@ extern Item inv_cursor_held_item;
 extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
+
+#define ITEM_PICKUP_DIALOG_RECT {64, 0, 64, 16}
+#define BROKEN_TILE_RECT {48, 0, 16, 16}
 
 #define PLAYER_IFRAME_TIME 0.8f // seconds
 #define ENEMY_IFRAME_TIME 0.2f // seconds

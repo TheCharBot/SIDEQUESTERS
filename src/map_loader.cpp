@@ -17,6 +17,7 @@ Rectangle temp_rect;
 std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
+std::vector<Ground_item> ground_items;
 
 float fade_frame_timer = SCREEN_FADE_TIME; 
 
@@ -58,6 +59,7 @@ void reset_loaded()
     map_load_rects.clear();
     collision_rects.clear();
     broken_floor_tiles.clear();
+    ground_items.clear();
     // unloading current map for efficiency
     if (map_to_load.id != 0)
     {
@@ -823,4 +825,33 @@ void draw_map()
 
     DrawTextureEx(map_to_load, {0, 0}, 0, 1, WHITE);
     
+}
+
+void kill_things_that_are_dead()
+{
+    entities.erase(
+    std::remove_if(entities.begin(), entities.end(),
+        [](const std::unique_ptr<Entity>& e) {
+            return e->dead;
+        }),
+    entities.end());
+    ground_items.erase(
+    std::remove_if(ground_items.begin(), ground_items.end(),
+        [](Ground_item& g) {
+            return g.picked_up;
+        }),
+    ground_items.end());
+}
+
+void load_requested_map(){
+    if (requested_map != WRONG_MAP)
+    {
+        if (current_map != requested_map)
+        {
+            fade_frame_timer = SCREEN_FADE_TIME;
+            load_map(requested_map, requested_player_pos);
+            
+        }
+        requested_map = WRONG_MAP;
+    }
 }

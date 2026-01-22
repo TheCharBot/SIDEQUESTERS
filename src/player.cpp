@@ -410,7 +410,17 @@ void update_player()
         player.animation_frame_5 = 0;
     }
     rebuild_hitbox();
-
+    for(Ground_item &g : ground_items){
+        
+        
+        if(CheckCollisionRecs(player.normal_hitbox, g.interact_range)){
+            g.can_be_picked_up = true;
+            
+        }
+        else{
+            g.can_be_picked_up = false;
+        }
+    }
     
 
     for (Load_rects &r : map_load_rects)
@@ -443,6 +453,7 @@ void update_player()
         }
     }
     player_update_iframes();
+    
     if (player.current_health <= 0)
     {
         // implement game over screen or something here

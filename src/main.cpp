@@ -9,6 +9,7 @@
 // done TODO: implement Big Tree Level 1
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
 //TODO: Make npc system, Start menu, save/load system, better player gfx, particles. Then your pretty much done!!!!(maybe)
+//TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
 
@@ -38,9 +39,8 @@ int main()
 
         // uncomment these for helpful debug stuff!
         // std::cout << GetFPS() << "\n";
-        // DrawRectangle(player_normal_hitbox.x, player_normal_hitbox.y, player_normal_hitbox.width, player_normal_hitbox.height, GREEN);
-        // DrawRectangle(player.attack_hitbox.x*scale, player.attack_hitbox.y*scale, player.attack_hitbox.width*scale, player.attack_hitbox.height*scale, RED);
         
+        // DrawRectangle(player.attack_hitbox.x*scale, player.attack_hitbox.y*scale, player.attack_hitbox.width*scale, player.attack_hitbox.height*scale, RED);
         EndDrawing();
         
     }

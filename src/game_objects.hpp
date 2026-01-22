@@ -119,11 +119,6 @@ struct Consumable
     Rectangle img_rect;
 };
 
-struct Quest_item
-{
-
-    Quests quest;
-};
 
 struct Dungeon_item
 {
@@ -139,7 +134,7 @@ struct Item
         Melee_weapon_item melee;
         Range_weapon_item ranged;
         Consumable consumable;
-        Quest_item quest_requirement;
+        Quests quest;
     };
 };
 
@@ -194,6 +189,15 @@ struct Inventory_cursor
     int anim_frame_5;
 };
 
+struct Ground_item{
+    Vector2 pos{};
+    Rectangle rect;
+    Item item;
+    bool picked_up = false;
+    Rectangle interact_range;
+    bool can_be_picked_up = false;
+};
+
 class Entity
 {
 public:
@@ -213,22 +217,8 @@ public:
     virtual void update() {};
     virtual void draw() {};
 };
+extern Item Stick;
+extern Item Sacred_bark;
 
-class Interactable_element : public Entity
-{
-public:
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-
-    virtual ~Interactable_element() = default;
-    // load for loading texture data, dont load in constructor
-    virtual void load() {}
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
 
 #endif

@@ -443,6 +443,7 @@ The_Regrown::The_Regrown()
     active_damaging_rect = {};
     ground_attack_cooldown = 0;
     can_use_ground_attack = true;
+    init_item_drop();
 }
 
 The_Regrown::~The_Regrown()
@@ -451,6 +452,7 @@ The_Regrown::~The_Regrown()
     {
         UnloadTexture(tex);
     }
+    ground_items.push_back(item_drop);
     auto remove_rect = [&](const Rectangle &r)
     {
         collision_rects.erase(
@@ -461,11 +463,11 @@ The_Regrown::~The_Regrown()
                 { return CheckCollisionRecs(c, r); }),
             collision_rects.end());
     };
-
+    broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
     remove_rect(col_rect_1);
     remove_rect(col_rect_2);
     remove_rect(col_rect_3);
-    
+    collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
 }
 
 void The_Regrown::load()
@@ -561,6 +563,14 @@ void The_Regrown::update()
 void The_Regrown::draw()
 {
     DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH_128), float(DEFAULT_SPRITE_HEIGHT_128)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
+    
+}
+
+void The_Regrown::init_item_drop()
+{
+    item_drop.pos = {152, 40};// TODO: macrosssssssssss!!!1!
+    item_drop.item = Sacred_bark;
+    item_drop.interact_range = {item_drop.pos.x, item_drop.pos.y, 32, 32};
     
 }
 
@@ -671,9 +681,9 @@ void The_Regrown::break_random_floor_tiles(int amount)
         int y = GetRandomValue(0, map_to_load.height/16);
         x*=16;
         y*=16;
-        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area)){
+        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox)){
             // implement actually breaking the tiles here
-            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: MACROS
+            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: MACROS AND ANIMATED FLOOR TILES!!!(possibl idk)
             broken_floor_tiles.push_back(Vector2(x, y));
             continue;
         }
@@ -683,3 +693,4 @@ void The_Regrown::break_random_floor_tiles(int amount)
         }
     }
 }
+
