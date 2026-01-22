@@ -463,7 +463,7 @@ The_Regrown::~The_Regrown()
                 { return CheckCollisionRecs(c, r); }),
             collision_rects.end());
     };
-    broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
+    // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
     remove_rect(col_rect_1);
     remove_rect(col_rect_2);
     remove_rect(col_rect_3);
