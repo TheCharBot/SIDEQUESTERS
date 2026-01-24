@@ -68,55 +68,55 @@ void rebuild_hitbox()
         float(PLAYER_HITBOX_HEIGHT)};
 }
 // you can basically copy/paste these 3
-void hotbar_slot_1_stuff()
-{
-    if (inventory_slots[23].filled_with)
+
+void hotbar_slot_stuff(int slot){
+    if (inventory_slots[slot].filled_with)
     {
         // implement item 1 usage here
-        if (inventory_slots[23].filled_with->type == COMBAT_MELEE)
+        if (inventory_slots[slot].filled_with->type == COMBAT_MELEE)
         {
 
             if (facing == DOWN)
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
+                player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
             if (facing == UP)
             {
                 player.current_anim_arr = player_sword_slash_up_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
+                player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
             if (facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
                 player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
+                player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
             if (facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
                 player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
+                player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
             player.move_mode = 2;
         }
-        if (inventory_slots[23].filled_with->type == COMBAT_RANGED)
+        if (inventory_slots[slot].filled_with->type == COMBAT_RANGED)
         {
         }
-        if (inventory_slots[23].filled_with->type == SHEILD)
+        if (inventory_slots[slot].filled_with->type == SHEILD)
         {
         }
-        if (inventory_slots[23].filled_with->type == QUEST_ITEM)
+        if (inventory_slots[slot].filled_with->type == QUEST_ITEM)
         {
         }
-        if (inventory_slots[23].filled_with->type == CONSUMABLE)
+        if (inventory_slots[slot].filled_with->type == CONSUMABLE)
         {
         }
-        if (inventory_slots[23].filled_with->type == DUNGEON)
+        if (inventory_slots[slot].filled_with->type == DUNGEON)
         {
         }
     }
@@ -124,120 +124,8 @@ void hotbar_slot_1_stuff()
     {
     }
 }
-void hotbar_slot_2_stuff()
-{
-    if (inventory_slots[24].filled_with)
-    {
-        // implement item 2 usage here
-        if (inventory_slots[24].filled_with->type == COMBAT_MELEE)
-        {
 
-            if (facing == DOWN)
-            {
-                player.current_anim_arr = player_sword_slash_down_arr;
-                player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-                
-            }
-            if (facing == UP)
-            {
-                player.current_anim_arr = player_sword_slash_up_arr;
-                player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            if (facing == LEFT)
-            {
-                player.current_anim_arr = player_sword_slash_left_arr;
-                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            if (facing == RIGHT)
-            {
-                player.current_anim_arr = player_sword_slash_right_arr;
-                player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            player.current_animation_frame = 0;
-            player.max_animation_frames = 5;
-            player.move_mode = 2;
-        }
-        if (inventory_slots[24].filled_with->type == COMBAT_RANGED)
-        {
-        }
-        if (inventory_slots[24].filled_with->type == SHEILD)
-        {
-        }
-        if (inventory_slots[24].filled_with->type == QUEST_ITEM)
-        {
-        }
-        if (inventory_slots[24].filled_with->type == CONSUMABLE)
-        {
-        }
-        if (inventory_slots[24].filled_with->type == DUNGEON)
-        {
-        }
-    }
-    else
-    {
-    }
-}
-void hotbar_slot_3_stuff()
-{
-    if (inventory_slots[25].filled_with)
-    {
-        // implement item 3 usage here
-        if (inventory_slots[25].filled_with->type == COMBAT_MELEE)
-        {
 
-            if (facing == DOWN)
-            {
-                player.current_anim_arr = player_sword_slash_down_arr;
-                player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-                
-            }
-            if (facing == UP)
-            {
-                player.current_anim_arr = player_sword_slash_up_arr;
-                player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            if (facing == LEFT)
-            {
-                player.current_anim_arr = player_sword_slash_left_arr;
-                player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            if (facing == RIGHT)
-            {
-                player.current_anim_arr = player_sword_slash_right_arr;
-                player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
-                player.active_damage = inventory_slots[23].filled_with->melee.damage;
-            }
-            player.current_animation_frame = 0;
-            player.max_animation_frames = 5;
-            player.move_mode = 2;
-        }
-        if (inventory_slots[25].filled_with->type == COMBAT_RANGED)
-        {
-        }
-        if (inventory_slots[25].filled_with->type == SHEILD)
-        {
-        }
-        if (inventory_slots[25].filled_with->type == QUEST_ITEM)
-        {
-        }
-        if (inventory_slots[25].filled_with->type == CONSUMABLE)
-        {
-        }
-        if (inventory_slots[25].filled_with->type == DUNGEON)
-        {
-        }
-    }
-    else
-    {
-    }
-}
 
 void update_player()
 {
@@ -453,15 +341,15 @@ void update_player()
     {
         if (IsKeyPressed(KEY_Q))
         {
-            hotbar_slot_1_stuff();
+            hotbar_slot_stuff(23);
         }
         else if (IsKeyPressed(KEY_E))
         {
-            hotbar_slot_2_stuff();
+            hotbar_slot_stuff(24);
         }
         else if (IsKeyPressed(KEY_Z))
         {
-            hotbar_slot_3_stuff();
+            hotbar_slot_stuff(25);
         }
     }
     player_update_iframes();

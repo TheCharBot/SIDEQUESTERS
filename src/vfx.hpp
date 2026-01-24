@@ -9,6 +9,8 @@
 extern VFX vfx;
 extern void init_vfx();
 extern void start_screen_shake(float duration, float magnitude);
+extern void start_hitstop(float duration);
+extern void pause_for_hitstop();
 extern Vector2 shake_screen();
 extern void update_vfx();
 

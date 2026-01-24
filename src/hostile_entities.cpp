@@ -188,7 +188,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
     if (can_take_damage)
     {
         // implement knockback
-        WaitTime(damage / 10);
+        start_hitstop(player.active_damage);
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
         if (health < 0)
@@ -197,6 +197,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
         }
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
+        start_hitstop(player.active_damage);
         Vector2 dir = Vector2Normalize(
             Vector2Subtract(pos, hit_source_pos));
 
@@ -463,7 +464,7 @@ The_Regrown::~The_Regrown()
                 { return CheckCollisionRecs(c, r); }),
             collision_rects.end());
     };
-    // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
+    // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
     remove_rect(col_rect_1);
     remove_rect(col_rect_2);
     remove_rect(col_rect_3);
@@ -580,13 +581,12 @@ void The_Regrown::take_damage(float damage)
         return;
     if (can_take_damage)
     {
-
-        WaitTime(damage / 10);
+        
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME + damage / 10;
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
-
+        start_hitstop(player.active_damage);
         if (health < 0)
         {
             health = 0;

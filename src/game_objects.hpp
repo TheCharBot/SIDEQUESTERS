@@ -146,6 +146,8 @@ struct VFX{ // put vfx things here
     float shake_time = 0.0f;
     float shake_duration = 0.0f;
     float shake_magnitude = 0.0f;
+    float hitstop_time = 0.0f;
+    float hitstop_duration = 0.0f;
 };
 
 
