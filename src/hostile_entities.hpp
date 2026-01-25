@@ -109,12 +109,13 @@ class The_Regrown: public Entity{
         Rectangle col_rect_1;
         Rectangle col_rect_2;
         Rectangle col_rect_3;
-        bool loaded_rects;
+        bool started_fight;
         bool death_anim_started;
         Rectangle active_damaging_rect;
         float ground_attack_cooldown;
         bool can_use_ground_attack;
         Ground_item item_drop;
+        
 };
 
 

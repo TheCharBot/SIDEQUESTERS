@@ -7,9 +7,13 @@
 // done TODO: make map 3, 4, and 5
 // done TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
 // done TODO: implement Big Tree Level 1
-//TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
+// done TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
-//TODO: Make npc system, Start menu, save/load system, better player gfx, particles. Then your pretty much done!!!!(maybe)
+//TODO: Make npc system
+//TODO: make Start menu
+//TODO: make save/load system
+//TODO: make better player gfx
+//TODO: particles
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
@@ -20,6 +24,7 @@ int main()
     Image icon;
     icon = LoadImage("gfx/icon/icon.png");
     SetWindowIcon(icon);
+    
     UnloadImage(icon);
 
     init_all();

@@ -426,19 +426,19 @@ The_Regrown::The_Regrown()
 {
     if (current_map == BIG_TREE_LEVEL_10)
     {
-        pos = THE_REGROWN_POS;
+        pos = {96, -88};
     }
-    current_anim_arr = the_regrown_idle_arr;
+    current_anim_arr = the_regrown_entrance_arr;
     max_animation_frames = 4;
     current_animation_frame = 0;
     animation_frame_5 = 0;
     health = THE_REGROWN_HEALTH;
     move_mode = 1;
-    rect = {pos.x + THE_REGROWN_RECT_OFFSET_X, pos.y + THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};
+    rect = {96 + THE_REGROWN_RECT_OFFSET_X, -8 + THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};//TODO:MACORS
     col_rect_1 = THE_REGROWN_COLLISION_RECT_1;
     col_rect_2 = THE_REGROWN_COLLISION_RECT_2;
     col_rect_3 = THE_REGROWN_COLLISION_RECT_3;
-    loaded_rects = false;
+    started_fight = false;
     can_take_damage = true;
     death_anim_started = false;
     active_damaging_rect = {};
@@ -453,22 +453,7 @@ The_Regrown::~The_Regrown()
     {
         UnloadTexture(tex);
     }
-    ground_items.push_back(item_drop);
-    auto remove_rect = [&](const Rectangle &r)
-    {
-        collision_rects.erase(
-            std::remove_if(
-                collision_rects.begin(),
-                collision_rects.end(),
-                [&](const Rectangle &c)
-                { return CheckCollisionRecs(c, r); }),
-            collision_rects.end());
-    };
-    // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
-    remove_rect(col_rect_1);
-    remove_rect(col_rect_2);
-    remove_rect(col_rect_3);
-    collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
+    
 }
 
 void The_Regrown::load()
@@ -479,6 +464,33 @@ void The_Regrown::load()
 void The_Regrown::update()
 {
     // constant things that should be updated every frame
+    if (!started_fight)
+    {
+        if (player.pos.y > THE_REGROWN_PLAYER_Y_TRIGGER)
+        { // TODO: replace w/ macros again
+            
+            
+            
+            
+            if(pos.y < -8){//TODO: MACROS
+                pos.y+=5;
+               
+                if(current_anim_arr != the_regrown_entrance_arr){
+                    current_anim_arr = the_regrown_entrance_arr;
+                    max_animation_frames = 8;
+                }
+            }
+            if(pos.y >= -8){
+                started_fight = true;
+                collision_rects.push_back(col_rect_1);
+                collision_rects.push_back(col_rect_2);
+                collision_rects.push_back(col_rect_3);
+            }
+        }
+        
+
+        return;
+    }
     ground_attack_cooldown -= GetFrameTime();
     if (ground_attack_cooldown < 0)
     {
@@ -508,17 +520,25 @@ void The_Regrown::update()
         max_animation_frames = 14;
         current_animation_frame = 0;
         player.defeated_bosses.the_regrown_defeated = true;
+        ground_items.push_back(item_drop);
+        auto remove_rect = [&](const Rectangle &r)
+        {
+            collision_rects.erase(
+                std::remove_if(
+                    collision_rects.begin(),
+                    collision_rects.end(),
+                    [&](const Rectangle &c)
+                    { return CheckCollisionRecs(c, r); }),
+                collision_rects.end());
+        };
+        // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
+        remove_rect(col_rect_1);
+        remove_rect(col_rect_2);
+        remove_rect(col_rect_3);
+        collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
+        collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^ 
     }
-    if (!loaded_rects)
-    {
-        if (player.pos.y > 75)
-        { // TODO: replace w/ macros again
-            collision_rects.push_back(col_rect_1);
-            collision_rects.push_back(col_rect_2);
-            collision_rects.push_back(col_rect_3);
-            loaded_rects = true;
-        }
-    }
+    
     // movemode things, mostly animations
     if (move_mode == 0)
     {
