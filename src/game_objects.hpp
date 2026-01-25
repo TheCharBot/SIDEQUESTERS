@@ -221,6 +221,7 @@ public:
 };
 extern Item Stick;
 extern Item Sacred_bark;
+extern Ground_item Big_tree_level_1_stick;
 
 
 #endif

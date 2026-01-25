@@ -166,11 +166,11 @@ Big_tree::Big_tree()
 {
     pos = BIG_TREE_POS;
     //should probably move to macros later
-    //TODO: REPLACE W/ MACROS!!!!!!
-    rect = {pos.x, pos.y+865, 208, 1};
-    rect1 = {pos.x+4, pos.y+848, 200, 55};
-    rect2 = {pos.x+31, pos.y+903, 56, 24};
-    rect3 = {pos.x+121, pos.y+903, 56, 24};
+    
+    rect = {pos.x, pos.y+BIG_TREE_RECT_OFFSET_Y, BIG_TREE_RECT_W_H};
+    rect1 = {pos.x+BIG_TREE_RECT1_OFFSET_X, pos.y+BIG_TREE_RECT1_OFFSET_Y, BIG_TREE_RECT1_W_H};
+    rect2 = {pos.x+BIG_TREE_RECT2_OFFSET_X, pos.y+BIG_TREE_RECT2_OFFSET_Y, BIG_TREE_RECT2_W_H};
+    rect3 = {pos.x+BIG_TREE_RECT3_OFFSET_X, pos.y+BIG_TREE_RECT3_OFFSET_Y, BIG_TREE_RECT3_W_H};
     collision_rects.push_back(rect1);
     collision_rects.push_back(rect2);
     collision_rects.push_back(rect3);

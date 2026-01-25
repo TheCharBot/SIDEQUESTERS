@@ -1,7 +1,14 @@
 #include "items.hpp"
 
 Item Stick;
+Ground_item Big_tree_level_1_stick;
 Item Sacred_bark;
+
+void init_stick_big_tree_level_1(){
+    Big_tree_level_1_stick.pos = {152, 128}; //TODO: MACROS PROBABLY
+    Big_tree_level_1_stick.item = Stick;
+    Big_tree_level_1_stick.interact_range = {Big_tree_level_1_stick.pos.x, Big_tree_level_1_stick.pos.y, 32, 32};
+}
 
 void init_stick()
 {
@@ -31,4 +38,5 @@ void init_items()
 {
     init_sacred_bark();
     init_stick();
+    init_stick_big_tree_level_1();
 }

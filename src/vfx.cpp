@@ -22,7 +22,7 @@ void start_hitstop(float duration){
 
 void pause_for_hitstop(){
     
-    WaitTime(vfx.hitstop_duration/10);//TODO: MACROS
+    WaitTime(vfx.hitstop_duration/HITSTOP_TIMER_DAMAGE_DIVIDER);
 }
 
 Vector2 shake_screen(){

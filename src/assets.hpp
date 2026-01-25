@@ -55,6 +55,8 @@ extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
+#define HITSTOP_TIMER_DAMAGE_DIVIDER 10
+
 #define ITEM_PICKUP_DIALOG_RECT {64, 0, 64, 16}
 #define BROKEN_TILE_RECT {48, 0, 16, 16}
 
@@ -66,6 +68,47 @@ extern Rectangle inv_cursor_anim[2];
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
+
+#define START_BULLDOZER_X 6
+#define START_BULLDOZER_Y 110
+#define START_BULLDOZER_WIDTH 99
+#define START_BULLDOZER_HEIGHT 75
+#define BULLDOZER_TRIGGER_Y 185
+#define BULLDOZER_SPEED 5
+#define MAX_BULLDOZER_X 190
+#define BULLDOZER_CUTSCENE_TRIGGER_X 160
+
+#define VILLAGE_WINDMILL_X 299
+#define VILLAGE_WINDMILL_Y 188
+#define VILLAGE_WINDMILL_WIDTH 144
+#define VILLAGE_WINDMILL_HEIGHT 192
+#define VILLAGE_WINDMILL_RECT_OFFSET_X 30
+#define VILLAGE_WINDMILL_RECT_OFFSET_Y 132
+#define VILLAGE_WINDMILL_RECT_WIDTH 80
+#define VILLAGE_WINDMILL_RECT_HEIGHT 32
+
+#define BIG_TREE_POS {31, -71}
+#define BIG_TREE_RECT_W_H  208, 1
+#define BIG_TREE_RECT_OFFSET_Y 865
+
+#define BIG_TREE_RECT1_W_H  200, 55
+#define BIG_TREE_RECT1_OFFSET_Y 848
+#define BIG_TREE_RECT1_OFFSET_X 4
+
+#define BIG_TREE_RECT2_W_H  56, 24
+#define BIG_TREE_RECT2_OFFSET_Y 903
+#define BIG_TREE_RECT2_OFFSET_X 31
+
+#define BIG_TREE_RECT3_W_H  56, 24
+#define BIG_TREE_RECT3_OFFSET_Y 903
+#define BIG_TREE_RECT3_OFFSET_X 121
+
+
+#define START_PORTAL_X 224
+#define START_PORTAL_Y 37
+#define START_PORTAL_WIDTH 32
+#define START_PORTAL_HEIGHT 44
+
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
@@ -364,10 +407,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 // start portal image and rects
 
-#define START_PORTAL_X 224
-#define START_PORTAL_Y 37
-#define START_PORTAL_WIDTH 32
-#define START_PORTAL_HEIGHT 44
+
 
 extern Rectangle start_portal_animation[4];
 extern Rectangle start_portal_1;
@@ -378,14 +418,7 @@ extern Rectangle start_portal_emination;
 
 // bulldozer image and rects
 
-#define START_BULLDOZER_X 6
-#define START_BULLDOZER_Y 110
-#define START_BULLDOZER_WIDTH 99
-#define START_BULLDOZER_HEIGHT 75
-#define BULLDOZER_TRIGGER_Y 185
-#define BULLDOZER_SPEED 5
-#define MAX_BULLDOZER_X 190
-#define BULLDOZER_CUTSCENE_TRIGGER_X 160
+
 
 extern Rectangle start_bulldozer_animation[3];
 extern Rectangle start_bulldozer_1;
@@ -393,14 +426,7 @@ extern Rectangle start_bulldozer_2;
 extern Rectangle start_bulldozer_3;
 
 // windmill stuff
-#define VILLAGE_WINDMILL_X 299
-#define VILLAGE_WINDMILL_Y 188
-#define VILLAGE_WINDMILL_WIDTH 144
-#define VILLAGE_WINDMILL_HEIGHT 192
-#define VILLAGE_WINDMILL_RECT_OFFSET_X 30
-#define VILLAGE_WINDMILL_RECT_OFFSET_Y 132
-#define VILLAGE_WINDMILL_RECT_WIDTH 80
-#define VILLAGE_WINDMILL_RECT_HEIGHT 32
+
 
 extern Rectangle village_windmill_animation[4];
 extern Rectangle village_windmill_1;
@@ -408,8 +434,8 @@ extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
-#define BIG_TREE_POS {31, -71}
-#define BIG_TREE_TEX_PATH "gfx/assets/big_tree/big_tree_tex.png"
+
+
 
 
 #define DEFAULT_SPRITE_WIDTH 64
@@ -552,6 +578,8 @@ extern Rectangle the_regrown_possible_destructable_tile_area;
 #define DARK_FOREST_NORTH_PATH "gfx/maps/map_3_dark_forest_north.png"
 #define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
 #define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
+
+#define BIG_TREE_TEX_PATH "gfx/assets/big_tree/big_tree_tex.png"
 
 #define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
 #define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"

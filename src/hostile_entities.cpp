@@ -434,7 +434,7 @@ The_Regrown::The_Regrown()
     animation_frame_5 = 0;
     health = THE_REGROWN_HEALTH;
     move_mode = 1;
-    rect = {96 + THE_REGROWN_RECT_OFFSET_X, -8 + THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};//TODO:MACORS
+    rect = {THE_REGROWN_FINAL_X + THE_REGROWN_RECT_OFFSET_X, THE_REGROWN_FINAL_Y + THE_REGROWN_RECT_OFFSET_Y, THE_REGROWN_RECT_WIDTH, THE_REGROWN_RECT_HEIGHT};
     col_rect_1 = THE_REGROWN_COLLISION_RECT_1;
     col_rect_2 = THE_REGROWN_COLLISION_RECT_2;
     col_rect_3 = THE_REGROWN_COLLISION_RECT_3;
@@ -467,20 +467,20 @@ void The_Regrown::update()
     if (!started_fight)
     {
         if (player.pos.y > THE_REGROWN_PLAYER_Y_TRIGGER)
-        { // TODO: replace w/ macros again
+        { 
             
             
             
             
-            if(pos.y < -8){//TODO: MACROS
-                pos.y+=5;
+            if(pos.y < THE_REGROWN_FINAL_Y){
+                pos.y+=THE_REGROWN_FALL_SPEED;
                
                 if(current_anim_arr != the_regrown_entrance_arr){
                     current_anim_arr = the_regrown_entrance_arr;
                     max_animation_frames = 8;
                 }
             }
-            if(pos.y >= -8){
+            if(pos.y >= THE_REGROWN_FINAL_Y){
                 started_fight = true;
                 collision_rects.push_back(col_rect_1);
                 collision_rects.push_back(col_rect_2);
@@ -589,7 +589,7 @@ void The_Regrown::draw()
 
 void The_Regrown::init_item_drop()
 {
-    item_drop.pos = {152, 40};// TODO: macrosssssssssss!!!1!
+    item_drop.pos = THE_REGROWN_ITEM_DROP_POS;
     item_drop.item = Sacred_bark;
     item_drop.interact_range = {item_drop.pos.x, item_drop.pos.y, 32, 32};
     
@@ -621,7 +621,7 @@ void The_Regrown::right_arm_attack()
     max_animation_frames = 5;
     current_animation_frame = 0;
 
-    active_damaging_rect = {73 + pos.x, 71 + pos.y, 31, 47}; // TODO: MACROS
+    active_damaging_rect = {pos.x+THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_X, pos.y+THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_RIGHT_ARM_DAMAGE_RECT_W_H};
     if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
@@ -634,7 +634,7 @@ void The_Regrown::left_arm_attack()
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-    active_damaging_rect = {24 + pos.x, 71 + pos.y, 31, 47}; // TODO: MACROS
+    active_damaging_rect = {pos.x+THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y+THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
     if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
@@ -661,7 +661,7 @@ void The_Regrown::ground_shake_attack()
 
 void The_Regrown::decide_action()
 {
-    // TODO: make attack sensing rects and implement attacking, plus make the player gfx when it gets hit better
+    
     //  ground_shake_attack();
     idle_animation();
     if (CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
@@ -703,7 +703,7 @@ void The_Regrown::break_random_floor_tiles(int amount)
         y*=16;
         if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox)){
             // implement actually breaking the tiles here
-            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: MACROS AND ANIMATED FLOOR TILES!!!(possibl idk)
+            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
             broken_floor_tiles.push_back(Vector2(x, y));
             continue;
         }
@@ -713,4 +713,3 @@ void The_Regrown::break_random_floor_tiles(int amount)
         }
     }
 }
-
