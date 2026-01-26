@@ -328,10 +328,21 @@ void Enemy_forest_scourge::chase()
     // before release, make this better
     // TODO: make better. not urgent
 
-    float dt = GetFrameTime();
+    
 
-    Vector2 dir = Vector2Normalize(Vector2Subtract(player.pos, pos));
-    Vector2 velocity = Vector2Scale(dir, FOREST_SCOURGE_CHASE_SPEED * dt);
+    Vector2 diff = Vector2Subtract(player.pos, pos);
+    float dist = Vector2Length(diff);
+
+    if (dist > 0.0f)
+    {
+        Vector2 dir = Vector2Scale(diff, 1.0f / dist); // safe normalize
+        vel = Vector2Scale(dir, FOREST_SCOURGE_CHASE_SPEED * GetFrameTime());
+    }
+    else
+    {
+        vel = {0.0f, 0.0f}; // already at exact player position
+    }
+
 
     // seperate x and y movement
     // this is VERY helpful and should DEFINENTLY be saved!!! both ^ and v !!!
@@ -339,7 +350,7 @@ void Enemy_forest_scourge::chase()
     //* THIS IS VERRRRRY IMPORTANT
     //* PRETTY MUCH EVERYITHG CAN BE REUSED
     //* OH YEAH!!!!!!!
-    pos.x += velocity.x;
+    pos.x += vel.x;
 
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     for (const Rectangle &r : collision_rects)
@@ -347,22 +358,24 @@ void Enemy_forest_scourge::chase()
         if (CheckCollisionRecs(rect, r))
         {
 
-            pos.x -= velocity.x;
+            pos.x -= vel.x;
             break;
         }
     }
 
-    pos.y += velocity.y;
+    pos.y += vel.y;
 
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     for (const Rectangle &r : collision_rects)
     {
         if (CheckCollisionRecs(rect, r))
         {
-            pos.y -= velocity.y;
+            pos.y -= vel.y;
             break;
         }
     }
+
+    // rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
 
     if (rect.y < player.normal_hitbox.y)
     {

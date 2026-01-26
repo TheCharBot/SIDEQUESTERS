@@ -65,6 +65,7 @@ class Enemy_forest_scourge: public Entity{
         bool can_take_damage;
         float iframe_timer;
         Vector2 originial_pos;
+        Vector2 vel;
 };
 
 class The_Regrown: public Entity{
