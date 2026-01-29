@@ -75,5 +75,21 @@ class Big_tree : public Entity {
         Texture2D tex;
 };
 
+class Big_tree_level_tree_trunk : public Entity {
+    public:
+        Big_tree_level_tree_trunk(int which_trunk);
+        ~Big_tree_level_tree_trunk() override;
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+        
+        void load() override;
+        void update() override;
+        void draw() override;
+    private:
+        float health;
+        Texture2D tex;
+};
+
 
 #endif

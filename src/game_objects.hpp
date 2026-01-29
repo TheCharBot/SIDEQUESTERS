@@ -77,6 +77,7 @@ enum Item_names
     WEAK_BOW,
     WEAK_SWORD,
     SACRED_BARK,
+    DUNGEON_KEY,
 
 };
 
@@ -142,6 +143,12 @@ struct Boss_keys{ // add bosses to this to change which ones have been defeated 
     bool the_regrown_defeated = false;
 };
 
+
+
+struct Item_keys{ //document like this: "map_name"_"item_name"
+    bool big_tree_level_1_stick_collected = false;
+};
+
 struct VFX{ // put vfx things here
     float shake_time = 0.0f;
     float shake_duration = 0.0f;
@@ -172,7 +179,7 @@ struct Player
     Rectangle attack_hitbox;
     int active_damage;
     Boss_keys defeated_bosses;
-
+    Item_keys picked_up_items;
 };
 
 struct Inventory_slot
@@ -219,8 +226,11 @@ public:
     virtual void update() {};
     virtual void draw() {};
 };
+
+//globally define items here
 extern Item Stick;
 extern Item Sacred_bark;
+extern Item Dungeon_key;
 extern Ground_item Big_tree_level_1_stick;
 
 

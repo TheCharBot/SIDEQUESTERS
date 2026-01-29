@@ -4,6 +4,7 @@ Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
 Texture2D health_bar_tex;
+Texture2D pickup_dialog_tex;
 Vector2 inventory_pos = {0, 0};
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
@@ -18,6 +19,7 @@ void init_gui()
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
     health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
+    pickup_dialog_tex = LoadTexture(PICKUP_DIALOG_TEX_PATH);
 }
 
 void inv_cursor_init()
@@ -141,7 +143,7 @@ void draw_gui()
         // drawing held item if there is a held item
         if (inv_cursor.held_item)
         {
-            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale, inventory_slots[inv_cursor.inv_slot_index].pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale-(1*scale), inventory_slots[inv_cursor.inv_slot_index].pos.y*scale-(1*scale), float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
         }
         // drawing items
         for (Inventory_slot &s : inventory_slots)

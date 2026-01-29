@@ -8,6 +8,7 @@
 
 //fine. ill put it here. but i wont be happy!
 extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
+extern void remove_collision_rect(Rectangle rect);
 
 // editable globals
 extern std::vector<Load_rects> map_load_rects;
@@ -32,6 +33,7 @@ extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
 extern Texture2D health_bar_tex;
+extern Texture2D pickup_dialog_tex;
 extern Rectangle health_bar_left_end;
 extern Rectangle health_bar_right_end;
 extern Rectangle health_bar_right_middle;
@@ -57,7 +59,7 @@ extern Rectangle inv_cursor_anim[2];
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
-#define ITEM_PICKUP_DIALOG_RECT {64, 0, 64, 16}
+#define ITEM_PICKUP_DIALOG_RECT {0, 0, 64, 16}
 #define BROKEN_TILE_RECT {48, 0, 16, 16}
 
 #define PLAYER_IFRAME_TIME 0.8f // seconds
@@ -68,6 +70,12 @@ extern Rectangle inv_cursor_anim[2];
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
+
+#define DEFAULT_SPRITE_WIDTH 64
+#define DEFAULT_SPRITE_HEIGHT 64
+#define DEFAULT_SPRITE_WIDTH_128 128
+#define DEFAULT_SPRITE_HEIGHT_128 128
+
 
 #define START_BULLDOZER_X 6
 #define START_BULLDOZER_Y 110
@@ -102,6 +110,11 @@ extern Rectangle inv_cursor_anim[2];
 #define BIG_TREE_RECT3_W_H  56, 24
 #define BIG_TREE_RECT3_OFFSET_Y 903
 #define BIG_TREE_RECT3_OFFSET_X 121
+
+#define BIG_TREE_LEVELS_TREE_TRUNKS_W_H 40, 16
+#define BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_X 44
+#define BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_Y 96
+#define BIG_TREE_LEVELS_TREE_TRUNKS_POS {96, 70}
 
 
 #define START_PORTAL_X 224
@@ -434,12 +447,14 @@ extern Rectangle village_windmill_2;
 extern Rectangle village_windmill_3;
 extern Rectangle village_windmill_4;
 
+//tree trunk in big tree level stuff
+extern Rectangle Big_tree_levels_tree_trunk_middle;
+extern Rectangle Big_tree_levels_tree_trunk_top;
+extern Rectangle Big_tree_levels_tree_trunk_bottom;
 
 
 
 
-#define DEFAULT_SPRITE_WIDTH 64
-#define DEFAULT_SPRITE_HEIGHT 64
 //forest scourge stuff
 //idle arrays
 extern Rectangle forest_scourge_idle_down_right[3];
@@ -497,8 +512,8 @@ extern Rectangle forest_scourge_attack_up_left_5;
 extern Rectangle forest_scourge_attack_up_left_6;
 
 //TODO: ORGANIZE!!!!!!!!
-#define DEFAULT_SPRITE_WIDTH_128 128
-#define DEFAULT_SPRITE_HEIGHT_128 128
+
+
 //The Regrown stuff
 
 
@@ -594,6 +609,8 @@ extern Rectangle the_regrown_possible_destructable_tile_area;
 
 #define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
 
+#define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
+
 // music paths
 
 // entities and misc assets paths
@@ -607,6 +624,7 @@ extern Rectangle the_regrown_possible_destructable_tile_area;
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
+#define PICKUP_DIALOG_TEX_PATH "gfx/gui/pickup_dialog_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 

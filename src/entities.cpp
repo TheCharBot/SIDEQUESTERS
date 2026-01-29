@@ -196,3 +196,48 @@ void Big_tree::draw()
 {
     DrawTextureEx(tex, pos, 0, 1, WHITE);
 }
+
+Big_tree_level_tree_trunk::Big_tree_level_tree_trunk(int which_trunk)
+{
+    pos = BIG_TREE_LEVELS_TREE_TRUNKS_POS;
+    switch(which_trunk){
+        case 1:
+            img_rect = Big_tree_levels_tree_trunk_middle;
+            rect = {pos.x+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_X, pos.y+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_Y, BIG_TREE_LEVELS_TREE_TRUNKS_W_H};
+            break;
+        case 2:
+            img_rect = Big_tree_levels_tree_trunk_top;
+            rect = {0, 1000, 1, 1};
+            break;
+        case 3:
+            img_rect = Big_tree_levels_tree_trunk_bottom;
+            rect = {pos.x+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_X, pos.y+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_Y, BIG_TREE_LEVELS_TREE_TRUNKS_W_H};
+            break;
+    }
+    collision_rects.push_back(rect);
+}
+
+Big_tree_level_tree_trunk::~Big_tree_level_tree_trunk()
+{
+    if(tex.id != 0){
+        UnloadTexture(tex);
+    }
+}
+
+void Big_tree_level_tree_trunk::load()
+{
+    tex = LoadTexture(BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH);
+}
+
+void Big_tree_level_tree_trunk::update()
+{
+    if(health == 0){
+        remove_collision_rect(rect);
+        dead = true;
+    }
+}
+
+void Big_tree_level_tree_trunk::draw()
+{
+    DrawTexturePro(tex, img_rect, {pos.x, pos.y, img_rect.width, img_rect.height}, {0, 0}, 0, WHITE);
+}

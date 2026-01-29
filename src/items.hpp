@@ -8,9 +8,6 @@
 
 //just data usage for items
 
-
-extern void init_stick();
-extern void init_sacred_bark();
 extern void add_item_to_inventory(Item item, int slot_index);
 extern void init_items();
 

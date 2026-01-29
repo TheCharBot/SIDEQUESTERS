@@ -534,22 +534,14 @@ void The_Regrown::update()
         current_animation_frame = 0;
         player.defeated_bosses.the_regrown_defeated = true;
         ground_items.push_back(item_drop);
-        auto remove_rect = [&](const Rectangle &r)
-        {
-            collision_rects.erase(
-                std::remove_if(
-                    collision_rects.begin(),
-                    collision_rects.end(),
-                    [&](const Rectangle &c)
-                    { return CheckCollisionRecs(c, r); }),
-                collision_rects.end());
-        };
+        
         // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
-        remove_rect(col_rect_1);
-        remove_rect(col_rect_2);
-        remove_rect(col_rect_3);
-        collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
-        collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^ 
+        remove_collision_rect(col_rect_1);
+        remove_collision_rect(col_rect_2);
+        remove_collision_rect(col_rect_3);
+
+        // collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
+        // collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^ 
     }
     
     // movemode things, mostly animations

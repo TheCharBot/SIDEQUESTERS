@@ -1,5 +1,10 @@
 #include "event_handler.hpp"
 
+//Official WNAR Build
+//
+
+// "Who Needs A Reason?"
+
 // ©2025, 2026 Charles Von Dollen, TheCharbot
 // 16x16 sprites at 320x180 is just way too good
 

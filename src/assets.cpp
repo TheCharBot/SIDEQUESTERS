@@ -86,6 +86,10 @@ Rectangle start_portal_animation[4] = {
     start_portal_4};
 Rectangle start_portal_emination;
 
+Rectangle Big_tree_levels_tree_trunk_middle = {0, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle Big_tree_levels_tree_trunk_bottom = {128, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+Rectangle Big_tree_levels_tree_trunk_top = {256, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
+
 // player-focused stuff
 
 //(i know i can use pointers but they scary)
@@ -399,6 +403,8 @@ Rectangle the_regrown_die_arr[14] = {
     the_regrown_die_14,
 };
 
+
+
 Rectangle the_regrown_default_sprite_arr[1] = {the_regrown_default_sprite};
 Rectangle the_regrown_default_sprite = {0, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 
@@ -451,4 +457,3 @@ Rectangle the_regrown_die_13 = {384, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRI
 Rectangle the_regrown_die_14 = {512, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 
 Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
-std::vector<Vector2> broken_floor_tiles;

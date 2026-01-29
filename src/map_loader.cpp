@@ -18,6 +18,7 @@ std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
 std::vector<Ground_item> ground_items;
+std::vector<Vector2> broken_floor_tiles;
 
 float fade_frame_timer = SCREEN_FADE_TIME; 
 
@@ -437,6 +438,9 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_1, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
+    for (auto &e : entities)
+        e->load();
 }
 
 void load_big_tree_level_3(){
@@ -472,6 +476,9 @@ void load_big_tree_level_3(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_4(){
     reset_loaded();
@@ -508,6 +515,9 @@ void load_big_tree_level_4(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_5(){
     reset_loaded();
@@ -542,6 +552,9 @@ void load_big_tree_level_5(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_6(){
     reset_loaded();
@@ -578,6 +591,9 @@ void load_big_tree_level_6(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(3));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_7(){
     reset_loaded();
@@ -648,6 +664,9 @@ void load_big_tree_level_8(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_9(){
     reset_loaded();
@@ -682,6 +701,9 @@ void load_big_tree_level_9(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_10, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_10(){
     reset_loaded();
@@ -855,4 +877,22 @@ void load_requested_map(){
         }
         requested_map = WRONG_MAP;
     }
+}
+
+void remove_collision_rect(Rectangle rect)
+{
+    collision_rects.erase(
+        std::remove_if(
+            collision_rects.begin(),
+            collision_rects.end(),
+            [&](const Rectangle& r)
+            {
+                return r.x == rect.x &&
+                       r.y == rect.y &&
+                       r.width == rect.width &&
+                       r.height == rect.height;
+            }
+        ),
+        collision_rects.end()
+    );
 }
