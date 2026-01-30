@@ -204,7 +204,6 @@ struct Ground_item{
     Item item;
     bool picked_up = false;
     Rectangle interact_range;
-    bool can_be_picked_up = false;
 };
 
 class Entity

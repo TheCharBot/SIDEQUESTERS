@@ -302,23 +302,16 @@ void update_player()
         
         
         if(CheckCollisionRecs(player.normal_hitbox, g.interact_range)){
-            g.can_be_picked_up = true;
-            if(IsKeyPressed(KEY_X)){
-                
-                for (Inventory_slot &s : inventory_slots){
-                    if(s.filled_with){
-                        continue;
-                    }
-                    else{
-                        s.filled_with = g.item;
-                        break;
-                    }
+            for (Inventory_slot &s : inventory_slots){
+                if(s.filled_with){
+                    continue;
                 }
-                g.picked_up = true;
+                else{
+                    s.filled_with = g.item;
+                    break;
+                }
             }
-        }
-        else{
-            g.can_be_picked_up = false;
+            g.picked_up = true;
         }
     }
     

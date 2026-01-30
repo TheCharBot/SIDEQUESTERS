@@ -33,7 +33,6 @@ extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
 extern Texture2D health_bar_tex;
-extern Texture2D pickup_dialog_tex;
 extern Rectangle health_bar_left_end;
 extern Rectangle health_bar_right_end;
 extern Rectangle health_bar_right_middle;
@@ -624,7 +623,6 @@ extern Rectangle the_regrown_possible_destructable_tile_area;
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
-#define PICKUP_DIALOG_TEX_PATH "gfx/gui/pickup_dialog_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 

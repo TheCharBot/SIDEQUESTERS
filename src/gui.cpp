@@ -4,7 +4,6 @@ Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
 Texture2D health_bar_tex;
-Texture2D pickup_dialog_tex;
 Vector2 inventory_pos = {0, 0};
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
@@ -19,7 +18,6 @@ void init_gui()
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
     health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
-    pickup_dialog_tex = LoadTexture(PICKUP_DIALOG_TEX_PATH);
 }
 
 void inv_cursor_init()

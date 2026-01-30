@@ -13,8 +13,8 @@ void init_all()
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
     // request_map(DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER);
-    // request_map(DARK_FOREST_CENTER, {273, 817});
-    request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
+    request_map(DARK_FOREST_CENTER, {273, 817});
+    // request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
     cam.target = {0.0f, 0.0f};
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
@@ -61,9 +61,7 @@ void draw_all()
     for(Ground_item &g : ground_items){
         
         DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // TODO: MACROS
-        if(g.can_be_picked_up){ //drawing the "pickup" message thing
-            DrawTexturePro(pickup_dialog_tex, ITEM_PICKUP_DIALOG_RECT, {g.pos.x+16, g.pos.y, 64, 16}, {0, 0}, 0, WHITE);//TODO: MACROS
-        }
+        
     }
     for (auto &e : entities)
     {

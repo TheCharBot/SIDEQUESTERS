@@ -398,8 +398,10 @@ void load_big_tree_level_1(){
         {BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    ground_items.push_back(Big_tree_level_1_stick);
-    
+    if(player.picked_up_items.big_tree_level_1_stick_collected == false){
+        ground_items.push_back(Big_tree_level_1_stick);
+    }
+    player.picked_up_items.big_tree_level_1_stick_collected = true;
 
 };
 
