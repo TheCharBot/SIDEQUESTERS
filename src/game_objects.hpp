@@ -81,6 +81,11 @@ enum Item_names
 
 };
 
+enum Ground_item_names{
+    BIG_TREE_LEVEL_1_STICK,
+
+};
+
 // figure out good way to document quests - this works for now though
 enum Quests
 {
@@ -146,7 +151,7 @@ struct Boss_keys{ // add bosses to this to change which ones have been defeated 
 
 
 struct Item_keys{ //document like this: "map_name"_"item_name"
-    bool big_tree_level_1_stick_collected = false;
+    bool big_tree_level_1_stick_collected;
 };
 
 struct VFX{ // put vfx things here
@@ -179,7 +184,7 @@ struct Player
     Rectangle attack_hitbox;
     int active_damage;
     Boss_keys defeated_bosses;
-    Item_keys picked_up_items;
+    std::vector<Ground_item_names> picked_up_items;
 };
 
 struct Inventory_slot
@@ -204,6 +209,7 @@ struct Ground_item{
     Item item;
     bool picked_up = false;
     Rectangle interact_range;
+    Ground_item_names name;
 };
 
 class Entity

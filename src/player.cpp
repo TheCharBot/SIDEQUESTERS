@@ -312,6 +312,7 @@ void update_player()
                 }
             }
             g.picked_up = true;
+            player.picked_up_items.push_back(g.name);
         }
     }
     

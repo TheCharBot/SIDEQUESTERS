@@ -9,6 +9,7 @@ void init_stick_big_tree_level_1(){
     Big_tree_level_1_stick.pos = BIG_TREE_LEVEL_1_STICK_POS;
     Big_tree_level_1_stick.item = Stick;
     Big_tree_level_1_stick.interact_range = {Big_tree_level_1_stick.pos.x, Big_tree_level_1_stick.pos.y, 32, 32};
+    Big_tree_level_1_stick.name = BIG_TREE_LEVEL_1_STICK;
 }
 
 void init_dungeon_key(){
@@ -36,7 +37,7 @@ void init_sacred_bark()
 
 void add_item_to_inventory(Item item, int slot_index)
 {
-    player_inventory.push_back(item);
+    player_inventory.push_back(item); //probably not idk
     inventory_slots[slot_index].filled_with = item;
 }
 
