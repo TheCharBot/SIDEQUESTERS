@@ -141,12 +141,11 @@ void load_village_map()
         MAP_2_RECT_20,
         MAP_2_RECT_21});
     add_load_rects({
+        {MAP_2_WINDMILL_LOAD, INSIDE_VILLAGE_WINDMILL, VILLAGE_WINDMILL_INSIDE_SPAWNPOINT_FROM_VILLAGE},   
         {MAP_2_DARK_FOREST_NORTH_LOAD, DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_VILLAGE}, // check
         {MAP_2_DARK_FOREST_SOUTH_LOAD, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE}, // check
         {MAP_2_VILLAGE_HOUSE_1_LOAD, INSIDE_VILLAGE_HOUSE_1, PLAYER_VILLAGE_HOUSE_START_POS},         // check
-        {MAP_2_VILLAGE_HOUSE_2_LOAD, INSIDE_VILLAGE_HOUSE_2, PLAYER_VILLAGE_HOUSE_START_POS},         // check
-        //TODO: make inside village windmill
-        {MAP_2_WINDMILL_LOAD, -1, {0, 0}},                                       // check
+        {MAP_2_VILLAGE_HOUSE_2_LOAD, INSIDE_VILLAGE_HOUSE_2, PLAYER_VILLAGE_HOUSE_START_POS},         // check                                    // check
         {MAP_2_VILLAGE_HOUSE_3_LOAD, INSIDE_VILLAGE_HOUSE_3, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_4_LOAD, INSIDE_VILLAGE_HOUSE_4, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_5_LOAD, INSIDE_VILLAGE_HOUSE_5, PLAYER_VILLAGE_HOUSE_START_POS},
@@ -260,6 +259,16 @@ void load_village_house_7()
         VILLAGE_HOUSE_RECT_5,
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT}});
+};
+
+void load_village_windmill(){
+    reset_loaded();
+    map_to_load = LoadTexture(VILLAGE_WINDMILL_INSIDE_PATH);
+    current_map = INSIDE_VILLAGE_WINDMILL;
+    add_collisions({});
+    add_load_rects({
+        {WINDMILL_INSIDE_TO_VILLAGE, VILLAGE_MAP, VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT}
+    });
 };
 
 void load_dark_forest_north()
@@ -380,7 +389,7 @@ void load_big_tree_level_1(){
         BIG_TREE_LEVEL_RECT_8,
         BIG_TREE_LEVEL_RECT_9,
         BIG_TREE_LEVEL_RECT_10,
-        // BIG_TREE_LEVEL_RECT_11,
+        // BIG_TREE_LEVEL_RECT_11, not for level 1
         BIG_TREE_LEVEL_RECT_12,
         BIG_TREE_LEVEL_RECT_13,
         BIG_TREE_LEVEL_RECT_14,
@@ -404,7 +413,7 @@ void load_big_tree_level_1(){
     }
      //probably should find another way to do this 
      //actually its better now, slightly. still have to hardcode every map item. dangit
-     //the drawbacks from not using an engine w/ a gui /\
+     //the drawbacks from not using an engine w/ a gui ^
 
 };
 
@@ -789,7 +798,9 @@ void load_map(Map_names map, Vector2 new_player_pos)
     case INSIDE_VILLAGE_HOUSE_7:
         load_village_house_7();
         break;
-
+    case INSIDE_VILLAGE_WINDMILL:
+        load_village_windmill();
+        break;
     case DARK_FOREST_NORTH:
         load_dark_forest_north();
         break;

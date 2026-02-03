@@ -13,6 +13,7 @@
 // done TODO: MAKE COMBAT/HEALTH SYSTEM!!!!
 // done TODO: implement Big Tree Level 1
 // done TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
+// done TODO: make ground item system
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
 //TODO: Make npc system
 //TODO: make Start menu

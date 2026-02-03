@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <optional>
 
+#include "dialog/dialog.hpp"
+
 //this file is only for settings and global vars, use assets for specific things
 
 #define WINDOW_WIDTH 320

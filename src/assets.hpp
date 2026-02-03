@@ -286,6 +286,8 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define VILLAGE_HOUSE_1_RECT_6 {60, 68, 78, 37}
 #define VILLAGE_HOUSE_1_RECT_7 {191, 68, 37, 45}
 
+#define INSIDE_WINDMILL_RECT_1 {}
+
 // village house 2 stuff (finish later, get other things done now)
 //(leave blank for now)
 
@@ -313,7 +315,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define BIG_TREE_LEVEL_RECT_21 {96, 304, 16, 16}
 #define BIG_TREE_LEVEL_RECT_22 {208, 304, 16, 16}
 
-//ig tree level-specific rects
+//big tree level-specific rects
 #define BIG_TREE_LEVEL_1_RECT_1 {}
 #define BIG_TREE_STAIRS_TOP_UP_RECT {173, 32, 33, 14}
 
@@ -330,12 +332,14 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define MAP_2_DARK_FOREST_SOUTH_LOAD {284, 639, 58, 1}
 #define MAP_2_VILLAGE_HOUSE_1_LOAD {383, 201, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_2_LOAD {223, 361, 18, 1}
-#define MAP_2_WINDMILL_LOAD {358, 352, 22, 1} // <-windmill here - load rect 5
+#define MAP_2_WINDMILL_LOAD {358, 353, 22, 1} // <-windmill here - load rect 5
 #define MAP_2_VILLAGE_HOUSE_3_LOAD {543, 361, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_4_LOAD {143, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_5_LOAD {303, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_6_LOAD {463, 553, 18, 1}
 #define MAP_2_VILLAGE_HOUSE_7_LOAD {623, 553, 18, 1}
+#define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
+#define WINDMILL_INSIDE_TO_VILLAGE {133, 239, 22, 1}
 
 #define DARK_FOREST_NORTH_TO_VILLAGE {945, 109, 1, 89}
 #define DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER {32, 639, 80, 1}
@@ -378,8 +382,9 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1 {103, 810}
 
 // constant village house load rects for my sanity
-#define VILLAGE_HOUSE_OUTSIDE_LOAD_RECT {136, 175, 16, 1}
+
 #define PLAYER_VILLAGE_HOUSE_START_POS {113, 123}
+#define VILLAGE_WINDMILL_INSIDE_SPAWNPOINT_FROM_VILLAGE {112, 181}
 #define VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT {361, 165}
 #define VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT {201, 325}
 #define VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT {521, 325}
