@@ -286,7 +286,27 @@ extern Rectangle player_sword_slash_left_arr[5];
 #define VILLAGE_HOUSE_1_RECT_6 {60, 68, 78, 37}
 #define VILLAGE_HOUSE_1_RECT_7 {191, 68, 37, 45}
 
-#define INSIDE_WINDMILL_RECT_1 {}
+#define INSIDE_WINDMILL_RECT_1 {128, 44, 32, 37}
+#define INSIDE_WINDMILL_RECT_2 {127, 207, 7, 33}
+#define INSIDE_WINDMILL_RECT_3 {160, 57, 37, 25}
+#define INSIDE_WINDMILL_RECT_4 {196, 82, 28, 9}
+#define INSIDE_WINDMILL_RECT_5 {91, 57, 37, 25}
+#define INSIDE_WINDMILL_RECT_6 {64, 82, 28, 9}
+#define INSIDE_WINDMILL_RECT_7 {48, 82, 11, 39}
+#define INSIDE_WINDMILL_RECT_8 {229, 82, 11, 39}
+#define INSIDE_WINDMILL_RECT_9 {233, 121, 11, 46}
+#define INSIDE_WINDMILL_RECT_10 {44, 121, 11, 46}
+#define INSIDE_WINDMILL_RECT_11 {229, 167, 11, 39}
+#define INSIDE_WINDMILL_RECT_12 {48, 167, 11, 39}
+#define INSIDE_WINDMILL_RECT_13 {63, 191, 19, 43}
+#define INSIDE_WINDMILL_RECT_14 {206, 191, 19, 43}
+#define INSIDE_WINDMILL_RECT_15 {187, 195, 19, 43}
+#define INSIDE_WINDMILL_RECT_16 {82, 195, 19, 43}
+#define INSIDE_WINDMILL_RECT_17 {103, 200, 19, 43}
+#define INSIDE_WINDMILL_RECT_18 {166, 200, 19, 43}
+#define INSIDE_WINDMILL_RECT_19 {154, 205, 19, 43}
+#define INSIDE_WINDMILL_RECT_20 {115, 205, 19, 43}
+
 
 // village house 2 stuff (finish later, get other things done now)
 //(leave blank for now)
