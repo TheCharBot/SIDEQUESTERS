@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <optional>
 
-#include "dialog/dialog.hpp"
+// #include "dialog/dialog.hpp" TODO: Do IT (save for later right now)
 
 //this file is only for settings and global vars, use assets for specific things
 

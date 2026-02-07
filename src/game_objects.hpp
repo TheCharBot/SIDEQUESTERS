@@ -185,6 +185,7 @@ struct Player
     int active_damage;
     Boss_keys defeated_bosses;
     std::vector<Ground_item_names> picked_up_items;
+    int dungeon_keys = 0;
 };
 
 struct Inventory_slot
@@ -208,8 +209,7 @@ struct Ground_item{
     Rectangle rect;
     Item item;
     bool picked_up = false;
-    Rectangle interact_range;
-    Ground_item_names name;
+    Ground_item_names ground_item_name;
 };
 
 class Entity

@@ -6,6 +6,7 @@
 #include "hostile_entities.hpp"
 
 extern void init_map();
+extern void add_ground_item(Ground_item item);
 extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
 

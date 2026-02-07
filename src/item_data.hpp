@@ -15,6 +15,7 @@
 
 //other assorted thingys
 #define BIG_TREE_LEVEL_1_STICK_POS {152, 128}
+#define BIG_TREE_LEVEL_2_KEY_POS {144, 80}
 
 
 

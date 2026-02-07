@@ -4,12 +4,18 @@ Item Stick;
 Item Sacred_bark;
 Item Dungeon_key;
 Ground_item Big_tree_level_1_stick;
+Ground_item Big_tree_level_2_key;
+
+void init_key_big_tree_level_2(){
+    Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;
+    Big_tree_level_2_key.item = Dungeon_key;
+    // Big_tree_level_2_key;
+}
 
 void init_stick_big_tree_level_1(){
     Big_tree_level_1_stick.pos = BIG_TREE_LEVEL_1_STICK_POS;
     Big_tree_level_1_stick.item = Stick;
-    Big_tree_level_1_stick.interact_range = {Big_tree_level_1_stick.pos.x, Big_tree_level_1_stick.pos.y, 32, 32};
-    Big_tree_level_1_stick.name = BIG_TREE_LEVEL_1_STICK;
+    Big_tree_level_1_stick.ground_item_name = BIG_TREE_LEVEL_1_STICK;
 }
 
 void init_dungeon_key(){

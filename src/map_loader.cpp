@@ -31,6 +31,11 @@ void init_map()
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
 
+void add_ground_item(Ground_item item){
+    if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
+    else{ground_items.push_back(item);}
+}
+
 void add_collisions(std::initializer_list<Rectangle> rects)
 {
     collision_rects.insert(collision_rects.end(), rects.begin(), rects.end());
@@ -428,10 +433,8 @@ void load_big_tree_level_1(){
         {BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), Ground_item_names::BIG_TREE_LEVEL_1_STICK) != player.picked_up_items.end()){}
-    else{
-        ground_items.push_back(Big_tree_level_1_stick);
-    }
+    
+    add_ground_item(Big_tree_level_1_stick);
      //probably should find another way to do this 
      //actually its better now, slightly. still have to hardcode every map item. dangit
      //the drawbacks from not using an engine w/ a gui ^

@@ -14,8 +14,14 @@
 // done TODO: implement Big Tree Level 1
 // done TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
 // done TODO: make ground item system
+
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
+
+//TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialogue system
+
 //TODO: Make npc system
+//TODO: FIGURE OUT DIALOGUE STORAGE SYSTEM
+
 //TODO: make Start menu
 //TODO: make save/load system
 //TODO: make better player gfx

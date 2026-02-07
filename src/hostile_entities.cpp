@@ -596,7 +596,6 @@ void The_Regrown::init_item_drop()
 {
     item_drop.pos = THE_REGROWN_ITEM_DROP_POS;
     item_drop.item = Sacred_bark;
-    item_drop.interact_range = {item_drop.pos.x, item_drop.pos.y, 32, 32};
     
 }
 
