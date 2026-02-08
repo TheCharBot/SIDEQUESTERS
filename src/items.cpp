@@ -6,10 +6,10 @@ Item Dungeon_key;
 Ground_item Big_tree_level_1_stick;
 Ground_item Big_tree_level_2_key;
 
-void init_key_big_tree_level_2(){
+void init_dungeon_key_big_tree_level_2(){
     Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;
     Big_tree_level_2_key.item = Dungeon_key;
-    // Big_tree_level_2_key;
+    Big_tree_level_2_key.ground_item_name = BIG_TREE_LEVEL_2_KEY;
 }
 
 void init_stick_big_tree_level_1(){
@@ -21,6 +21,7 @@ void init_stick_big_tree_level_1(){
 void init_dungeon_key(){
     Dungeon_key.name = DUNGEON_KEY;
     Dungeon_key.type = DUNGEON;
+    Dungeon_key.img_rect = DUNGEON_KEY_SPRITE_RECT;
 }
 
 void init_stick()
@@ -30,7 +31,6 @@ void init_stick()
     Stick.melee.damage = STICK_DAMAGE;
     Stick.melee.speed = STICK_SPEED;
     // uninitialized hitbox
-    Stick.melee.hitbox = {};
 }
 
 void init_sacred_bark()
@@ -43,7 +43,7 @@ void init_sacred_bark()
 
 void add_item_to_inventory(Item item, int slot_index)
 {
-    player_inventory.push_back(item); //probably not idk
+     //probably not idk
     inventory_slots[slot_index].filled_with = item;
 }
 
@@ -53,4 +53,5 @@ void init_items()
     init_sacred_bark();
     init_stick();
     init_stick_big_tree_level_1();
+    init_dungeon_key_big_tree_level_2();
 }

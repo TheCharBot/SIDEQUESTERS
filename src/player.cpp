@@ -302,8 +302,10 @@ void update_player()
         
         
         if(CheckCollisionRecs(player.normal_hitbox, {g.pos.x-8, g.pos.y-8, 32, 32})){//TODO: MACORS
+            g.picked_up = true;
+            player.picked_up_items.push_back(g.ground_item_name);
             if(g.item.name == DUNGEON_KEY){
-                g.picked_up = true;
+                
                 player.dungeon_keys++;
                 continue;
             }
@@ -316,8 +318,6 @@ void update_player()
                     break;
                 }
             }
-            g.picked_up = true;
-            player.picked_up_items.push_back(g.ground_item_name);
         }
     }
     

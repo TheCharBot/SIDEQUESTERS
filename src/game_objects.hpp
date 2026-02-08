@@ -83,6 +83,7 @@ enum Item_names
 
 enum Ground_item_names{
     BIG_TREE_LEVEL_1_STICK,
+    BIG_TREE_LEVEL_2_KEY,
 
 };
 
@@ -105,7 +106,6 @@ struct Melee_weapon_item
 {
     int damage;
     double speed;
-    Rectangle hitbox;
 };
 
 struct Range_weapon_item
@@ -237,6 +237,7 @@ extern Item Stick;
 extern Item Sacred_bark;
 extern Item Dungeon_key;
 extern Ground_item Big_tree_level_1_stick;
+extern Ground_item Big_tree_level_2_key;
 
 
 #endif

@@ -457,3 +457,4 @@ Rectangle the_regrown_die_13 = {384, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRI
 Rectangle the_regrown_die_14 = {512, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 
 Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
+Rectangle the_regrown_impossible_destructable_tile_area = {128, 144, 64, 64};

@@ -33,6 +33,7 @@ extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
 extern Texture2D health_bar_tex;
+extern Texture2D hotbar_tex;
 extern Rectangle health_bar_left_end;
 extern Rectangle health_bar_right_end;
 extern Rectangle health_bar_right_middle;
@@ -40,8 +41,7 @@ extern Rectangle health_bar_middle;
 extern Rectangle health_bar_left_middle;
 extern Rectangle health_bar_middle_dead;
 extern Rectangle health_bar_middle_left_dead;
-extern Vector2 inventory_pos;
-extern std::vector<Item> player_inventory;
+extern Vector2 hotbar_pos;
 extern bool is_inv_open;
 
 // player globals
@@ -69,6 +69,7 @@ extern Rectangle inv_cursor_anim[2];
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
+#define HOTBAR_POS {234, 3}
 
 #define DEFAULT_SPRITE_WIDTH 64
 #define DEFAULT_SPRITE_HEIGHT 64
@@ -598,6 +599,7 @@ extern Rectangle the_regrown_die_13;
 extern Rectangle the_regrown_die_14;
 
 extern Rectangle the_regrown_possible_destructable_tile_area;
+extern Rectangle the_regrown_impossible_destructable_tile_area;
 // paths to things
 // map paths
 #define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
@@ -648,6 +650,7 @@ extern Rectangle the_regrown_possible_destructable_tile_area;
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
+#define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 

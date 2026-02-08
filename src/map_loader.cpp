@@ -476,6 +476,7 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_1, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    add_ground_item(Big_tree_level_2_key);
     entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
     for (auto &e : entities)
         e->load();

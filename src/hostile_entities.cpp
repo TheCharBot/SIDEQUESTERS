@@ -534,12 +534,12 @@ void The_Regrown::update()
         current_animation_frame = 0;
         player.defeated_bosses.the_regrown_defeated = true;
         ground_items.push_back(item_drop);
-        
+        item_drop = {}; //freeing up a few bytes idk
         // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
         remove_collision_rect(col_rect_1);
         remove_collision_rect(col_rect_2);
         remove_collision_rect(col_rect_3);
-
+        
         // collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
         // collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^ 
     }
@@ -705,7 +705,9 @@ void The_Regrown::break_random_floor_tiles(int amount)
         int y = GetRandomValue(0, map_to_load.height/16);
         x*=16;
         y*=16;
-        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox)){
+        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area)
+        && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox)
+        && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area)){
             // implement actually breaking the tiles here
             map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
             broken_floor_tiles.push_back(Vector2(x, y));

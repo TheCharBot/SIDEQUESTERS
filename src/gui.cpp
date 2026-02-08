@@ -4,21 +4,17 @@ Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
 Texture2D health_bar_tex;
-Vector2 inventory_pos = {0, 0};
+Texture2D hotbar_tex;
+Vector2 hotbar_pos = HOTBAR_POS;
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
 Item temp_item;
 
 bool is_inv_open;
 
-void init_gui()
-{
-    inv_cursor_init();
-    inventory_tex = LoadTexture(INVENTORY_PATH);
-    items_tex = LoadTexture(ITEM_SHEET_PATH);
-    inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
-    health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
-}
+
+
+
 
 void inv_cursor_init()
 {
@@ -85,6 +81,7 @@ void health_bar_draw(){
     //i sorry, but i had too. i hate it too
     //but, it works, so im happy
     //* KEEP THIS - IT WORKS
+    //oh gee willikers these are some AWFUL draw calls, but whatever >:)
     DrawTexturePro(health_bar_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
     DrawTexturePro(health_bar_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
     for(int i = 0; i < player.max_health*10; i++){
@@ -97,10 +94,51 @@ void health_bar_draw(){
     }
 }
 
+void hotbar_draw(){
+    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);
+    if(inventory_slots[23].filled_with){
+        DrawTexturePro(
+                items_tex,
+                inventory_slots[23].filled_with->img_rect,
+                {hotbar_pos.x*scale+7*scale, hotbar_pos.y*scale,
+                 float(ITEM_SPRITE_WIDTH*scale),
+                 float(ITEM_SPRITE_HEIGHT*scale)},
+                {0, 0}, 0, WHITE);
+    }
+    if(inventory_slots[24].filled_with){
+        DrawTexturePro(
+                items_tex,
+                inventory_slots[24].filled_with->img_rect,
+                {hotbar_pos.x*scale+37*scale, hotbar_pos.y*scale,
+                 float(ITEM_SPRITE_WIDTH*scale),
+                 float(ITEM_SPRITE_HEIGHT*scale)},
+                {0, 0}, 0, WHITE);
+    }
+    if(inventory_slots[25].filled_with){
+        DrawTexturePro(
+                items_tex,
+                inventory_slots[25].filled_with->img_rect,
+                {hotbar_pos.x*scale+67*scale, hotbar_pos.y*scale,
+                 float(ITEM_SPRITE_WIDTH*scale),
+                 float(ITEM_SPRITE_HEIGHT*scale)},
+                {0, 0}, 0, WHITE);
+    }
+}
+
+void init_gui()
+{
+    inv_cursor_init();
+    inventory_tex = LoadTexture(INVENTORY_PATH);
+    items_tex = LoadTexture(ITEM_SHEET_PATH);
+    inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
+    health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
+    hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
+}
+
 void update_gui()
 {
     // maybe a performance problem but whatever
-    health_bar_draw();
+    // health_bar_draw(); //genuinely WHY was this here
     if (is_inv_open)
     {
         inv_cursor_update();
@@ -130,11 +168,12 @@ void update_gui()
 
 void draw_gui()
 {
+    hotbar_draw();
     health_bar_draw();
     if (is_inv_open)
     {
         // drawing inventory
-        DrawTextureEx(inventory_tex, inventory_pos, 0, scale, WHITE);
+        DrawTextureEx(inventory_tex, {0, 0}, 0, scale, WHITE);
         // drawing cursor
 
         DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
