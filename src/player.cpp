@@ -144,13 +144,13 @@ void update_player()
         player.movement = {0, 0};
 
         // movement calculations with a seperate vector
-        if (IsKeyDown(KEY_W))
+        if (IsKeyDown(KEY_CONTROLS_UP))
             player.movement.y -= 1;
-        if (IsKeyDown(KEY_S))
+        if (IsKeyDown(KEY_CONTROLS_DOWN))
             player.movement.y += 1;
-        if (IsKeyDown(KEY_A))
+        if (IsKeyDown(KEY_CONTROLS_LEFT))
             player.movement.x -= 1;
-        if (IsKeyDown(KEY_D))
+        if (IsKeyDown(KEY_CONTROLS_RIGHT))
             player.movement.x += 1;
 
         // animation array calculations
@@ -338,15 +338,15 @@ void update_player()
     // item use for 3 slots
     if (!is_inv_open)
     {
-        if (IsKeyPressed(KEY_Q))
+        if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
         {
             hotbar_slot_stuff(23);
         }
-        else if (IsKeyPressed(KEY_E))
+        else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
         {
             hotbar_slot_stuff(24);
         }
-        else if (IsKeyPressed(KEY_Z))
+        else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
         {
             hotbar_slot_stuff(25);
         }

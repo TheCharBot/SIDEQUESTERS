@@ -10,6 +10,8 @@
 extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
 extern void remove_collision_rect(Rectangle rect);
 
+
+
 // editable globals
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
@@ -55,6 +57,17 @@ extern Item inv_cursor_held_item;
 extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
+
+//edit these to change controls
+#define KEY_CONTROLS_UP KEY_UP
+#define KEY_CONTROLS_DOWN KEY_DOWN
+#define KEY_CONTROLS_RIGHT KEY_RIGHT
+#define KEY_CONTROLS_LEFT KEY_LEFT
+#define KEY_ITEM_HOTBAR_1 KEY_A
+#define KEY_ITEM_HOTBAR_2 KEY_S
+#define KEY_ITEM_HOTBAR_3 KEY_D
+#define KEY_OPEN_INVENTORY KEY_TAB
+#define KEY_PICKUP_ITEM_INVENTORY KEY_X
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 

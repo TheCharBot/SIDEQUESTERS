@@ -37,19 +37,19 @@ void inv_cursor_update()
         }
         inv_cursor.anim_frame_5 = 0;
     }
-    if (IsKeyPressed(KEY_W))
+    if (IsKeyPressed(KEY_CONTROLS_UP))
     {
         inv_cursor.inv_slot_index -= 7;
     }
-    if (IsKeyPressed(KEY_S))
+    if (IsKeyPressed(KEY_CONTROLS_DOWN))
     {
         inv_cursor.inv_slot_index += 7;
     }
-    if (IsKeyPressed(KEY_D))
+    if (IsKeyPressed(KEY_CONTROLS_RIGHT))
     {
         inv_cursor.inv_slot_index += 1;
     }
-    if (IsKeyPressed(KEY_A))
+    if (IsKeyPressed(KEY_CONTROLS_LEFT))
     {
         inv_cursor.inv_slot_index -= 1;
     }
@@ -62,7 +62,7 @@ void inv_cursor_update()
         inv_cursor.inv_slot_index = 0;
     }
     // picking up an item
-    if (IsKeyPressed(KEY_Q))
+    if (IsKeyPressed(KEY_PICKUP_ITEM_INVENTORY))
     {
         // works!!!!!!! was not expecting that!!!!!
 
@@ -93,6 +93,8 @@ void health_bar_draw(){
         DrawTexturePro(health_bar_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
     }
 }
+
+
 
 void hotbar_draw(){
     DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);
@@ -144,7 +146,7 @@ void update_gui()
         inv_cursor_update();
     }
 
-    if (IsKeyPressed(KEY_TAB))
+    if (IsKeyPressed(KEY_OPEN_INVENTORY))
     {
         is_inv_open = !is_inv_open;
         if (is_inv_open)
