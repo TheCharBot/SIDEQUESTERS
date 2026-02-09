@@ -19,6 +19,8 @@
 
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
 
+//Current TODO: finish the dungeon
+
 //TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialogue system
 
 //TODO: Make npc system

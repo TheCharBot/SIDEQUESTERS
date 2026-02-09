@@ -3,7 +3,7 @@ Music current_music{};
 
 
 Texture2D map_to_load;
-
+Texture2D door_lock_tex;
 Texture2D broken_tile_tex;
 
 Map_names current_map;
@@ -17,6 +17,7 @@ Rectangle temp_rect;
 std::vector<Load_rects> map_load_rects;
 std::vector<std::unique_ptr<Entity>> entities;
 std::vector<Rectangle> collision_rects;
+std::vector<Locked_rect> locked_rects;
 std::vector<Ground_item> ground_items;
 std::vector<Vector2> broken_floor_tiles;
 
@@ -27,6 +28,7 @@ void init_map()
     map_pos.x = 0;
     map_pos.y = 0;
     broken_tile_tex = LoadTexture(BROKEN_TILE_TEX_PATH);
+    door_lock_tex = LoadTexture(DOOR_LOCK_TEX_PATH);
     // starting_map = LoadTexture("gfx/maps/map_1.png");
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
@@ -34,6 +36,10 @@ void init_map()
 void add_ground_item(Ground_item item){
     if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
     else{ground_items.push_back(item);}
+}
+void add_locked_rect(Locked_rect rect){
+    if(std::find(player.unlocked_doors.begin(), player.unlocked_doors.end(), rect.name) != player.unlocked_doors.end()){}
+    else{locked_rects.push_back(rect);}
 }
 
 void add_collisions(std::initializer_list<Rectangle> rects)
@@ -477,6 +483,7 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
     add_ground_item(Big_tree_level_2_key);
+    add_locked_rect({{172, 259, 35, 44}, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); //TODO: MACROS
     entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
     for (auto &e : entities)
         e->load();
@@ -937,3 +944,20 @@ void remove_collision_rect(Rectangle rect)
         collision_rects.end()
     );
 }
+
+void remove_locked_rect(Locked_rect l_rect){
+    locked_rects.erase(
+        std::remove_if(
+            locked_rects.begin(),
+            locked_rects.end(),
+            [&](const Locked_rect& l)
+            {
+                return l.rect.x == l_rect.rect.x &&
+                       l.rect.y == l_rect.rect.y &&
+                       l.rect.width == l_rect.rect.width &&
+                       l.rect.height == l_rect.rect.height;
+            }
+        ),
+        locked_rects.end()
+    );
+};

@@ -9,17 +9,19 @@
 //fine. ill put it here. but i wont be happy!
 extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
 extern void remove_collision_rect(Rectangle rect);
-
+extern void remove_locked_rect(Locked_rect rect);
 
 
 // editable globals
 extern std::vector<Load_rects> map_load_rects;
 extern Texture2D map_to_load;
 extern std::vector<Rectangle> collision_rects;
+extern std::vector<Locked_rect> locked_rects;
 extern Map_names current_map;
 extern Map_names requested_map;
 extern Vector2 requested_player_pos;
 extern Texture2D broken_tile_tex;
+extern Texture2D door_lock_tex;
 extern std::vector<Vector2> broken_floor_tiles;
 extern std::vector<Ground_item> ground_items;
 extern float fade_frame_timer;
@@ -666,5 +668,6 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
+#define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"
 
 #endif

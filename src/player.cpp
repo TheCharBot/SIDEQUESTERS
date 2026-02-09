@@ -254,6 +254,21 @@ void update_player()
                     break;
                 }
             }
+            for (const Locked_rect &l : locked_rects)
+            {
+                if (CheckCollisionRecs(player.normal_hitbox, l.rect) && player.dungeon_keys <= 0)
+                {
+                    player.pos.x = player.pos_x_save;
+                    if(player.dungeon_keys > 0){
+                        player.dungeon_keys--;
+                        remove_locked_rect(l);
+                        player.unlocked_doors.push_back(l.name);
+                    }
+                    break;
+                    
+                }
+                
+            }
             player.pos.y += player.movement.y * PLAYER_SPEED;
             // player hitbox rebuild
             rebuild_hitbox();
@@ -266,7 +281,21 @@ void update_player()
                     break;
                 }
             }
-
+            for (const Locked_rect &l : locked_rects)
+            {
+                if (CheckCollisionRecs(player.normal_hitbox, l.rect))
+                {
+                    player.pos.y = player.pos_y_save;
+                    if(player.dungeon_keys > 0){
+                        player.dungeon_keys--;
+                        remove_locked_rect(l);
+                        player.unlocked_doors.push_back(l.name);
+                    }
+                    break;
+                    
+                }
+                
+            }
             // making sure the player is at least inside the screen
             // i dont know why there is an 8 there - ???
             player.pos.x = Clamp(player.pos.x, -23, (map_to_load.width) - (PLAYER_SPRITE_WIDTH - 40));

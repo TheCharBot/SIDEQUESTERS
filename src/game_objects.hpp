@@ -87,6 +87,10 @@ enum Ground_item_names{
 
 };
 
+enum Locked_door_names{
+    BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK,
+};
+
 // figure out good way to document quests - this works for now though
 enum Quests
 {
@@ -148,11 +152,13 @@ struct Boss_keys{ // add bosses to this to change which ones have been defeated 
     bool the_regrown_defeated = false;
 };
 
-
-
-struct Item_keys{ //document like this: "map_name"_"item_name"
-    bool big_tree_level_1_stick_collected;
+struct Locked_rect{
+    
+    Rectangle rect;
+    Locked_door_names name;
 };
+
+
 
 struct VFX{ // put vfx things here
     float shake_time = 0.0f;
@@ -185,6 +191,7 @@ struct Player
     int active_damage;
     Boss_keys defeated_bosses;
     std::vector<Ground_item_names> picked_up_items;
+    std::vector<Locked_door_names> unlocked_doors;
     int dungeon_keys = 0;
 };
 
