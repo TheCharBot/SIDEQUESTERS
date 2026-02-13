@@ -165,9 +165,7 @@ struct Item
     };
 };
 
-struct Boss_keys{ // add bosses to this to change which ones have been defeated or not
-    bool the_regrown_defeated = false;
-};
+
 
 struct Locked_rect{
     
@@ -206,7 +204,6 @@ struct Player
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;
     int active_damage;
-    Boss_keys defeated_bosses;
     std::vector<Ground_item_names> picked_up_items;
     std::vector<Locked_door_names> unlocked_doors;
     std::vector<Entity_names> defeated_entities;
