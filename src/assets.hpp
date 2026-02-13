@@ -76,10 +76,15 @@ extern Rectangle inv_cursor_anim[2];
 #define ITEM_PICKUP_DIALOG_RECT {0, 0, 64, 16}
 #define BROKEN_TILE_RECT {48, 0, 16, 16}
 
+#define ITEM_PICKUP_X_OFFSET 8
+#define ITEM_PICKUP_Y_OFFSET 8
+#define ITEM_PICKUP_RECT_WIDTH 32
+#define ITEM_PICKUP_RECT_HEIGHT 32
+
 #define PLAYER_IFRAME_TIME 0.8f // seconds
 #define ENEMY_IFRAME_TIME 0.2f // seconds
 #define KNOCKBACK_DIST 20.0f
-#define HIT_FLASH_TIME 0.1f
+#define HIT_FLASH_TIME 0.22f
 
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
@@ -136,6 +141,8 @@ extern Rectangle inv_cursor_anim[2];
 #define START_PORTAL_Y 37
 #define START_PORTAL_WIDTH 32
 #define START_PORTAL_HEIGHT 44
+
+#define BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH 4
 
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
@@ -439,6 +446,10 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 
 // music stuff
+
+// ----------------------------------------------------------------- LOCKED  RECTS AREA --------------------------------------------------------------------
+//document like "map_name" then "lock_rect"
+#define BIG_TREE_LEVEL_2_LOCK_RECT {172, 259, 35, 44}
 
 //----------------------------------------------------------------- OTHER CONSTANTS AREA (entities, player, etc) -----------------------------------------------------------------
 

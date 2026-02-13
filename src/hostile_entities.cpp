@@ -457,6 +457,7 @@ The_Regrown::The_Regrown()
     active_damaging_rect = {};
     ground_attack_cooldown = 0;
     can_use_ground_attack = true;
+    // name = THE_REGROWN;
     init_item_drop();
 }
 
@@ -510,12 +511,13 @@ void The_Regrown::update()
         ground_attack_cooldown = 0;
         can_use_ground_attack = true;
     }
+    if (hit_flash_timer > 0.0f)
+        hit_flash_timer -= GetFrameTime();
     if (CheckCollisionRecs(rect, player.attack_hitbox))
     {
         take_damage(player.active_damage);
     }
-    if (hit_flash_timer > 0.0f)
-        hit_flash_timer -= GetFrameTime();
+    
     if (!can_take_damage)
     {
         iframe_timer -= GetFrameTime();
@@ -532,10 +534,10 @@ void The_Regrown::update()
         current_anim_arr = the_regrown_die_arr;
         max_animation_frames = 14;
         current_animation_frame = 0;
-        player.defeated_bosses.the_regrown_defeated = true;
+        player.defeated_entities.push_back(name);
         ground_items.push_back(item_drop);
         item_drop = {}; //freeing up a few bytes idk
-        // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item// TODO: FIGURE OUT HOW TO MAKE THE PLAYER PICK UP THE SACRED BARK
+        // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
         remove_collision_rect(col_rect_1);
         remove_collision_rect(col_rect_2);
         remove_collision_rect(col_rect_3);
@@ -607,7 +609,7 @@ void The_Regrown::take_damage(float damage)
     {
         
         health -= damage;
-        hit_flash_timer = HIT_FLASH_TIME + damage / 10;
+        hit_flash_timer = HIT_FLASH_TIME;
         can_take_damage = false;
         iframe_timer = ENEMY_IFRAME_TIME;
         start_hitstop(player.active_damage);

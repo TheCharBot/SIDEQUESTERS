@@ -4,6 +4,7 @@
 #include "player.hpp"
 
 
+
 class Village_windmill : public Entity{
     public:
         Village_windmill();
@@ -77,6 +78,7 @@ class Big_tree : public Entity {
 
 class Big_tree_level_tree_trunk : public Entity {
     public:
+        
         Big_tree_level_tree_trunk(int which_trunk);
         ~Big_tree_level_tree_trunk() override;
         int max_animation_frames;
@@ -86,9 +88,14 @@ class Big_tree_level_tree_trunk : public Entity {
         void load() override;
         void update() override;
         void draw() override;
+        
     private:
+        
         float health;
         Texture2D tex;
+        bool can_take_damage;
+        float hit_flash_timer;
+        float iframe_timer;
 };
 
 

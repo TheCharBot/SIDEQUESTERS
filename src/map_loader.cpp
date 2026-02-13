@@ -33,6 +33,23 @@ void init_map()
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
 
+template<typename T, typename... Args>
+void add_entity(Entity_names name, Args&&... args)
+{
+    
+
+    if (std::find(player.defeated_entities.begin(),
+                  player.defeated_entities.end(),
+                  name)
+        == player.defeated_entities.end())
+    {
+        auto entity = std::make_unique<T>(std::forward<Args>(args)...);
+        entity->name = name;
+        entities.push_back(std::move(entity));
+    }
+}
+
+
 void add_ground_item(Ground_item item){
     if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
     else{ground_items.push_back(item);}
@@ -87,6 +104,71 @@ void reset_loaded()
     //  }
 };
 
+void kill_things_that_are_dead()
+{
+    
+    entities.erase(
+    std::remove_if(entities.begin(), entities.end(),
+        [](const std::unique_ptr<Entity>& e) {
+            return e->dead;
+        }),
+    entities.end());
+    ground_items.erase(
+    std::remove_if(ground_items.begin(), ground_items.end(),
+        [](Ground_item& g) {
+            return g.picked_up;
+        }),
+    ground_items.end());
+}
+
+void load_requested_map(){
+    if (requested_map != WRONG_MAP)
+    {
+        if (current_map != requested_map)
+        {
+            fade_frame_timer = SCREEN_FADE_TIME;
+            load_map(requested_map, requested_player_pos);
+            
+        }
+        requested_map = WRONG_MAP;
+    }
+}
+
+void remove_collision_rect(Rectangle rect)
+{
+    collision_rects.erase(
+        std::remove_if(
+            collision_rects.begin(),
+            collision_rects.end(),
+            [&](const Rectangle& r)
+            {
+                return r.x == rect.x &&
+                       r.y == rect.y &&
+                       r.width == rect.width &&
+                       r.height == rect.height;
+            }
+        ),
+        collision_rects.end()
+    );
+}
+
+void remove_locked_rect(Locked_rect l_rect){
+    locked_rects.erase(
+        std::remove_if(
+            locked_rects.begin(),
+            locked_rects.end(),
+            [&](const Locked_rect& l)
+            {
+                return l.rect.x == l_rect.rect.x &&
+                       l.rect.y == l_rect.rect.y &&
+                       l.rect.width == l_rect.rect.width &&
+                       l.rect.height == l_rect.rect.height;
+            }
+        ),
+        locked_rects.end()
+    );
+};
+
 
 // map loader helper functions for easier organization and readability
 void load_wrong_map()
@@ -117,8 +199,8 @@ void load_start_map()
                     MAP_1_RECT_4});
 
     // then filling the entity list with moving things to put in the map
-    entities.push_back(std::make_unique<Start_portal>());
-    entities.push_back(std::make_unique<Start_bulldozer>());
+    add_entity<Start_portal>(START_PORTAL);
+    add_entity<Start_bulldozer>(START_BULLDOZER);
     for (auto &e : entities)
         e->load();
 };
@@ -165,7 +247,7 @@ void load_village_map()
 
     });
 
-    entities.push_back(std::make_unique<Village_windmill>());
+    add_entity<Village_windmill>(VILLAGE_WINDMILL);
     for (auto &e : entities)
         e->load();
 }
@@ -317,14 +399,14 @@ void load_dark_forest_north()
                     MAP_3_RECT_7});
     add_load_rects({{DARK_FOREST_NORTH_TO_VILLAGE, VILLAGE_MAP, VILLAGE_SPAWNPOINT_FROM_DARK_FOREST_NORTH},
                     {DARK_FOREST_NORTH_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_NORTH}});
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     for (auto &e : entities)
         e->load();
 }
@@ -354,14 +436,14 @@ void load_dark_forest_south()
         {DARK_FOREST_SOUTH_TO_DARK_FOREST_CENTER_2, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_DARK_FOREST_SOUTH_2}
     });
     //tons of lil dudes
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
-    entities.push_back(std::make_unique<Enemy_forest_scourge>());
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     for (auto &e : entities)
         e->load();
 }
@@ -398,7 +480,7 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER}
     });
     
-    entities.push_back(std::make_unique<Big_tree>());
+    add_entity<Big_tree>(BIG_TREE);
     
     for (auto &e : entities)
         e->load();
@@ -483,8 +565,8 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
     add_ground_item(Big_tree_level_2_key);
-    add_locked_rect({{172, 259, 35, 44}, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); //TODO: MACROS
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
+    add_locked_rect({BIG_TREE_LEVEL_2_LOCK_RECT, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); 
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_2_TREE_TRUNK, 2);
     for (auto &e : entities)
         e->load();
 }
@@ -522,7 +604,7 @@ void load_big_tree_level_3(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_3_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
 }
@@ -561,7 +643,7 @@ void load_big_tree_level_4(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_4_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
 }
@@ -598,7 +680,8 @@ void load_big_tree_level_5(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_5_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
 }
@@ -637,7 +720,7 @@ void load_big_tree_level_6(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(3));
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_6_TREE_TRUNK, 3);
     for (auto &e : entities)
         e->load();
 }
@@ -710,7 +793,7 @@ void load_big_tree_level_8(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(2));
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_8_TREE_TRUNK, 2);
     for (auto &e : entities)
         e->load();
 }
@@ -747,7 +830,7 @@ void load_big_tree_level_9(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_10, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    entities.push_back(std::make_unique<Big_tree_level_tree_trunk>(1));
+    add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_9_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
 }
@@ -784,9 +867,7 @@ void load_big_tree_level_10(){
         
     });
     
-    if(!player.defeated_bosses.the_regrown_defeated){ //little bit of boss key stuff!!!
-        entities.push_back(std::make_unique<The_Regrown>()); 
-    }
+    add_entity<The_Regrown>(Entity_names::THE_REGROWN);
         
     
     for (auto &e : entities)
@@ -898,66 +979,3 @@ void draw_map()
     
 }
 
-void kill_things_that_are_dead()
-{
-    entities.erase(
-    std::remove_if(entities.begin(), entities.end(),
-        [](const std::unique_ptr<Entity>& e) {
-            return e->dead;
-        }),
-    entities.end());
-    ground_items.erase(
-    std::remove_if(ground_items.begin(), ground_items.end(),
-        [](Ground_item& g) {
-            return g.picked_up;
-        }),
-    ground_items.end());
-}
-
-void load_requested_map(){
-    if (requested_map != WRONG_MAP)
-    {
-        if (current_map != requested_map)
-        {
-            fade_frame_timer = SCREEN_FADE_TIME;
-            load_map(requested_map, requested_player_pos);
-            
-        }
-        requested_map = WRONG_MAP;
-    }
-}
-
-void remove_collision_rect(Rectangle rect)
-{
-    collision_rects.erase(
-        std::remove_if(
-            collision_rects.begin(),
-            collision_rects.end(),
-            [&](const Rectangle& r)
-            {
-                return r.x == rect.x &&
-                       r.y == rect.y &&
-                       r.width == rect.width &&
-                       r.height == rect.height;
-            }
-        ),
-        collision_rects.end()
-    );
-}
-
-void remove_locked_rect(Locked_rect l_rect){
-    locked_rects.erase(
-        std::remove_if(
-            locked_rects.begin(),
-            locked_rects.end(),
-            [&](const Locked_rect& l)
-            {
-                return l.rect.x == l_rect.rect.x &&
-                       l.rect.y == l_rect.rect.y &&
-                       l.rect.width == l_rect.rect.width &&
-                       l.rect.height == l_rect.rect.height;
-            }
-        ),
-        locked_rects.end()
-    );
-};

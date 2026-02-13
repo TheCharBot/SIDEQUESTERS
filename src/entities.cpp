@@ -199,6 +199,7 @@ void Big_tree::draw()
 
 Big_tree_level_tree_trunk::Big_tree_level_tree_trunk(int which_trunk)
 {
+    
     pos = BIG_TREE_LEVELS_TREE_TRUNKS_POS;
     switch(which_trunk){
         case 1:
@@ -215,6 +216,9 @@ Big_tree_level_tree_trunk::Big_tree_level_tree_trunk(int which_trunk)
             break;
     }
     collision_rects.push_back(rect);
+    hit_flash_timer = 0;
+    iframe_timer = 0;   
+    health = BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH;
 }
 
 Big_tree_level_tree_trunk::~Big_tree_level_tree_trunk()
@@ -231,13 +235,46 @@ void Big_tree_level_tree_trunk::load()
 
 void Big_tree_level_tree_trunk::update()
 {
+    if (hit_flash_timer > 0.0f)
+        hit_flash_timer -= GetFrameTime();
+    if(CheckCollisionRecs(rect, player.attack_hitbox)){
+        if (!can_take_damage)
+            return;
+        if (can_take_damage)
+        {
+            
+            health -= player.active_damage;
+            hit_flash_timer = HIT_FLASH_TIME;
+            can_take_damage = false;
+            iframe_timer = ENEMY_IFRAME_TIME;
+            start_hitstop(player.active_damage);
+            if (health < 0)
+            {
+                health = 0;
+            }
+        }
+    }
+    
+    if (!can_take_damage)
+    {
+        iframe_timer -= GetFrameTime();
+        if (iframe_timer <= 0.0f)
+        {
+            can_take_damage = true;
+            iframe_timer = 0.0f;
+        }
+    }
     if(health == 0){
+        player.defeated_entities.push_back(name);
         remove_collision_rect(rect);
         dead = true;
+        
     }
+
 }
 
 void Big_tree_level_tree_trunk::draw()
 {
-    DrawTexturePro(tex, img_rect, {pos.x, pos.y, img_rect.width, img_rect.height}, {0, 0}, 0, WHITE);
+    DrawTexturePro(tex, img_rect, {pos.x, pos.y, img_rect.width, img_rect.height}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
 }
+

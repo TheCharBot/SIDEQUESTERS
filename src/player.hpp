@@ -2,7 +2,7 @@
 #define PLAYER_HPP
 
 #include "config.hpp"
-
+#include "vfx.hpp"
 #include "assets.hpp"
 
 

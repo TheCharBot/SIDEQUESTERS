@@ -56,11 +56,11 @@ void draw_all()
     BeginMode2D(cam);
     draw_map();
     for(Vector2 &v : broken_floor_tiles){
-        DrawTexturePro(broken_tile_tex, BROKEN_TILE_RECT, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //TODO: MACROS AGAAAAAAIN
+        DrawTexturePro(broken_tile_tex, BROKEN_TILE_RECT, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //look, i didnt want to make a whole new macro just for 16x16, deal with it
     }
     for(Ground_item &g : ground_items){
         
-        DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // TODO: MACROS
+        DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // again ^
         
     }
     for (auto &e : entities)
@@ -81,11 +81,11 @@ void draw_all()
     for(Locked_rect &l : locked_rects){
         DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, Color{74, 84, 98, 255}); //box around thing, using color from aap64
         DrawRectangleLinesEx({l.rect.x, l.rect.y, l.rect.width, l.rect.height}, 1, BLACK); 
-        //drawing 4 corners
-        DrawPixel(l.rect.x, l.rect.y, Color{109, 117, 141, 255});
-        DrawPixel(l.rect.x, l.rect.y+l.rect.height-1, Color{109, 117, 141, 255});//TODO: MACROS FOR COLORS
-        DrawPixel(l.rect.x+l.rect.width-1, l.rect.y, Color{109, 117, 141, 255});
-        DrawPixel(l.rect.x+l.rect.width-1, l.rect.y+l.rect.height-1, Color{109, 117, 141, 255});
+        //drawing 4 corners, sorry it mess
+        DrawPixel(l.rect.x+1, l.rect.y+1, Color{51, 57, 65, 255});
+        DrawPixel(l.rect.x+1, l.rect.y+l.rect.height-2, Color{51, 57, 65, 255});//TODO: MACROS FOR COLORS
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+1, Color{51, 57, 65, 255});
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+l.rect.height-2, Color{51, 57, 65, 255});
 
         //drawing lock texture
         DrawTextureEx(door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE);

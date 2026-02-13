@@ -72,7 +72,7 @@ void inv_cursor_update()
     }
 }
 
-//done TODO: IMPLEMENT HEALTHBAR
+
 
 void health_bar_draw(){
     //use a for loop and multiply health by ten then draw for i in that

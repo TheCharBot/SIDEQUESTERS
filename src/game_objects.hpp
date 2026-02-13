@@ -81,6 +81,23 @@ enum Item_names
 
 };
 
+enum Entity_names{
+    START_PORTAL,
+    BIG_TREE,
+    VILLAGE_WINDMILL,
+    START_BULLDOZER,
+    BIG_TREE_LEVEL_2_TREE_TRUNK,
+    BIG_TREE_LEVEL_3_TREE_TRUNK,
+    BIG_TREE_LEVEL_4_TREE_TRUNK,
+    BIG_TREE_LEVEL_5_TREE_TRUNK,
+    BIG_TREE_LEVEL_6_TREE_TRUNK,
+    BIG_TREE_LEVEL_7_TREE_TRUNK,
+    BIG_TREE_LEVEL_8_TREE_TRUNK,
+    BIG_TREE_LEVEL_9_TREE_TRUNK,
+    THE_REGROWN,
+    FOREST_SCOURGE
+};
+
 enum Ground_item_names{
     BIG_TREE_LEVEL_1_STICK,
     BIG_TREE_LEVEL_2_KEY,
@@ -192,6 +209,7 @@ struct Player
     Boss_keys defeated_bosses;
     std::vector<Ground_item_names> picked_up_items;
     std::vector<Locked_door_names> unlocked_doors;
+    std::vector<Entity_names> defeated_entities;
     int dungeon_keys = 0;
 };
 
@@ -222,7 +240,7 @@ struct Ground_item{
 class Entity
 {
 public:
-
+    Entity_names name;
     Vector2 pos{};
     Rectangle img_rect;
     Rectangle rect;
@@ -237,6 +255,7 @@ public:
     virtual void load() {}
     virtual void update() {};
     virtual void draw() {};
+    
 };
 
 //globally define items here

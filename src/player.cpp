@@ -330,7 +330,7 @@ void update_player()
     for(Ground_item &g : ground_items){
         
         
-        if(CheckCollisionRecs(player.normal_hitbox, {g.pos.x-8, g.pos.y-8, 32, 32})){//TODO: MACORS
+        if(CheckCollisionRecs(player.normal_hitbox, {g.pos.x-ITEM_PICKUP_X_OFFSET, g.pos.y-ITEM_PICKUP_X_OFFSET, ITEM_PICKUP_RECT_WIDTH, ITEM_PICKUP_RECT_HEIGHT})){
             g.picked_up = true;
             player.picked_up_items.push_back(g.ground_item_name);
             if(g.item.name == DUNGEON_KEY){
@@ -364,6 +364,7 @@ void update_player()
         }
     }
     player.attack_hitbox = {};
+    
     // item use for 3 slots
     if (!is_inv_open)
     {
@@ -395,6 +396,6 @@ void update_player()
 
 void draw_player()
 {
-    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); //TODO: work on better player gfx
+    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); 
     
 };

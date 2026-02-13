@@ -16,6 +16,7 @@
 // done TODO: implement Big Tree Level 1
 // done TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
 // done TODO: make ground item system
+//done TODO: IMPLEMENT HEALTHBAR
 
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
 
