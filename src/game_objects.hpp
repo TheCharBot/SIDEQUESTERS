@@ -91,7 +91,6 @@ enum Entity_names{
     BIG_TREE_LEVEL_4_TREE_TRUNK,
     BIG_TREE_LEVEL_5_TREE_TRUNK,
     BIG_TREE_LEVEL_6_TREE_TRUNK,
-    BIG_TREE_LEVEL_7_TREE_TRUNK,
     BIG_TREE_LEVEL_8_TREE_TRUNK,
     BIG_TREE_LEVEL_9_TREE_TRUNK,
     THE_REGROWN,
@@ -101,6 +100,7 @@ enum Entity_names{
 enum Ground_item_names{
     BIG_TREE_LEVEL_1_STICK,
     BIG_TREE_LEVEL_2_KEY,
+    BIG_TREE_LEVEL_5_KEY,
 
 };
 
@@ -261,6 +261,7 @@ extern Item Sacred_bark;
 extern Item Dungeon_key;
 extern Ground_item Big_tree_level_1_stick;
 extern Ground_item Big_tree_level_2_key;
+extern Ground_item Big_tree_level_5_key; 
 
 
 #endif

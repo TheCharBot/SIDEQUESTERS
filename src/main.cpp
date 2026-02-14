@@ -16,9 +16,10 @@
 // done TODO: implement Big Tree Level 1
 // done TODO: ADD GLOBAL HITSTOP <<<<<<<<<<<<<<-------------
 // done TODO: make ground item system
-//done TODO: IMPLEMENT HEALTHBAR
+// done TODO: IMPLEMENT HEALTHBAR
 
 //TODO: FIX: SANITY: MAKE IMAGE NOTATION PROGRAM FOR YOUR OWN SAKE
+
 
 //Current TODO: finish the dungeon
 
@@ -34,7 +35,7 @@
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
-
+    SetConfigFlags(FLAG_MSAA_4X_HINT); 
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
     InitAudioDevice();
     SetTargetFPS(60);

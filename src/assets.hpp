@@ -26,6 +26,8 @@ extern std::vector<Vector2> broken_floor_tiles;
 extern std::vector<Ground_item> ground_items;
 extern float fade_frame_timer;
 
+extern Font global_font;
+
 extern Inventory_slot inventory_slots[28];
 extern Inventory_cursor inv_cursor;
 
@@ -89,7 +91,7 @@ extern Rectangle inv_cursor_anim[2];
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
-#define HOTBAR_POS {234, 3}
+#define HOTBAR_POS {208, 3}
 
 #define DEFAULT_SPRITE_WIDTH 64
 #define DEFAULT_SPRITE_HEIGHT 64
@@ -677,6 +679,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
+#define GLOB_FONT_PATH "gfx/font/Jersey10-Regular.ttf"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"

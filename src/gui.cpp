@@ -10,6 +10,8 @@ std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
 Item temp_item;
 
+Font global_font;
+
 bool is_inv_open;
 
 
@@ -125,6 +127,10 @@ void hotbar_draw(){
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
     }
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, BLACK);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});
+    
 }
 
 void init_gui()
@@ -135,6 +141,7 @@ void init_gui()
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
     health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
+    global_font = LoadFont(GLOB_FONT_PATH);
 }
 
 void update_gui()

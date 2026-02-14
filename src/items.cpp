@@ -4,12 +4,19 @@ Item Stick;
 Item Sacred_bark;
 Item Dungeon_key;
 Ground_item Big_tree_level_1_stick;
-Ground_item Big_tree_level_2_key;
+Ground_item Big_tree_level_2_key; 
+Ground_item Big_tree_level_5_key; 
 
 void init_dungeon_key_big_tree_level_2(){
     Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;
     Big_tree_level_2_key.item = Dungeon_key;
     Big_tree_level_2_key.ground_item_name = BIG_TREE_LEVEL_2_KEY;
+}
+
+void init_dungeon_key_big_tree_level_5(){
+    Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;//yep, reused!
+    Big_tree_level_2_key.item = Dungeon_key;
+    Big_tree_level_2_key.ground_item_name = BIG_TREE_LEVEL_5_KEY;
 }
 
 void init_stick_big_tree_level_1(){
@@ -54,4 +61,5 @@ void init_items()
     init_stick();
     init_stick_big_tree_level_1();
     init_dungeon_key_big_tree_level_2();
+    init_dungeon_key_big_tree_level_5();
 }
