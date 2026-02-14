@@ -106,6 +106,7 @@ enum Ground_item_names{
 
 enum Locked_door_names{
     BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK,
+    BIG_TREE_LEVEL_6_TO_BIG_TREE_LEVEL_7_LOCK
 };
 
 // figure out good way to document quests - this works for now though

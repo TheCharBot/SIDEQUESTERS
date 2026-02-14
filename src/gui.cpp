@@ -99,7 +99,7 @@ void health_bar_draw(){
 
 
 void hotbar_draw(){
-    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);
+    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);//TODO: macros
     if(inventory_slots[23].filled_with){
         DrawTexturePro(
                 items_tex,
@@ -127,6 +127,7 @@ void hotbar_draw(){
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
     }
+    // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
     DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, BLACK);
     DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});
     DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});

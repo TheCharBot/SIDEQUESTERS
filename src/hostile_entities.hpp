@@ -49,7 +49,7 @@ class Enemy_forest_scourge: public Entity{
         void attack();
         void run_away();
         void decide_action();
-        
+        void randomize_wander_state();
     private:
         Direction direction;
         
@@ -66,6 +66,8 @@ class Enemy_forest_scourge: public Entity{
         float iframe_timer;
         Vector2 originial_pos;
         Vector2 vel;
+        float wander_timer = 0.0f;
+        Vector2 wander_dir = {0, 0};
 };
 
 class The_Regrown: public Entity{

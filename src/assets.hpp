@@ -453,7 +453,7 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 // ----------------------------------------------------------------- LOCKED  RECTS AREA --------------------------------------------------------------------
 //document like "map_name" then "lock_rect"
-#define BIG_TREE_LEVEL_2_LOCK_RECT {172, 259, 35, 44}
+#define BIG_TREE_LEVELS_BOTTOM_UP_LOCK_RECT {172, 259, 35, 44}
 
 //----------------------------------------------------------------- OTHER CONSTANTS AREA (entities, player, etc) -----------------------------------------------------------------
 
