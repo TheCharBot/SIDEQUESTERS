@@ -14,9 +14,9 @@ void init_dungeon_key_big_tree_level_2(){
 }
 
 void init_dungeon_key_big_tree_level_5(){
-    Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;//yep, reused!
-    Big_tree_level_2_key.item = Dungeon_key;
-    Big_tree_level_2_key.ground_item_name = BIG_TREE_LEVEL_5_KEY;
+    Big_tree_level_5_key.pos = BIG_TREE_LEVEL_2_KEY_POS;//yep, reused!
+    Big_tree_level_5_key.item = Dungeon_key;
+    Big_tree_level_5_key.ground_item_name = BIG_TREE_LEVEL_5_KEY;
 }
 
 void init_stick_big_tree_level_1(){

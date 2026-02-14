@@ -10,7 +10,9 @@
 extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
 extern void remove_collision_rect(Rectangle rect);
 extern void remove_locked_rect(Locked_rect rect);
-
+extern void add_ground_item(Ground_item item);
+extern void add_collisions(std::initializer_list<Rectangle> rects);
+extern void add_load_rects(std::initializer_list<Load_rects> rects);
 
 // editable globals
 extern std::vector<Load_rects> map_load_rects;

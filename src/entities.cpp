@@ -265,6 +265,9 @@ void Big_tree_level_tree_trunk::update()
         }
     }
     if(health == 0){
+        if(current_map == BIG_TREE_LEVEL_5){
+            add_ground_item(Big_tree_level_5_key);
+        }
         player.defeated_entities.push_back(name);
         remove_collision_rect(rect);
         dead = true;

@@ -680,7 +680,7 @@ void load_big_tree_level_5(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    add_ground_item(Big_tree_level_5_key);//(different name)
+    // add_ground_item(Big_tree_level_5_key);//(different name)
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_5_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();

@@ -25,6 +25,8 @@
 
 //TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialogue system
 
+//TODO: get the text to look better, use antialiasing or something
+
 //TODO: Make npc system
 //TODO: FIGURE OUT DIALOGUE STORAGE SYSTEM
 
