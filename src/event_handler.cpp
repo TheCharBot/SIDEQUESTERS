@@ -79,16 +79,16 @@ void draw_all()
         }
     }
     for(Locked_rect &l : locked_rects){
-        DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, Color{74, 84, 98, 255}); //box around thing, using color from aap64
+        DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, GUI_LIGHT_GRAY); //box around thing, using color from aap64
         DrawRectangleLinesEx({l.rect.x, l.rect.y, l.rect.width, l.rect.height}, 1, BLACK); 
         //drawing 4 corners, sorry it mess
-        DrawPixel(l.rect.x+1, l.rect.y+1, Color{51, 57, 65, 255});
-        DrawPixel(l.rect.x+1, l.rect.y+l.rect.height-2, Color{51, 57, 65, 255});//TODO: MACROS FOR COLORS
-        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+1, Color{51, 57, 65, 255});
-        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+l.rect.height-2, Color{51, 57, 65, 255});
+        DrawPixel(l.rect.x+1, l.rect.y+1, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+1, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+1, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
 
         //drawing lock texture
-        DrawTextureEx(door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE);
+        DrawTextureEx(door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE); //just the offsets - i dont think macros are too nessecary
     }
     // DrawRectangle(player.normal_hitbox.x, player.normal_hitbox.y, player.normal_hitbox.width, player.normal_hitbox.height, GREEN);
     EndMode2D();

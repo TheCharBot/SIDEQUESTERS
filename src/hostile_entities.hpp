@@ -49,12 +49,9 @@ class Enemy_forest_scourge: public Entity{
         void attack();
         void run_away();
         void decide_action();
-        void randomize_wander_state();
     private:
-        Direction direction;
         
         int random_index;
-        Wander_directions wander_mode;
         int wander_state;
         Rectangle *current_anim_arr;
         Rectangle chase_detect_rect;
@@ -64,8 +61,6 @@ class Enemy_forest_scourge: public Entity{
         float health;
         bool can_take_damage;
         float iframe_timer;
-        Vector2 originial_pos;
-        Vector2 vel;
         float wander_timer = 0.0f;
         Vector2 wander_dir = {0, 0};
 };

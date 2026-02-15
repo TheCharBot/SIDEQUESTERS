@@ -99,12 +99,12 @@ void health_bar_draw(){
 
 
 void hotbar_draw(){
-    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);//TODO: macros
+    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);
     if(inventory_slots[23].filled_with){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[23].filled_with->img_rect,
-                {hotbar_pos.x*scale+7*scale, hotbar_pos.y*scale,
+                {hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
@@ -113,7 +113,7 @@ void hotbar_draw(){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[24].filled_with->img_rect,
-                {hotbar_pos.x*scale+37*scale, hotbar_pos.y*scale,
+                {hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
@@ -122,15 +122,17 @@ void hotbar_draw(){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[25].filled_with->img_rect,
-                {hotbar_pos.x*scale+67*scale, hotbar_pos.y*scale,
+                {hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
     }
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, BLACK);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+104, hotbar_pos.y-1}, scale), 17*scale, 1, (Color){51, 57, 65, 255});
+
+    //layers (!)
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, BLACK);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
     
 }
 

@@ -84,6 +84,7 @@ void reset_player(Vector2 spawn)
 
 void reset_loaded()
 {
+    unload_enemy_textures();
     entities.clear();
     map_load_rects.clear();
     collision_rects.clear();
@@ -94,7 +95,7 @@ void reset_loaded()
     {
         UnloadTexture(map_to_load);
     }
-    unload_enemy_textures();
+    
     // unloading the current music to prevent mem leak
     // add back in when you have good music
     //  if(current_music.stream.buffer != nullptr){
@@ -479,7 +480,7 @@ void load_dark_forest_center(){
         {DARK_FOREST_CENTER_TO_DARK_FOREST_SOUTH_2, DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_2_SPAWNPOINT_FROM_DARK_FOREST_CENTER},
         {DARK_FOREST_CENTER_TO_BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1, BIG_TREE_LEVEL_1_SPAWNPOINT_FROM_DARK_FOREST_CENTER}
     });
-    for(int i = 0; i < 20; i++){ //adding a lot of 'em
+    for(int i = 0; i < 16; i++){ //adding a lot of 'em
         add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     }
     add_entity<Big_tree>(BIG_TREE);
@@ -523,8 +524,13 @@ void load_big_tree_level_1(){
         {BIG_TREE_LEVEL_1_TO_DARK_FOREST_CENTER, DARK_FOREST_CENTER, DARK_FOREST_CENTER_SPAWNPOINT_FROM_BIG_TREE_LEVEL_1},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
-    
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+
     add_ground_item(Big_tree_level_1_stick);
+
+    for (auto &e : entities)
+        e->load();
      //probably should find another way to do this 
      //actually its better now, slightly. still have to hardcode every map item. dangit
      //the drawbacks from not using an engine w/ a gui ^
@@ -568,6 +574,8 @@ void load_big_tree_level_2(){
     });
     add_ground_item(Big_tree_level_2_key);
     add_locked_rect({BIG_TREE_LEVELS_BOTTOM_UP_LOCK_RECT, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); 
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_2_TREE_TRUNK, 2);
     for (auto &e : entities)
         e->load();
@@ -606,6 +614,8 @@ void load_big_tree_level_3(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_2, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_4, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_3_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
@@ -645,6 +655,8 @@ void load_big_tree_level_4(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_5, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_4_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
@@ -683,6 +695,8 @@ void load_big_tree_level_5(){
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
     // add_ground_item(Big_tree_level_5_key);//(different name)
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_5_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();
@@ -723,6 +737,8 @@ void load_big_tree_level_6(){
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
     add_locked_rect({BIG_TREE_LEVELS_BOTTOM_UP_LOCK_RECT, BIG_TREE_LEVEL_6_TO_BIG_TREE_LEVEL_7_LOCK}); 
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_6_TREE_TRUNK, 3);
     for (auto &e : entities)
         e->load();
@@ -760,6 +776,10 @@ void load_big_tree_level_7(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_6, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    for (auto &e : entities)
+        e->load();
 }
 void load_big_tree_level_8(){
     reset_loaded();
@@ -796,6 +816,8 @@ void load_big_tree_level_8(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_7, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_9, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_8_TREE_TRUNK, 2);
     for (auto &e : entities)
         e->load();
@@ -833,6 +855,8 @@ void load_big_tree_level_9(){
         {BIG_TREE_STAIRS_BOTTOM_DOWN_LOAD_RECT, BIG_TREE_LEVEL_8, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT},
         {BIG_TREE_STAIRS_TOP_UP_LOAD_RECT, BIG_TREE_LEVEL_10, BIG_TREE_DEFAULT_TOP_SPAWNPOINT}
     });
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
+    add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_9_TREE_TRUNK, 1);
     for (auto &e : entities)
         e->load();

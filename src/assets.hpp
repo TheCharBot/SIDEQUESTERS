@@ -64,6 +64,9 @@ extern Rectangle inv_cursor_1;
 extern Rectangle inv_cursor_2;
 extern Rectangle inv_cursor_anim[2];
 
+#define GUI_LIGHT_GRAY Color{74, 84, 98, 255}
+#define GUI_DARK_GRAY Color{51, 57, 65, 255}
+
 //edit these to change controls
 #define KEY_CONTROLS_UP KEY_UP
 #define KEY_CONTROLS_DOWN KEY_DOWN
@@ -90,6 +93,12 @@ extern Rectangle inv_cursor_anim[2];
 #define KNOCKBACK_DIST 20.0f
 #define HIT_FLASH_TIME 0.22f
 
+#define HOTBAR_KEY_TEXT_OFFSET_X 104
+#define HOTBAR_KEY_TEXT_OFFSET_Y 1
+#define HOTBAR_KEY_FONT_SIZE 17
+#define HOTBAR_SLOT_1_OFFSET_X 7
+#define HOTBAR_SLOT_2_OFFSET_X 37
+#define HOTBAR_SLOT_3_OFFSET_X 67
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
@@ -664,6 +673,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
 
 #define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
+#define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"
 
 #define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
 

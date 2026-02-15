@@ -4,7 +4,6 @@
 Texture2D Enemy_forest_scourge::shared_tex = {};
 bool Enemy_forest_scourge::texture_loaded = false;
 
-
 void unload_enemy_textures()
 {
     // add all the enemy textures that spawn more than one per map, call when loading map, in reset_loaded
@@ -27,7 +26,6 @@ Enemy_forest_scourge::Enemy_forest_scourge()
     animation_frame_5 = 0;
     dead = false;
     health = FOREST_SCOURGE_HEALTH;
-    direction = DOWN_RIGHT;
     wander_state = 1;
     pos = {0, 0};
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
@@ -47,7 +45,7 @@ void Enemy_forest_scourge::load()
     if (!texture_loaded)
     {
         shared_tex = LoadTexture(
-            "gfx/enemies/forest_scourge/forest_scourge_tex.png");
+            FOREST_SCOURGE_TEX_PATH);
         texture_loaded = true;
     }
     if (current_map == DARK_FOREST_SOUTH)
@@ -115,22 +113,15 @@ void Enemy_forest_scourge::load()
         case 3:
 
             pos = FOREST_SCOURGE_DFN_POS_4;
-
             break;
         case 4:
-
             pos = FOREST_SCOURGE_DFN_POS_5;
-
             break;
         case 5:
-
             pos = FOREST_SCOURGE_DFN_POS_6;
-
             break;
         default:
-
             pos = FOREST_SCOURGE_DFN_POS_1;
-
             break;
         }
     }
@@ -177,7 +168,18 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    originial_pos = pos;
+    if(current_map >= BIG_TREE_LEVEL_1 && current_map <= BIG_TREE_LEVEL_9){
+        random_index = rand() % 2;
+        switch (random_index)
+        {
+        case 0:
+            pos = FOREST_SCOURGE_BIG_TREE_LEVELS_POS_1;
+            break;
+        case 1:
+            pos = FOREST_SCOURGE_BIG_TREE_LEVELS_POS_2;
+            break;
+        }
+    }
 }
 
 void Enemy_forest_scourge::update()
@@ -258,13 +260,21 @@ void Enemy_forest_scourge::wander()
 
         switch (dir)
         {
-        case 0: wander_dir = { -1,  0 }; break; // left
-        case 1: wander_dir = {  1,  0 }; break; // right
-        case 2: wander_dir = {  0,  1 }; break; // down
-        case 3: wander_dir = {  0, -1 }; break; // up
+        case 0:
+            wander_dir = {-1, 0};
+            break; // left
+        case 1:
+            wander_dir = {1, 0};
+            break; // right
+        case 2:
+            wander_dir = {0, 1};
+            break; // down
+        case 3:
+            wander_dir = {0, -1};
+            break; // up
         }
 
-        wander_timer = (float)(rand() % 200 + 200) / 100.0f; 
+        wander_timer = (float)(rand() % 200 + 200) / 100.0f;
         // 2.0 to 4.0 seconds
     }
 
@@ -279,8 +289,7 @@ void Enemy_forest_scourge::wander()
         pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X,
         pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
         FOREST_SCOURGE_HITBOX_WIDTH,
-        FOREST_SCOURGE_HITBOX_HEIGHT
-    };
+        FOREST_SCOURGE_HITBOX_HEIGHT};
 
     // Check collision
     for (Rectangle &r : collision_rects)
@@ -297,14 +306,10 @@ void Enemy_forest_scourge::wander()
 
     // Clamp using hitbox
     float minX = -FOREST_SCOURGE_HITBOX_OFFSET_X;
-    float maxX = map_to_load.width
-                 - FOREST_SCOURGE_HITBOX_WIDTH
-                 - FOREST_SCOURGE_HITBOX_OFFSET_X;
+    float maxX = map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X;
 
     float minY = -FOREST_SCOURGE_HITBOX_OFFSET_Y;
-    float maxY = map_to_load.height
-                 - FOREST_SCOURGE_HITBOX_HEIGHT
-                 - FOREST_SCOURGE_HITBOX_OFFSET_Y;
+    float maxY = map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y;
 
     pos.x = Clamp(pos.x, minX, maxX);
     pos.y = Clamp(pos.y, minY, maxY);
@@ -320,7 +325,7 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
-     wander_state = 0;
+    wander_state = 0;
 
     // Calculate direction vector to player
     Vector2 to_player = Vector2Subtract(player.pos, pos);
@@ -433,17 +438,11 @@ void Enemy_forest_scourge::decide_action()
             wander();
             attack_hit_rect = {};
         }
+        
     }
+    
 }
-void Enemy_forest_scourge::randomize_wander_state()
-{
-    int new_state;
-    do {
-        new_state = rand() % 4;
-    } while (new_state == wander_state);
 
-    wander_state = new_state;
-}
 // dang - 400+ lines for a single enemy? thats crazy
 
 The_Regrown::The_Regrown()
@@ -478,7 +477,6 @@ The_Regrown::~The_Regrown()
     {
         UnloadTexture(tex);
     }
-    
 }
 
 void The_Regrown::load()
@@ -492,27 +490,26 @@ void The_Regrown::update()
     if (!started_fight)
     {
         if (player.pos.y > THE_REGROWN_PLAYER_Y_TRIGGER)
-        { 
-            
-            
-            
-            
-            if(pos.y < THE_REGROWN_FINAL_Y){
-                pos.y+=THE_REGROWN_FALL_SPEED;
-               
-                if(current_anim_arr != the_regrown_entrance_arr){
+        {
+
+            if (pos.y < THE_REGROWN_FINAL_Y)
+            {
+                pos.y += THE_REGROWN_FALL_SPEED;
+
+                if (current_anim_arr != the_regrown_entrance_arr)
+                {
                     current_anim_arr = the_regrown_entrance_arr;
                     max_animation_frames = 8;
                 }
             }
-            if(pos.y >= THE_REGROWN_FINAL_Y){
+            if (pos.y >= THE_REGROWN_FINAL_Y)
+            {
                 started_fight = true;
                 collision_rects.push_back(col_rect_1);
                 collision_rects.push_back(col_rect_2);
                 collision_rects.push_back(col_rect_3);
             }
         }
-        
 
         return;
     }
@@ -528,7 +525,7 @@ void The_Regrown::update()
     {
         take_damage(player.active_damage);
     }
-    
+
     if (!can_take_damage)
     {
         iframe_timer -= GetFrameTime();
@@ -547,16 +544,16 @@ void The_Regrown::update()
         current_animation_frame = 0;
         player.defeated_entities.push_back(name);
         ground_items.push_back(item_drop);
-        item_drop = {}; //freeing up a few bytes idk
+        item_drop = {}; // freeing up a few bytes idk
         // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
         remove_collision_rect(col_rect_1);
         remove_collision_rect(col_rect_2);
         remove_collision_rect(col_rect_3);
-        
+
         // collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
-        // collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^ 
+        // collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^
     }
-    
+
     // movemode things, mostly animations
     if (move_mode == 0)
     {
@@ -602,14 +599,12 @@ void The_Regrown::update()
 void The_Regrown::draw()
 {
     DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH_128), float(DEFAULT_SPRITE_HEIGHT_128)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
-    
 }
 
 void The_Regrown::init_item_drop()
 {
     item_drop.pos = THE_REGROWN_ITEM_DROP_POS;
     item_drop.item = Sacred_bark;
-    
 }
 
 void The_Regrown::take_damage(float damage)
@@ -618,7 +613,7 @@ void The_Regrown::take_damage(float damage)
         return;
     if (can_take_damage)
     {
-        
+
         health -= damage;
         hit_flash_timer = HIT_FLASH_TIME;
         can_take_damage = false;
@@ -638,7 +633,7 @@ void The_Regrown::right_arm_attack()
     max_animation_frames = 5;
     current_animation_frame = 0;
 
-    active_damaging_rect = {pos.x+THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_X, pos.y+THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_RIGHT_ARM_DAMAGE_RECT_W_H};
+    active_damaging_rect = {pos.x + THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_RIGHT_ARM_DAMAGE_RECT_W_H};
     if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
@@ -651,7 +646,7 @@ void The_Regrown::left_arm_attack()
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-    active_damaging_rect = {pos.x+THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y+THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
+    active_damaging_rect = {pos.x + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
     if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
@@ -678,7 +673,7 @@ void The_Regrown::ground_shake_attack()
 
 void The_Regrown::decide_action()
 {
-    
+
     //  ground_shake_attack();
     idle_animation();
     if (CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
@@ -711,22 +706,23 @@ void The_Regrown::idle_animation()
     current_animation_frame = 0;
 }
 
-void The_Regrown::break_random_floor_tiles(int amount) 
+void The_Regrown::break_random_floor_tiles(int amount)
 {
-    for(int i = 0; i < amount; i++){
-        int x = GetRandomValue(0, map_to_load.width/16);
-        int y = GetRandomValue(0, map_to_load.height/16);
-        x*=16;
-        y*=16;
-        if(CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area)
-        && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox)
-        && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area)){
+    for (int i = 0; i < amount; i++)
+    {
+        int x = GetRandomValue(0, map_to_load.width / 16);
+        int y = GetRandomValue(0, map_to_load.height / 16);
+        x *= 16;
+        y *= 16;
+        if (CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox) && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area))
+        {
             // implement actually breaking the tiles here
-            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x-23, y-37}));//TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
+            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x - 23, y - 37})); // TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
             broken_floor_tiles.push_back(Vector2(x, y));
             continue;
         }
-        else{
+        else
+        {
             amount++;
             continue;
         }
