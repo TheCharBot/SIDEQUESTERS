@@ -13,6 +13,8 @@ extern void remove_locked_rect(Locked_rect rect);
 extern void add_ground_item(Ground_item item);
 extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
+extern void start_textbox(std::vector<Dialog_chunk> dialog);
+
 
 // editable globals
 extern std::vector<Load_rects> map_load_rects;
@@ -42,6 +44,7 @@ extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
 extern Texture2D health_bar_tex;
 extern Texture2D hotbar_tex;
+extern Texture2D textbox_tex;
 extern Rectangle health_bar_left_end;
 extern Rectangle health_bar_right_end;
 extern Rectangle health_bar_right_middle;
@@ -51,6 +54,11 @@ extern Rectangle health_bar_middle_dead;
 extern Rectangle health_bar_middle_left_dead;
 extern Vector2 hotbar_pos;
 extern bool is_inv_open;
+extern int dialog_index_state;
+
+//basically, set the individual indicies of this to change the dialog
+#define MAX_DIALOG_INDICIES 20
+extern Dialog_chunk current_dialog[MAX_DIALOG_INDICIES]; // change this to accomadate larger things
 
 // player globals
 extern Player player;
@@ -76,7 +84,7 @@ extern Rectangle inv_cursor_anim[2];
 #define KEY_ITEM_HOTBAR_2 KEY_S
 #define KEY_ITEM_HOTBAR_3 KEY_D
 #define KEY_OPEN_INVENTORY KEY_TAB
-#define KEY_PICKUP_ITEM_INVENTORY KEY_X
+#define KEY_INTERACT KEY_X
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
@@ -95,7 +103,7 @@ extern Rectangle inv_cursor_anim[2];
 
 #define HOTBAR_KEY_TEXT_OFFSET_X 104
 #define HOTBAR_KEY_TEXT_OFFSET_Y 1
-#define HOTBAR_KEY_FONT_SIZE 17
+#define DEFAULT_FONT_SIZE 17
 #define HOTBAR_SLOT_1_OFFSET_X 7
 #define HOTBAR_SLOT_2_OFFSET_X 37
 #define HOTBAR_SLOT_3_OFFSET_X 67
@@ -103,6 +111,8 @@ extern Rectangle inv_cursor_anim[2];
 #define HEALTHBAR_OFFSET_Y 1
 #define SCREEN_FADE_TIME 0.3f
 #define HOTBAR_POS {208, 3}
+#define TEXTBOX_POS {0, 110}
+
 
 #define DEFAULT_SPRITE_WIDTH 64
 #define DEFAULT_SPRITE_HEIGHT 64
@@ -692,6 +702,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
 #define GLOB_FONT_PATH "gfx/font/Jersey10-Regular.ttf"
+#define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"

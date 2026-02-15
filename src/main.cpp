@@ -23,12 +23,12 @@
 
 //Current TODO: finish the dungeon
 
-//TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialogue system
+//TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialog system
 
 //TODO: get the text to look better, use antialiasing or something
 
 //TODO: Make npc system
-//TODO: FIGURE OUT DIALOGUE STORAGE SYSTEM
+//TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
 //TODO: make Start menu
 //TODO: make save/load system
@@ -62,7 +62,7 @@ int main()
 
         // Game Drawing
         draw_all();
-
+        
         // uncomment these for helpful debug stuff!
         // std::cout << GetFPS() << "\n";
         

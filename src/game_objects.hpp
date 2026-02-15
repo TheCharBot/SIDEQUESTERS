@@ -109,6 +109,13 @@ enum Locked_door_names{
     BIG_TREE_LEVEL_6_TO_BIG_TREE_LEVEL_7_LOCK
 };
 
+enum Dialog_effects{
+    NONE,
+    SHAKE,
+    RECOLOR,
+    FADE,
+};
+
 // figure out good way to document quests - this works for now though
 enum Quests
 {
@@ -122,6 +129,11 @@ struct Load_rects
     Rectangle rect;
     int map_to_load_struct;
     Vector2 spawnpoint;
+};
+
+struct Dialog_chunk{
+    const char *text;
+    Dialog_effects effect;
 };
 
 struct Melee_weapon_item
@@ -253,6 +265,30 @@ public:
     virtual void load() {}
     virtual void update() {};
     virtual void draw() {};
+    
+};
+
+class NPC : public Entity
+{
+public:
+    Entity_names name;
+    Vector2 pos{};
+    Rectangle img_rect;
+    Rectangle rect;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    int move_mode;
+
+    Rectangle interact_rect;
+    std::vector<Dialog_chunk> dialog;
+    bool dead = false;
+    virtual ~NPC() = default;
+    // load for loading texture data, dont load in constructor
+    virtual void load() {}
+    virtual void update() {};
+    virtual void draw() {};
+    virtual void init_text() {};
     
 };
 

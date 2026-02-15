@@ -36,6 +36,7 @@ void damage_player(float damage)
     if (player.can_take_damage)
     {
         // implement damage taking here
+        start_screen_shake(0.2, 8);
         player.current_health -= damage;
         if (player.current_health < 0)
         {

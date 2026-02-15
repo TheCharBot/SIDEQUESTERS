@@ -5,12 +5,17 @@ Texture2D inventory_cursor_tex;
 Texture2D items_tex;
 Texture2D health_bar_tex;
 Texture2D hotbar_tex;
+Texture2D textbox_tex;
 Vector2 hotbar_pos = HOTBAR_POS;
+Vector2 textbox_pos = TEXTBOX_POS;
 std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
 Item temp_item;
+Dialog_chunk current_dialog[MAX_DIALOG_INDICIES];
 
 Font global_font;
+
+int dialog_index_state = 0;
 
 bool is_inv_open;
 
@@ -64,7 +69,7 @@ void inv_cursor_update()
         inv_cursor.inv_slot_index = 0;
     }
     // picking up an item
-    if (IsKeyPressed(KEY_PICKUP_ITEM_INVENTORY))
+    if (IsKeyPressed(KEY_INTERACT))
     {
         // works!!!!!!! was not expecting that!!!!!
 
@@ -130,10 +135,18 @@ void hotbar_draw(){
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
 
     //layers (!)
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, BLACK);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), HOTBAR_KEY_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, BLACK);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
     
+}
+
+void start_textbox(){
+    DrawTextureEx(textbox_tex, Vector2Scale({0, 110}, scale), 0, scale, WHITE);
+    DrawTextEx(global_font, current_dialog[dialog_index_state].text, Vector2Scale({textbox_pos.x+5, textbox_pos.y+5}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE);
+    if(IsKeyPressed(KEY_INTERACT)){
+        dialog_index_state++;
+    }
 }
 
 void init_gui()
@@ -145,6 +158,7 @@ void init_gui()
     health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
     global_font = LoadFont(GLOB_FONT_PATH);
+    textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
 }
 
 void update_gui()
