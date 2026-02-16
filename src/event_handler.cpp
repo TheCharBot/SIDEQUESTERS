@@ -25,7 +25,6 @@ void init_all()
 
     
 
-
     PlayMusicStream(current_music);
     SetMusicVolume(current_music, 1.0f);
 }
@@ -99,6 +98,12 @@ void draw_all()
     // DrawRectangle(player.normal_hitbox.x, player.normal_hitbox.y, player.normal_hitbox.width, player.normal_hitbox.height, GREEN);
     EndMode2D();
     draw_gui();
+
+
+    
+    
+
+
     //probably will get cleaned up-best i can do now for screen fading
     if(fade_frame_timer >= 0){
         

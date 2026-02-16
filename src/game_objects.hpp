@@ -132,7 +132,7 @@ struct Load_rects
 };
 
 struct Dialog_chunk{
-    const char *text;
+    std::string text;
     Dialog_effects effect;
 };
 

@@ -16,8 +16,11 @@ Dialog_chunk current_dialog[MAX_DIALOG_INDICIES];
 Font global_font;
 
 int dialog_index_state = 0;
+int dialog_max_indecies = 0;
+
 
 bool is_inv_open;
+bool is_textbox_open;
 
 
 
@@ -135,17 +138,41 @@ void hotbar_draw(){
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
 
     //layers (!)
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, BLACK);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, 1, GUI_DARK_GRAY);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, BLACK);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
+    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
     
 }
 
-void start_textbox(){
-    DrawTextureEx(textbox_tex, Vector2Scale({0, 110}, scale), 0, scale, WHITE);
-    DrawTextEx(global_font, current_dialog[dialog_index_state].text, Vector2Scale({textbox_pos.x+5, textbox_pos.y+5}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE);
-    if(IsKeyPressed(KEY_INTERACT)){
-        dialog_index_state++;
+void set_textbox_text(int index, Dialog_chunk dialog){
+    if(dialog.text.length() > MAX_ONE_LINE_CHARACTERS){
+        if(dialog.text[MAX_ONE_LINE_CHARACTERS] == ' '){
+            dialog.text.erase(MAX_ONE_LINE_CHARACTERS, 1);
+        }
+        dialog.text.insert(MAX_ONE_LINE_CHARACTERS, "\n");
+    }
+    current_dialog[index] = dialog;
+}
+
+void setup_textbox(int max_indecies){
+    dialog_max_indecies = max_indecies-1;
+    is_textbox_open = true;
+    dialog_index_state = 0;
+}
+
+
+void textbox_update_draw(){
+    if(is_textbox_open){
+        DrawTextureEx(textbox_tex, Vector2Scale(textbox_pos, scale), 0, scale, WHITE);
+        DrawTextEx(global_font, current_dialog[dialog_index_state].text.c_str(), Vector2Scale({textbox_pos.x+5, textbox_pos.y+5}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE);
+        if(IsKeyPressed(KEY_INTERACT)){
+            dialog_index_state++;
+            
+            if(dialog_index_state > dialog_max_indecies){
+                dialog_index_state = 0;
+                is_textbox_open = false;
+            }
+        }
     }
 }
 
@@ -194,8 +221,18 @@ void update_gui()
 
 void draw_gui()
 {
+    if(IsKeyPressed(KEY_H)){
+        set_textbox_text(0, {"hello, this is your creator and i am here to say thank you for being the 1", NONE});
+        set_textbox_text(1, {"hello, this is your creator and i am here to say thank you for being the 2", NONE});
+        set_textbox_text(2, {"hello, this is your creator and i am here to say thank you for being the 3", NONE});
+        set_textbox_text(3, {"hello, this is your creator and i am here to say thank you for being the 4", NONE});
+        set_textbox_text(4, {"hello, this is your creator and i am here to say thank you for being the 5", NONE});
+        set_textbox_text(5, {"hello, this is your creator and i am here to say thank you for being the 6", NONE});
+        setup_textbox(6);
+    }
     hotbar_draw();
     health_bar_draw();
+    textbox_update_draw();
     if (is_inv_open)
     {
         // drawing inventory

@@ -13,7 +13,9 @@ extern void remove_locked_rect(Locked_rect rect);
 extern void add_ground_item(Ground_item item);
 extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
-extern void start_textbox(std::vector<Dialog_chunk> dialog);
+extern void textbox_update_draw();
+extern void set_textbox_text(int index, Dialog_chunk dialog);
+extern void setup_textbox(int max_indecies);
 
 
 // editable globals
@@ -54,7 +56,9 @@ extern Rectangle health_bar_middle_dead;
 extern Rectangle health_bar_middle_left_dead;
 extern Vector2 hotbar_pos;
 extern bool is_inv_open;
+extern bool is_textbox_open;
 extern int dialog_index_state;
+extern int dialog_max_indecies;
 
 //basically, set the individual indicies of this to change the dialog
 #define MAX_DIALOG_INDICIES 20
@@ -112,6 +116,7 @@ extern Rectangle inv_cursor_anim[2];
 #define SCREEN_FADE_TIME 0.3f
 #define HOTBAR_POS {208, 3}
 #define TEXTBOX_POS {0, 110}
+#define MAX_ONE_LINE_CHARACTERS 58
 
 
 #define DEFAULT_SPRITE_WIDTH 64
