@@ -116,7 +116,10 @@ extern Rectangle inv_cursor_anim[2];
 #define SCREEN_FADE_TIME 0.3f
 #define HOTBAR_POS {208, 3}
 #define TEXTBOX_POS {0, 110}
-#define MAX_ONE_LINE_CHARACTERS 58
+#define MAX_ONE_LINE_CHARACTERS 41
+#define MAX_TWO_LINE_CHARACTERS 82
+#define MAX_THREE_LINE_CHARACTERS 120
+#define MAX_TEXTBOX_CHARACTERS 159
 
 
 #define DEFAULT_SPRITE_WIDTH 64
@@ -706,7 +709,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
-#define GLOB_FONT_PATH "gfx/font/Jersey10-Regular.ttf"
+#define GLOB_FONT_PATH "gfx/font/BlockBlueprint.ttf"
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"

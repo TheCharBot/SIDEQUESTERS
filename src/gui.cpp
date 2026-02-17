@@ -17,6 +17,7 @@ Font global_font;
 
 int dialog_index_state = 0;
 int dialog_max_indecies = 0;
+int current_dialog_character = 0;
 
 
 bool is_inv_open;
@@ -145,11 +146,56 @@ void hotbar_draw(){
 }
 
 void set_textbox_text(int index, Dialog_chunk dialog){
+    if(dialog.text.length() > MAX_TEXTBOX_CHARACTERS){
+        dialog.text.resize(MAX_TEXTBOX_CHARACTERS);
+    }
     if(dialog.text.length() > MAX_ONE_LINE_CHARACTERS){
         if(dialog.text[MAX_ONE_LINE_CHARACTERS] == ' '){
             dialog.text.erase(MAX_ONE_LINE_CHARACTERS, 1);
+            dialog.text.insert(MAX_ONE_LINE_CHARACTERS, "\n");
         }
-        dialog.text.insert(MAX_ONE_LINE_CHARACTERS, "\n");
+        else{
+            for(int i = 0; i < int(dialog.text.length()); i++){
+               if(dialog.text[MAX_ONE_LINE_CHARACTERS-i] == ' '){
+                    dialog.text.erase(MAX_ONE_LINE_CHARACTERS-i, 1);
+                    dialog.text.insert(MAX_ONE_LINE_CHARACTERS-i, "\n");
+                    break;
+               }
+            }
+        }
+        
+    }
+    if(dialog.text.length() > MAX_TWO_LINE_CHARACTERS){
+        if(dialog.text[MAX_TWO_LINE_CHARACTERS] == ' '){
+            dialog.text.erase(MAX_TWO_LINE_CHARACTERS, 1);
+            dialog.text.insert(MAX_TWO_LINE_CHARACTERS, "\n");
+        }
+        else{
+            for(int i = 0; i < int(dialog.text.length()); i++){
+               if(dialog.text[MAX_TWO_LINE_CHARACTERS-i] == ' '){
+                    dialog.text.erase(MAX_TWO_LINE_CHARACTERS-i, 1);
+                    dialog.text.insert(MAX_TWO_LINE_CHARACTERS-i, "\n");
+                    break;
+               }
+            }
+        }
+        
+    }
+    if(dialog.text.length() > MAX_THREE_LINE_CHARACTERS){
+        if(dialog.text[MAX_THREE_LINE_CHARACTERS] == ' '){
+            dialog.text.erase(MAX_THREE_LINE_CHARACTERS, 1);
+            dialog.text.insert(MAX_THREE_LINE_CHARACTERS, "\n");
+        }
+        else{
+            for(int i = 0; i < int(dialog.text.length()); i++){
+               if(dialog.text[MAX_THREE_LINE_CHARACTERS-i] == ' '){
+                    dialog.text.erase(MAX_THREE_LINE_CHARACTERS-i, 1);
+                    dialog.text.insert(MAX_THREE_LINE_CHARACTERS-i, "\n");
+                    break;
+               }
+            }
+        }
+        
     }
     current_dialog[index] = dialog;
 }
@@ -163,15 +209,31 @@ void setup_textbox(int max_indecies){
 
 void textbox_update_draw(){
     if(is_textbox_open){
-        DrawTextureEx(textbox_tex, Vector2Scale(textbox_pos, scale), 0, scale, WHITE);
-        DrawTextEx(global_font, current_dialog[dialog_index_state].text.c_str(), Vector2Scale({textbox_pos.x+5, textbox_pos.y+5}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE);
-        if(IsKeyPressed(KEY_INTERACT)){
+        DrawTextureEx(textbox_tex, Vector2Scale(textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
+
+        Dialog_chunk temp_drawing_dialog = current_dialog[dialog_index_state]; //setting the temporary dialog
+        temp_drawing_dialog.text.resize(current_dialog_character); //cutting the temp dialog
+
+        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+4, textbox_pos.y-1}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog
+
+        if(IsKeyPressed(KEY_INTERACT) && current_dialog_character >= int(current_dialog[dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
             dialog_index_state++;
-            
+            current_dialog_character = 0;
             if(dialog_index_state > dialog_max_indecies){
                 dialog_index_state = 0;
                 is_textbox_open = false;
             }
+        }
+        if(IsKeyDown(KEY_INTERACT)){
+            current_dialog_character+=5;
+        }
+        else{
+            current_dialog_character++; //advancing the current characters to be drawn
+        }
+        //if i have messages short enough to cause a real problem with this, the order can be changed:
+
+        if(current_dialog_character > int(current_dialog[dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
+            current_dialog_character = current_dialog[dialog_index_state].text.length();
         }
     }
 }
@@ -221,13 +283,13 @@ void update_gui()
 
 void draw_gui()
 {
-    if(IsKeyPressed(KEY_H)){
-        set_textbox_text(0, {"hello, this is your creator and i am here to say thank you for being the 1", NONE});
-        set_textbox_text(1, {"hello, this is your creator and i am here to say thank you for being the 2", NONE});
-        set_textbox_text(2, {"hello, this is your creator and i am here to say thank you for being the 3", NONE});
-        set_textbox_text(3, {"hello, this is your creator and i am here to say thank you for being the 4", NONE});
-        set_textbox_text(4, {"hello, this is your creator and i am here to say thank you for being the 5", NONE});
-        set_textbox_text(5, {"hello, this is your creator and i am here to say thank you for being the 6", NONE});
+    if(IsKeyPressed(KEY_H)){ 
+        set_textbox_text(0, {"hello, this is your creator and i am here to say thank yourfor being the 1ello, this is your creator and i am here to say thank yourfor being the 7", NONE});
+        set_textbox_text(1, {"hello, this is your creator and i am here to say thank yourfor being the 2", NONE});
+        set_textbox_text(2, {"hello, this is your creator and i am here to say thank yourfor being the 3", NONE});
+        set_textbox_text(3, {"hello, this is your creator and i am here to say thank yourfor being the 4", NONE});
+        set_textbox_text(4, {"hello, this is your creator and i am here to say thank yourfor being the 5", NONE});
+        set_textbox_text(5, {"hello, this is your creator and i am here to say thank yourfor being the 6 hello, this is your creator and i am here to say thank yourfor being the 7th player in this grand festival of people", NONE});
         setup_textbox(6);
     }
     hotbar_draw();
