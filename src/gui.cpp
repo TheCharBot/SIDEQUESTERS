@@ -146,57 +146,44 @@ void hotbar_draw(){
 }
 
 void set_textbox_text(int index, Dialog_chunk dialog){
+    //it works. fine whatever
     if(dialog.text.length() > MAX_TEXTBOX_CHARACTERS){
         dialog.text.resize(MAX_TEXTBOX_CHARACTERS);
     }
     if(dialog.text.length() > MAX_ONE_LINE_CHARACTERS){
-        if(dialog.text[MAX_ONE_LINE_CHARACTERS] == ' '){
-            dialog.text.erase(MAX_ONE_LINE_CHARACTERS, 1);
-            dialog.text.insert(MAX_ONE_LINE_CHARACTERS, "\n");
-        }
-        else{
-            for(int i = 0; i < int(dialog.text.length()); i++){
-               if(dialog.text[MAX_ONE_LINE_CHARACTERS-i] == ' '){
-                    dialog.text.erase(MAX_ONE_LINE_CHARACTERS-i, 1);
-                    dialog.text.insert(MAX_ONE_LINE_CHARACTERS-i, "\n");
-                    break;
-               }
+        
+        for(int i = 0; i < int(dialog.text.length()); i++){
+            if(dialog.text[MAX_ONE_LINE_CHARACTERS-i] == ' '){
+                dialog.text.erase(MAX_ONE_LINE_CHARACTERS-i, 1);
+                dialog.text.insert(MAX_ONE_LINE_CHARACTERS-i, "\n");
+                break;
             }
         }
         
+        
     }
     if(dialog.text.length() > MAX_TWO_LINE_CHARACTERS){
-        if(dialog.text[MAX_TWO_LINE_CHARACTERS] == ' '){
-            dialog.text.erase(MAX_TWO_LINE_CHARACTERS, 1);
-            dialog.text.insert(MAX_TWO_LINE_CHARACTERS, "\n");
-        }
-        else{
-            for(int i = 0; i < int(dialog.text.length()); i++){
-               if(dialog.text[MAX_TWO_LINE_CHARACTERS-i] == ' '){
-                    dialog.text.erase(MAX_TWO_LINE_CHARACTERS-i, 1);
-                    dialog.text.insert(MAX_TWO_LINE_CHARACTERS-i, "\n");
-                    break;
-               }
+        
+        for(int i = 0; i < int(dialog.text.length()); i++){
+            if(dialog.text[MAX_TWO_LINE_CHARACTERS-i] == ' '){
+                dialog.text.erase(MAX_TWO_LINE_CHARACTERS-i, 1);
+                dialog.text.insert(MAX_TWO_LINE_CHARACTERS-i, "\n");
+                break;
             }
         }
         
     }
     if(dialog.text.length() > MAX_THREE_LINE_CHARACTERS){
-        if(dialog.text[MAX_THREE_LINE_CHARACTERS] == ' '){
-            dialog.text.erase(MAX_THREE_LINE_CHARACTERS, 1);
-            dialog.text.insert(MAX_THREE_LINE_CHARACTERS, "\n");
-        }
-        else{
-            for(int i = 0; i < int(dialog.text.length()); i++){
-               if(dialog.text[MAX_THREE_LINE_CHARACTERS-i] == ' '){
-                    dialog.text.erase(MAX_THREE_LINE_CHARACTERS-i, 1);
-                    dialog.text.insert(MAX_THREE_LINE_CHARACTERS-i, "\n");
-                    break;
-               }
+        for(int i = 0; i < int(dialog.text.length()); i++){
+            if(dialog.text[MAX_THREE_LINE_CHARACTERS-i] == ' '){
+                dialog.text.erase(MAX_THREE_LINE_CHARACTERS-i, 1);
+                dialog.text.insert(MAX_THREE_LINE_CHARACTERS-i, "\n");
+                break;
             }
         }
         
     }
+    
     current_dialog[index] = dialog;
 }
 
@@ -214,7 +201,7 @@ void textbox_update_draw(){
         Dialog_chunk temp_drawing_dialog = current_dialog[dialog_index_state]; //setting the temporary dialog
         temp_drawing_dialog.text.resize(current_dialog_character); //cutting the temp dialog
 
-        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+4, textbox_pos.y-1}, scale), DEFAULT_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog
+        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+8, textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
 
         if(IsKeyPressed(KEY_INTERACT) && current_dialog_character >= int(current_dialog[dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
             dialog_index_state++;
@@ -225,7 +212,7 @@ void textbox_update_draw(){
             }
         }
         if(IsKeyDown(KEY_INTERACT)){
-            current_dialog_character+=5;
+            current_dialog_character+=5; //advancing the current characters to be drawn fastly
         }
         else{
             current_dialog_character++; //advancing the current characters to be drawn
@@ -284,7 +271,7 @@ void update_gui()
 void draw_gui()
 {
     if(IsKeyPressed(KEY_H)){ 
-        set_textbox_text(0, {"hello, this is your creator and i am here to say thank yourfor being the 1ello, this is your creator and i am here to say thank yourfor being the 7", NONE});
+        set_textbox_text(0, {"a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z", NONE});
         set_textbox_text(1, {"hello, this is your creator and i am here to say thank yourfor being the 2", NONE});
         set_textbox_text(2, {"hello, this is your creator and i am here to say thank yourfor being the 3", NONE});
         set_textbox_text(3, {"hello, this is your creator and i am here to say thank yourfor being the 4", NONE});
@@ -301,7 +288,16 @@ void draw_gui()
         DrawTextureEx(inventory_tex, {0, 0}, 0, scale, WHITE);
         // drawing cursor
 
-        DrawTexturePro(inventory_cursor_tex, inv_cursor_anim[inv_cursor.current_anim_frame], {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3)*scale, (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1)*scale, inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, {0, 0}, 0, WHITE);
+        DrawTexturePro(
+            inventory_cursor_tex, 
+            inv_cursor_anim[inv_cursor.current_anim_frame], 
+            {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3)*scale, 
+                (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1)*scale, 
+                inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, 
+                inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, 
+            {0, 0}, 
+            0, 
+            WHITE);
         // drawing held item if there is a held item
         if (inv_cursor.held_item)
         {

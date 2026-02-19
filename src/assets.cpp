@@ -36,6 +36,9 @@ Inventory_slot inventory_slots[28] = {
 
 };
 
+Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
+Rectangle the_regrown_impossible_destructable_tile_area = {128, 144, 64, 64};
+
 Rectangle health_bar_left_end = {1, 1, 2, 6};
 Rectangle health_bar_right_end = {14, 1, 2, 6};
 Rectangle health_bar_right_middle = {4, 1, 1, 6};
@@ -64,7 +67,6 @@ Rectangle village_windmill_animation[4] = {
 
 // map stuff
 
-int map_inited = 0;
 
 // non-constant asset stuff
 Rectangle start_bulldozer_animation[3] = {
@@ -456,5 +458,12 @@ Rectangle the_regrown_die_12 = {256, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRI
 Rectangle the_regrown_die_13 = {384, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 Rectangle the_regrown_die_14 = {512, 896, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 
-Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
-Rectangle the_regrown_impossible_destructable_tile_area = {128, 144, 64, 64};
+Rectangle village_questgiver_idle[1] = {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle village_questgiver_point_1 = {0, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle village_questgiver_point_2 = {64, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle village_questgiver_point_3 = {128, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle village_questgiver_point[3] = {
+    village_questgiver_point_1,
+    village_questgiver_point_2,
+    village_questgiver_point_3
+};

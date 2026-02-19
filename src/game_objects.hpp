@@ -94,7 +94,8 @@ enum Entity_names{
     BIG_TREE_LEVEL_8_TREE_TRUNK,
     BIG_TREE_LEVEL_9_TREE_TRUNK,
     THE_REGROWN,
-    FOREST_SCOURGE
+    FOREST_SCOURGE,
+    VILLAGE_QUESTGIVER_1
 };
 
 enum Ground_item_names{
@@ -268,29 +269,6 @@ public:
     
 };
 
-class NPC : public Entity
-{
-public:
-    Entity_names name;
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    int move_mode;
-
-    Rectangle interact_rect;
-    std::vector<Dialog_chunk> dialog;
-    bool dead = false;
-    virtual ~NPC() = default;
-    // load for loading texture data, dont load in constructor
-    virtual void load() {}
-    virtual void update() {};
-    virtual void draw() {};
-    virtual void init_text() {};
-    
-};
 
 //globally define items here
 extern Item Stick;

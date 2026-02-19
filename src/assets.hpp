@@ -47,13 +47,7 @@ extern Texture2D items_tex;
 extern Texture2D health_bar_tex;
 extern Texture2D hotbar_tex;
 extern Texture2D textbox_tex;
-extern Rectangle health_bar_left_end;
-extern Rectangle health_bar_right_end;
-extern Rectangle health_bar_right_middle;
-extern Rectangle health_bar_middle;
-extern Rectangle health_bar_left_middle;
-extern Rectangle health_bar_middle_dead;
-extern Rectangle health_bar_middle_left_dead;
+
 extern Vector2 hotbar_pos;
 extern bool is_inv_open;
 extern bool is_textbox_open;
@@ -72,9 +66,7 @@ extern Player player;
 extern Item inv_cursor_held_item;
 
 // inventory cursor animation
-extern Rectangle inv_cursor_1;
-extern Rectangle inv_cursor_2;
-extern Rectangle inv_cursor_anim[2];
+
 
 #define GUI_LIGHT_GRAY Color{74, 84, 98, 255}
 #define GUI_DARK_GRAY Color{51, 57, 65, 255}
@@ -108,6 +100,7 @@ extern Rectangle inv_cursor_anim[2];
 #define HOTBAR_KEY_TEXT_OFFSET_X 104
 #define HOTBAR_KEY_TEXT_OFFSET_Y 1
 #define DEFAULT_FONT_SIZE 17
+#define DIALOG_FONT_SIZE 14
 #define HOTBAR_SLOT_1_OFFSET_X 7
 #define HOTBAR_SLOT_2_OFFSET_X 37
 #define HOTBAR_SLOT_3_OFFSET_X 67
@@ -116,10 +109,10 @@ extern Rectangle inv_cursor_anim[2];
 #define SCREEN_FADE_TIME 0.3f
 #define HOTBAR_POS {208, 3}
 #define TEXTBOX_POS {0, 110}
-#define MAX_ONE_LINE_CHARACTERS 41
-#define MAX_TWO_LINE_CHARACTERS 82
-#define MAX_THREE_LINE_CHARACTERS 120
-#define MAX_TEXTBOX_CHARACTERS 159
+#define MAX_ONE_LINE_CHARACTERS 47
+#define MAX_TWO_LINE_CHARACTERS 94
+#define MAX_THREE_LINE_CHARACTERS 141
+#define MAX_TEXTBOX_CHARACTERS 180
 
 
 #define DEFAULT_SPRITE_WIDTH 64
@@ -175,88 +168,13 @@ extern Rectangle inv_cursor_anim[2];
 
 #define BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH 4
 
-// Player-focused image rect arrays
-extern Rectangle player_idle_up_arr[1];
-extern Rectangle player_idle_down_arr[1];
-extern Rectangle player_idle_right_arr[1];
-extern Rectangle player_idle_left_arr[1];
-extern Rectangle player_walk_down[12];
-extern Rectangle player_walk_up[12];
-extern Rectangle player_walk_right[8];
-extern Rectangle player_walk_left[8];
-// Player-focused image rects
+#define VILLAGE_QUESTGIVER_1_POS {142, 146}
+#define VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_X 25
+#define VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_Y 42
+#define VILLAGE_QUESTGIVER_1_HITBOX_WIDTH 13
+#define VILLAGE_QUESTGIVER_1_HITBOX_HEIGHT 10
 
-extern Rectangle player_idle_down;
-extern Rectangle player_idle_up;
-extern Rectangle player_idle_right;
-extern Rectangle player_idle_left;
-extern Rectangle player_walk_down_1;
-extern Rectangle player_walk_down_2;
-extern Rectangle player_walk_down_3;
-extern Rectangle player_walk_down_4;
-extern Rectangle player_walk_down_5;
-extern Rectangle player_walk_down_6;
-extern Rectangle player_walk_down_7;
-extern Rectangle player_walk_down_8;
-extern Rectangle player_walk_down_9;
-extern Rectangle player_walk_down_10;
-extern Rectangle player_walk_down_11;
-extern Rectangle player_walk_down_12;
-extern Rectangle player_walk_up_1;
-extern Rectangle player_walk_up_2;
-extern Rectangle player_walk_up_3;
-extern Rectangle player_walk_up_4;
-extern Rectangle player_walk_up_5;
-extern Rectangle player_walk_up_6;
-extern Rectangle player_walk_up_7;
-extern Rectangle player_walk_up_8;
-extern Rectangle player_walk_up_9;
-extern Rectangle player_walk_up_10;
-extern Rectangle player_walk_up_11;
-extern Rectangle player_walk_up_12;
-extern Rectangle player_walk_right_1;
-extern Rectangle player_walk_right_2;
-extern Rectangle player_walk_right_3;
-extern Rectangle player_walk_right_4;
-extern Rectangle player_walk_right_5;
-extern Rectangle player_walk_right_6;
-extern Rectangle player_walk_right_7;
-extern Rectangle player_walk_right_8;
-extern Rectangle player_walk_left_1;
-extern Rectangle player_walk_left_2;
-extern Rectangle player_walk_left_3;
-extern Rectangle player_walk_left_4;
-extern Rectangle player_walk_left_5;
-extern Rectangle player_walk_left_6;
-extern Rectangle player_walk_left_7;
-extern Rectangle player_walk_left_8;
 
-// player attack rects
-
-extern Rectangle player_sword_slash_down_1;
-extern Rectangle player_sword_slash_down_2;
-extern Rectangle player_sword_slash_down_3;
-extern Rectangle player_sword_slash_down_4;
-extern Rectangle player_sword_slash_down_5;
-extern Rectangle player_sword_slash_up_1;
-extern Rectangle player_sword_slash_up_2;
-extern Rectangle player_sword_slash_up_3;
-extern Rectangle player_sword_slash_up_4;
-extern Rectangle player_sword_slash_up_5;
-extern Rectangle player_sword_slash_right_1;
-extern Rectangle player_sword_slash_right_2;
-extern Rectangle player_sword_slash_right_3;
-extern Rectangle player_sword_slash_right_4;
-extern Rectangle player_sword_slash_right_5;
-extern Rectangle player_sword_slash_left_1;
-extern Rectangle player_sword_slash_left_2;
-extern Rectangle player_sword_slash_left_3;
-extern Rectangle player_sword_slash_left_4;
-extern Rectangle player_sword_slash_left_5;
-extern Rectangle player_sword_slash_down_arr[5];
-extern Rectangle player_sword_slash_up_arr[5];
-extern Rectangle player_sword_slash_right_arr[5];
-extern Rectangle player_sword_slash_left_arr[5];
 
 // ----------------------------------------------------------------- COLLISION RECTS AREA --------------------------------------------------------------------
 #define MAP_1_RECT_1 {0, 0, 480, 135}
@@ -504,6 +422,165 @@ extern Rectangle player_sword_slash_left_arr[5];
 
 
 
+
+extern Rectangle the_regrown_possible_destructable_tile_area;
+extern Rectangle the_regrown_impossible_destructable_tile_area;
+// paths to things
+// map paths
+//----------------------------------------------------------------- PATH AREA -----------------------------------------------------------------
+#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
+
+#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
+
+#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
+#define VILLAGE_HOUSE_1_PATH "gfx/maps/inside_village_houses/inside_village_house_1.png"
+#define VILLAGE_HOUSE_2_PATH "gfx/maps/inside_village_houses/inside_village_house_2.png"
+#define VILLAGE_HOUSE_3_PATH "gfx/maps/inside_village_houses/inside_village_house_3.png"
+#define VILLAGE_HOUSE_4_PATH "gfx/maps/inside_village_houses/inside_village_house_4.png"
+#define VILLAGE_WINDMILL_INSIDE_PATH "gfx/maps/inside_village_houses/inside_village_windmill.png"
+#define VILLAGE_HOUSE_5_PATH "gfx/maps/inside_village_houses/inside_village_house_5.png"
+#define VILLAGE_HOUSE_6_PATH "gfx/maps/inside_village_houses/inside_village_house_6.png"
+#define VILLAGE_HOUSE_7_PATH "gfx/maps/inside_village_houses/inside_village_house_7.png"
+
+#define DARK_FOREST_NORTH_PATH "gfx/maps/map_3_dark_forest_north.png"
+#define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
+#define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
+
+#define BIG_TREE_TEX_PATH "gfx/assets/big_tree/big_tree_tex.png"
+
+#define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
+#define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"
+#define BIG_TREE_LEVEL_3_PATH "gfx/maps/big_tree_levels/big_tree_level_3.png"
+#define BIG_TREE_LEVEL_4_PATH "gfx/maps/big_tree_levels/big_tree_level_4.png"
+#define BIG_TREE_LEVEL_5_PATH "gfx/maps/big_tree_levels/big_tree_level_5.png"
+#define BIG_TREE_LEVEL_6_PATH "gfx/maps/big_tree_levels/big_tree_level_6.png"
+#define BIG_TREE_LEVEL_7_PATH "gfx/maps/big_tree_levels/big_tree_level_7.png"
+#define BIG_TREE_LEVEL_8_PATH "gfx/maps/big_tree_levels/big_tree_level_8.png"
+#define BIG_TREE_LEVEL_9_PATH "gfx/maps/big_tree_levels/big_tree_level_9.png"
+#define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
+
+#define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
+#define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"
+
+#define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
+
+// music paths
+
+// entities and misc assets paths
+#define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
+#define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
+#define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
+#define VILLAGE_QUESTGIVER_1_PATH "gfx/npc/village_questgiver_1/village_questgiver_1_tex.png"
+// player texture path
+#define PLAYER_TEX_PATH "gfx/player/player_tex.png"
+// gui and items sheet paths
+#define INVENTORY_PATH "gfx/gui/inventory_tex.png"
+#define ITEM_SHEET_PATH "gfx/items_tex.png"
+#define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
+#define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
+#define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
+#define GLOB_FONT_PATH "gfx/font/BlockBlueprint.ttf"
+#define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
+
+#define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
+#define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"
+
+//----------------------------------------------------------------- IMAGE RECT AREA -----------------------------------------------------------------
+
+extern Rectangle inv_cursor_1;
+extern Rectangle inv_cursor_2;
+extern Rectangle inv_cursor_anim[2];
+extern Rectangle health_bar_left_end;
+extern Rectangle health_bar_right_end;
+extern Rectangle health_bar_right_middle;
+extern Rectangle health_bar_middle;
+extern Rectangle health_bar_left_middle;
+extern Rectangle health_bar_middle_dead;
+extern Rectangle health_bar_middle_left_dead;
+
+// Player-focused image rect arrays
+extern Rectangle player_idle_up_arr[1];
+extern Rectangle player_idle_down_arr[1];
+extern Rectangle player_idle_right_arr[1];
+extern Rectangle player_idle_left_arr[1];
+extern Rectangle player_walk_down[12];
+extern Rectangle player_walk_up[12];
+extern Rectangle player_walk_right[8];
+extern Rectangle player_walk_left[8];
+// Player-focused image rects
+
+extern Rectangle player_idle_down;
+extern Rectangle player_idle_up;
+extern Rectangle player_idle_right;
+extern Rectangle player_idle_left;
+extern Rectangle player_walk_down_1;
+extern Rectangle player_walk_down_2;
+extern Rectangle player_walk_down_3;
+extern Rectangle player_walk_down_4;
+extern Rectangle player_walk_down_5;
+extern Rectangle player_walk_down_6;
+extern Rectangle player_walk_down_7;
+extern Rectangle player_walk_down_8;
+extern Rectangle player_walk_down_9;
+extern Rectangle player_walk_down_10;
+extern Rectangle player_walk_down_11;
+extern Rectangle player_walk_down_12;
+extern Rectangle player_walk_up_1;
+extern Rectangle player_walk_up_2;
+extern Rectangle player_walk_up_3;
+extern Rectangle player_walk_up_4;
+extern Rectangle player_walk_up_5;
+extern Rectangle player_walk_up_6;
+extern Rectangle player_walk_up_7;
+extern Rectangle player_walk_up_8;
+extern Rectangle player_walk_up_9;
+extern Rectangle player_walk_up_10;
+extern Rectangle player_walk_up_11;
+extern Rectangle player_walk_up_12;
+extern Rectangle player_walk_right_1;
+extern Rectangle player_walk_right_2;
+extern Rectangle player_walk_right_3;
+extern Rectangle player_walk_right_4;
+extern Rectangle player_walk_right_5;
+extern Rectangle player_walk_right_6;
+extern Rectangle player_walk_right_7;
+extern Rectangle player_walk_right_8;
+extern Rectangle player_walk_left_1;
+extern Rectangle player_walk_left_2;
+extern Rectangle player_walk_left_3;
+extern Rectangle player_walk_left_4;
+extern Rectangle player_walk_left_5;
+extern Rectangle player_walk_left_6;
+extern Rectangle player_walk_left_7;
+extern Rectangle player_walk_left_8;
+
+// player attack rects
+
+extern Rectangle player_sword_slash_down_1;
+extern Rectangle player_sword_slash_down_2;
+extern Rectangle player_sword_slash_down_3;
+extern Rectangle player_sword_slash_down_4;
+extern Rectangle player_sword_slash_down_5;
+extern Rectangle player_sword_slash_up_1;
+extern Rectangle player_sword_slash_up_2;
+extern Rectangle player_sword_slash_up_3;
+extern Rectangle player_sword_slash_up_4;
+extern Rectangle player_sword_slash_up_5;
+extern Rectangle player_sword_slash_right_1;
+extern Rectangle player_sword_slash_right_2;
+extern Rectangle player_sword_slash_right_3;
+extern Rectangle player_sword_slash_right_4;
+extern Rectangle player_sword_slash_right_5;
+extern Rectangle player_sword_slash_left_1;
+extern Rectangle player_sword_slash_left_2;
+extern Rectangle player_sword_slash_left_3;
+extern Rectangle player_sword_slash_left_4;
+extern Rectangle player_sword_slash_left_5;
+extern Rectangle player_sword_slash_down_arr[5];
+extern Rectangle player_sword_slash_up_arr[5];
+extern Rectangle player_sword_slash_right_arr[5];
+extern Rectangle player_sword_slash_left_arr[5];
+
 extern Rectangle start_portal_animation[4];
 extern Rectangle start_portal_1;
 extern Rectangle start_portal_2;
@@ -655,64 +732,11 @@ extern Rectangle the_regrown_die_12;
 extern Rectangle the_regrown_die_13;
 extern Rectangle the_regrown_die_14;
 
-extern Rectangle the_regrown_possible_destructable_tile_area;
-extern Rectangle the_regrown_impossible_destructable_tile_area;
-// paths to things
-// map paths
-#define WRONG_MAP_TEX_PATH "gfx/maps/wrong_map.png"
+extern Rectangle village_questgiver_idle[1];
+extern Rectangle village_questgiver_point_1;
+extern Rectangle village_questgiver_point_2;
+extern Rectangle village_questgiver_point_3;
+extern Rectangle village_questgiver_point[3];
 
-#define STARTING_MAP_TEX_PATH "gfx/maps/map_1_start.png"
-
-#define VILLAGE_MAP_PATH "gfx/maps/map_2_village.png"
-#define VILLAGE_HOUSE_1_PATH "gfx/maps/inside_village_houses/inside_village_house_1.png"
-#define VILLAGE_HOUSE_2_PATH "gfx/maps/inside_village_houses/inside_village_house_2.png"
-#define VILLAGE_HOUSE_3_PATH "gfx/maps/inside_village_houses/inside_village_house_3.png"
-#define VILLAGE_HOUSE_4_PATH "gfx/maps/inside_village_houses/inside_village_house_4.png"
-#define VILLAGE_WINDMILL_INSIDE_PATH "gfx/maps/inside_village_houses/inside_village_windmill.png"
-#define VILLAGE_HOUSE_5_PATH "gfx/maps/inside_village_houses/inside_village_house_5.png"
-#define VILLAGE_HOUSE_6_PATH "gfx/maps/inside_village_houses/inside_village_house_6.png"
-#define VILLAGE_HOUSE_7_PATH "gfx/maps/inside_village_houses/inside_village_house_7.png"
-
-#define DARK_FOREST_NORTH_PATH "gfx/maps/map_3_dark_forest_north.png"
-#define DARK_FOREST_SOUTH_PATH "gfx/maps/map_4_dark_forest_south.png"
-#define DARK_FOREST_CENTER_PATH "gfx/maps/map_5_dark_forest_center.png"
-
-#define BIG_TREE_TEX_PATH "gfx/assets/big_tree/big_tree_tex.png"
-
-#define BIG_TREE_LEVEL_1_PATH "gfx/maps/big_tree_levels/big_tree_level_1.png"
-#define BIG_TREE_LEVEL_2_PATH "gfx/maps/big_tree_levels/big_tree_level_2.png"
-#define BIG_TREE_LEVEL_3_PATH "gfx/maps/big_tree_levels/big_tree_level_3.png"
-#define BIG_TREE_LEVEL_4_PATH "gfx/maps/big_tree_levels/big_tree_level_4.png"
-#define BIG_TREE_LEVEL_5_PATH "gfx/maps/big_tree_levels/big_tree_level_5.png"
-#define BIG_TREE_LEVEL_6_PATH "gfx/maps/big_tree_levels/big_tree_level_6.png"
-#define BIG_TREE_LEVEL_7_PATH "gfx/maps/big_tree_levels/big_tree_level_7.png"
-#define BIG_TREE_LEVEL_8_PATH "gfx/maps/big_tree_levels/big_tree_level_8.png"
-#define BIG_TREE_LEVEL_9_PATH "gfx/maps/big_tree_levels/big_tree_level_9.png"
-#define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
-
-#define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
-#define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"
-
-#define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
-
-// music paths
-
-// entities and misc assets paths
-#define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
-#define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
-#define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
-// player texture path
-#define PLAYER_TEX_PATH "gfx/player/player_tex.png"
-// gui and items sheet paths
-#define INVENTORY_PATH "gfx/gui/inventory_tex.png"
-#define ITEM_SHEET_PATH "gfx/items_tex.png"
-#define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
-#define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
-#define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
-#define GLOB_FONT_PATH "gfx/font/BlockBlueprint.ttf"
-#define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
-
-#define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
-#define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"
 
 #endif

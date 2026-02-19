@@ -98,7 +98,24 @@ class Big_tree_level_tree_trunk : public Entity {
         float iframe_timer;
 };
 
+class Village_questgiver_1 : public Entity{
+    public:
+        Village_questgiver_1();
+        ~Village_questgiver_1() override;
+        
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
 
+        Rectangle *current_animation_arr;
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Texture2D tex{};
+};
 
 
 #endif

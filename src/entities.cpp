@@ -281,3 +281,34 @@ void Big_tree_level_tree_trunk::draw()
     DrawTexturePro(tex, img_rect, {pos.x, pos.y, img_rect.width, img_rect.height}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
 }
 
+
+
+Village_questgiver_1::Village_questgiver_1()
+{
+    pos = VILLAGE_QUESTGIVER_1_POS;
+    current_animation_frame = 0;
+    current_animation_arr = village_questgiver_idle;
+    rect = {pos.x+VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_X, pos.y+VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_Y, VILLAGE_QUESTGIVER_1_HITBOX_WIDTH, VILLAGE_QUESTGIVER_1_HITBOX_HEIGHT};
+    add_collisions({rect});
+}
+
+Village_questgiver_1::~Village_questgiver_1()
+{
+    if(tex.id != 0){
+        UnloadTexture(tex);
+    }
+}
+
+void Village_questgiver_1::load()
+{
+    tex = LoadTexture(VILLAGE_QUESTGIVER_1_PATH);
+}
+
+void Village_questgiver_1::update()
+{
+}
+
+void Village_questgiver_1::draw()
+{
+    DrawTexturePro(tex, current_animation_arr[current_animation_frame], {pos.x, pos.y, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}, {0, 0}, 0, WHITE);
+}
