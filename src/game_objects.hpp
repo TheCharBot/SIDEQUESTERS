@@ -199,6 +199,16 @@ struct VFX{ // put vfx things here
 
 
 // Player-focused stuff
+
+enum Facing
+{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
+
+
 struct Player
 {
     Vector2 pos;
@@ -222,6 +232,7 @@ struct Player
     std::vector<Locked_door_names> unlocked_doors;
     std::vector<Entity_names> defeated_entities;
     int dungeon_keys = 0;
+    Facing facing;
 };
 
 struct Inventory_slot

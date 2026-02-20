@@ -145,7 +145,7 @@ void hotbar_draw(){
     
 }
 
-void set_textbox_text(int index, Dialog_chunk dialog){
+void set_textbox_indice_text(int index, Dialog_chunk dialog){
     //it works. fine whatever
     if(dialog.text.length() > MAX_TEXTBOX_CHARACTERS){
         dialog.text.resize(MAX_TEXTBOX_CHARACTERS);
@@ -187,21 +187,24 @@ void set_textbox_text(int index, Dialog_chunk dialog){
     current_dialog[index] = dialog;
 }
 
-void setup_textbox(int max_indecies){
+void setup_textbox(int max_indecies){ //try to have more than just one text box. please
     dialog_max_indecies = max_indecies-1;
     is_textbox_open = true;
     dialog_index_state = 0;
+    current_dialog_character = 0;
 }
 
 
 void textbox_update_draw(){
     if(is_textbox_open){
+    
+        player.move_mode = 0;
+        
         DrawTextureEx(textbox_tex, Vector2Scale(textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
 
-        Dialog_chunk temp_drawing_dialog = current_dialog[dialog_index_state]; //setting the temporary dialog
-        temp_drawing_dialog.text.resize(current_dialog_character); //cutting the temp dialog
+        
 
-        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+8, textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
+        
 
         if(IsKeyPressed(KEY_INTERACT) && current_dialog_character >= int(current_dialog[dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
             dialog_index_state++;
@@ -209,9 +212,10 @@ void textbox_update_draw(){
             if(dialog_index_state > dialog_max_indecies){
                 dialog_index_state = 0;
                 is_textbox_open = false;
+                player.move_mode = 1;
             }
         }
-        if(IsKeyDown(KEY_INTERACT)){
+        if(IsKeyDown(KEY_SPEEDUP)){
             current_dialog_character+=5; //advancing the current characters to be drawn fastly
         }
         else{
@@ -222,6 +226,9 @@ void textbox_update_draw(){
         if(current_dialog_character > int(current_dialog[dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
             current_dialog_character = current_dialog[dialog_index_state].text.length();
         }
+        Dialog_chunk temp_drawing_dialog = current_dialog[dialog_index_state]; //setting the temporary dialog
+        temp_drawing_dialog.text.resize(current_dialog_character); //cutting the temp dialog
+        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+8, textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
     }
 }
 
@@ -270,15 +277,11 @@ void update_gui()
 
 void draw_gui()
 {
-    if(IsKeyPressed(KEY_H)){ 
-        set_textbox_text(0, {"a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z", NONE});
-        set_textbox_text(1, {"hello, this is your creator and i am here to say thank yourfor being the 2", NONE});
-        set_textbox_text(2, {"hello, this is your creator and i am here to say thank yourfor being the 3", NONE});
-        set_textbox_text(3, {"hello, this is your creator and i am here to say thank yourfor being the 4", NONE});
-        set_textbox_text(4, {"hello, this is your creator and i am here to say thank yourfor being the 5", NONE});
-        set_textbox_text(5, {"hello, this is your creator and i am here to say thank yourfor being the 6 hello, this is your creator and i am here to say thank yourfor being the 7th player in this grand festival of people", NONE});
-        setup_textbox(6);
-    }
+    // if(IsKeyPressed(KEY_H)){ 
+    //     set_textbox_indice_text(0, {"ah, hello there traveler, i havent seen someone of your competence anywhere. would you mind doing a small favor for me?", NONE});
+        
+    //     setup_textbox(1);
+    // } //uncomment for testing!
     hotbar_draw();
     health_bar_draw();
     textbox_update_draw();

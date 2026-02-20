@@ -14,7 +14,7 @@ extern void add_ground_item(Ground_item item);
 extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
 extern void textbox_update_draw();
-extern void set_textbox_text(int index, Dialog_chunk dialog);
+extern void set_textbox_indice_text(int index, Dialog_chunk dialog);
 extern void setup_textbox(int max_indecies);
 
 
@@ -81,6 +81,7 @@ extern Item inv_cursor_held_item;
 #define KEY_ITEM_HOTBAR_3 KEY_D
 #define KEY_OPEN_INVENTORY KEY_TAB
 #define KEY_INTERACT KEY_X
+#define KEY_SPEEDUP KEY_Z
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 

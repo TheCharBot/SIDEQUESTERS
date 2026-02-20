@@ -2,14 +2,7 @@
 
 Player player;
 
-enum Facing
-{
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT
-};
-Facing facing;
+
 
 void init_player()
 {
@@ -77,25 +70,25 @@ void hotbar_slot_stuff(int slot){
         if (inventory_slots[slot].filled_with->type == COMBAT_MELEE)
         {
 
-            if (facing == DOWN)
+            if (player.facing == DOWN)
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
                 player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
-            if (facing == UP)
+            if (player.facing == UP)
             {
                 player.current_anim_arr = player_sword_slash_up_arr;
                 player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
                 player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
-            if (facing == LEFT)
+            if (player.facing == LEFT)
             {
                 player.current_anim_arr = player_sword_slash_left_arr;
                 player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
                 player.active_damage = inventory_slots[slot].filled_with->melee.damage;
             }
-            if (facing == RIGHT)
+            if (player.facing == RIGHT)
             {
                 player.current_anim_arr = player_sword_slash_right_arr;
                 player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
@@ -134,6 +127,25 @@ void update_player()
     // dont move at all - mostly for cutscenes
     if (player.move_mode == 0)
     {
+        player.current_animation_frame = 0;
+        player.max_animation_frames = 1;
+        if (player.facing == DOWN){
+            player.current_anim_arr = player_idle_down_arr;
+        }
+            
+        if (player.facing == UP){
+            player.current_anim_arr = player_idle_up_arr;
+        }
+        
+        if (player.facing == LEFT){
+            player.current_anim_arr = player_idle_left_arr;
+        }
+        
+        
+        if (player.facing == RIGHT){
+            player.current_anim_arr = player_idle_right_arr;
+        }
+            
         rebuild_hitbox();
     }
     // full collision movement
@@ -157,7 +169,7 @@ void update_player()
         // animation array calculations
         if (player.movement.y < 0)
         {
-            facing = UP;
+            player.facing = UP;
             player.current_anim_arr = player_walk_up;
             if (player.max_animation_frames != 12)
             {
@@ -167,7 +179,7 @@ void update_player()
         }
         else if (player.movement.y > 0)
         {
-            facing = DOWN;
+            player.facing = DOWN;
             player.current_anim_arr = player_walk_down;
             if (player.max_animation_frames != 12)
             {
@@ -177,7 +189,7 @@ void update_player()
         }
         else if (player.movement.x > 0)
         {
-            facing = RIGHT;
+            player.facing = RIGHT;
             player.current_anim_arr = player_walk_right;
             if (player.max_animation_frames != 8)
             {
@@ -187,7 +199,7 @@ void update_player()
         }
         else if (player.movement.x < 0)
         {
-            facing = LEFT;
+            player.facing = LEFT;
             player.current_anim_arr = player_walk_left;
             if (player.max_animation_frames != 8)
             {
@@ -199,7 +211,7 @@ void update_player()
         // idle animation calculations
         if (player.movement.x == 0 && player.movement.y == 0)
         {
-            if (facing == UP)
+            if (player.facing == UP)
             {
                 player.current_anim_arr = player_idle_up_arr;
                 if (player.max_animation_frames != 1)
@@ -208,7 +220,7 @@ void update_player()
                     player.max_animation_frames = 1;
                 }
             }
-            if (facing == DOWN)
+            if (player.facing == DOWN)
             {
                 player.current_anim_arr = player_idle_down_arr;
                 if (player.max_animation_frames != 1)
@@ -217,7 +229,7 @@ void update_player()
                     player.max_animation_frames = 1;
                 }
             }
-            if (facing == RIGHT)
+            if (player.facing == RIGHT)
             {
                 player.current_anim_arr = player_idle_right_arr;
                 if (player.max_animation_frames != 1)
@@ -226,7 +238,7 @@ void update_player()
                     player.max_animation_frames = 1;
                 }
             }
-            if (facing == LEFT)
+            if (player.facing == LEFT)
             {
                 player.current_anim_arr = player_idle_left_arr;
                 if (player.max_animation_frames != 1)

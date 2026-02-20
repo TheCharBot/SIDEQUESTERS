@@ -109,11 +109,13 @@ class Village_questgiver_1 : public Entity{
 
         Rectangle *current_animation_arr;
 
+
         void load() override;
         void update() override;
         void draw() override;
 
     private:
+        Rectangle interact_rect;
         Texture2D tex{};
 };
 

@@ -289,6 +289,7 @@ Village_questgiver_1::Village_questgiver_1()
     current_animation_frame = 0;
     current_animation_arr = village_questgiver_idle;
     rect = {pos.x+VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_X, pos.y+VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_Y, VILLAGE_QUESTGIVER_1_HITBOX_WIDTH, VILLAGE_QUESTGIVER_1_HITBOX_HEIGHT};
+    interact_rect = {pos.x+22, pos.y+45, 19, 15};
     add_collisions({rect});
 }
 
@@ -306,6 +307,10 @@ void Village_questgiver_1::load()
 
 void Village_questgiver_1::update()
 {
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.normal_hitbox) && !is_textbox_open){
+        
+        //TODO: figure out what this guy is actually going to say
+    }
 }
 
 void Village_questgiver_1::draw()
