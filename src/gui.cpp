@@ -8,20 +8,20 @@ Texture2D hotbar_tex;
 Texture2D textbox_tex;
 Vector2 hotbar_pos = HOTBAR_POS;
 Vector2 textbox_pos = TEXTBOX_POS;
-std::vector<Item> player_inventory = {};
 Inventory_cursor inv_cursor;
 Item temp_item;
-Dialog_chunk current_dialog[MAX_DIALOG_INDICIES];
+
 
 Font global_font;
 
-int dialog_index_state = 0;
-int dialog_max_indecies = 0;
-int current_dialog_character = 0;
+Textbox_dat global_textbox;
 
+std::vector<Dialog_names> finished_dialog;
 
 bool is_inv_open;
-bool is_textbox_open;
+
+
+
 
 
 
@@ -184,19 +184,20 @@ void set_textbox_indice_text(int index, Dialog_chunk dialog){
         
     }
     
-    current_dialog[index] = dialog;
+    global_textbox.current_dialog[index] = dialog;
 }
 
-void setup_textbox(int max_indecies){ //try to have more than just one text box. please
-    dialog_max_indecies = max_indecies-1;
-    is_textbox_open = true;
-    dialog_index_state = 0;
-    current_dialog_character = 0;
+void setup_textbox(int max_indecies, Entity_names speaker){ //try to have more than just one text box. please
+    global_textbox.dialog_max_indecies = max_indecies-1;
+    global_textbox.is_textbox_open = true;
+    global_textbox.dialog_index_state = 0;
+    global_textbox.current_dialog_character = 0;
+    global_textbox.current_speaker = speaker;
 }
 
 
 void textbox_update_draw(){
-    if(is_textbox_open){
+    if(global_textbox.is_textbox_open){
     
         player.move_mode = 0;
         
@@ -206,29 +207,42 @@ void textbox_update_draw(){
 
         
 
-        if(IsKeyPressed(KEY_INTERACT) && current_dialog_character >= int(current_dialog[dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
-            dialog_index_state++;
-            current_dialog_character = 0;
-            if(dialog_index_state > dialog_max_indecies){
-                dialog_index_state = 0;
-                is_textbox_open = false;
+        if(IsKeyPressed(KEY_INTERACT) && global_textbox.current_dialog_character >= int(global_textbox.current_dialog[global_textbox.dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
+            global_textbox.dialog_index_state++;
+            global_textbox.current_dialog_character = 0;
+            if(global_textbox.dialog_index_state > global_textbox.dialog_max_indecies){
+                global_textbox.dialog_index_state = 0;
+                global_textbox.is_textbox_open = false;
                 player.move_mode = 1;
+                global_textbox.current_speaker = Entity_names::DEFAULT;
             }
         }
         if(IsKeyDown(KEY_SPEEDUP)){
-            current_dialog_character+=5; //advancing the current characters to be drawn fastly
+            global_textbox.current_dialog_character+=5; //advancing the current characters to be drawn fastly
         }
         else{
-            current_dialog_character++; //advancing the current characters to be drawn
+            global_textbox.current_dialog_character++; //advancing the current characters to be drawn
         }
         //if i have messages short enough to cause a real problem with this, the order can be changed:
 
-        if(current_dialog_character > int(current_dialog[dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
-            current_dialog_character = current_dialog[dialog_index_state].text.length();
+        if(global_textbox.current_dialog_character > int(global_textbox.current_dialog[global_textbox.dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
+            global_textbox.current_dialog_character = global_textbox.current_dialog[global_textbox.dialog_index_state].text.length();
         }
-        Dialog_chunk temp_drawing_dialog = current_dialog[dialog_index_state]; //setting the temporary dialog
-        temp_drawing_dialog.text.resize(current_dialog_character); //cutting the temp dialog
+        Dialog_chunk temp_drawing_dialog = global_textbox.current_dialog[global_textbox.dialog_index_state]; //setting the temporary dialog
+        temp_drawing_dialog.text.resize(global_textbox.current_dialog_character); //cutting the temp dialog
         DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+8, textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
+    }
+}
+
+bool is_text_finished(Dialog_names text_name){
+    return std::find(finished_dialog.begin(),
+                     finished_dialog.end(),
+                     text_name) != finished_dialog.end();
+}
+
+void add_finished_text(Dialog_names text_name){
+    if(!is_text_finished(text_name)){
+        finished_dialog.push_back(text_name);
     }
 }
 

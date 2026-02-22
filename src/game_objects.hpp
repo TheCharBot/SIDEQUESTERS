@@ -3,6 +3,9 @@
 
 #include "config.hpp"
 
+
+#define MAX_DIALOG_INDICIES 100
+
 // structs, classes, etc for the game, not any data, just data structures
 
 // map globals
@@ -52,6 +55,11 @@ enum Map_names
 
 };
 
+enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QUESTGIVER_1_STORY_TEXT
+    VILLAGE_QUESTGIVER_1_STORY_TEXT,
+    VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT,
+};
+
 enum Item_types
 {
 
@@ -81,7 +89,8 @@ enum Item_names
 
 };
 
-enum Entity_names{
+enum Entity_names{ //stuff for identification - suprisingly helpful!
+    DEFAULT,
     START_PORTAL,
     BIG_TREE,
     VILLAGE_WINDMILL,
@@ -97,6 +106,9 @@ enum Entity_names{
     FOREST_SCOURGE,
     VILLAGE_QUESTGIVER_1
 };
+
+
+
 
 enum Ground_item_names{
     BIG_TREE_LEVEL_1_STICK,
@@ -195,6 +207,15 @@ struct VFX{ // put vfx things here
     float shake_magnitude = 0.0f;
     float hitstop_time = 0.0f;
     float hitstop_duration = 0.0f;
+};
+
+struct Textbox_dat{
+    int dialog_index_state = 0;
+    int dialog_max_indecies = 0;
+    int current_dialog_character = 0;
+    bool is_textbox_open;
+    Entity_names current_speaker;
+    Dialog_chunk current_dialog[MAX_DIALOG_INDICIES];
 };
 
 

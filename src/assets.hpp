@@ -3,10 +3,12 @@
 
 #include "game_objects.hpp"
 
-// Put sprite rects and other things here, paths, x defaults, etc
+// Put sprite rects and other things here, paths, defaults, etc
 // order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
 
 //fine. ill put it here. but i wont be happy!
+
+//bunch of gameplay global functions
 extern void request_map(Map_names wanted_map, Vector2 wanted_player_spawn);
 extern void remove_collision_rect(Rectangle rect);
 extern void remove_locked_rect(Locked_rect rect);
@@ -15,7 +17,10 @@ extern void add_collisions(std::initializer_list<Rectangle> rects);
 extern void add_load_rects(std::initializer_list<Load_rects> rects);
 extern void textbox_update_draw();
 extern void set_textbox_indice_text(int index, Dialog_chunk dialog);
-extern void setup_textbox(int max_indecies);
+extern void setup_textbox(int max_indecies, Entity_names speaker);
+extern bool is_text_finished(Dialog_names text_name);
+extern void add_finished_text(Dialog_names text_name);
+extern void add_item_to_inventory(Item item);
 
 
 // editable globals
@@ -48,15 +53,14 @@ extern Texture2D health_bar_tex;
 extern Texture2D hotbar_tex;
 extern Texture2D textbox_tex;
 
+extern std::vector<Dialog_names> finished_dialog;
+
 extern Vector2 hotbar_pos;
 extern bool is_inv_open;
-extern bool is_textbox_open;
-extern int dialog_index_state;
-extern int dialog_max_indecies;
+
+extern Textbox_dat global_textbox;
 
 //basically, set the individual indicies of this to change the dialog
-#define MAX_DIALOG_INDICIES 20
-extern Dialog_chunk current_dialog[MAX_DIALOG_INDICIES]; // change this to accomadate larger things
 
 // player globals
 extern Player player;

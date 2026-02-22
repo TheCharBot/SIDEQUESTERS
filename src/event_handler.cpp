@@ -110,5 +110,8 @@ void draw_all()
         DrawRectangle(0, 0, map_to_load.width*scale, map_to_load.height*scale, Fade(BLACK, fade_frame_timer*6));
         fade_frame_timer -= GetFrameTime();
     }
+
+    
+    
     
 };

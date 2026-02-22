@@ -646,7 +646,7 @@ void The_Regrown::left_arm_attack()
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
     current_animation_frame = 0;
-    active_damaging_rect = {pos.x + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
+    active_damaging_rect = {pos.x + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
     if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);

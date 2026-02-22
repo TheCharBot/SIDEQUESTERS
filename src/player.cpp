@@ -351,15 +351,7 @@ void update_player()
                 player.dungeon_keys++;
                 continue;
             }
-            for (Inventory_slot &s : inventory_slots){
-                if(s.filled_with){
-                    continue;
-                }
-                else{
-                    s.filled_with = g.item;
-                    break;
-                }
-            }
+            add_item_to_inventory(g.item);
         }
     }
     

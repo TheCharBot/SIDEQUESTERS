@@ -8,7 +8,7 @@
 
 //just data usage for items
 
-extern void add_item_to_inventory(Item item, int slot_index);
+
 extern void init_items();
 
 #endif

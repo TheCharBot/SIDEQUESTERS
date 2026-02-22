@@ -48,10 +48,17 @@ void init_sacred_bark()
     Sacred_bark.quest = SACRED_BARK_FROM_DARK_FOREST;
 }
 
-void add_item_to_inventory(Item item, int slot_index)
+void add_item_to_inventory(Item item)
 {
-     //probably not idk
-    inventory_slots[slot_index].filled_with = item;
+    for (Inventory_slot &s : inventory_slots){
+        if(s.filled_with){
+            continue;
+        }
+        else{
+            s.filled_with = item;
+            break;
+        }
+    }
 }
 
 void init_items()

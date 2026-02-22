@@ -117,6 +117,9 @@ class Village_questgiver_1 : public Entity{
     private:
         Rectangle interact_rect;
         Texture2D tex{};
+        bool story_text_done = false;
+        bool found_wanted_item = false;
+        bool found_item_text_done = false;
 };
 
 
