@@ -88,6 +88,7 @@ void reset_loaded()
     entities.clear();
     map_load_rects.clear();
     collision_rects.clear();
+    locked_rects.clear();
     broken_floor_tiles.clear();
     ground_items.clear();
     // unloading current map for efficiency
@@ -98,11 +99,11 @@ void reset_loaded()
     
     // unloading the current music to prevent mem leak
     // add back in when you have good music
-    //  if(current_music.stream.buffer != nullptr){
-    //      StopMusicStream(current_music);
-    //      UnloadMusicStream(current_music);
-    //      current_music = {};
-    //  }
+    if(current_music.stream.buffer != nullptr){
+        StopMusicStream(current_music);
+        UnloadMusicStream(current_music);
+        current_music = {};
+    }
 };
 
 void kill_things_that_are_dead()
@@ -389,6 +390,7 @@ void load_village_windmill(){
 void load_dark_forest_north()
 {
     reset_loaded();
+    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
     map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
     current_map = DARK_FOREST_NORTH;
     add_collisions({MAP_3_RECT_1,
@@ -415,6 +417,7 @@ void load_dark_forest_north()
 void load_dark_forest_south()
 {
     reset_loaded();
+    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
     map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
     current_map = DARK_FOREST_SOUTH;
     add_collisions({
@@ -447,10 +450,12 @@ void load_dark_forest_south()
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     for (auto &e : entities)
         e->load();
+    
 }
 
 void load_dark_forest_center(){
     reset_loaded();
+    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
     map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
     current_map = DARK_FOREST_CENTER;
     add_collisions({
@@ -487,6 +492,7 @@ void load_dark_forest_center(){
     
     for (auto &e : entities)
         e->load();
+    // PlayMusicStream(current_music);
 }
 
 

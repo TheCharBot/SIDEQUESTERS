@@ -100,10 +100,10 @@ class The_Regrown: public Entity{
         Rectangle *current_anim_arr;
         Rectangle attack_detect_rect;
         Rectangle attack_hit_rect;
-        float hit_flash_timer;
+        float hit_flash_timer = 0;
         float health;
-        bool can_take_damage;
-        float iframe_timer;
+        bool can_take_damage = 0;
+        float iframe_timer = 0;
         Rectangle col_rect_1;
         Rectangle col_rect_2;
         Rectangle col_rect_3;

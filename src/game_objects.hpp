@@ -129,6 +129,27 @@ enum Dialog_effects{
     FADE,
 };
 
+enum class SFX {
+    TEST_SOUND,
+    PLAYER_SWING_SWORD,
+    PLAYER_FOOTSTEPS,
+    DAMAGE_PLAYER,
+    INV_CURSOR_PICKUP,
+    INV_CURSOR_SELECT,
+    UNLOCK_DOOR,
+    PICKUP_ITEM,
+    THE_REGROWN_FALL,
+    THE_REGROWN_GROUND_ATTACK,
+    THE_REGROWN_ARM_ATTACK,
+    THE_REGROWN_DIE,
+    GLOB_SWING_SWORD,
+};
+
+enum class Music_names{ //put the names of the music or the names of the maps here
+    DARK_FOREST,
+};
+
+
 // figure out good way to document quests - this works for now though
 enum Quests
 {
@@ -301,6 +322,8 @@ public:
     
 };
 
+extern std::unordered_map<SFX, Sound> sound_effects;
+extern std::unordered_map<Music_names, Music> music_names;
 
 //globally define items here
 extern Item Stick;

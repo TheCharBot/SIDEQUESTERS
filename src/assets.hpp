@@ -1,7 +1,7 @@
 #ifndef ASSETS_HPP
 #define ASSETS_HPP
 
-#include "game_objects.hpp"
+#include "sfx.hpp"
 
 // Put sprite rects and other things here, paths, defaults, etc
 // order of organization: gui globals, player globals, map globals, enums, structs, classes, map collisions, map loaders, paths (not perfect)
@@ -43,7 +43,11 @@ extern Inventory_slot inventory_slots[28];
 extern Inventory_cursor inv_cursor;
 
 extern Music current_music;
+
+
 extern std::vector<std::unique_ptr<Entity>> entities;
+
+
 
 // GUI globals
 extern Texture2D inventory_tex;
@@ -470,6 +474,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
 
 // music paths
+#define DARK_FOREST_MUS_PATH "mus/DarkForest.ogg"
 
 // entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"

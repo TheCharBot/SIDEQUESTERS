@@ -398,7 +398,12 @@ void Enemy_forest_scourge::chase()
 
 void Enemy_forest_scourge::attack()
 {
-
+    // if(!IsSoundPlaying(sound_effects[SFX::GLOB_SWING_SWORD])){
+    //     float pitch_rand = (rand() % 10)+1;
+    //     pitch_rand /= 10;
+    //     SetSoundPitch(sound_effects[SFX::GLOB_SWING_SWORD], pitch_rand+1);
+    //     PlaySound(sound_effects[SFX::GLOB_SWING_SWORD]);
+    // }
     current_anim_arr = forest_scourge_attack_down_right;
     max_animation_frames = 6;
     attack_hit_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, FOREST_SCOURGE_ATTACK_WIDTH, FOREST_SCOURGE_ATTACK_HEIGHT};
@@ -504,6 +509,7 @@ void The_Regrown::update()
             }
             if (pos.y >= THE_REGROWN_FINAL_Y)
             {
+                PlaySound(sound_effects[SFX::THE_REGROWN_FALL]);
                 started_fight = true;
                 collision_rects.push_back(col_rect_1);
                 collision_rects.push_back(col_rect_2);
@@ -537,6 +543,7 @@ void The_Regrown::update()
     }
     if (health <= 0 && !death_anim_started)
     {
+        PlaySound(sound_effects[SFX::THE_REGROWN_DIE]);
         death_anim_started = true;
         move_mode = 2;
         current_anim_arr = the_regrown_die_arr;
@@ -628,6 +635,7 @@ void The_Regrown::take_damage(float damage)
 
 void The_Regrown::right_arm_attack()
 {
+    PlaySound(sound_effects[SFX::THE_REGROWN_ARM_ATTACK]);
     move_mode = 2;
     current_anim_arr = the_regrown_attack_right_arr;
     max_animation_frames = 5;
@@ -642,6 +650,7 @@ void The_Regrown::right_arm_attack()
 
 void The_Regrown::left_arm_attack()
 {
+    PlaySound(sound_effects[SFX::THE_REGROWN_ARM_ATTACK]);
     move_mode = 2;
     current_anim_arr = the_regrown_attack_left_arr;
     max_animation_frames = 5;
@@ -665,6 +674,7 @@ void The_Regrown::ground_shake_attack()
         ground_attack_cooldown = THE_REGROWN_GROUND_ATTACK_COOLDOWN;
         start_screen_shake(1.5, 5);
         break_random_floor_tiles(5);
+        PlaySound(sound_effects[SFX::THE_REGROWN_GROUND_ATTACK]);   
     }
     else
     {

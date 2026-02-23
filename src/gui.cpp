@@ -51,18 +51,22 @@ void inv_cursor_update()
     if (IsKeyPressed(KEY_CONTROLS_UP))
     {
         inv_cursor.inv_slot_index -= 7;
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_DOWN))
     {
         inv_cursor.inv_slot_index += 7;
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_RIGHT))
     {
         inv_cursor.inv_slot_index += 1;
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_LEFT))
     {
         inv_cursor.inv_slot_index -= 1;
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (inv_cursor.inv_slot_index > 27)
     {
@@ -76,6 +80,9 @@ void inv_cursor_update()
     if (IsKeyPressed(KEY_INTERACT))
     {
         // works!!!!!!! was not expecting that!!!!!
+        if(inventory_slots[inv_cursor.inv_slot_index].filled_with){
+            PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+        }
 
         auto &slot = inventory_slots[inv_cursor.inv_slot_index];
 
@@ -256,6 +263,7 @@ void init_gui()
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
     global_font = LoadFont(GLOB_FONT_PATH);
     textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
+    add_item_to_inventory(Stick);
 }
 
 void update_gui()

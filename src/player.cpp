@@ -30,6 +30,7 @@ void damage_player(float damage)
     {
         // implement damage taking here
         start_screen_shake(0.2, 8);
+        PlaySound(sound_effects[SFX::DAMAGE_PLAYER]);
         player.current_health -= damage;
         if (player.current_health < 0)
         {
@@ -69,7 +70,11 @@ void hotbar_slot_stuff(int slot){
         // implement item 1 usage here
         if (inventory_slots[slot].filled_with->type == COMBAT_MELEE)
         {
-
+            float pitch_rand = (rand() % 10)+1;
+            pitch_rand /= 10;
+            SetSoundPitch(sound_effects[SFX::PLAYER_SWING_SWORD], pitch_rand+1);
+            PlaySound(sound_effects[SFX::PLAYER_SWING_SWORD]); //do something bout this later. make it so sfx knows its playing
+            
             if (player.facing == DOWN)
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
@@ -167,6 +172,15 @@ void update_player()
             player.movement.x += 1;
 
         // animation array calculations
+        if(player.movement.x != 0 || player.movement.y != 0){
+            if(!IsSoundPlaying(sound_effects[SFX::PLAYER_FOOTSTEPS])){
+                // std::cout <<"wow sound is playing!";
+                float pitch_rand = (rand() % 10)+1;
+                pitch_rand /= 10;
+                SetSoundPitch(sound_effects[SFX::PLAYER_FOOTSTEPS], pitch_rand+1);
+                PlaySound(sound_effects[SFX::PLAYER_FOOTSTEPS]); //do something bout this later. make it so sfx knows its playing
+            }
+        }
         if (player.movement.y < 0)
         {
             player.facing = UP;
@@ -300,6 +314,7 @@ void update_player()
                 {
                     player.pos.y = player.pos_y_save;
                     if(player.dungeon_keys > 0){
+                        PlaySound(sound_effects[SFX::UNLOCK_DOOR]);
                         player.dungeon_keys--;
                         remove_locked_rect(l);
                         player.unlocked_doors.push_back(l.name);
@@ -344,6 +359,7 @@ void update_player()
         
         
         if(CheckCollisionRecs(player.normal_hitbox, {g.pos.x-ITEM_PICKUP_X_OFFSET, g.pos.y-ITEM_PICKUP_X_OFFSET, ITEM_PICKUP_RECT_WIDTH, ITEM_PICKUP_RECT_HEIGHT})){
+            PlaySound(sound_effects[SFX::PICKUP_ITEM]);
             g.picked_up = true;
             player.picked_up_items.push_back(g.ground_item_name);
             if(g.item.name == DUNGEON_KEY){

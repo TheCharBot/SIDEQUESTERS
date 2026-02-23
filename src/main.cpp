@@ -22,11 +22,14 @@
 
 //Current TODO: finish the dungeon
 
-//TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialog system
+//done TODO: URGENT: Clean everything up, make more content, spawn enemies more, finish the dungeon, then make the dialog system
 
-//TODO: get the text to look better, use antialiasing or something
+//done TODO: get the text to look better, use antialiasing or something
 
-//TODO: Make npc system
+//done TODO: Make npc system
+
+//done TODO: implement SFX system
+
 //TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
 //TODO: make Start menu
