@@ -24,30 +24,16 @@ extern void add_item_to_inventory(Item item);
 
 
 // editable globals
-extern std::vector<Load_rects> map_load_rects;
-extern Texture2D map_to_load;
-extern std::vector<Rectangle> collision_rects;
-extern std::vector<Locked_rect> locked_rects;
-extern Map_names current_map;
-extern Map_names requested_map;
-extern Vector2 requested_player_pos;
-extern Texture2D broken_tile_tex;
-extern Texture2D door_lock_tex;
-extern std::vector<Vector2> broken_floor_tiles;
-extern std::vector<Ground_item> ground_items;
-extern float fade_frame_timer;
-
-extern Font global_font;
-
-extern Inventory_slot inventory_slots[28];
-extern Inventory_cursor inv_cursor;
-
-extern Music current_music;
 
 
-extern std::vector<std::unique_ptr<Entity>> entities;
 
 
+
+
+
+extern Game_data game;
+extern GUI_data gui;
+extern Player player;
 
 // GUI globals
 extern Texture2D inventory_tex;
@@ -57,21 +43,16 @@ extern Texture2D health_bar_tex;
 extern Texture2D hotbar_tex;
 extern Texture2D textbox_tex;
 
-extern std::vector<Dialog_names> finished_dialog;
+extern Inventory_slot inventory_slots[28];
 
-extern Vector2 hotbar_pos;
-extern bool is_inv_open;
-
-extern Textbox_dat global_textbox;
 
 //basically, set the individual indicies of this to change the dialog
 
 // player globals
-extern Player player;
+
 
 // inited items
 
-extern Item inv_cursor_held_item;
 
 // inventory cursor animation
 
@@ -491,6 +472,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
 #define GLOB_FONT_PATH "gfx/font/BlockBlueprint.ttf"
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
+#define START_MENU_TEX_PATH "gfx/gui/start_menu.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"
@@ -748,5 +730,7 @@ extern Rectangle village_questgiver_point_2;
 extern Rectangle village_questgiver_point_3;
 extern Rectangle village_questgiver_point[3];
 
+extern Rectangle start_menu_text_rect;
+extern Rectangle start_menu_emination;
 
 #endif

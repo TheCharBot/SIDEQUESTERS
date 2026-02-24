@@ -149,6 +149,21 @@ enum class Music_names{ //put the names of the music or the names of the maps he
     DARK_FOREST,
 };
 
+enum Facing
+{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
+
+enum Game_states{
+    START_MENU,
+    GAMEPLAY,
+    DIED,
+    END_QUESTED,
+};
+
 
 // figure out good way to document quests - this works for now though
 enum Quests
@@ -242,40 +257,8 @@ struct Textbox_dat{
 
 // Player-focused stuff
 
-enum Facing
-{
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT
-};
 
 
-struct Player
-{
-    Vector2 pos;
-    Vector2 movement;
-    Rectangle *current_anim_arr;
-    Rectangle normal_hitbox;
-    int pos_x_save;
-    int pos_y_save;
-    int move_mode;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    Texture2D tex;
-    float current_health;
-    float max_health;
-    bool can_take_damage = true;
-    float iframe_timer = 0.0f;
-    Rectangle attack_hitbox;
-    int active_damage;
-    std::vector<Ground_item_names> picked_up_items;
-    std::vector<Locked_door_names> unlocked_doors;
-    std::vector<Entity_names> defeated_entities;
-    int dungeon_keys = 0;
-    Facing facing;
-};
 
 struct Inventory_slot
 {
@@ -321,6 +304,69 @@ public:
     virtual void draw() {};
     
 };
+
+struct GUI_data{
+    Font global_font;
+    
+    Inventory_cursor inv_cursor;
+    std::vector<Dialog_names> finished_dialog;
+    Vector2 hotbar_pos;
+    bool is_inv_open;
+    Textbox_dat global_textbox;
+    Item inv_cursor_held_item;
+    Vector2 textbox_pos;
+    bool start_menu_unloaded;
+    Vector2 start_menu_text_pos;
+    Vector2 start_menu_enimation_pos;
+};
+
+
+
+struct Game_data{
+    std::vector<Load_rects> map_load_rects;
+    Texture2D map_to_load;
+    std::vector<Rectangle> collision_rects;
+    std::vector<Locked_rect> locked_rects;
+    Map_names current_map;
+    Map_names requested_map;
+    Vector2 requested_player_pos;
+    Texture2D broken_tile_tex;
+    Texture2D door_lock_tex;
+    std::vector<Vector2> broken_floor_tiles;
+    std::vector<Ground_item> ground_items;
+    float fade_frame_timer;
+    Music current_music;
+    std::vector<std::unique_ptr<Entity>> entities;
+    Game_states state;
+    
+};
+
+struct Player
+{
+    Vector2 pos;
+    Vector2 movement;
+    Rectangle *current_anim_arr;
+    Rectangle normal_hitbox;
+    int pos_x_save;
+    int pos_y_save;
+    int move_mode;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    Texture2D tex;
+    float current_health;
+    float max_health;
+    bool can_take_damage = true;
+    float iframe_timer = 0.0f;
+    Rectangle attack_hitbox;
+    int active_damage;
+    std::vector<Ground_item_names> picked_up_items;
+    std::vector<Locked_door_names> unlocked_doors;
+    std::vector<Entity_names> defeated_entities;
+    int dungeon_keys = 0;
+    Facing facing;
+};
+
 
 extern std::unordered_map<SFX, Sound> sound_effects;
 extern std::unordered_map<Music_names, Music> music_names;

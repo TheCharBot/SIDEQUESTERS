@@ -48,7 +48,7 @@ void Enemy_forest_scourge::load()
             FOREST_SCOURGE_TEX_PATH);
         texture_loaded = true;
     }
-    if (current_map == DARK_FOREST_SOUTH)
+    if (game.current_map == DARK_FOREST_SOUTH)
     {
         random_index = rand() % 6;
         switch (random_index)
@@ -90,7 +90,7 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    if (current_map == DARK_FOREST_NORTH)
+    else if (game.current_map == DARK_FOREST_NORTH)
     {
         random_index = rand() % 6;
         switch (random_index)
@@ -125,7 +125,7 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    if (current_map == DARK_FOREST_CENTER)
+    else if (game.current_map == DARK_FOREST_CENTER)
     {
         random_index = rand() % 11;
         switch (random_index)
@@ -168,7 +168,7 @@ void Enemy_forest_scourge::load()
             break;
         }
     }
-    if(current_map >= BIG_TREE_LEVEL_1 && current_map <= BIG_TREE_LEVEL_9){
+    else if(game.current_map >= BIG_TREE_LEVEL_1 && game.current_map <= BIG_TREE_LEVEL_9){
         random_index = rand() % 2;
         switch (random_index)
         {
@@ -204,8 +204,8 @@ void Enemy_forest_scourge::update()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
     attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
-    pos.x = Clamp(pos.x, 0, map_to_load.width - DEFAULT_SPRITE_WIDTH);
-    pos.y = Clamp(pos.y, 0, map_to_load.height - DEFAULT_SPRITE_HEIGHT);
+    pos.x = Clamp(pos.x, 0, game.map_to_load.width - DEFAULT_SPRITE_WIDTH);
+    pos.y = Clamp(pos.y, 0, game.map_to_load.height - DEFAULT_SPRITE_HEIGHT);
 
     if (!can_take_damage)
     {
@@ -292,7 +292,7 @@ void Enemy_forest_scourge::wander()
         FOREST_SCOURGE_HITBOX_HEIGHT};
 
     // Check collision
-    for (Rectangle &r : collision_rects)
+    for (Rectangle &r : game.collision_rects)
     {
         if (CheckCollisionRecs(test_rect, r))
         {
@@ -306,10 +306,10 @@ void Enemy_forest_scourge::wander()
 
     // Clamp using hitbox
     float minX = -FOREST_SCOURGE_HITBOX_OFFSET_X;
-    float maxX = map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X;
+    float maxX = game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X;
 
     float minY = -FOREST_SCOURGE_HITBOX_OFFSET_Y;
-    float maxY = map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y;
+    float maxY = game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y;
 
     pos.x = Clamp(pos.x, minX, maxX);
     pos.y = Clamp(pos.y, minY, maxY);
@@ -348,7 +348,7 @@ void Enemy_forest_scourge::chase()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
             FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
 
-    for (const Rectangle &r : collision_rects)
+    for (const Rectangle &r : game.collision_rects)
     {
         if (CheckCollisionRecs(rect, r))
         {
@@ -362,7 +362,7 @@ void Enemy_forest_scourge::chase()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
             FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
 
-    for (const Rectangle &r : collision_rects)
+    for (const Rectangle &r : game.collision_rects)
     {
         if (CheckCollisionRecs(rect, r))
         {
@@ -372,8 +372,8 @@ void Enemy_forest_scourge::chase()
     }
 
     // Clamp to map boundaries
-    pos.x = Clamp(pos.x, -FOREST_SCOURGE_HITBOX_OFFSET_X, map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
-    pos.y = Clamp(pos.y, -FOREST_SCOURGE_HITBOX_OFFSET_Y, map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
+    pos.x = Clamp(pos.x, -FOREST_SCOURGE_HITBOX_OFFSET_X, game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
+    pos.y = Clamp(pos.y, -FOREST_SCOURGE_HITBOX_OFFSET_Y, game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
 
     // --- Set animation based on direction ---
     if (fabs(move.x) > fabs(move.y))
@@ -452,7 +452,7 @@ void Enemy_forest_scourge::decide_action()
 
 The_Regrown::The_Regrown()
 {
-    if (current_map == BIG_TREE_LEVEL_10)
+    if (game.current_map == BIG_TREE_LEVEL_10)
     {
         pos = {96, -88};
     }
@@ -511,9 +511,9 @@ void The_Regrown::update()
             {
                 PlaySound(sound_effects[SFX::THE_REGROWN_FALL]);
                 started_fight = true;
-                collision_rects.push_back(col_rect_1);
-                collision_rects.push_back(col_rect_2);
-                collision_rects.push_back(col_rect_3);
+                game.collision_rects.push_back(col_rect_1);
+                game.collision_rects.push_back(col_rect_2);
+                game.collision_rects.push_back(col_rect_3);
             }
         }
 
@@ -550,7 +550,7 @@ void The_Regrown::update()
         max_animation_frames = 14;
         current_animation_frame = 0;
         player.defeated_entities.push_back(name);
-        ground_items.push_back(item_drop);
+        game.ground_items.push_back(item_drop);
         item_drop = {}; // freeing up a few bytes idk
         // broken_floor_tiles.clear(); //one-time thing for this boss to make sure the player picks up the item
         remove_collision_rect(col_rect_1);
@@ -720,15 +720,15 @@ void The_Regrown::break_random_floor_tiles(int amount)
 {
     for (int i = 0; i < amount; i++)
     {
-        int x = GetRandomValue(0, map_to_load.width / 16);
-        int y = GetRandomValue(0, map_to_load.height / 16);
+        int x = GetRandomValue(0, game.map_to_load.width / 16);
+        int y = GetRandomValue(0, game.map_to_load.height / 16);
         x *= 16;
         y *= 16;
         if (CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox) && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area))
         {
             // implement actually breaking the tiles here
-            map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x - 23, y - 37})); // TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
-            broken_floor_tiles.push_back(Vector2(x, y));
+            game.map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x - 23, y - 37})); // TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later
+            game.broken_floor_tiles.push_back(Vector2(x, y));
             continue;
         }
         else

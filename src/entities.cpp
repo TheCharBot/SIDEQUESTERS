@@ -9,7 +9,7 @@ Village_windmill::Village_windmill()
     animation_frame_5 = 0;
     pos = {VILLAGE_WINDMILL_X, VILLAGE_WINDMILL_Y};
     rect = {pos.x + VILLAGE_WINDMILL_RECT_OFFSET_X, pos.y + VILLAGE_WINDMILL_RECT_OFFSET_Y, VILLAGE_WINDMILL_RECT_WIDTH, VILLAGE_WINDMILL_RECT_HEIGHT};
-    collision_rects.push_back(rect);
+    game.collision_rects.push_back(rect);
     
 }
 
@@ -73,7 +73,7 @@ void Start_bulldozer::update()
     // checking if the player is at a Specific y value
     if (player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y)
     {
-        is_inv_open = false;
+        gui.is_inv_open = false;
         // running cutscene magic
         player.move_mode = 0;
         if (player.normal_hitbox.y > 160)
@@ -171,9 +171,9 @@ Big_tree::Big_tree()
     rect1 = {pos.x+BIG_TREE_RECT1_OFFSET_X, pos.y+BIG_TREE_RECT1_OFFSET_Y, BIG_TREE_RECT1_W_H};
     rect2 = {pos.x+BIG_TREE_RECT2_OFFSET_X, pos.y+BIG_TREE_RECT2_OFFSET_Y, BIG_TREE_RECT2_W_H};
     rect3 = {pos.x+BIG_TREE_RECT3_OFFSET_X, pos.y+BIG_TREE_RECT3_OFFSET_Y, BIG_TREE_RECT3_W_H};
-    collision_rects.push_back(rect1);
-    collision_rects.push_back(rect2);
-    collision_rects.push_back(rect3);
+    game.collision_rects.push_back(rect1);
+    game.collision_rects.push_back(rect2);
+    game.collision_rects.push_back(rect3);
 }
 
 Big_tree::~Big_tree()
@@ -215,7 +215,7 @@ Big_tree_level_tree_trunk::Big_tree_level_tree_trunk(int which_trunk)
             rect = {pos.x+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_X, pos.y+BIG_TREE_LEVELS_TREE_TRUNKS_OFFSET_Y, BIG_TREE_LEVELS_TREE_TRUNKS_W_H};
             break;
     }
-    collision_rects.push_back(rect);
+    game.collision_rects.push_back(rect);
     hit_flash_timer = 0;
     iframe_timer = 0;   
     health = BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH;
@@ -265,7 +265,7 @@ void Big_tree_level_tree_trunk::update()
         }
     }
     if(health == 0){
-        if(current_map == BIG_TREE_LEVEL_5){
+        if(game.current_map == BIG_TREE_LEVEL_5){
             add_ground_item(Big_tree_level_5_key);
         }
         player.defeated_entities.push_back(name);
@@ -307,7 +307,7 @@ void Village_questgiver_1::load()
 
 void Village_questgiver_1::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.normal_hitbox) && !global_textbox.is_textbox_open){
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.normal_hitbox) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT)){
             for (int i = 0; i < 28; i++) {
                 if (inventory_slots[i].filled_with->name== SACRED_BARK) {

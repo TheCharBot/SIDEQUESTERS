@@ -1,34 +1,13 @@
 #include "map_loader.hpp"
-Music current_music{};
+Game_data game;
 
 
-Texture2D map_to_load;
-Texture2D door_lock_tex;
-Texture2D broken_tile_tex;
-
-Map_names current_map;
-Map_names requested_map;
-Vector2 requested_player_pos;
-
-Vector2 map_pos;
-
-Rectangle temp_rect;
-
-std::vector<Load_rects> map_load_rects;
-std::vector<std::unique_ptr<Entity>> entities;
-std::vector<Rectangle> collision_rects;
-std::vector<Locked_rect> locked_rects;
-std::vector<Ground_item> ground_items;
-std::vector<Vector2> broken_floor_tiles;
-
-float fade_frame_timer = SCREEN_FADE_TIME; 
 
 void init_map()
 {
-    map_pos.x = 0;
-    map_pos.y = 0;
-    broken_tile_tex = LoadTexture(BROKEN_TILE_TEX_PATH);
-    door_lock_tex = LoadTexture(DOOR_LOCK_TEX_PATH);
+    
+    game.broken_tile_tex = LoadTexture(BROKEN_TILE_TEX_PATH);
+    game.door_lock_tex = LoadTexture(DOOR_LOCK_TEX_PATH);
     // starting_map = LoadTexture("gfx/maps/map_1.png");
     // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
 }
@@ -45,34 +24,34 @@ void add_entity(Entity_names name, Args&&... args)
     {
         auto entity = std::make_unique<T>(std::forward<Args>(args)...);
         entity->name = name;
-        entities.push_back(std::move(entity));
+        game.entities.push_back(std::move(entity));
     }
 }
 
 
 void add_ground_item(Ground_item item){
     if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
-    else{ground_items.push_back(item);}
+    else{game.ground_items.push_back(item);}
 }
 void add_locked_rect(Locked_rect rect){
     if(std::find(player.unlocked_doors.begin(), player.unlocked_doors.end(), rect.name) != player.unlocked_doors.end()){}
-    else{locked_rects.push_back(rect);}
+    else{game.locked_rects.push_back(rect);}
 }
 
 void add_collisions(std::initializer_list<Rectangle> rects)
 {
-    collision_rects.insert(collision_rects.end(), rects.begin(), rects.end());
+    game.collision_rects.insert(game.collision_rects.end(), rects.begin(), rects.end());
 }
 
 void add_load_rects(std::initializer_list<Load_rects> rects)
 {
-    map_load_rects.insert(map_load_rects.end(), rects.begin(), rects.end());
+    game.map_load_rects.insert(game.map_load_rects.end(), rects.begin(), rects.end());
 }
 
 void request_map(Map_names wanted_map, Vector2 wanted_player_spawn)
 {
-    requested_map = wanted_map;
-    requested_player_pos = wanted_player_spawn;
+    game.requested_map = wanted_map;
+    game.requested_player_pos = wanted_player_spawn;
 }
 
 // call before you change requested map, or something like that( might not work? might reload too many times?)
@@ -85,63 +64,63 @@ void reset_player(Vector2 spawn)
 void reset_loaded()
 {
     unload_enemy_textures();
-    entities.clear();
-    map_load_rects.clear();
-    collision_rects.clear();
-    locked_rects.clear();
-    broken_floor_tiles.clear();
-    ground_items.clear();
+    game.entities.clear();
+    game.map_load_rects.clear();
+    game.collision_rects.clear();
+    game.locked_rects.clear();
+    game.broken_floor_tiles.clear();
+    game.ground_items.clear();
     // unloading current map for efficiency
-    if (map_to_load.id != 0)
+    if (game.map_to_load.id != 0)
     {
-        UnloadTexture(map_to_load);
+        UnloadTexture(game.map_to_load);
     }
     
     // unloading the current music to prevent mem leak
     // add back in when you have good music
-    if(current_music.stream.buffer != nullptr){
-        StopMusicStream(current_music);
-        UnloadMusicStream(current_music);
-        current_music = {};
+    if(game.current_music.stream.buffer != nullptr){
+        StopMusicStream(game.current_music);
+        UnloadMusicStream(game.current_music);
+        game.current_music = {};
     }
 };
 
 void kill_things_that_are_dead()
 {
     
-    entities.erase(
-    std::remove_if(entities.begin(), entities.end(),
+    game.entities.erase(
+    std::remove_if(game.entities.begin(), game.entities.end(),
         [](const std::unique_ptr<Entity>& e) {
             return e->dead;
         }),
-    entities.end());
-    ground_items.erase(
-    std::remove_if(ground_items.begin(), ground_items.end(),
+    game.entities.end());
+    game.ground_items.erase(
+    std::remove_if(game.ground_items.begin(), game.ground_items.end(),
         [](Ground_item& g) {
             return g.picked_up;
         }),
-    ground_items.end());
+    game.ground_items.end());
 }
 
 void load_requested_map(){
-    if (requested_map != WRONG_MAP)
+    if (game.requested_map != WRONG_MAP)
     {
-        if (current_map != requested_map)
+        if (game.current_map != game.requested_map)
         {
-            fade_frame_timer = SCREEN_FADE_TIME;
-            load_map(requested_map, requested_player_pos);
+            game.fade_frame_timer = SCREEN_FADE_TIME;
+            load_map(game.requested_map, game.requested_player_pos);
             
         }
-        requested_map = WRONG_MAP;
+        game.requested_map = WRONG_MAP;
     }
 }
 
 void remove_collision_rect(Rectangle rect)
 {
-    collision_rects.erase(
+    game.collision_rects.erase(
         std::remove_if(
-            collision_rects.begin(),
-            collision_rects.end(),
+            game.collision_rects.begin(),
+            game.collision_rects.end(),
             [&](const Rectangle& r)
             {
                 return r.x == rect.x &&
@@ -150,15 +129,15 @@ void remove_collision_rect(Rectangle rect)
                        r.height == rect.height;
             }
         ),
-        collision_rects.end()
+        game.collision_rects.end()
     );
 }
 
 void remove_locked_rect(Locked_rect l_rect){
-    locked_rects.erase(
+    game.locked_rects.erase(
         std::remove_if(
-            locked_rects.begin(),
-            locked_rects.end(),
+            game.locked_rects.begin(),
+            game.locked_rects.end(),
             [&](const Locked_rect& l)
             {
                 return l.rect.x == l_rect.rect.x &&
@@ -167,7 +146,7 @@ void remove_locked_rect(Locked_rect l_rect){
                        l.rect.height == l_rect.rect.height;
             }
         ),
-        locked_rects.end()
+        game.locked_rects.end()
     );
 };
 
@@ -179,9 +158,9 @@ void load_wrong_map()
     reset_player({0, 0});
     reset_loaded();
     // setting the map texture, i didn't want to figure out how to use any tmx software
-    map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+    game.map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
     // setting the current map for sanity
-    current_map = WRONG_MAP;
+    game.current_map = WRONG_MAP;
 };
 
 
@@ -191,9 +170,9 @@ void load_start_map()
 
     reset_loaded();
 
-    map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
+    game.map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
 
-    current_map = START_MAP;
+    game.current_map = START_MAP;
     // proprietary collisions for map 1 (can't reuse - sorry)
     add_collisions({MAP_1_RECT_1,
                     MAP_1_RECT_2,
@@ -203,7 +182,7 @@ void load_start_map()
     // then filling the entity list with moving things to put in the map
     add_entity<Start_portal>(START_PORTAL);
     add_entity<Start_bulldozer>(START_BULLDOZER);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 };
 
@@ -211,8 +190,8 @@ void load_village_map()
 {
     reset_loaded();
 
-    map_to_load = LoadTexture(VILLAGE_MAP_PATH);
-    current_map = VILLAGE_MAP;
+    game.map_to_load = LoadTexture(VILLAGE_MAP_PATH);
+    game.current_map = VILLAGE_MAP;
     add_collisions({
         MAP_2_RECT_1,
         MAP_2_RECT_2,
@@ -250,15 +229,15 @@ void load_village_map()
     });
     add_entity<Village_questgiver_1>(VILLAGE_QUESTGIVER_1);
     add_entity<Village_windmill>(VILLAGE_WINDMILL);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 // village houses helper functions
 void load_village_house_1()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_1_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_1;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_1_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_1;
 
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -274,8 +253,8 @@ void load_village_house_1()
 void load_village_house_2()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_2_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_2;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_2_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_2;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -288,8 +267,8 @@ void load_village_house_2()
 void load_village_house_3()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_3_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_3;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_3_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_3;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -302,8 +281,8 @@ void load_village_house_3()
 void load_village_house_4()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_4_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_4;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_4_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_4;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -316,8 +295,8 @@ void load_village_house_4()
 void load_village_house_5()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_5_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_5;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_5_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_5;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -330,8 +309,8 @@ void load_village_house_5()
 void load_village_house_6()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_6_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_6;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_6_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_6;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -344,8 +323,8 @@ void load_village_house_6()
 void load_village_house_7()
 {
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_HOUSE_7_PATH);
-    current_map = INSIDE_VILLAGE_HOUSE_7;
+    game.map_to_load = LoadTexture(VILLAGE_HOUSE_7_PATH);
+    game.current_map = INSIDE_VILLAGE_HOUSE_7;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -358,8 +337,8 @@ void load_village_house_7()
 
 void load_village_windmill(){
     reset_loaded();
-    map_to_load = LoadTexture(VILLAGE_WINDMILL_INSIDE_PATH);
-    current_map = INSIDE_VILLAGE_WINDMILL;
+    game.map_to_load = LoadTexture(VILLAGE_WINDMILL_INSIDE_PATH);
+    game.current_map = INSIDE_VILLAGE_WINDMILL;
     add_collisions({
         INSIDE_WINDMILL_RECT_1,
         INSIDE_WINDMILL_RECT_2,
@@ -390,9 +369,9 @@ void load_village_windmill(){
 void load_dark_forest_north()
 {
     reset_loaded();
-    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
-    current_map = DARK_FOREST_NORTH;
+    game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
+    game.map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
+    game.current_map = DARK_FOREST_NORTH;
     add_collisions({MAP_3_RECT_1,
                     MAP_3_RECT_2,
                     MAP_3_RECT_3,
@@ -410,16 +389,16 @@ void load_dark_forest_north()
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 
 void load_dark_forest_south()
 {
     reset_loaded();
-    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
-    current_map = DARK_FOREST_SOUTH;
+    game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
+    game.map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
+    game.current_map = DARK_FOREST_SOUTH;
     add_collisions({
         MAP_4_RECT_1,
         MAP_4_RECT_2,
@@ -448,16 +427,16 @@ void load_dark_forest_south()
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
     
 }
 
 void load_dark_forest_center(){
     reset_loaded();
-    current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
-    current_map = DARK_FOREST_CENTER;
+    game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
+    game.map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
+    game.current_map = DARK_FOREST_CENTER;
     add_collisions({
         MAP_5_RECT_1,
         MAP_5_RECT_2,
@@ -490,17 +469,17 @@ void load_dark_forest_center(){
     }
     add_entity<Big_tree>(BIG_TREE);
     
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
-    // PlayMusicStream(current_music);
+    // PlayMusicStream(game.current_music);
 }
 
 
 
 void load_big_tree_level_1(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_1_PATH);
-    current_map = BIG_TREE_LEVEL_1;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_1_PATH);
+    game.current_map = BIG_TREE_LEVEL_1;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -535,7 +514,7 @@ void load_big_tree_level_1(){
 
     add_ground_item(Big_tree_level_1_stick);
 
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
      //probably should find another way to do this 
      //actually its better now, slightly. still have to hardcode every map item. dangit
@@ -545,8 +524,8 @@ void load_big_tree_level_1(){
 
 void load_big_tree_level_2(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_2_PATH);
-    current_map = BIG_TREE_LEVEL_2;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_2_PATH);
+    game.current_map = BIG_TREE_LEVEL_2;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -583,14 +562,14 @@ void load_big_tree_level_2(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_2_TREE_TRUNK, 2);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 
 void load_big_tree_level_3(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_3_PATH);
-    current_map = BIG_TREE_LEVEL_3;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_3_PATH);
+    game.current_map = BIG_TREE_LEVEL_3;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -623,13 +602,13 @@ void load_big_tree_level_3(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_3_TREE_TRUNK, 1);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_4(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_4_PATH);
-    current_map = BIG_TREE_LEVEL_4;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_4_PATH);
+    game.current_map = BIG_TREE_LEVEL_4;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -664,13 +643,13 @@ void load_big_tree_level_4(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_4_TREE_TRUNK, 1);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_5(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_5_PATH);
-    current_map = BIG_TREE_LEVEL_5;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_5_PATH);
+    game.current_map = BIG_TREE_LEVEL_5;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -704,13 +683,13 @@ void load_big_tree_level_5(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_5_TREE_TRUNK, 1);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_6(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_6_PATH);
-    current_map = BIG_TREE_LEVEL_6;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_6_PATH);
+    game.current_map = BIG_TREE_LEVEL_6;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -746,13 +725,13 @@ void load_big_tree_level_6(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_6_TREE_TRUNK, 3);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_7(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_7_PATH);
-    current_map = BIG_TREE_LEVEL_7;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_7_PATH);
+    game.current_map = BIG_TREE_LEVEL_7;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -784,13 +763,13 @@ void load_big_tree_level_7(){
     });
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_8(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_8_PATH);
-    current_map = BIG_TREE_LEVEL_8;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_8_PATH);
+    game.current_map = BIG_TREE_LEVEL_8;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -825,13 +804,13 @@ void load_big_tree_level_8(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_8_TREE_TRUNK, 2);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_9(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_9_PATH);
-    current_map = BIG_TREE_LEVEL_9;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_9_PATH);
+    game.current_map = BIG_TREE_LEVEL_9;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -864,13 +843,13 @@ void load_big_tree_level_9(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_9_TREE_TRUNK, 1);
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 void load_big_tree_level_10(){
     reset_loaded();
-    map_to_load = LoadTexture(BIG_TREE_LEVEL_10_PATH);
-    current_map = BIG_TREE_LEVEL_10;
+    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_10_PATH);
+    game.current_map = BIG_TREE_LEVEL_10;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
         BIG_TREE_LEVEL_RECT_2,
@@ -903,7 +882,7 @@ void load_big_tree_level_10(){
     add_entity<The_Regrown>(Entity_names::THE_REGROWN);
         
     
-    for (auto &e : entities)
+    for (auto &e : game.entities)
         e->load();
 }
 
@@ -991,9 +970,9 @@ void load_map(Map_names map, Vector2 new_player_pos)
         reset_player({0, 0});
         reset_loaded();
 
-        map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+        game.map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
 
-        current_map = WRONG_MAP;
+        game.current_map = WRONG_MAP;
 
         break;
     }
@@ -1008,7 +987,7 @@ void update_map() {
 void draw_map()
 {
 
-    DrawTextureEx(map_to_load, {0, 0}, 0, 1, WHITE);
+    DrawTextureEx(game.map_to_load, {0, 0}, 0, 1, WHITE);
     
 }
 

@@ -5,6 +5,10 @@
 #include "player.hpp"
 #include "items.hpp"
 
+extern void start_menu_init();
+extern void start_menu_update();
+extern void start_menu_draw();
+
 extern void init_gui();
 extern void update_gui();
 extern void draw_gui();

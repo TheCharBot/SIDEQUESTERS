@@ -1,92 +1,96 @@
 #include "gui.hpp"
 
+GUI_data gui;
+
+
 Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
 Texture2D health_bar_tex;
 Texture2D hotbar_tex;
 Texture2D textbox_tex;
-Vector2 hotbar_pos = HOTBAR_POS;
-Vector2 textbox_pos = TEXTBOX_POS;
-Inventory_cursor inv_cursor;
-Item temp_item;
+Texture2D start_menu_tex;
 
 
-Font global_font;
-
-Textbox_dat global_textbox;
-
-std::vector<Dialog_names> finished_dialog;
-
-bool is_inv_open;
-
-
-
-
-
+void start_menu_init(){
+    start_menu_tex = LoadTexture(START_MENU_TEX_PATH);
+    gui.start_menu_text_pos = {19, 13};
+    gui.start_menu_enimation_pos = {0, 2};
+    
+}
+void start_menu_update(){
+    
+}
+void start_menu_draw(){ //sorry ugly code. deal with it
+    DrawTexturePro(start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_text_pos.x*scale, gui.start_menu_text_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
+}
+void start_menu_unload(){
+    // bool start_menu_unloaded = true;
+}
 
 
 
 void inv_cursor_init()
 {
-    inv_cursor.held_item.reset();
-    inv_cursor.inv_slot_index = 0;
-    inv_cursor.max_anim_frames = 2;
-    inv_cursor.current_anim_frame = 0;
-    inv_cursor.anim_frame_5 = 0;
+    gui.inv_cursor.held_item.reset();
+    gui.inv_cursor.inv_slot_index = 0;
+    gui.inv_cursor.max_anim_frames = 2;
+    gui.inv_cursor.current_anim_frame = 0;
+    gui.inv_cursor.anim_frame_5 = 0;
 }
 
 void inv_cursor_update()
 {
-    inv_cursor.anim_frame_5++;
-    if (inv_cursor.anim_frame_5 >= ANIMATION_INTERVAL + 10)
+    gui.inv_cursor.anim_frame_5++;
+    if (gui.inv_cursor.anim_frame_5 >= ANIMATION_INTERVAL + 10)
     {
-        inv_cursor.current_anim_frame++;
-        if (inv_cursor.current_anim_frame >= inv_cursor.max_anim_frames)
+        gui.inv_cursor.current_anim_frame++;
+        if (gui.inv_cursor.current_anim_frame >= gui.inv_cursor.max_anim_frames)
         {
-            inv_cursor.current_anim_frame = 0;
+            gui.inv_cursor.current_anim_frame = 0;
         }
-        inv_cursor.anim_frame_5 = 0;
+        gui.inv_cursor.anim_frame_5 = 0;
     }
     if (IsKeyPressed(KEY_CONTROLS_UP))
     {
-        inv_cursor.inv_slot_index -= 7;
+        gui.inv_cursor.inv_slot_index -= 7;
         PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_DOWN))
     {
-        inv_cursor.inv_slot_index += 7;
+        gui.inv_cursor.inv_slot_index += 7;
         PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_RIGHT))
     {
-        inv_cursor.inv_slot_index += 1;
+        gui.inv_cursor.inv_slot_index += 1;
         PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_LEFT))
     {
-        inv_cursor.inv_slot_index -= 1;
+        gui.inv_cursor.inv_slot_index -= 1;
         PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
     }
-    if (inv_cursor.inv_slot_index > 27)
+    if (gui.inv_cursor.inv_slot_index > 27)
     {
-        inv_cursor.inv_slot_index = 27;
+        gui.inv_cursor.inv_slot_index = 27;
     }
-    if (inv_cursor.inv_slot_index < 0)
+    if (gui.inv_cursor.inv_slot_index < 0)
     {
-        inv_cursor.inv_slot_index = 0;
+        gui.inv_cursor.inv_slot_index = 0;
     }
     // picking up an item
     if (IsKeyPressed(KEY_INTERACT))
     {
         // works!!!!!!! was not expecting that!!!!!
-        if(inventory_slots[inv_cursor.inv_slot_index].filled_with){
+        if(inventory_slots[gui.inv_cursor.inv_slot_index].filled_with){
             PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
         }
 
-        auto &slot = inventory_slots[inv_cursor.inv_slot_index];
+        auto &slot = inventory_slots[gui.inv_cursor.inv_slot_index];
 
-        std::swap(inv_cursor.held_item, slot.filled_with);
+        std::swap(gui.inv_cursor.held_item, slot.filled_with);
     }
 }
 
@@ -115,12 +119,12 @@ void health_bar_draw(){
 
 
 void hotbar_draw(){
-    DrawTextureEx(hotbar_tex, Vector2Scale(hotbar_pos, scale), 0, scale, WHITE);
+    DrawTextureEx(hotbar_tex, Vector2Scale(gui.hotbar_pos, scale), 0, scale, WHITE);
     if(inventory_slots[23].filled_with){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[23].filled_with->img_rect,
-                {hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, hotbar_pos.y*scale,
+                {gui.hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, gui.hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
@@ -129,7 +133,7 @@ void hotbar_draw(){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[24].filled_with->img_rect,
-                {hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, hotbar_pos.y*scale,
+                {gui.hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, gui.hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
@@ -138,7 +142,7 @@ void hotbar_draw(){
         DrawTexturePro(
                 items_tex,
                 inventory_slots[25].filled_with->img_rect,
-                {hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, hotbar_pos.y*scale,
+                {gui.hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, gui.hotbar_pos.y*scale,
                  float(ITEM_SPRITE_WIDTH*scale),
                  float(ITEM_SPRITE_HEIGHT*scale)},
                 {0, 0}, 0, WHITE);
@@ -146,9 +150,9 @@ void hotbar_draw(){
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
 
     //layers (!)
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, BLACK);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
-    DrawTextEx(global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
+    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, BLACK);
+    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
+    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
     
 }
 
@@ -191,65 +195,65 @@ void set_textbox_indice_text(int index, Dialog_chunk dialog){
         
     }
     
-    global_textbox.current_dialog[index] = dialog;
+    gui.global_textbox.current_dialog[index] = dialog;
 }
 
 void setup_textbox(int max_indecies, Entity_names speaker){ //try to have more than just one text box. please
-    global_textbox.dialog_max_indecies = max_indecies-1;
-    global_textbox.is_textbox_open = true;
-    global_textbox.dialog_index_state = 0;
-    global_textbox.current_dialog_character = 0;
-    global_textbox.current_speaker = speaker;
+    gui.global_textbox.dialog_max_indecies = max_indecies-1;
+    gui.global_textbox.is_textbox_open = true;
+    gui.global_textbox.dialog_index_state = 0;
+    gui.global_textbox.current_dialog_character = 0;
+    gui.global_textbox.current_speaker = speaker;
 }
 
 
 void textbox_update_draw(){
-    if(global_textbox.is_textbox_open){
+    if(gui.global_textbox.is_textbox_open){
     
         player.move_mode = 0;
         
-        DrawTextureEx(textbox_tex, Vector2Scale(textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
+        DrawTextureEx(textbox_tex, Vector2Scale(gui.textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
 
         
 
         
 
-        if(IsKeyPressed(KEY_INTERACT) && global_textbox.current_dialog_character >= int(global_textbox.current_dialog[global_textbox.dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
-            global_textbox.dialog_index_state++;
-            global_textbox.current_dialog_character = 0;
-            if(global_textbox.dialog_index_state > global_textbox.dialog_max_indecies){
-                global_textbox.dialog_index_state = 0;
-                global_textbox.is_textbox_open = false;
+        if(IsKeyPressed(KEY_INTERACT) && gui.global_textbox.current_dialog_character >= int(gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
+            gui.global_textbox.dialog_index_state++;
+            gui.global_textbox.current_dialog_character = 0;
+            if(gui.global_textbox.dialog_index_state > gui.global_textbox.dialog_max_indecies){
+                gui.global_textbox.dialog_index_state = 0;
+                gui.global_textbox.is_textbox_open = false;
                 player.move_mode = 1;
-                global_textbox.current_speaker = Entity_names::DEFAULT;
+                gui.global_textbox.current_speaker = Entity_names::DEFAULT;
             }
         }
         if(IsKeyDown(KEY_SPEEDUP)){
-            global_textbox.current_dialog_character+=5; //advancing the current characters to be drawn fastly
+            gui.global_textbox.current_dialog_character+=5; //advancing the current characters to be drawn fastly
         }
         else{
-            global_textbox.current_dialog_character++; //advancing the current characters to be drawn
+            gui.global_textbox.current_dialog_character++; //advancing the current characters to be drawn
         }
         //if i have messages short enough to cause a real problem with this, the order can be changed:
 
-        if(global_textbox.current_dialog_character > int(global_textbox.current_dialog[global_textbox.dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
-            global_textbox.current_dialog_character = global_textbox.current_dialog[global_textbox.dialog_index_state].text.length();
+        if(gui.global_textbox.current_dialog_character > int(gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state].text.length())){ //clamping the current characters (should probably use the Clamp() function)
+            gui.global_textbox.current_dialog_character = gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state].text.length();
         }
-        Dialog_chunk temp_drawing_dialog = global_textbox.current_dialog[global_textbox.dialog_index_state]; //setting the temporary dialog
-        temp_drawing_dialog.text.resize(global_textbox.current_dialog_character); //cutting the temp dialog
-        DrawTextEx(global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({textbox_pos.x+8, textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
+        Dialog_chunk temp_drawing_dialog = gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state]; //setting the temporary dialog
+        temp_drawing_dialog.text.resize(gui.global_textbox.current_dialog_character); //cutting the temp dialog
+        DrawTextEx(gui.global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({gui.textbox_pos.x+8, gui.textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
     }
 }
 
 bool is_text_finished(Dialog_names text_name){
-    return std::find(finished_dialog.begin(),
-                     finished_dialog.end(),
-                     text_name) != finished_dialog.end();
+    return std::find(gui.finished_dialog.begin(),
+                     gui.finished_dialog.end(),
+                     text_name) != gui.finished_dialog.end();
 }
 
 void add_finished_text(Dialog_names text_name){
     if(!is_text_finished(text_name)){
-        finished_dialog.push_back(text_name);
+        gui.finished_dialog.push_back(text_name);
     }
 }
 
@@ -261,28 +265,35 @@ void init_gui()
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
     health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
-    global_font = LoadFont(GLOB_FONT_PATH);
+    
     textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
     add_item_to_inventory(Stick);
+
+    gui.global_font = LoadFont(GLOB_FONT_PATH);
+
+    gui.textbox_pos = TEXTBOX_POS;
+    gui.hotbar_pos = HOTBAR_POS;
+
+    
 }
 
 void update_gui()
 {
     // maybe a performance problem but whatever
     // health_bar_draw(); //genuinely WHY was this here
-    if (is_inv_open)
+    if (gui.is_inv_open)
     {
         inv_cursor_update();
     }
 
     if (IsKeyPressed(KEY_OPEN_INVENTORY))
     {
-        is_inv_open = !is_inv_open;
-        if (is_inv_open)
+        gui.is_inv_open = !gui.is_inv_open;
+        if (gui.is_inv_open)
         {
             player.move_mode = 0;
             player.current_animation_frame = 0;
-            for(auto &e : entities){
+            for(auto &e : game.entities){
                 e->move_mode = 0;
             }
         }
@@ -290,7 +301,7 @@ void update_gui()
         {
 
             player.move_mode = 1;
-            for(auto &e : entities){
+            for(auto &e : game.entities){
                 e->move_mode = 1;
             }
         }
@@ -307,7 +318,7 @@ void draw_gui()
     hotbar_draw();
     health_bar_draw();
     textbox_update_draw();
-    if (is_inv_open)
+    if (gui.is_inv_open)
     {
         // drawing inventory
         DrawTextureEx(inventory_tex, {0, 0}, 0, scale, WHITE);
@@ -315,18 +326,18 @@ void draw_gui()
 
         DrawTexturePro(
             inventory_cursor_tex, 
-            inv_cursor_anim[inv_cursor.current_anim_frame], 
-            {(inventory_slots[inv_cursor.inv_slot_index].pos.x - 3)*scale, 
-                (inventory_slots[inv_cursor.inv_slot_index].pos.y - 1)*scale, 
-                inv_cursor_anim[inv_cursor.current_anim_frame].width*scale, 
-                inv_cursor_anim[inv_cursor.current_anim_frame].height*scale}, 
+            inv_cursor_anim[gui.inv_cursor.current_anim_frame], 
+            {(inventory_slots[gui.inv_cursor.inv_slot_index].pos.x - 3)*scale, 
+                (inventory_slots[gui.inv_cursor.inv_slot_index].pos.y - 1)*scale, 
+                inv_cursor_anim[gui.inv_cursor.current_anim_frame].width*scale, 
+                inv_cursor_anim[gui.inv_cursor.current_anim_frame].height*scale}, 
             {0, 0}, 
             0, 
             WHITE);
         // drawing held item if there is a held item
-        if (inv_cursor.held_item)
+        if (gui.inv_cursor.held_item)
         {
-            DrawTexturePro(items_tex, inv_cursor.held_item->img_rect, {inventory_slots[inv_cursor.inv_slot_index].pos.x*scale-(1*scale), inventory_slots[inv_cursor.inv_slot_index].pos.y*scale-(1*scale), float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+            DrawTexturePro(items_tex, gui.inv_cursor.held_item->img_rect, {inventory_slots[gui.inv_cursor.inv_slot_index].pos.x*scale-(1*scale), inventory_slots[gui.inv_cursor.inv_slot_index].pos.y*scale-(1*scale), float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
         }
         // drawing items
         for (Inventory_slot &s : inventory_slots)

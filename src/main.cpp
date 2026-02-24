@@ -30,6 +30,8 @@
 
 //done TODO: implement SFX system
 
+//TODO: make a Game_data struct, change everything to work w/ it
+
 //TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
 //TODO: make Start menu
@@ -39,6 +41,7 @@
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
+   
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
     InitAudioDevice();

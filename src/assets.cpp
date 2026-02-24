@@ -467,3 +467,6 @@ Rectangle village_questgiver_point[3] = {
     village_questgiver_point_2,
     village_questgiver_point_3
 };
+
+Rectangle start_menu_text_rect = {0, 0, 288, 96};
+Rectangle start_menu_emination = {0, 96, 320, 112};

@@ -273,7 +273,7 @@ void update_player()
             // player hitbox rebuild
             rebuild_hitbox();
             // horizontal collision check
-            for (const Rectangle &r : collision_rects)
+            for (const Rectangle &r : game.collision_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, r))
                 {
@@ -281,7 +281,7 @@ void update_player()
                     break;
                 }
             }
-            for (const Locked_rect &l : locked_rects)
+            for (const Locked_rect &l : game.locked_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, l.rect) && player.dungeon_keys <= 0)
                 {
@@ -300,7 +300,7 @@ void update_player()
             // player hitbox rebuild
             rebuild_hitbox();
             // vertical collision check
-            for (const Rectangle &r : collision_rects)
+            for (const Rectangle &r : game.collision_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, r))
                 {
@@ -308,7 +308,7 @@ void update_player()
                     break;
                 }
             }
-            for (const Locked_rect &l : locked_rects)
+            for (const Locked_rect &l : game.locked_rects)
             {
                 if (CheckCollisionRecs(player.normal_hitbox, l.rect))
                 {
@@ -326,8 +326,8 @@ void update_player()
             }
             // making sure the player is at least inside the screen
             // i dont know why there is an 8 there - ???
-            player.pos.x = Clamp(player.pos.x, -23, (map_to_load.width) - (PLAYER_SPRITE_WIDTH - 40));
-            player.pos.y = Clamp(player.pos.y, -16, (map_to_load.height) - (PLAYER_SPRITE_HEIGHT - 12));
+            player.pos.x = Clamp(player.pos.x, -23, (game.map_to_load.width) - (PLAYER_SPRITE_WIDTH - 40));
+            player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (PLAYER_SPRITE_HEIGHT - 12));
         }
     }
 
@@ -355,7 +355,7 @@ void update_player()
         player.animation_frame_5 = 0;
     }
     rebuild_hitbox();
-    for(Ground_item &g : ground_items){
+    for(Ground_item &g : game.ground_items){
         
         
         if(CheckCollisionRecs(player.normal_hitbox, {g.pos.x-ITEM_PICKUP_X_OFFSET, g.pos.y-ITEM_PICKUP_X_OFFSET, ITEM_PICKUP_RECT_WIDTH, ITEM_PICKUP_RECT_HEIGHT})){
@@ -372,22 +372,22 @@ void update_player()
     }
     
 
-    for (Load_rects &r : map_load_rects)
+    for (Load_rects &r : game.map_load_rects)
     {
         
         if (CheckCollisionRecs(player.normal_hitbox, r.rect))
         {
             //make way for it to not load if the map loads w/ u on top of it like zelda
            
-                requested_player_pos = r.spawnpoint;
-                requested_map = Map_names(r.map_to_load_struct);
+                game.requested_player_pos = r.spawnpoint;
+                game.requested_map = Map_names(r.map_to_load_struct);
             
         }
     }
     player.attack_hitbox = {};
     
     // item use for 3 slots
-    if (!is_inv_open)
+    if (!gui.is_inv_open)
     {
         if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
         {
