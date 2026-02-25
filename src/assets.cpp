@@ -470,3 +470,6 @@ Rectangle village_questgiver_point[3] = {
 
 Rectangle start_menu_text_rect = {0, 0, 288, 96};
 Rectangle start_menu_emination = {0, 96, 320, 112};
+Rectangle start_menu_options_rect = {288, 16, 112, 64};
+Rectangle start_menu_select_left = {288, 0, 16, 16};
+Rectangle start_menu_select_right = {304, 0, 16, 16};

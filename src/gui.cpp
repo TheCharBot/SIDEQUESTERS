@@ -11,22 +11,68 @@ Texture2D hotbar_tex;
 Texture2D textbox_tex;
 Texture2D start_menu_tex;
 
+void unload_start_menu_assets(){
+    UnloadTexture(start_menu_tex);
+    // bool start_menu_unloaded = true;
+}
+
 
 void start_menu_init(){
     start_menu_tex = LoadTexture(START_MENU_TEX_PATH);
-    gui.start_menu_text_pos = {19, 13};
-    gui.start_menu_enimation_pos = {0, 2};
-    
+    gui.start_menu_logo_pos = START_MENU_LOGO_POS;
+    gui.start_menu_enimation_pos = START_MENU_EMINATION_POS;
+    gui.start_menu_options_pos = START_MENU_OPTIONS_POS;
+    gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_RIGHT_SELECT_OFFSET);
+    gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET);
+    gui.start_menu_sel_mode = 0;
+    gui.start_menu_unloaded = false;
 }
 void start_menu_update(){
+    if(IsKeyPressed(KEY_CONTROLS_DOWN)){
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode += 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
+    }
+    if(IsKeyPressed(KEY_CONTROLS_UP)){
+        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode -= 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
+    }
+    if(IsKeyPressed(KEY_INTERACT) && gui.start_menu_sel_mode == 0){
+        PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+        // unload_start_menu_assets();
+        game.state = GAMEPLAY; 
+        gui.start_menu_unloaded = true;
+    }
+    switch(gui.start_menu_sel_mode){
+        case 0:
+            gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_RIGHT_SELECT_OFFSET);
+            gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET);
+            break;
+        case 1:
+            gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET);
+            gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET);
+            break;
+        case 2:
+            gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET);
+            gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET);
+            break;
+        case 3:
+            gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_RIGHT_SELECT_OFFSET);
+            gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_LEFT_SELECT_OFFSET);
+            break;
+    }
     
 }
 void start_menu_draw(){ //sorry ugly code. deal with it
     DrawTexturePro(start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
-    DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_text_pos.x*scale, gui.start_menu_text_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
-}
-void start_menu_unload(){
-    // bool start_menu_unloaded = true;
+
+    DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_logo_pos.x*scale, gui.start_menu_logo_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
+
+    DrawTexturePro(start_menu_tex, start_menu_options_rect, {gui.start_menu_options_pos.x*scale, gui.start_menu_options_pos.y*scale, start_menu_options_rect.width*scale, start_menu_options_rect.height*scale}, {0, 0}, 0, WHITE);
+
+    DrawTexturePro(start_menu_tex, start_menu_select_right, {gui.start_menu_select_right_pos.x*scale, gui.start_menu_select_right_pos.y*scale, start_menu_select_right.width*scale, start_menu_select_right.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(start_menu_tex, start_menu_select_left, {gui.start_menu_select_left_pos.x*scale, gui.start_menu_select_left_pos.y*scale, start_menu_select_left.width*scale, start_menu_select_left.height*scale}, {0, 0}, 0, WHITE);
 }
 
 

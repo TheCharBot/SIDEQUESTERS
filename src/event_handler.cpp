@@ -17,18 +17,18 @@ void init_all()
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
     cam.zoom = scale;
-    game.state = GAMEPLAY;
+    game.state = START_MENU;
     PlayMusicStream(game.current_music);
     SetMusicVolume(game.current_music, 1.0f);
+    request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
+    load_requested_map();
     if(game.state == Game_states::START_MENU){
         start_menu_init();
-        //implement start menu code here
-        return;
     }
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
     // request_map(DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER);
-    request_map(DARK_FOREST_CENTER, {273, 817});
+    // request_map(DARK_FOREST_CENTER, {273, 817});
     // request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
     // request_map(VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT);
     
@@ -40,17 +40,18 @@ void init_all()
 
 void update_all()
 {
-    if(game.state == Game_states::START_MENU){
-        //implement start menu code here
-        start_menu_update();
-        return;
-    }
+    
     if(!IsMusicStreamPlaying(game.current_music)){
         PlayMusicStream(game.current_music);
     }
     UpdateMusicStream(game.current_music);
     update_sfx();
-
+    if(game.state == Game_states::START_MENU && !gui.start_menu_unloaded){
+        //implement start menu code here
+        start_menu_update();
+        return;
+    }
+    
     update_map();
     update_player();
     for (auto &e : game.entities)
@@ -76,7 +77,8 @@ void update_all()
 
 void draw_all()
 {
-    if(game.state == Game_states::START_MENU){
+    
+    if(game.state == Game_states::START_MENU && !gui.start_menu_unloaded){
         //implement start menu code here
         start_menu_draw();
         return;

@@ -103,6 +103,18 @@ extern Inventory_slot inventory_slots[28];
 #define MAX_TWO_LINE_CHARACTERS 94
 #define MAX_THREE_LINE_CHARACTERS 141
 #define MAX_TEXTBOX_CHARACTERS 180
+#define START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET {23, 0}
+#define START_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET {14, 16}
+#define START_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET {-10, 32}
+#define START_MENU_OPTIONS_CREDITS_LEFT_SELECT_OFFSET {16, 48}
+#define START_MENU_OPTIONS_START_RIGHT_SELECT_OFFSET {74, 0}
+#define START_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET {83, 16}
+#define START_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET {108, 32}
+#define START_MENU_OPTIONS_CREDITS_RIGHT_SELECT_OFFSET {81, 48}
+#define START_MENU_LOGO_POS {19, 13}
+#define START_MENU_EMINATION_POS {0, 2}
+#define START_MENU_OPTIONS_POS {104, 112}
+
 
 
 #define DEFAULT_SPRITE_WIDTH 64
@@ -732,5 +744,8 @@ extern Rectangle village_questgiver_point[3];
 
 extern Rectangle start_menu_text_rect;
 extern Rectangle start_menu_emination;
+extern Rectangle start_menu_options_rect;
+extern Rectangle start_menu_select_right;
+extern Rectangle start_menu_select_left;
 
 #endif

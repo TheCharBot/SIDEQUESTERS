@@ -305,6 +305,8 @@ public:
     
 };
 
+
+
 struct GUI_data{
     Font global_font;
     
@@ -316,8 +318,14 @@ struct GUI_data{
     Item inv_cursor_held_item;
     Vector2 textbox_pos;
     bool start_menu_unloaded;
-    Vector2 start_menu_text_pos;
+    Vector2 start_menu_logo_pos;
     Vector2 start_menu_enimation_pos;
+    Vector2 start_menu_options_pos;
+    Vector2 start_menu_select_right_pos;
+    Vector2 start_menu_select_offset;
+    Vector2 start_menu_select_left_pos;
+    int start_menu_sel_mode;
+    
 };
 
 

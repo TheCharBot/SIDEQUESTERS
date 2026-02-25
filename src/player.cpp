@@ -13,7 +13,8 @@ void init_player()
     player.move_mode = 1;
     player.pos.x = 0;
     player.pos.y = 0;
-    player.max_animation_frames = 12;
+    player.current_anim_arr = player_idle_down_arr;
+    player.max_animation_frames = 1;
     player.current_animation_frame = 0;
     player.animation_frame_5 = 0;
     player.normal_hitbox = {player.pos.x, player.pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
