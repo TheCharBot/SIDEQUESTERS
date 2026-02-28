@@ -30,7 +30,7 @@
 
 //done TODO: implement SFX system
 
-//TODO: make a Game_data struct, change everything to work w/ it
+//done TODO: make a Game_data struct, change everything to work w/ it
 
 //TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 

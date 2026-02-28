@@ -157,8 +157,12 @@ enum Facing
     LEFT
 };
 
-enum Game_states{
+enum Game_states{ //add endings and other menu things
     START_MENU,
+    START_OPTIONS,
+    CREDITS,
+    ACHIEVEMENTS,
+    OPTIONS,
     GAMEPLAY,
     DIED,
     END_QUESTED,

@@ -22,7 +22,7 @@ void init_all()
     SetMusicVolume(game.current_music, 1.0f);
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     load_requested_map();
-    if(game.state == Game_states::START_MENU){
+    if(game.state <= Game_states::OPTIONS){
         start_menu_init();
     }
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
@@ -46,7 +46,7 @@ void update_all()
     }
     UpdateMusicStream(game.current_music);
     update_sfx();
-    if(game.state == Game_states::START_MENU && !gui.start_menu_unloaded){
+    if(game.state <= Game_states::OPTIONS && !gui.start_menu_unloaded){
         //implement start menu code here
         start_menu_update();
         return;
@@ -78,7 +78,7 @@ void update_all()
 void draw_all()
 {
     
-    if(game.state == Game_states::START_MENU && !gui.start_menu_unloaded){
+    if(game.state <= Game_states::OPTIONS && !gui.start_menu_unloaded){
         //implement start menu code here
         start_menu_draw();
         return;
