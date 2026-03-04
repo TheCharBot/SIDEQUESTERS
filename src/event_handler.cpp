@@ -23,7 +23,7 @@ void init_all()
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     load_requested_map();
     if(game.state <= Game_states::OPTIONS){
-        start_menu_init();
+        init_start_menu();
     }
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);

@@ -17,7 +17,7 @@ void unload_start_menu_assets(){
 }
 
 
-void start_menu_init(){
+void init_start_menu(){
     start_menu_tex = LoadTexture(START_MENU_TEX_PATH);
     gui.start_menu_logo_pos = START_MENU_LOGO_POS;
     gui.start_menu_enimation_pos = START_MENU_EMINATION_POS;
@@ -26,6 +26,7 @@ void start_menu_init(){
     gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET);
     gui.start_menu_sel_mode = 0;
     gui.start_menu_unloaded = false;
+    gui.start_menu_save_selecter_pos = SAVE_SLOT_1_SELECTER_POS;
 }
 void start_menu_update(){
     switch(game.state){
@@ -41,24 +42,29 @@ void start_menu_update(){
                 gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
             }
             if(IsKeyPressed(KEY_INTERACT)){
+                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
                 switch(gui.start_menu_sel_mode){
                     case 0:
-                        PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                        
                         // unload_start_menu_assets();
-                        game.state = Game_states::START_OPTIONS; 
+                        game.state = Game_states::SAVE_SLOTS; 
                         // gui.start_menu_unloaded = true;
+                        break;
                     case 1:
-                        PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                        
                         // unload_start_menu_assets();
                         game.state = Game_states::OPTIONS;
+                        break;
                     case 2:
-                        PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                        
                         // unload_start_menu_assets();
                         game.state = Game_states::ACHIEVEMENTS;
+                        break;
                     case 3:
-                        PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                        
                         // unload_start_menu_assets();
                         game.state = Game_states::CREDITS;
+                        break;
                 }
             } //TODO: merge ^ v (later)
             switch(gui.start_menu_sel_mode){
@@ -80,18 +86,66 @@ void start_menu_update(){
                     break;
             }
             break;
-        case START_OPTIONS: //TODO: make the save selector, then save/load system, then picture/icon system on the save selector
+        case SAVE_SLOTS: //TODO: make the save selector, then save/load system, then picture/icon system on the save selector
             if(IsKeyPressed(KEY_SPEEDUP)){
                 PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                gui.start_menu_sel_mode = 0;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
                 // gui.start_menu_unloaded = true;
+            }
+            if(IsKeyPressed(KEY_CONTROLS_RIGHT)){
+                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                gui.start_menu_sel_mode += 1;
+                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
+            }
+            else if(IsKeyPressed(KEY_CONTROLS_LEFT)){
+                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                gui.start_menu_sel_mode -= 1;
+                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
+            }
+            if(IsKeyPressed(KEY_INTERACT)){
+                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                switch(gui.start_menu_sel_mode){
+                    case 0:
+                        
+                        // unload_start_menu_assets();
+                        game.state = Game_states::GAMEPLAY; 
+                        // gui.start_menu_unloaded = true;
+                        break;
+                    case 1:
+                        
+                        // unload_start_menu_assets();
+                        game.state = Game_states::GAMEPLAY;
+                        break;
+                    case 2:
+                        
+                        // unload_start_menu_assets();
+                        game.state = Game_states::GAMEPLAY;
+                        break;
+                    
+                }
+            } //TODO: merge ^ v (later)
+            switch(gui.start_menu_sel_mode){
+                case 0:
+                    gui.start_menu_save_selecter_pos = SAVE_SLOT_1_SELECTER_POS;
+                    
+                    break;
+                case 1:
+                    gui.start_menu_save_selecter_pos =SAVE_SLOT_2_SELECTER_POS;
+                    
+                    break;
+                case 2:
+                    gui.start_menu_save_selecter_pos =SAVE_SLOT_3_SELECTER_POS;
+                    
+                    break;
             }
             break;
         
         case OPTIONS:
             if(IsKeyPressed(KEY_SPEEDUP)){
                 PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                gui.start_menu_sel_mode = 1;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
                 // gui.start_menu_unloaded = true;
@@ -100,6 +154,7 @@ void start_menu_update(){
         case ACHIEVEMENTS:
             if(IsKeyPressed(KEY_SPEEDUP)){
                 PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                gui.start_menu_sel_mode = 2;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
                 // gui.start_menu_unloaded = true;
@@ -108,6 +163,7 @@ void start_menu_update(){
         case CREDITS:
             if(IsKeyPressed(KEY_SPEEDUP)){
                 PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                gui.start_menu_sel_mode = 3;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
                 // gui.start_menu_unloaded = true;
@@ -116,22 +172,25 @@ void start_menu_update(){
         default: 
             break;
     }
-        
-        
-    
-    
-    
 }
 void start_menu_draw(){ //sorry ugly code. deal with it
-    if(game.state == Game_states::START_MENU){
-        DrawTexturePro(start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
+    switch(game.state){
+        case START_MENU:
+            DrawTexturePro(start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
 
-        DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_logo_pos.x*scale, gui.start_menu_logo_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_logo_pos.x*scale, gui.start_menu_logo_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
 
-        DrawTexturePro(start_menu_tex, start_menu_options_rect, {gui.start_menu_options_pos.x*scale, gui.start_menu_options_pos.y*scale, start_menu_options_rect.width*scale, start_menu_options_rect.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(start_menu_tex, start_menu_options_rect, {gui.start_menu_options_pos.x*scale, gui.start_menu_options_pos.y*scale, start_menu_options_rect.width*scale, start_menu_options_rect.height*scale}, {0, 0}, 0, WHITE);
 
-        DrawTexturePro(start_menu_tex, start_menu_select_right, {gui.start_menu_select_right_pos.x*scale, gui.start_menu_select_right_pos.y*scale, start_menu_select_right.width*scale, start_menu_select_right.height*scale}, {0, 0}, 0, WHITE);
-        DrawTexturePro(start_menu_tex, start_menu_select_left, {gui.start_menu_select_left_pos.x*scale, gui.start_menu_select_left_pos.y*scale, start_menu_select_left.width*scale, start_menu_select_left.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(start_menu_tex, start_menu_select_right, {gui.start_menu_select_right_pos.x*scale, gui.start_menu_select_right_pos.y*scale, start_menu_select_right.width*scale, start_menu_select_right.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(start_menu_tex, start_menu_select_left, {gui.start_menu_select_left_pos.x*scale, gui.start_menu_select_left_pos.y*scale, start_menu_select_left.width*scale, start_menu_select_left.height*scale}, {0, 0}, 0, WHITE);
+            break;
+        case SAVE_SLOTS:
+            DrawTexturePro(start_menu_tex, start_menu_saves_select_screen, {0, 0, start_menu_saves_select_screen.width*scale, start_menu_saves_select_screen.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(start_menu_tex, start_menu_saves_select_screen_selecter, {gui.start_menu_save_selecter_pos.x*scale, gui.start_menu_save_selecter_pos.y*scale, start_menu_saves_select_screen_selecter.width*scale, start_menu_saves_select_screen_selecter.height*scale}, {0, 0}, 0, WHITE);
+            break;
+        default:
+            break;
     }
 }
 

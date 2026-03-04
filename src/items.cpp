@@ -7,6 +7,8 @@ Ground_item Big_tree_level_1_stick;
 Ground_item Big_tree_level_2_key; 
 Ground_item Big_tree_level_5_key; 
 
+std::unordered_map<Item_names, Item> items;
+
 void init_dungeon_key_big_tree_level_2(){
     Big_tree_level_2_key.pos = BIG_TREE_LEVEL_2_KEY_POS;
     Big_tree_level_2_key.item = Dungeon_key;
@@ -63,6 +65,7 @@ void add_item_to_inventory(Item item)
 
 void init_items()
 {
+    // items[Item_names::STICK] = Stick;
     init_dungeon_key();
     init_sacred_bark();
     init_stick();

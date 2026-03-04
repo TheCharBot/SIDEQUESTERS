@@ -159,7 +159,7 @@ enum Facing
 
 enum Game_states{ //add endings and other menu things
     START_MENU,
-    START_OPTIONS,
+    SAVE_SLOTS,
     CREDITS,
     ACHIEVEMENTS,
     OPTIONS,
@@ -328,6 +328,7 @@ struct GUI_data{
     Vector2 start_menu_select_right_pos;
     Vector2 start_menu_select_offset;
     Vector2 start_menu_select_left_pos;
+    Vector2 start_menu_save_selecter_pos;
     int start_menu_sel_mode;
     
 };
@@ -382,6 +383,7 @@ struct Player
 
 extern std::unordered_map<SFX, Sound> sound_effects;
 extern std::unordered_map<Music_names, Music> music_names;
+// extern std::unordered_map<Item_names, Item> items; //maybe later
 
 //globally define items here
 extern Item Stick;

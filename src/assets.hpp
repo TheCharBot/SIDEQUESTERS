@@ -114,6 +114,9 @@ extern Inventory_slot inventory_slots[28];
 #define START_MENU_LOGO_POS {19, 13}
 #define START_MENU_EMINATION_POS {0, 2}
 #define START_MENU_OPTIONS_POS {104, 112}
+#define SAVE_SLOT_1_SELECTER_POS {23, 17}
+#define SAVE_SLOT_2_SELECTER_POS {119, 17}
+#define SAVE_SLOT_3_SELECTER_POS {215, 17}
 
 
 
@@ -747,5 +750,7 @@ extern Rectangle start_menu_emination;
 extern Rectangle start_menu_options_rect;
 extern Rectangle start_menu_select_right;
 extern Rectangle start_menu_select_left;
+extern Rectangle start_menu_saves_select_screen;
+extern Rectangle start_menu_saves_select_screen_selecter;
 
 #endif
