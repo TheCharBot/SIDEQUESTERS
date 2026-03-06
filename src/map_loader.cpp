@@ -115,6 +115,11 @@ void load_requested_map(){
     }
 }
 
+void load_map_save(Map_names wanted_map, Vector2 wanted_player_spawn){ //force load a map - cuz its a save, u want it to actually work!
+    game.fade_frame_timer = SCREEN_FADE_TIME;
+    load_map(wanted_map, wanted_player_spawn);
+}
+
 void remove_collision_rect(Rectangle rect)
 {
     game.collision_rects.erase(
@@ -149,6 +154,53 @@ void remove_locked_rect(Locked_rect l_rect){
         game.locked_rects.end()
     );
 };
+
+Game_save save_index_save(int start_menu_slot_index){
+    Game_save s = {};
+    return s;
+}
+
+Game_save save_current_state(){
+    Game_save save;
+
+    save.current_mapSV = game.current_map;
+    save.player_posSV = player.pos;
+    save.defeated_entitiesSV = player.defeated_entities;
+    save.picked_up_itemsSV = player.picked_up_items;
+    save.unlocked_doorsSV = player.unlocked_doors;
+    save.finished_dialogSV = gui.finished_dialog;
+
+    for(int i = 0; i < 28; i++){
+        save.inventory_slotsSV[i] = inventory_slots[i];
+    }
+    // std::cout << "saving";
+    return save;
+    //just save the current save and return the save generated :)
+}
+
+// Vector2 player_posSV;
+//     Map_names current_mapSV;
+//     std::vector<Ground_item_names> picked_up_itemsSV;
+//     std::vector<Locked_door_names> unlocked_doorsSV;
+//     std::vector<Entity_names> defeated_entitiesSV;
+//     std::vector<Dialog_names> finished_dialogSV;
+//     Inventory_slot inventory_slotsSV[28];
+
+void load_save(Game_save save){
+    load_map_save(save.current_mapSV, save.player_posSV);
+    player.defeated_entities = save.defeated_entitiesSV;
+    player.picked_up_items = save.picked_up_itemsSV;
+    player.unlocked_doors = save.unlocked_doorsSV;
+    gui.finished_dialog = save.finished_dialogSV;
+    for(int i = 0; i < 28; i++){
+        inventory_slots[i] = save.inventory_slotsSV[i];
+    }
+    // std::cout << "loading";
+    
+}
+void load_index_save(int start_menu_slot_index){
+    load_save(game.start_save_index[start_menu_slot_index]);
+}
 
 
 // map loader helper functions for easier organization and readability

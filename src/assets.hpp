@@ -22,6 +22,11 @@ extern bool is_text_finished(Dialog_names text_name);
 extern void add_finished_text(Dialog_names text_name);
 extern void add_item_to_inventory(Item item);
 
+extern Game_save save_current_state();
+extern Game_save save_index_save(int start_menu_slot_index);
+extern void load_save(Game_save save);
+extern void load_index_save(int start_menu_slot_index);
+
 
 // editable globals
 

@@ -36,6 +36,10 @@ Inventory_slot inventory_slots[28] = {
 
 };
 
+extern Game_save start_save_index[3];
+
+
+
 Rectangle the_regrown_possible_destructable_tile_area = {48, 64, 224, 208};
 Rectangle the_regrown_impossible_destructable_tile_area = {128, 144, 64, 64};
 

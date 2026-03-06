@@ -309,6 +309,15 @@ public:
     
 };
 
+struct Game_save{
+    Vector2 player_posSV;
+    Map_names current_mapSV;
+    std::vector<Ground_item_names> picked_up_itemsSV;
+    std::vector<Locked_door_names> unlocked_doorsSV;
+    std::vector<Entity_names> defeated_entitiesSV;
+    std::vector<Dialog_names> finished_dialogSV;
+    Inventory_slot inventory_slotsSV[28];
+};
 
 
 struct GUI_data{
@@ -351,7 +360,7 @@ struct Game_data{
     Music current_music;
     std::vector<std::unique_ptr<Entity>> entities;
     Game_states state;
-    
+    Game_save start_save_index[3];
 };
 
 struct Player

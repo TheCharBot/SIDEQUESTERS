@@ -1,6 +1,6 @@
 #include "event_handler.hpp"
 
-
+Game_save test_save;
 
 // event handler, draw_all, init_all, update_all, and camera stuff
 void init_all()
@@ -25,6 +25,7 @@ void init_all()
     if(game.state <= Game_states::OPTIONS){
         init_start_menu();
     }
+    
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
     // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
     // request_map(DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER);
@@ -38,9 +39,16 @@ void init_all()
     
 }
 
+
+
 void update_all()
 {
-    
+    if(IsKeyPressed(KEY_O)){
+        test_save = save_current_state();
+    }
+    if(IsKeyPressed(KEY_P)){
+        load_save(test_save);
+    }
     if(!IsMusicStreamPlaying(game.current_music)){
         PlayMusicStream(game.current_music);
     }
