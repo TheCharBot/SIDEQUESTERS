@@ -43,11 +43,14 @@ void init_all()
 
 void update_all()
 {
+    if(IsKeyPressed(KEY_I)){
+        save_index_save(0);
+    }
     if(IsKeyPressed(KEY_O)){
-        test_save = save_current_state();
+        save_index_save(1);
     }
     if(IsKeyPressed(KEY_P)){
-        load_save(test_save);
+        save_index_save(2);
     }
     if(!IsMusicStreamPlaying(game.current_music)){
         PlayMusicStream(game.current_music);

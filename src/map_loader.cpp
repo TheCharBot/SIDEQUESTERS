@@ -155,11 +155,38 @@ void remove_locked_rect(Locked_rect l_rect){
     );
 };
 
-Game_save save_index_save(int start_menu_slot_index){
-    Game_save s = {};
-    return s;
-}
+void save_index_save(int start_menu_slot_index){
+    Game_save dat = save_current_state();
+    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
+    
+    std::ofstream file(path, std::ios::binary);
+    file.write((char*)&dat, sizeof(dat));
+    
+    
 
+    TakeScreenshot("start_menu_index_icon.png");
+
+    Image img = LoadImage("start_menu_index_icon.png");
+
+    Vector2 screenPos = GetWorldToScreen2D(player.pos, cam);
+
+    Rectangle crop = {
+        screenPos.x - 7*scale,
+        screenPos.y - 37*scale,//TODO: MACROS
+        float(78*scale),
+        float(142*scale)
+    };
+
+    ImageCrop(&img, crop);
+
+    ImageResizeNN(&img, img.width/scale, img.height/scale);
+
+    ExportImage(img, TextFormat("start_menu_index_icon_%i.png", start_menu_slot_index));
+
+    UnloadImage(img);
+    
+}
+//
 Game_save save_current_state(){
     Game_save save;
 
@@ -199,7 +226,16 @@ void load_save(Game_save save){
     
 }
 void load_index_save(int start_menu_slot_index){
-    load_save(game.start_save_index[start_menu_slot_index]);
+    Game_save dat;
+
+    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
+    if(FileExists(path.c_str())){
+        std::ifstream file(path, std::ios::binary);
+        file.read((char*)&dat, sizeof(dat));
+        load_save(dat);
+    }
+
+    
 }
 
 

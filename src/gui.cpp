@@ -10,6 +10,7 @@ Texture2D health_bar_tex;
 Texture2D hotbar_tex;
 Texture2D textbox_tex;
 Texture2D start_menu_tex;
+Texture2D slot_icons[3] = {0};
 
 void unload_start_menu_assets(){
     UnloadTexture(start_menu_tex);
@@ -48,6 +49,15 @@ void start_menu_update(){
                         
                         // unload_start_menu_assets();
                         game.state = Game_states::SAVE_SLOTS; 
+                        for (int i = 0; i < 3; i++)
+                        {
+                            const char* path = TextFormat("start_menu_index_icon_%i.png", i);
+
+                            if (FileExists(path))
+                            {
+                                slot_icons[i] = LoadTexture(path);
+                            }
+                        }
                         // gui.start_menu_unloaded = true;
                         break;
                     case 1:
@@ -110,16 +120,17 @@ void start_menu_update(){
                     case 0:
                         
                         // unload_start_menu_assets();
+                        load_index_save(0);
                         game.state = Game_states::GAMEPLAY; 
                         // gui.start_menu_unloaded = true;
                         break;
                     case 1:
-                        
+                        load_index_save(1);
                         // unload_start_menu_assets();
                         game.state = Game_states::GAMEPLAY;
                         break;
                     case 2:
-                        
+                        load_index_save(2);
                         // unload_start_menu_assets();
                         game.state = Game_states::GAMEPLAY;
                         break;
@@ -188,6 +199,14 @@ void start_menu_draw(){ //sorry ugly code. deal with it
         case SAVE_SLOTS:
             DrawTexturePro(start_menu_tex, start_menu_saves_select_screen, {0, 0, start_menu_saves_select_screen.width*scale, start_menu_saves_select_screen.height*scale}, {0, 0}, 0, WHITE);
             DrawTexturePro(start_menu_tex, start_menu_saves_select_screen_selecter, {gui.start_menu_save_selecter_pos.x*scale, gui.start_menu_save_selecter_pos.y*scale, start_menu_saves_select_screen_selecter.width*scale, start_menu_saves_select_screen_selecter.height*scale}, {0, 0}, 0, WHITE);
+            for (int i = 0; i < 3; i++)
+            {
+                if (slot_icons[i].id != 0) // texture exists
+                {
+                    DrawTextureEx(slot_icons[i], Vector2Scale({float(25+(i*96)), 19}, scale), 0, scale, WHITE);//TODO: MACROS
+                    // std::cout <<"working?";
+                }
+            }
             break;
         default:
             break;
