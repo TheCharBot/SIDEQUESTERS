@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <optional>
 #include <fstream>
+#include <cstdio>
 
 // #include "dialog/dialog.hpp" TODO: Do IT (save for later right now)
 

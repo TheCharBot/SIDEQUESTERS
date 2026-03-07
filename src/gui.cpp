@@ -51,7 +51,7 @@ void start_menu_update(){
                         game.state = Game_states::SAVE_SLOTS; 
                         for (int i = 0; i < 3; i++)
                         {
-                            const char* path = TextFormat("start_menu_index_icon_%i.png", i);
+                            const char* path = TextFormat("saves/start_menu_index_icon_%i.png", i);
 
                             if (FileExists(path))
                             {

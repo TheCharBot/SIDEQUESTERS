@@ -32,11 +32,11 @@
 
 //done TODO: make a Game_data struct, change everything to work w/ it
 
-//TODO: FIGURE OUT DIALOG STORAGE SYSTEM
+//later TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
 // slightly done TODO: make Start menu
 //done TODO: make save/load system <- CURRENT
-//TODO: GET IMAGES TO WORK ON START MENU
+//done TODO: GET IMAGES TO WORK ON START MENU
 //TODO: make better player gfx
 //TODO: particles
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles

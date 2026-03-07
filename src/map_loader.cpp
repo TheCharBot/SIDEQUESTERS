@@ -155,36 +155,25 @@ void remove_locked_rect(Locked_rect l_rect){
     );
 };
 
-void save_index_save(int start_menu_slot_index){
-    Game_save dat = save_current_state();
-    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
-    
-    std::ofstream file(path, std::ios::binary);
-    file.write((char*)&dat, sizeof(dat));
-    
-    
+template<typename T>
+void write_vector(std::ofstream& file, const std::vector<T>& vec)
+{
+    size_t size = vec.size();
+    file.write((char*)&size, sizeof(size));
+    if(size > 0)
+        file.write((char*)vec.data(), size * sizeof(T));
+}
 
-    TakeScreenshot("start_menu_index_icon.png");
+template<typename T>
+void read_vector(std::ifstream& file, std::vector<T>& vec)
+{
+    size_t size;
+    file.read((char*)&size, sizeof(size));
 
-    Image img = LoadImage("start_menu_index_icon.png");
+    vec.resize(size);
 
-    Vector2 screenPos = GetWorldToScreen2D(player.pos, cam);
-
-    Rectangle crop = {
-        screenPos.x - 7*scale,
-        screenPos.y - 37*scale,//TODO: MACROS
-        float(78*scale),
-        float(142*scale)
-    };
-
-    ImageCrop(&img, crop);
-
-    ImageResizeNN(&img, img.width/scale, img.height/scale);
-
-    ExportImage(img, TextFormat("start_menu_index_icon_%i.png", start_menu_slot_index));
-
-    UnloadImage(img);
-    
+    if(size > 0)
+        file.read((char*)vec.data(), size * sizeof(T));
 }
 //
 Game_save save_current_state(){
@@ -196,7 +185,9 @@ Game_save save_current_state(){
     save.picked_up_itemsSV = player.picked_up_items;
     save.unlocked_doorsSV = player.unlocked_doors;
     save.finished_dialogSV = gui.finished_dialog;
-
+    save.player_dungeon_keysSV = player.dungeon_keys;
+    save.player_current_healthSV = player.current_health;
+    save.player_max_healthSV = player.max_health;
     for(int i = 0; i < 28; i++){
         save.inventory_slotsSV[i] = inventory_slots[i];
     }
@@ -205,37 +196,102 @@ Game_save save_current_state(){
     //just save the current save and return the save generated :)
 }
 
-// Vector2 player_posSV;
-//     Map_names current_mapSV;
-//     std::vector<Ground_item_names> picked_up_itemsSV;
-//     std::vector<Locked_door_names> unlocked_doorsSV;
-//     std::vector<Entity_names> defeated_entitiesSV;
-//     std::vector<Dialog_names> finished_dialogSV;
-//     Inventory_slot inventory_slotsSV[28];
-
 void load_save(Game_save save){
-    load_map_save(save.current_mapSV, save.player_posSV);
+    
     player.defeated_entities = save.defeated_entitiesSV;
     player.picked_up_items = save.picked_up_itemsSV;
     player.unlocked_doors = save.unlocked_doorsSV;
     gui.finished_dialog = save.finished_dialogSV;
+    player.dungeon_keys = save.player_dungeon_keysSV;
+    player.current_health =  save.player_current_healthSV;
+    player.max_health = save.player_max_healthSV;
     for(int i = 0; i < 28; i++){
         inventory_slots[i] = save.inventory_slotsSV[i];
     }
+    load_map_save(save.current_mapSV, save.player_posSV);
     // std::cout << "loading";
     
 }
-void load_index_save(int start_menu_slot_index){
+void load_index_save(int start_menu_slot_index)
+{
     Game_save dat;
 
     std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
-    if(FileExists(path.c_str())){
-        std::ifstream file(path, std::ios::binary);
-        file.read((char*)&dat, sizeof(dat));
-        load_save(dat);
-    }
 
-    
+    if(!FileExists(path.c_str()))
+        return;
+
+    std::ifstream file(path, std::ios::binary);
+
+    // primitives
+    file.read((char*)&dat.current_mapSV, sizeof(dat.current_mapSV));
+    file.read((char*)&dat.player_posSV, sizeof(dat.player_posSV));
+
+    // vectors
+    read_vector(file, dat.defeated_entitiesSV);
+    read_vector(file, dat.picked_up_itemsSV);
+    read_vector(file, dat.unlocked_doorsSV);
+    read_vector(file, dat.finished_dialogSV);
+
+    // primitives
+    file.read((char*)&dat.player_dungeon_keysSV, sizeof(dat.player_dungeon_keysSV));
+    file.read((char*)&dat.player_current_healthSV, sizeof(dat.player_current_healthSV));
+    file.read((char*)&dat.player_max_healthSV, sizeof(dat.player_max_healthSV));
+
+    // fixed array
+    file.read((char*)dat.inventory_slotsSV, sizeof(dat.inventory_slotsSV));
+
+    file.close();
+
+    load_save(dat);
+}
+void save_index_save(int start_menu_slot_index)
+{
+    Game_save dat = save_current_state();
+
+    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
+
+    std::ofstream file(path, std::ios::binary);
+
+    // primitives
+    file.write((char*)&dat.current_mapSV, sizeof(dat.current_mapSV));
+    file.write((char*)&dat.player_posSV, sizeof(dat.player_posSV));
+
+    // vectors
+    write_vector(file, dat.defeated_entitiesSV);
+    write_vector(file, dat.picked_up_itemsSV);
+    write_vector(file, dat.unlocked_doorsSV);
+    write_vector(file, dat.finished_dialogSV);
+
+    // more primitives
+    file.write((char*)&dat.player_dungeon_keysSV, sizeof(dat.player_dungeon_keysSV));
+    file.write((char*)&dat.player_current_healthSV, sizeof(dat.player_current_healthSV));
+    file.write((char*)&dat.player_max_healthSV, sizeof(dat.player_max_healthSV));
+
+    // fixed array
+    file.write((char*)dat.inventory_slotsSV, sizeof(dat.inventory_slotsSV));
+
+    file.close();
+
+
+    // screenshot thumbnail
+    Image img = LoadImageFromScreen();
+
+    Vector2 screenPos = GetWorldToScreen2D(player.pos, cam);
+
+    Rectangle crop = {
+        screenPos.x - 7*scale,
+        screenPos.y - 37*scale,
+        float(78*scale),
+        float(142*scale)
+    };
+
+    ImageCrop(&img, crop);
+    ImageResizeNN(&img, img.width/scale, img.height/scale);
+
+    ExportImage(img, TextFormat("saves/start_menu_index_icon_%i.png", start_menu_slot_index));
+
+    UnloadImage(img);
 }
 
 
@@ -277,7 +333,7 @@ void load_start_map()
 void load_village_map()
 {
     reset_loaded();
-
+    game.current_music = LoadMusicStream(VILLAGE_MUS_PATH);
     game.map_to_load = LoadTexture(VILLAGE_MAP_PATH);
     game.current_map = VILLAGE_MAP;
     add_collisions({

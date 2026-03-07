@@ -317,6 +317,10 @@ struct Game_save{
     std::vector<Entity_names> defeated_entitiesSV;
     std::vector<Dialog_names> finished_dialogSV;
     Inventory_slot inventory_slotsSV[28];
+    int player_dungeon_keysSV;
+    float player_current_healthSV;
+    float player_max_healthSV;
+    int player_move_modeSV;
 };
 
 
@@ -360,7 +364,7 @@ struct Game_data{
     Music current_music;
     std::vector<std::unique_ptr<Entity>> entities;
     Game_states state;
-    Game_save start_save_index[3];
+    // Game_save start_save_index[3];//???
 };
 
 struct Player

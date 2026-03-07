@@ -477,6 +477,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 
 // music paths
 #define DARK_FOREST_MUS_PATH "mus/DarkForest.ogg"
+#define VILLAGE_MUS_PATH "mus/Village.ogg"
 
 // entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
