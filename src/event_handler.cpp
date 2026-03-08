@@ -43,15 +43,15 @@ void init_all()
 
 void update_all()
 {
-    if(IsKeyPressed(KEY_I)){
-        save_index_save(0);
+    if(IsKeyPressed(KEY_SAVE) && game.state == Game_states::GAMEPLAY){
+        save_index_save(game.save_slot);
     }
-    if(IsKeyPressed(KEY_O)){
-        save_index_save(1);
-    }
-    if(IsKeyPressed(KEY_P)){
-        save_index_save(2);
-    }
+    // if(IsKeyPressed(KEY_O)){
+    //     save_index_save(1);
+    // }
+    // if(IsKeyPressed(KEY_P)){
+    //     save_index_save(2);
+    // }
     if(!IsMusicStreamPlaying(game.current_music)){
         PlayMusicStream(game.current_music);
     }

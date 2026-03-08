@@ -364,6 +364,7 @@ struct Game_data{
     Music current_music;
     std::vector<std::unique_ptr<Entity>> entities;
     Game_states state;
+    int save_slot;
     // Game_save start_save_index[3];//???
 };
 

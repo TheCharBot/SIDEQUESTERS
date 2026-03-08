@@ -121,16 +121,19 @@ void start_menu_update(){
                         
                         // unload_start_menu_assets();
                         load_index_save(0);
+                        game.save_slot = 0;
                         game.state = Game_states::GAMEPLAY; 
                         // gui.start_menu_unloaded = true;
                         break;
                     case 1:
                         load_index_save(1);
+                        game.save_slot = 1;
                         // unload_start_menu_assets();
                         game.state = Game_states::GAMEPLAY;
                         break;
                     case 2:
                         load_index_save(2);
+                        game.save_slot = 2;
                         // unload_start_menu_assets();
                         game.state = Game_states::GAMEPLAY;
                         break;
@@ -207,6 +210,15 @@ void start_menu_draw(){ //sorry ugly code. deal with it
                     // std::cout <<"working?";
                 }
             }
+            break;
+        case OPTIONS:
+            DrawTexturePro(start_menu_tex, start_menu_options_screen, {0, 0, start_menu_options_screen.width*scale, start_menu_options_screen.height*scale}, {0, 0}, 0, WHITE);
+            break;
+        case ACHIEVEMENTS:
+            DrawTexturePro(start_menu_tex, start_menu_achievements_screen, {0, 0, start_menu_achievements_screen.width*scale, start_menu_achievements_screen.height*scale}, {0, 0}, 0, WHITE);
+            break;
+        case CREDITS:
+            DrawTexturePro(start_menu_tex, start_menu_credits_screen, {0, 0, start_menu_credits_screen.width*scale, start_menu_credits_screen.height*scale}, {0, 0}, 0, WHITE);
             break;
         default:
             break;

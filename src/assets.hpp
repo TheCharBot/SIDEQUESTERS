@@ -77,6 +77,7 @@ extern Inventory_slot inventory_slots[28];
 #define KEY_OPEN_INVENTORY KEY_TAB
 #define KEY_INTERACT KEY_X
 #define KEY_SPEEDUP KEY_Z
+#define KEY_SAVE KEY_ENTER
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
@@ -759,5 +760,8 @@ extern Rectangle start_menu_select_right;
 extern Rectangle start_menu_select_left;
 extern Rectangle start_menu_saves_select_screen;
 extern Rectangle start_menu_saves_select_screen_selecter;
+extern Rectangle start_menu_credits_screen;
+extern Rectangle start_menu_achievements_screen;
+extern Rectangle start_menu_options_screen;
 
 #endif

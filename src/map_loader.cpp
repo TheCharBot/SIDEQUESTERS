@@ -3,6 +3,7 @@ Game_data game;
 
 
 
+
 void init_map()
 {
     
@@ -220,7 +221,7 @@ void load_index_save(int start_menu_slot_index)
 
     if(!FileExists(path.c_str()))
         return;
-
+    
     std::ifstream file(path, std::ios::binary);
 
     // primitives
@@ -1134,4 +1135,3 @@ void draw_map()
     DrawTextureEx(game.map_to_load, {0, 0}, 0, 1, WHITE);
     
 }
-
