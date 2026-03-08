@@ -146,11 +146,11 @@ void start_menu_update(){
                     
                     break;
                 case 1:
-                    gui.start_menu_save_selecter_pos =SAVE_SLOT_2_SELECTER_POS;
+                    gui.start_menu_save_selecter_pos = SAVE_SLOT_2_SELECTER_POS;
                     
                     break;
                 case 2:
-                    gui.start_menu_save_selecter_pos =SAVE_SLOT_3_SELECTER_POS;
+                    gui.start_menu_save_selecter_pos = SAVE_SLOT_3_SELECTER_POS;
                     
                     break;
             }
@@ -346,8 +346,7 @@ void hotbar_draw(){
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
 
     //layers (!)
-    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, BLACK);
-    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
+    DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X+1, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y+1}, scale), DEFAULT_FONT_SIZE*scale, scale, BLACK);
     DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
     
 }
@@ -437,6 +436,7 @@ void textbox_update_draw(){
         }
         Dialog_chunk temp_drawing_dialog = gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state]; //setting the temporary dialog
         temp_drawing_dialog.text.resize(gui.global_textbox.current_dialog_character); //cutting the temp dialog
+        DrawTextEx(gui.global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({gui.textbox_pos.x+9, gui.textbox_pos.y+4}, scale), DIALOG_FONT_SIZE*scale, 1, BLACK);
         DrawTextEx(gui.global_font, temp_drawing_dialog.text.c_str(), Vector2Scale({gui.textbox_pos.x+8, gui.textbox_pos.y+3}, scale), DIALOG_FONT_SIZE*scale, 1, WHITE); //drawing the temp dialog //TODO: MACROS
     }
 }

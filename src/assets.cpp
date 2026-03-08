@@ -2,6 +2,19 @@
 
 // this file is for image and other constant rects
 
+KeyboardKey KEY_CONTROLS_UP = KEY_UP;
+KeyboardKey KEY_CONTROLS_DOWN = KEY_DOWN;
+KeyboardKey KEY_CONTROLS_RIGHT = KEY_RIGHT;
+KeyboardKey KEY_CONTROLS_LEFT = KEY_LEFT;
+KeyboardKey KEY_ITEM_HOTBAR_1 = KEY_A;
+KeyboardKey KEY_ITEM_HOTBAR_2 = KEY_S;
+KeyboardKey KEY_ITEM_HOTBAR_3 = KEY_D;
+KeyboardKey KEY_OPEN_INVENTORY = KEY_TAB;
+KeyboardKey KEY_INTERACT = KEY_X;
+KeyboardKey KEY_SPEEDUP = KEY_Z;
+KeyboardKey KEY_SAVE = KEY_ENTER;
+
+
 // 23, 24, 25
 // IM SORRY. It couldnt be avoided.
 Inventory_slot inventory_slots[28] = {

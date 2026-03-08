@@ -67,17 +67,17 @@ extern Inventory_slot inventory_slots[28];
 #define GUI_DARK_GRAY Color{51, 57, 65, 255}
 
 //edit these to change controls
-#define KEY_CONTROLS_UP KEY_UP
-#define KEY_CONTROLS_DOWN KEY_DOWN
-#define KEY_CONTROLS_RIGHT KEY_RIGHT
-#define KEY_CONTROLS_LEFT KEY_LEFT
-#define KEY_ITEM_HOTBAR_1 KEY_A
-#define KEY_ITEM_HOTBAR_2 KEY_S
-#define KEY_ITEM_HOTBAR_3 KEY_D
-#define KEY_OPEN_INVENTORY KEY_TAB
-#define KEY_INTERACT KEY_X
-#define KEY_SPEEDUP KEY_Z
-#define KEY_SAVE KEY_ENTER
+extern KeyboardKey KEY_CONTROLS_UP; //KEY_UP
+extern KeyboardKey KEY_CONTROLS_DOWN; //KEY_DOWN
+extern KeyboardKey KEY_CONTROLS_RIGHT; //KEY_RIGHT
+extern KeyboardKey KEY_CONTROLS_LEFT; //KEY_LEFT
+extern KeyboardKey KEY_ITEM_HOTBAR_1; //KEY_A
+extern KeyboardKey KEY_ITEM_HOTBAR_2; //KEY_S
+extern KeyboardKey KEY_ITEM_HOTBAR_3; //KEY_D
+extern KeyboardKey KEY_OPEN_INVENTORY; //KEY_TAB
+extern KeyboardKey KEY_INTERACT; //KEY_X
+extern KeyboardKey KEY_SPEEDUP; //KEY_Z
+extern KeyboardKey KEY_SAVE; //KEY_ENTER
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
@@ -96,8 +96,8 @@ extern Inventory_slot inventory_slots[28];
 
 #define HOTBAR_KEY_TEXT_OFFSET_X 104
 #define HOTBAR_KEY_TEXT_OFFSET_Y 1
-#define DEFAULT_FONT_SIZE 17
-#define DIALOG_FONT_SIZE 14
+#define DEFAULT_FONT_SIZE 13
+#define DIALOG_FONT_SIZE 13
 #define HOTBAR_SLOT_1_OFFSET_X 7
 #define HOTBAR_SLOT_2_OFFSET_X 37
 #define HOTBAR_SLOT_3_OFFSET_X 67
@@ -493,7 +493,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
 #define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
-#define GLOB_FONT_PATH "gfx/font/BlockBlueprint.ttf"
+#define GLOB_FONT_PATH "gfx/font/BoldPixels.ttf"
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
 #define START_MENU_TEX_PATH "gfx/gui/start_menu.png"
 

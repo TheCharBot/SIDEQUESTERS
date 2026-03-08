@@ -38,7 +38,7 @@
 //done TODO: make save/load system <- CURRENT
 //done TODO: GET IMAGES TO WORK ON START MENU
 //TODO: make better player gfx
-//TODO: particles
+//TODO: particles?
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
