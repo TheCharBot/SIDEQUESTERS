@@ -246,7 +246,7 @@ void load_index_save(int start_menu_slot_index)
 
     load_save(dat);
 }
-void save_index_save(int start_menu_slot_index)
+void save_index_state(int start_menu_slot_index)
 {
     Game_save dat = save_current_state();
 
@@ -293,6 +293,73 @@ void save_index_save(int start_menu_slot_index)
     ExportImage(img, TextFormat("saves/start_menu_index_icon_%i.png", start_menu_slot_index));
 
     UnloadImage(img);
+}
+
+void save_config_state()
+{
+    Config_dat cfg_dat{};
+
+    cfg_dat.scale = scale;
+    cfg_dat.KEY_CONTROLS_UP = KEY_CONTROLS_UP;
+    cfg_dat.KEY_CONTROLS_DOWN = KEY_CONTROLS_DOWN;
+    cfg_dat.KEY_CONTROLS_RIGHT = KEY_CONTROLS_RIGHT;
+    cfg_dat.KEY_CONTROLS_LEFT = KEY_CONTROLS_LEFT;
+    cfg_dat.KEY_ITEM_HOTBAR_1 = KEY_ITEM_HOTBAR_1;
+    cfg_dat.KEY_ITEM_HOTBAR_2 = KEY_ITEM_HOTBAR_2;
+    cfg_dat.KEY_ITEM_HOTBAR_3 = KEY_ITEM_HOTBAR_3;
+    cfg_dat.KEY_OPEN_INVENTORY = KEY_OPEN_INVENTORY;
+    cfg_dat.KEY_INTERACT = KEY_INTERACT;
+    cfg_dat.KEY_SPEEDUP = KEY_SPEEDUP;
+    cfg_dat.KEY_SAVE = KEY_SAVE;
+
+    std::ofstream file("saves/config.dat", std::ios::binary);
+
+    if(!file.is_open())
+        return;
+
+    file.write((char*)&CONFIG_MAGIC, sizeof(CONFIG_MAGIC));
+    file.write((char*)&CONFIG_VERSION, sizeof(CONFIG_VERSION));
+    file.write((char*)&cfg_dat, sizeof(cfg_dat));
+}
+void load_config_state()
+{
+    std::ifstream file("saves/config.dat", std::ios::binary);
+
+    if(!file.is_open())
+        return;
+
+    int magic;
+    int version;
+
+    file.read((char*)&magic, sizeof(magic));
+    file.read((char*)&version, sizeof(version));
+
+    if(magic != CONFIG_MAGIC)
+        return;
+
+    if(version != CONFIG_VERSION)
+        return;
+
+    Config_dat cfg_dat{};
+
+    if(!file.read((char*)&cfg_dat, sizeof(cfg_dat)))
+        return;
+
+    scale = cfg_dat.scale;
+
+    KEY_CONTROLS_UP = (KeyboardKey)cfg_dat.KEY_CONTROLS_UP;
+    KEY_CONTROLS_DOWN = (KeyboardKey)cfg_dat.KEY_CONTROLS_DOWN;
+    KEY_CONTROLS_RIGHT = (KeyboardKey)cfg_dat.KEY_CONTROLS_RIGHT;
+    KEY_CONTROLS_LEFT = (KeyboardKey)cfg_dat.KEY_CONTROLS_LEFT;
+    KEY_ITEM_HOTBAR_1 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_1;
+    KEY_ITEM_HOTBAR_2 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_2;
+    KEY_ITEM_HOTBAR_3 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_3;
+    KEY_OPEN_INVENTORY = (KeyboardKey)cfg_dat.KEY_OPEN_INVENTORY;
+    KEY_INTERACT = (KeyboardKey)cfg_dat.KEY_INTERACT;
+    KEY_SPEEDUP = (KeyboardKey)cfg_dat.KEY_SPEEDUP;
+    KEY_SAVE = (KeyboardKey)cfg_dat.KEY_SAVE;
+
+    
 }
 
 

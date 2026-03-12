@@ -37,12 +37,14 @@
 // slightly done TODO: make Start menu
 //done TODO: make save/load system <- CURRENT
 //done TODO: GET IMAGES TO WORK ON START MENU
+//done TODO: make the save selector, then save/load system, then picture/icon system on the save selector
 //TODO: make better player gfx
 //TODO: particles?
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
-   
+    load_config_state();
+    // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
     InitAudioDevice();
@@ -54,9 +56,9 @@ int main()
     UnloadImage(icon);
 
     init_all();
-
     // Game Loop
-
+    
+    game.new_scale = scale;
     while (WindowShouldClose() == false)
     {
         // Game Logic
@@ -76,7 +78,15 @@ int main()
         EndDrawing();
         
     }
-
+    // game.new_scale = 3;
+    if(game.state == Game_states::GAMEPLAY){
+        save_index_state(game.save_slot);
+    }
+    if(scale != game.new_scale){
+        scale = game.new_scale;
+    }
+    save_config_state();
+    
     CloseWindow();
     return 0;
 }

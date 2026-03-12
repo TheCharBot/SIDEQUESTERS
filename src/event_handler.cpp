@@ -44,18 +44,19 @@ void init_all()
 void update_all()
 {
     if(IsKeyPressed(KEY_SAVE) && game.state == Game_states::GAMEPLAY){
-        save_index_save(game.save_slot);
+        save_index_state(game.save_slot);
     }
     // if(IsKeyPressed(KEY_O)){
-    //     save_index_save(1);
+    //     save_index_state(1);
     // }
     // if(IsKeyPressed(KEY_P)){
-    //     save_index_save(2);
+    //     save_index_state(2);
     // }
     if(!IsMusicStreamPlaying(game.current_music)){
         PlayMusicStream(game.current_music);
     }
     UpdateMusicStream(game.current_music);
+    
     update_sfx();
     if(game.state <= Game_states::OPTIONS && !gui.start_menu_unloaded){
         //implement start menu code here

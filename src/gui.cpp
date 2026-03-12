@@ -28,6 +28,8 @@ void init_start_menu(){
     gui.start_menu_sel_mode = 0;
     gui.start_menu_unloaded = false;
     gui.start_menu_save_selecter_pos = SAVE_SLOT_1_SELECTER_POS;
+    game.current_music = LoadMusicStream(ELEVATOR_MUS_PATH);
+    
 }
 void start_menu_update(){
     switch(game.state){
@@ -96,7 +98,7 @@ void start_menu_update(){
                     break;
             }
             break;
-        case SAVE_SLOTS: //TODO: make the save selector, then save/load system, then picture/icon system on the save selector
+        case SAVE_SLOTS: 
             if(IsKeyPressed(KEY_SPEEDUP)){
                 PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
                 gui.start_menu_sel_mode = 0;

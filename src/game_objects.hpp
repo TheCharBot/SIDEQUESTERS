@@ -365,8 +365,30 @@ struct Game_data{
     std::vector<std::unique_ptr<Entity>> entities;
     Game_states state;
     int save_slot;
+    int new_scale;
     // Game_save start_save_index[3];//???
 };
+
+// #pragma pack(push, 1)
+struct Config_dat
+{
+    float scale;
+
+    int KEY_CONTROLS_UP;
+    int KEY_CONTROLS_DOWN;
+    int KEY_CONTROLS_RIGHT;
+    int KEY_CONTROLS_LEFT;
+
+    int KEY_ITEM_HOTBAR_1;
+    int KEY_ITEM_HOTBAR_2;
+    int KEY_ITEM_HOTBAR_3;
+
+    int KEY_OPEN_INVENTORY;
+    int KEY_INTERACT;
+    int KEY_SPEEDUP;
+    int KEY_SAVE;
+};
+// #pragma pack(pop)
 
 struct Player
 {

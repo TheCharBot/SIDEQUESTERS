@@ -25,6 +25,8 @@
 #define VERSION_MINOR 3
 #define VERSION_PATCH 0
 
+const int CONFIG_MAGIC = 0x43464731; // "CFG1"
+const int CONFIG_VERSION = 1;
 
 
 extern Camera2D cam;

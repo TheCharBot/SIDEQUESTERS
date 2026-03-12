@@ -23,9 +23,12 @@ extern void add_finished_text(Dialog_names text_name);
 extern void add_item_to_inventory(Item item);
 
 extern Game_save save_current_state();
-extern void save_index_save(int start_menu_slot_index);
+extern void save_index_state(int start_menu_slot_index);
 extern void load_save(Game_save save);
 extern void load_index_save(int start_menu_slot_index);
+
+extern void save_config_state();
+extern void load_config_state();
 
 
 // editable globals
@@ -479,6 +482,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 // music paths
 #define DARK_FOREST_MUS_PATH "mus/DarkForest.ogg"
 #define VILLAGE_MUS_PATH "mus/Village.ogg"
+#define ELEVATOR_MUS_PATH "mus/Elevator.ogg"
 
 // entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
