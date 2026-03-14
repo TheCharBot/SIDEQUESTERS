@@ -63,6 +63,8 @@ class Enemy_forest_scourge: public Entity{
         float iframe_timer;
         float wander_timer = 0.0f;
         Vector2 wander_dir = {0, 0};
+        Vector2 move{};
+        Vector2 vel;
 };
 
 class The_Regrown: public Entity{

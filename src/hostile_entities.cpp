@@ -184,7 +184,7 @@ void Enemy_forest_scourge::load()
 
 void Enemy_forest_scourge::update()
 {
-
+   
     if (health <= 0)
     {
         dead = true;
@@ -204,8 +204,8 @@ void Enemy_forest_scourge::update()
     rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
     chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
     attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
-    pos.x = Clamp(pos.x, 0, game.map_to_load.width - DEFAULT_SPRITE_WIDTH);
-    pos.y = Clamp(pos.y, 0, game.map_to_load.height - DEFAULT_SPRITE_HEIGHT);
+    pos.x = Clamp(pos.x, -FOREST_SCOURGE_HITBOX_OFFSET_X, game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
+    pos.y = Clamp(pos.y, -FOREST_SCOURGE_HITBOX_OFFSET_Y, game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
 
     if (!can_take_damage)
     {
@@ -218,6 +218,7 @@ void Enemy_forest_scourge::update()
     }
 
     decide_action();
+    
 }
 
 void Enemy_forest_scourge::draw()
@@ -253,69 +254,86 @@ void Enemy_forest_scourge::wander()
 {
     wander_timer -= GetFrameTime();
 
-    // If timer expired OR direction is zero, pick a new direction
-    if (wander_timer <= 0.0f || (wander_dir.x == 0 && wander_dir.y == 0))
+    if (wander_timer <= 0.0f)
     {
         int dir = rand() % 4;
 
         switch (dir)
         {
-        case 0:
-            wander_dir = {-1, 0};
-            break; // left
-        case 1:
-            wander_dir = {1, 0};
-            break; // right
-        case 2:
-            wander_dir = {0, 1};
-            break; // down
-        case 3:
-            wander_dir = {0, -1};
-            break; // up
+            case 0: wander_dir = {-1, 0}; break;
+            case 1: wander_dir = { 1, 0}; break;
+            case 2: wander_dir = { 0, 1}; break;
+            case 3: wander_dir = { 0,-1}; break;
         }
 
-        wander_timer = (float)(rand() % 200 + 200) / 100.0f;
-        // 2.0 to 4.0 seconds
+        wander_timer = GetRandomValue(200, 400) / 100.0f;
     }
 
-    Vector2 pos_save = pos;
+    // Target vel
+    Vector2 target_vel = {
+        wander_dir.x * FOREST_SCOURGE_SPEED,
+        wander_dir.y * FOREST_SCOURGE_SPEED
+    };
 
-    // Move
-    pos.x += wander_dir.x * FOREST_SCOURGE_SPEED;
-    pos.y += wander_dir.y * FOREST_SCOURGE_SPEED;
+    // Smooth movement
+    vel = Vector2Lerp(vel, target_vel, 0.1f);
 
-    // Update hitbox
-    Rectangle test_rect = {
+    // Save position
+    Vector2 old_pos = pos;
+
+    // Move X
+    pos.x += vel.x;
+
+    Rectangle hitbox = {
         pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X,
         pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
         FOREST_SCOURGE_HITBOX_WIDTH,
-        FOREST_SCOURGE_HITBOX_HEIGHT};
+        FOREST_SCOURGE_HITBOX_HEIGHT
+    };
 
-    // Check collision
     for (Rectangle &r : game.collision_rects)
     {
-        if (CheckCollisionRecs(test_rect, r))
+        if (CheckCollisionRecs(hitbox, r))
         {
-            pos = pos_save;
-
-            // force new direction immediately
-            wander_timer = 0.0f;
-            return;
+            pos.x = old_pos.x;
+            vel.x = 0;
+            wander_timer = 0;
+            break;
         }
     }
 
-    // Clamp using hitbox
-    float minX = -FOREST_SCOURGE_HITBOX_OFFSET_X;
-    float maxX = game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X;
+    // Move Y
+    pos.y += vel.y;
 
-    float minY = -FOREST_SCOURGE_HITBOX_OFFSET_Y;
-    float maxY = game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y;
+    hitbox = {
+        pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X,
+        pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
+        FOREST_SCOURGE_HITBOX_WIDTH,
+        FOREST_SCOURGE_HITBOX_HEIGHT
+    };
 
-    pos.x = Clamp(pos.x, minX, maxX);
-    pos.y = Clamp(pos.y, minY, maxY);
+    for (Rectangle &r : game.collision_rects)
+    {
+        if (CheckCollisionRecs(hitbox, r))
+        {
+            pos.y = old_pos.y;
+            vel.y = 0;
+            wander_timer = 0;
+            break;
+        }
+    }
 
-    // Set animation based on vertical direction
-    if (wander_dir.y < 0)
+    // Clamp to map
+    pos.x = Clamp(pos.x,
+        -FOREST_SCOURGE_HITBOX_OFFSET_X,
+        game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
+
+    pos.y = Clamp(pos.y,
+        -FOREST_SCOURGE_HITBOX_OFFSET_Y,
+        game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
+
+    // Animation
+    if (vel.y < 0)
         current_anim_arr = forest_scourge_walk_up_left;
     else
         current_anim_arr = forest_scourge_walk_down_right;
@@ -325,75 +343,70 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
-    wander_state = 0;
+   Vector2 pos_save = pos;
 
-    // Calculate direction vector to player
-    Vector2 to_player = Vector2Subtract(player.pos, pos);
-    float distance = Vector2Length(to_player);
+    // Lerp toward player
+    Vector2 target = Vector2Lerp(pos, player.pos, GetFrameTime()*1.5f);
 
-    Vector2 move = {0.0f, 0.0f};
+    // Calculate movement delta
+    Vector2 move = {
+        target.x - pos.x,
+        target.y - pos.y
+    };
 
-    if (distance > 0.0f)
+    if (move.x != 0 || move.y != 0)
     {
-        // Normalize and scale by speed and frame time
-        Vector2 dir = Vector2Scale(to_player, 1.0f / distance);
-        move = Vector2Scale(dir, FOREST_SCOURGE_CHASE_SPEED * GetFrameTime());
-    }
+        // ----- Move X -----
+        pos.x += move.x;
 
-    // Save old position for collision rollback
-    Vector2 old_pos = pos;
+        Rectangle rect = {
+            pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X,
+            pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
+            FOREST_SCOURGE_HITBOX_WIDTH,
+            FOREST_SCOURGE_HITBOX_HEIGHT
+        };
 
-    // --- Move X axis and check collisions ---
-    pos.x += move.x;
-    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
-            FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
-
-    for (const Rectangle &r : game.collision_rects)
-    {
-        if (CheckCollisionRecs(rect, r))
+        for (const Rectangle &r : game.collision_rects)
         {
-            pos.x = old_pos.x; // rollback
-            break;
+            if (CheckCollisionRecs(rect, r))
+            {
+                pos.x = pos_save.x;
+                break;
+            }
+        }
+
+        // ----- Move Y -----
+        pos.y += move.y;
+
+        rect = {
+            pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X,
+            pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
+            FOREST_SCOURGE_HITBOX_WIDTH,
+            FOREST_SCOURGE_HITBOX_HEIGHT
+        };
+
+        for (const Rectangle &r : game.collision_rects)
+        {
+            if (CheckCollisionRecs(rect, r))
+            {
+                pos.y = pos_save.y;
+                break;
+            }
         }
     }
 
-    // --- Move Y axis and check collisions ---
-    pos.y += move.y;
-    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y,
-            FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
-
-    for (const Rectangle &r : game.collision_rects)
+    // --- Animation ---
+    if (player.pos.y < pos.y)
     {
-        if (CheckCollisionRecs(rect, r))
-        {
-            pos.y = old_pos.y; // rollback
-            break;
-        }
-    }
-
-    // Clamp to map boundaries
-    pos.x = Clamp(pos.x, -FOREST_SCOURGE_HITBOX_OFFSET_X, game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
-    pos.y = Clamp(pos.y, -FOREST_SCOURGE_HITBOX_OFFSET_Y, game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
-
-    // --- Set animation based on direction ---
-    if (fabs(move.x) > fabs(move.y))
-    {
-        // Horizontal movement dominates
-        if (move.x > 0)
-            current_anim_arr = forest_scourge_walk_down_right;
-        else
-            current_anim_arr = forest_scourge_walk_up_left;
+        current_anim_arr = forest_scourge_walk_up_left;
     }
     else
     {
-        // Vertical movement dominates
-        if (move.y > 0)
-            current_anim_arr = forest_scourge_walk_down_right;
-        else
-            current_anim_arr = forest_scourge_walk_up_left;
+        current_anim_arr = forest_scourge_walk_down_right;
     }
 
     max_animation_frames = 7;
+    
 }
 
 void Enemy_forest_scourge::attack()
