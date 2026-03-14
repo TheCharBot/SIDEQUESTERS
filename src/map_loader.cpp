@@ -60,6 +60,7 @@ void reset_player(Vector2 spawn)
 {
     player.pos = spawn;
     player.move_mode = 1;
+    cam.target = {player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2)};
 }
 
 void reset_loaded()
@@ -219,8 +220,10 @@ void load_index_save(int start_menu_slot_index)
 
     std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
 
-    if(!FileExists(path.c_str()))
+    if(!FileExists(path.c_str())){
+        
         return;
+    }
     
     std::ifstream file(path, std::ios::binary);
 

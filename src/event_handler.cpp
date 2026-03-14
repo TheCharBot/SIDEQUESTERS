@@ -17,7 +17,7 @@ void init_all()
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
     cam.zoom = scale;
-    game.state = START_MENU;
+    game.state = GAMEPLAY;
     PlayMusicStream(game.current_music);
     SetMusicVolume(game.current_music, 1.0f);
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
@@ -76,8 +76,8 @@ void update_all()
     update_vfx();
 
     //setting and clamping camera
-    cam.target.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH / 2);
-    cam.target.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT / 2);
+    cam.target = Vector2Lerp(cam.target, {player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2)}, (GetFrameTime()*4));
+
     cam.target.x = Clamp(cam.target.x, 0, (game.map_to_load.width) - (WINDOW_WIDTH));
     cam.target.y = Clamp(cam.target.y, 0, (game.map_to_load.height) - (WINDOW_HEIGHT));
 

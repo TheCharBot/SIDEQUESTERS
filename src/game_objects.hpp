@@ -366,6 +366,7 @@ struct Game_data{
     Game_states state;
     int save_slot;
     int new_scale;
+    Vector2 wanted_cam_pos;
     // Game_save start_save_index[3];//???
 };
 

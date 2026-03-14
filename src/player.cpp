@@ -137,19 +137,27 @@ void update_player()
         player.max_animation_frames = 1;
         if (player.facing == DOWN){
             player.current_anim_arr = player_idle_down_arr;
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
         }
             
         if (player.facing == UP){
             player.current_anim_arr = player_idle_up_arr;
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
         }
         
         if (player.facing == LEFT){
             player.current_anim_arr = player_idle_left_arr;
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
         }
         
         
         if (player.facing == RIGHT){
             player.current_anim_arr = player_idle_right_arr;
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
         }
             
         rebuild_hitbox();
@@ -176,7 +184,7 @@ void update_player()
         if(player.movement.x != 0 || player.movement.y != 0){
             if(!IsSoundPlaying(sound_effects[SFX::PLAYER_FOOTSTEPS])){
                 // std::cout <<"wow sound is playing!";
-                float pitch_rand = (rand() % 10)+1;
+                float pitch_rand = (rand() % 10);
                 pitch_rand /= 10;
                 SetSoundPitch(sound_effects[SFX::PLAYER_FOOTSTEPS], pitch_rand+1);
                 PlaySound(sound_effects[SFX::PLAYER_FOOTSTEPS]); //do something bout this later. make it so sfx knows its playing
@@ -191,6 +199,8 @@ void update_player()
                 player.current_animation_frame = 0;
                 player.max_animation_frames = 12;
             }
+            
+            
         }
         else if (player.movement.y > 0)
         {
@@ -201,6 +211,7 @@ void update_player()
                 player.current_animation_frame = 0;
                 player.max_animation_frames = 12;
             }
+            
         }
         else if (player.movement.x > 0)
         {
@@ -211,6 +222,7 @@ void update_player()
                 player.current_animation_frame = 0;
                 player.max_animation_frames = 8;
             }
+            
         }
         else if (player.movement.x < 0)
         {
@@ -221,6 +233,7 @@ void update_player()
                 player.current_animation_frame = 0;
                 player.max_animation_frames = 8;
             }
+            
         }
 
         // idle animation calculations
@@ -234,6 +247,7 @@ void update_player()
                     player.current_animation_frame = 0;
                     player.max_animation_frames = 1;
                 }
+                
             }
             if (player.facing == DOWN)
             {
@@ -243,6 +257,7 @@ void update_player()
                     player.current_animation_frame = 0;
                     player.max_animation_frames = 1;
                 }
+                
             }
             if (player.facing == RIGHT)
             {
@@ -252,6 +267,7 @@ void update_player()
                     player.current_animation_frame = 0;
                     player.max_animation_frames = 1;
                 }
+                
             }
             if (player.facing == LEFT)
             {
@@ -261,6 +277,7 @@ void update_player()
                     player.current_animation_frame = 0;
                     player.max_animation_frames = 1;
                 }
+                
             }
         }
 

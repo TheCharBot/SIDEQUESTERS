@@ -34,6 +34,7 @@
 
 //later TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
+//TODO: get default save to work
 // slightly done TODO: make Start menu
 //done TODO: make save/load system <- CURRENT
 //done TODO: GET IMAGES TO WORK ON START MENU
@@ -43,10 +44,13 @@
 //TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
+    
     load_config_state();
     // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
+    
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
+    // SetExitKey(KEY_NULL); //uncomment for turning off esc key close window
     InitAudioDevice();
     SetTargetFPS(60);
     Image icon;
