@@ -20,7 +20,11 @@ void init_player()
     player.normal_hitbox = {player.pos.x, player.pos.y, float(PLAYER_HITBOX_WIDTH), float(PLAYER_HITBOX_HEIGHT)};
     player.tex = LoadTexture(PLAYER_TEX_PATH);
     player.attack_hitbox = {};
-    
+    player.speed = PLAYER_WALK_SPEED;
+    player.max_stamina = PLAYER_DEFAULT_MAX_STAMINA;
+    player.current_stamina = PLAYER_DEFAULT_MAX_STAMINA;
+    player.reloading_stamina = false;
+    player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
 };
 
 void damage_player(float damage)
@@ -137,27 +141,27 @@ void update_player()
         player.max_animation_frames = 1;
         if (player.facing == DOWN){
             player.current_anim_arr = player_idle_down_arr;
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
         }
             
         if (player.facing == UP){
             player.current_anim_arr = player_idle_up_arr;
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
         }
         
         if (player.facing == LEFT){
             player.current_anim_arr = player_idle_left_arr;
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
         }
         
         
         if (player.facing == RIGHT){
             player.current_anim_arr = player_idle_right_arr;
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2);
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2);
+            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
+            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
         }
             
         rebuild_hitbox();
@@ -184,56 +188,115 @@ void update_player()
         if(player.movement.x != 0 || player.movement.y != 0){
             if(!IsSoundPlaying(sound_effects[SFX::PLAYER_FOOTSTEPS])){
                 // std::cout <<"wow sound is playing!";
-                float pitch_rand = (rand() % 10);
-                pitch_rand /= 10;
-                SetSoundPitch(sound_effects[SFX::PLAYER_FOOTSTEPS], pitch_rand+1);
+                float pitch_rand = (rand() % 10)/10.0f;
+                // pitch_rand /= 100;
+                SetSoundPitch(sound_effects[SFX::PLAYER_FOOTSTEPS], pitch_rand);
                 PlaySound(sound_effects[SFX::PLAYER_FOOTSTEPS]); //do something bout this later. make it so sfx knows its playing
             }
         }
-        if (player.movement.y < 0)
-        {
-            player.facing = UP;
-            player.current_anim_arr = player_walk_up;
-            if (player.max_animation_frames != 12)
+        if(!IsKeyDown(KEY_LEFT_SHIFT) || player.reloading_stamina){
+            player.stamina_reload_timer -= 2;
+            if (player.movement.y < 0)
             {
-                player.current_animation_frame = 0;
-                player.max_animation_frames = 12;
+                player.facing = UP;
+                player.speed = PLAYER_WALK_SPEED;
+                player.current_anim_arr = player_walk_up;
+                if (player.max_animation_frames != 12)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 12;
+                }
+                
+                
             }
-            
-            
+            else if (player.movement.y > 0)
+            {
+                player.facing = DOWN;
+                player.speed = PLAYER_WALK_SPEED;
+                player.current_anim_arr = player_walk_down;
+                if (player.max_animation_frames != 12)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 12;
+                }
+                
+            }
+            else if (player.movement.x > 0)
+            {
+                player.facing = RIGHT;
+                player.speed = PLAYER_WALK_SPEED;
+                player.current_anim_arr = player_walk_right;
+                if (player.max_animation_frames != 8)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 8;
+                }
+                
+            }
+            else if (player.movement.x < 0)
+            {
+                player.facing = LEFT;
+                player.speed = PLAYER_WALK_SPEED;
+                player.current_anim_arr = player_walk_left;
+                if (player.max_animation_frames != 8)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 8;
+                }
+                
+            }
         }
-        else if (player.movement.y > 0)
-        {
-            player.facing = DOWN;
-            player.current_anim_arr = player_walk_down;
-            if (player.max_animation_frames != 12)
+        else if(IsKeyDown(KEY_LEFT_SHIFT) && !player.reloading_stamina){
+            player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
+            if (player.movement.y < 0)
             {
-                player.current_animation_frame = 0;
-                player.max_animation_frames = 12;
+                player.facing = UP;
+                player.speed = PLAYER_SPRINT_SPEED;
+                player.current_anim_arr = player_sprint_up;
+                if (player.max_animation_frames != 6)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 6;
+                }
+                
+                
             }
-            
-        }
-        else if (player.movement.x > 0)
-        {
-            player.facing = RIGHT;
-            player.current_anim_arr = player_walk_right;
-            if (player.max_animation_frames != 8)
+            else if (player.movement.y > 0)
             {
-                player.current_animation_frame = 0;
-                player.max_animation_frames = 8;
+                player.facing = DOWN;
+                player.speed = PLAYER_SPRINT_SPEED;
+                player.current_anim_arr = player_sprint_down;
+                if (player.max_animation_frames != 6)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 6;
+                }
+                
             }
-            
-        }
-        else if (player.movement.x < 0)
-        {
-            player.facing = LEFT;
-            player.current_anim_arr = player_walk_left;
-            if (player.max_animation_frames != 8)
+            else if (player.movement.x > 0)
             {
-                player.current_animation_frame = 0;
-                player.max_animation_frames = 8;
+                player.facing = RIGHT;
+                player.speed = PLAYER_SPRINT_SPEED;
+                player.current_anim_arr = player_sprint_right;
+                if (player.max_animation_frames != 8)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 8;
+                }
+                
             }
-            
+            else if (player.movement.x < 0)
+            {
+                player.facing = LEFT;
+                player.speed = PLAYER_SPRINT_SPEED;
+                player.current_anim_arr = player_sprint_left;
+                if (player.max_animation_frames != 8)
+                {
+                    player.current_animation_frame = 0;
+                    player.max_animation_frames = 8;
+                }
+                
+            }
         }
 
         // idle animation calculations
@@ -286,7 +349,7 @@ void update_player()
         {
             player.movement = Vector2Normalize(player.movement);
 
-            player.pos.x += player.movement.x * PLAYER_SPEED;
+            player.pos.x += player.movement.x * player.speed;
 
             // player hitbox rebuild
             rebuild_hitbox();
@@ -314,7 +377,7 @@ void update_player()
                 }
                 
             }
-            player.pos.y += player.movement.y * PLAYER_SPEED;
+            player.pos.y += player.movement.y * player.speed;
             // player hitbox rebuild
             rebuild_hitbox();
             // vertical collision check
@@ -344,8 +407,8 @@ void update_player()
             }
             // making sure the player is at least inside the screen
             // i dont know why there is an 8 there - ???
-            player.pos.x = Clamp(player.pos.x, -23, (game.map_to_load.width) - (PLAYER_SPRITE_WIDTH - 40));
-            player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (PLAYER_SPRITE_HEIGHT - 12));
+            player.pos.x = Clamp(player.pos.x, -23, (game.map_to_load.width) - (DEFAULT_SPRITE_WIDTH - 40));
+            player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (DEFAULT_SPRITE_HEIGHT - 12));
         }
     }
 
@@ -404,6 +467,28 @@ void update_player()
     }
     player.attack_hitbox = {};
     
+    if(player.current_stamina < 0){
+        player.current_stamina = 0;
+        player.reloading_stamina = true;
+    }
+
+
+    if(player.reloading_stamina){
+        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
+        
+    }
+
+    else if(player.stamina_reload_timer < 0){
+        player.stamina_reload_timer = 0;
+        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
+    }
+    
+    if(player.current_stamina > player.max_stamina){
+        player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
+        player.current_stamina = player.max_stamina;
+        player.reloading_stamina = false;
+    }
+    
     // item use for 3 slots
     if (!gui.is_inv_open)
     {
@@ -435,6 +520,6 @@ void update_player()
 
 void draw_player()
 {
-    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(PLAYER_SPRITE_WIDTH), float(PLAYER_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); 
+    DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(DEFAULT_SPRITE_WIDTH), float(DEFAULT_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); 
     
 };

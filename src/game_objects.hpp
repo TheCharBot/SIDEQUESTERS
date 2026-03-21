@@ -1,7 +1,7 @@
 #ifndef GAME_OBJECTS_HPP
 #define GAME_OBJECTS_HPP
 
-#include "config.hpp"
+#include "img_rects.hpp"
 
 
 #define MAX_DIALOG_INDICIES 100
@@ -397,24 +397,37 @@ struct Player
     Vector2 movement;
     Rectangle *current_anim_arr;
     Rectangle normal_hitbox;
+
     int pos_x_save;
     int pos_y_save;
     int move_mode;
     int max_animation_frames;
     int current_animation_frame;
     int animation_frame_5;
+
     Texture2D tex;
+
     float current_health;
     float max_health;
+
+    int speed;
+    double current_stamina;
+    double max_stamina;
+    bool reloading_stamina;
+    int stamina_reload_timer;
+
     bool can_take_damage = true;
     float iframe_timer = 0.0f;
     Rectangle attack_hitbox;
     int active_damage;
+
     std::vector<Ground_item_names> picked_up_items;
     std::vector<Locked_door_names> unlocked_doors;
     std::vector<Entity_names> defeated_entities;
     int dungeon_keys = 0;
+    
     Facing facing;
+    
 };
 
 

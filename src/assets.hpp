@@ -97,6 +97,8 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 #define KNOCKBACK_DIST 20.0f
 #define HIT_FLASH_TIME 0.22f
 
+
+
 #define HOTBAR_KEY_TEXT_OFFSET_X 104
 #define HOTBAR_KEY_TEXT_OFFSET_Y 1
 #define DEFAULT_FONT_SIZE 13
@@ -130,16 +132,10 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 
 
 
-#define DEFAULT_SPRITE_WIDTH 64
-#define DEFAULT_SPRITE_HEIGHT 64
-#define DEFAULT_SPRITE_WIDTH_128 128
-#define DEFAULT_SPRITE_HEIGHT_128 128
 
 
 #define START_BULLDOZER_X 6
 #define START_BULLDOZER_Y 110
-#define START_BULLDOZER_WIDTH 99
-#define START_BULLDOZER_HEIGHT 75
 #define BULLDOZER_TRIGGER_Y 185
 #define BULLDOZER_SPEED 5
 #define MAX_BULLDOZER_X 190
@@ -147,8 +143,7 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 
 #define VILLAGE_WINDMILL_X 299
 #define VILLAGE_WINDMILL_Y 188
-#define VILLAGE_WINDMILL_WIDTH 144
-#define VILLAGE_WINDMILL_HEIGHT 192
+
 #define VILLAGE_WINDMILL_RECT_OFFSET_X 30
 #define VILLAGE_WINDMILL_RECT_OFFSET_Y 132
 #define VILLAGE_WINDMILL_RECT_WIDTH 80
@@ -178,8 +173,7 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 
 #define START_PORTAL_X 224
 #define START_PORTAL_Y 37
-#define START_PORTAL_WIDTH 32
-#define START_PORTAL_HEIGHT 44
+
 
 #define BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH 4
 
@@ -188,6 +182,34 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 #define VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_Y 42
 #define VILLAGE_QUESTGIVER_1_HITBOX_WIDTH 13
 #define VILLAGE_QUESTGIVER_1_HITBOX_HEIGHT 10
+
+#define PLAYER_HITBOX_WIDTH 13
+#define PLAYER_HITBOX_HEIGHT 10
+#define PLAYER_HITBOX_X_OFFSET 25
+#define PLAYER_HITBOX_Y_OFFSET 42
+
+#define PLAYER_WALK_SPEED 2
+#define PLAYER_SPRINT_SPEED 3
+#define PLAYER_DEFAULT_MAX_STAMINA 100
+#define PLAYER_DEFAULT_STAMINA_RELOAD_TIME 100
+#define PLAYER_DEFAULT_STAMINA_REGEN 0.2
+#define PLAYER_DEFAULT_STAMINA_DEGEN 0.5
+
+#define PLAYER_START_MAP_POS_X 209
+#define PLAYER_START_MAP_POS_Y 196
+#define PLAYER_VILLAGE_MAP_POS_X 267
+#define PLAYER_VILLAGE_MAP_POS_Y 128
+
+#define ITEM_SPRITE_WIDTH 16
+#define ITEM_SPRITE_HEIGHT 16
+
+// start portal image and rects
+
+
+
+
+extern Rectangle the_regrown_possible_destructable_tile_area;
+extern Rectangle the_regrown_impossible_destructable_tile_area;
 
 
 
@@ -418,28 +440,8 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 //----------------------------------------------------------------- OTHER CONSTANTS AREA (entities, player, etc) -----------------------------------------------------------------
 
 // constants defines (not rects)
-#define PLAYER_SPRITE_WIDTH 64
-#define PLAYER_SPRITE_HEIGHT 64
-#define PLAYER_HITBOX_WIDTH 13
-#define PLAYER_HITBOX_HEIGHT 10
-#define PLAYER_HITBOX_X_OFFSET 25
-#define PLAYER_HITBOX_Y_OFFSET 42
-#define PLAYER_SPEED 2
-#define PLAYER_START_MAP_POS_X 209
-#define PLAYER_START_MAP_POS_Y 196
-#define PLAYER_VILLAGE_MAP_POS_X 267
-#define PLAYER_VILLAGE_MAP_POS_Y 128
-
-#define ITEM_SPRITE_WIDTH 16
-#define ITEM_SPRITE_HEIGHT 16
-
-// start portal image and rects
 
 
-
-
-extern Rectangle the_regrown_possible_destructable_tile_area;
-extern Rectangle the_regrown_impossible_destructable_tile_area;
 // paths to things
 // map paths
 //----------------------------------------------------------------- PATH AREA -----------------------------------------------------------------
@@ -506,266 +508,6 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 
 //----------------------------------------------------------------- IMAGE RECT AREA -----------------------------------------------------------------
 
-extern Rectangle inv_cursor_1;
-extern Rectangle inv_cursor_2;
-extern Rectangle inv_cursor_anim[2];
-extern Rectangle health_bar_left_end;
-extern Rectangle health_bar_right_end;
-extern Rectangle health_bar_right_middle;
-extern Rectangle health_bar_middle;
-extern Rectangle health_bar_left_middle;
-extern Rectangle health_bar_middle_dead;
-extern Rectangle health_bar_middle_left_dead;
 
-// Player-focused image rect arrays
-extern Rectangle player_idle_up_arr[1];
-extern Rectangle player_idle_down_arr[1];
-extern Rectangle player_idle_right_arr[1];
-extern Rectangle player_idle_left_arr[1];
-extern Rectangle player_walk_down[12];
-extern Rectangle player_walk_up[12];
-extern Rectangle player_walk_right[8];
-extern Rectangle player_walk_left[8];
-// Player-focused image rects
-
-extern Rectangle player_idle_down;
-extern Rectangle player_idle_up;
-extern Rectangle player_idle_right;
-extern Rectangle player_idle_left;
-extern Rectangle player_walk_down_1;
-extern Rectangle player_walk_down_2;
-extern Rectangle player_walk_down_3;
-extern Rectangle player_walk_down_4;
-extern Rectangle player_walk_down_5;
-extern Rectangle player_walk_down_6;
-extern Rectangle player_walk_down_7;
-extern Rectangle player_walk_down_8;
-extern Rectangle player_walk_down_9;
-extern Rectangle player_walk_down_10;
-extern Rectangle player_walk_down_11;
-extern Rectangle player_walk_down_12;
-extern Rectangle player_walk_up_1;
-extern Rectangle player_walk_up_2;
-extern Rectangle player_walk_up_3;
-extern Rectangle player_walk_up_4;
-extern Rectangle player_walk_up_5;
-extern Rectangle player_walk_up_6;
-extern Rectangle player_walk_up_7;
-extern Rectangle player_walk_up_8;
-extern Rectangle player_walk_up_9;
-extern Rectangle player_walk_up_10;
-extern Rectangle player_walk_up_11;
-extern Rectangle player_walk_up_12;
-extern Rectangle player_walk_right_1;
-extern Rectangle player_walk_right_2;
-extern Rectangle player_walk_right_3;
-extern Rectangle player_walk_right_4;
-extern Rectangle player_walk_right_5;
-extern Rectangle player_walk_right_6;
-extern Rectangle player_walk_right_7;
-extern Rectangle player_walk_right_8;
-extern Rectangle player_walk_left_1;
-extern Rectangle player_walk_left_2;
-extern Rectangle player_walk_left_3;
-extern Rectangle player_walk_left_4;
-extern Rectangle player_walk_left_5;
-extern Rectangle player_walk_left_6;
-extern Rectangle player_walk_left_7;
-extern Rectangle player_walk_left_8;
-
-// player attack rects
-
-extern Rectangle player_sword_slash_down_1;
-extern Rectangle player_sword_slash_down_2;
-extern Rectangle player_sword_slash_down_3;
-extern Rectangle player_sword_slash_down_4;
-extern Rectangle player_sword_slash_down_5;
-extern Rectangle player_sword_slash_up_1;
-extern Rectangle player_sword_slash_up_2;
-extern Rectangle player_sword_slash_up_3;
-extern Rectangle player_sword_slash_up_4;
-extern Rectangle player_sword_slash_up_5;
-extern Rectangle player_sword_slash_right_1;
-extern Rectangle player_sword_slash_right_2;
-extern Rectangle player_sword_slash_right_3;
-extern Rectangle player_sword_slash_right_4;
-extern Rectangle player_sword_slash_right_5;
-extern Rectangle player_sword_slash_left_1;
-extern Rectangle player_sword_slash_left_2;
-extern Rectangle player_sword_slash_left_3;
-extern Rectangle player_sword_slash_left_4;
-extern Rectangle player_sword_slash_left_5;
-extern Rectangle player_sword_slash_down_arr[5];
-extern Rectangle player_sword_slash_up_arr[5];
-extern Rectangle player_sword_slash_right_arr[5];
-extern Rectangle player_sword_slash_left_arr[5];
-
-extern Rectangle start_portal_animation[4];
-extern Rectangle start_portal_1;
-extern Rectangle start_portal_2;
-extern Rectangle start_portal_3;
-extern Rectangle start_portal_4;
-extern Rectangle start_portal_emination;
-
-// bulldozer image and rects
-
-
-
-extern Rectangle start_bulldozer_animation[3];
-extern Rectangle start_bulldozer_1;
-extern Rectangle start_bulldozer_2;
-extern Rectangle start_bulldozer_3;
-
-// windmill stuff
-
-
-extern Rectangle village_windmill_animation[4];
-extern Rectangle village_windmill_1;
-extern Rectangle village_windmill_2;
-extern Rectangle village_windmill_3;
-extern Rectangle village_windmill_4;
-
-//tree trunk in big tree level stuff
-extern Rectangle Big_tree_levels_tree_trunk_middle;
-extern Rectangle Big_tree_levels_tree_trunk_top;
-extern Rectangle Big_tree_levels_tree_trunk_bottom;
-
-
-
-
-//forest scourge stuff
-//idle arrays
-extern Rectangle forest_scourge_idle_down_right[3];
-extern Rectangle forest_scourge_idle_up_right[3];
-extern Rectangle forest_scourge_idle_down_left[3];
-extern Rectangle forest_scourge_idle_up_left[3];
-//walking arrays
-extern Rectangle forest_scourge_walk_down_right[7];
-extern Rectangle forest_scourge_walk_up_left[7];
-//attacking arrays
-extern Rectangle forest_scourge_attack_down_right[6];
-extern Rectangle forest_scourge_attack_up_left[6];
-
-//idle animations - before it sees the player
-extern Rectangle forest_scourge_idle_down_right_1;
-extern Rectangle forest_scourge_idle_down_right_2;
-extern Rectangle forest_scourge_idle_down_right_3;
-extern Rectangle forest_scourge_idle_up_right_1;
-extern Rectangle forest_scourge_idle_up_right_2;
-extern Rectangle forest_scourge_idle_up_right_3;
-extern Rectangle forest_scourge_idle_down_left_1;
-extern Rectangle forest_scourge_idle_down_left_2;
-extern Rectangle forest_scourge_idle_down_left_3;
-extern Rectangle forest_scourge_idle_up_left_1;
-extern Rectangle forest_scourge_idle_up_left_2;
-extern Rectangle forest_scourge_idle_up_left_3;
-//walk animations - scuffed, but it works for now
-//really, the game only uses up left and down right, the rest is kinda pointless, none of the little guys are left handed, sorry
-extern Rectangle forest_scourge_walk_down_right_1;
-extern Rectangle forest_scourge_walk_down_right_2;
-extern Rectangle forest_scourge_walk_down_right_3;
-extern Rectangle forest_scourge_walk_down_right_4;
-extern Rectangle forest_scourge_walk_down_right_5;
-extern Rectangle forest_scourge_walk_down_right_6;
-extern Rectangle forest_scourge_walk_down_right_7;
-extern Rectangle forest_scourge_walk_up_left_1;
-extern Rectangle forest_scourge_walk_up_left_2;
-extern Rectangle forest_scourge_walk_up_left_3;
-extern Rectangle forest_scourge_walk_up_left_4;
-extern Rectangle forest_scourge_walk_up_left_5;
-extern Rectangle forest_scourge_walk_up_left_6;
-extern Rectangle forest_scourge_walk_up_left_7;
-//attack animations (im now thinking that i should make a better way of storing all of these)
-extern Rectangle forest_scourge_attack_down_right_1;
-extern Rectangle forest_scourge_attack_down_right_2;
-extern Rectangle forest_scourge_attack_down_right_3;
-extern Rectangle forest_scourge_attack_down_right_4;
-extern Rectangle forest_scourge_attack_down_right_5;
-extern Rectangle forest_scourge_attack_down_right_6;
-extern Rectangle forest_scourge_attack_up_left_1;
-extern Rectangle forest_scourge_attack_up_left_2;
-extern Rectangle forest_scourge_attack_up_left_3;
-extern Rectangle forest_scourge_attack_up_left_4;
-extern Rectangle forest_scourge_attack_up_left_5;
-extern Rectangle forest_scourge_attack_up_left_6;
-
-//TODO: ORGANIZE!!!!!!!!
-
-
-//The Regrown stuff
-
-
-extern Rectangle the_regrown_default_sprite_arr[1]; //annoying placeholder thingy (i hate pointers)
-extern Rectangle the_regrown_entrance_arr[8];
-extern Rectangle the_regrown_idle_arr[4];
-extern Rectangle the_regrown_attack_right_arr[5];
-extern Rectangle the_regrown_attack_left_arr[5];
-extern Rectangle the_regrown_ground_shake_arr[6];
-extern Rectangle the_regrown_die_arr[14];
-
-extern Rectangle the_regrown_default_sprite; // placeholder thingy
-
-extern Rectangle the_regrown_entrance_1;
-extern Rectangle the_regrown_entrance_2;
-extern Rectangle the_regrown_entrance_3;
-extern Rectangle the_regrown_entrance_4;
-extern Rectangle the_regrown_entrance_5;
-extern Rectangle the_regrown_entrance_6;
-extern Rectangle the_regrown_entrance_7;
-extern Rectangle the_regrown_entrance_8;
-
-extern Rectangle the_regrown_idle_1;
-extern Rectangle the_regrown_idle_2;
-extern Rectangle the_regrown_idle_3;
-extern Rectangle the_regrown_idle_4;
-
-extern Rectangle the_regrown_attack_right_1;
-extern Rectangle the_regrown_attack_right_2;
-extern Rectangle the_regrown_attack_right_3;
-extern Rectangle the_regrown_attack_right_4;
-extern Rectangle the_regrown_attack_right_5;
-extern Rectangle the_regrown_attack_left_1;
-extern Rectangle the_regrown_attack_left_2;
-extern Rectangle the_regrown_attack_left_3;
-extern Rectangle the_regrown_attack_left_4;
-extern Rectangle the_regrown_attack_left_5;
-extern Rectangle the_regrown_ground_shake_1;
-extern Rectangle the_regrown_ground_shake_2;
-extern Rectangle the_regrown_ground_shake_3;
-extern Rectangle the_regrown_ground_shake_4;
-extern Rectangle the_regrown_ground_shake_5;
-extern Rectangle the_regrown_ground_shake_6;
-
-extern Rectangle the_regrown_die_1;
-extern Rectangle the_regrown_die_2;
-extern Rectangle the_regrown_die_3;
-extern Rectangle the_regrown_die_4;
-extern Rectangle the_regrown_die_5;
-extern Rectangle the_regrown_die_6;
-extern Rectangle the_regrown_die_7;
-extern Rectangle the_regrown_die_8;
-extern Rectangle the_regrown_die_9;
-extern Rectangle the_regrown_die_10;
-extern Rectangle the_regrown_die_11;
-extern Rectangle the_regrown_die_12;
-extern Rectangle the_regrown_die_13;
-extern Rectangle the_regrown_die_14;
-
-extern Rectangle village_questgiver_idle[1];
-extern Rectangle village_questgiver_point_1;
-extern Rectangle village_questgiver_point_2;
-extern Rectangle village_questgiver_point_3;
-extern Rectangle village_questgiver_point[3];
-
-extern Rectangle start_menu_text_rect;
-extern Rectangle start_menu_emination;
-extern Rectangle start_menu_options_rect;
-extern Rectangle start_menu_select_right;
-extern Rectangle start_menu_select_left;
-extern Rectangle start_menu_saves_select_screen;
-extern Rectangle start_menu_saves_select_screen_selecter;
-extern Rectangle start_menu_credits_screen;
-extern Rectangle start_menu_achievements_screen;
-extern Rectangle start_menu_options_screen;
 
 #endif

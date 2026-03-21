@@ -60,7 +60,7 @@ void reset_player(Vector2 spawn)
 {
     player.pos = spawn;
     player.move_mode = 1;
-    cam.target = {player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2)};
+    cam.target = {player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2)};
 }
 
 void reset_loaded()

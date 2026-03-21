@@ -2,7 +2,7 @@
 #define VFX_HPP
 
 #include "assets.hpp"
-#include "config.hpp"
+
 
 //visual effects such as screen shake and stuff, or really any GUI that needs to be drawn before camera mode is turned off
 

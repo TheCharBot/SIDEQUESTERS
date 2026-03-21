@@ -78,7 +78,7 @@ void Start_bulldozer::update()
         player.move_mode = 0;
         if (player.normal_hitbox.y > 160)
         {
-            player.pos.y -= PLAYER_SPEED;
+            player.pos.y -= player.speed;
         }
         if (pos.x < MAX_BULLDOZER_X)
         {

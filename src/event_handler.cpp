@@ -21,18 +21,20 @@ void init_all()
     PlayMusicStream(game.current_music);
     SetMusicVolume(game.current_music, 1.0f);
     // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
-    request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
+    // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
+    // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
+    // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
+    // request_map(DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER);
+    // request_map(DARK_FOREST_CENTER, {273, 817});
+    
+    request_map(VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT);
+    // request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
     load_requested_map();
     if(game.state <= Game_states::OPTIONS){
         init_start_menu();
     }
     
-    // request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
-    // request_map(DARK_FOREST_SOUTH, DARK_FOREST_SOUTH_SPAWNPOINT_FROM_VILLAGE);
-    // request_map(DARK_FOREST_NORTH, DARK_FOREST_NORTH_SPAWNPOINT_FROM_DARK_FOREST_CENTER);
-    // request_map(DARK_FOREST_CENTER, {273, 817});
-    // request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
-    // request_map(VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT);
+    
     
 
     
@@ -77,7 +79,7 @@ void update_all()
     update_vfx();
 
     //setting and clamping camera
-    cam.target = Vector2Lerp(cam.target, {player.pos.x - ((WINDOW_WIDTH) / 2) + (PLAYER_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (PLAYER_SPRITE_HEIGHT/2)}, (GetFrameTime()*4));
+    cam.target = Vector2Lerp(cam.target, {player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2), player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2)}, (GetFrameTime()*4));
 
     cam.target.x = Clamp(cam.target.x, 0, (game.map_to_load.width) - (WINDOW_WIDTH));
     cam.target.y = Clamp(cam.target.y, 0, (game.map_to_load.height) - (WINDOW_HEIGHT));
