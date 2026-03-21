@@ -314,6 +314,7 @@ void save_config_state()
     cfg_dat.KEY_INTERACT = KEY_INTERACT;
     cfg_dat.KEY_SPEEDUP = KEY_SPEEDUP;
     cfg_dat.KEY_SAVE = KEY_SAVE;
+    cfg_dat.KEY_SPRINT = KEY_SPRINT;
 
     std::ofstream file("saves/config.dat", std::ios::binary);
 
@@ -361,6 +362,7 @@ void load_config_state()
     KEY_INTERACT = (KeyboardKey)cfg_dat.KEY_INTERACT;
     KEY_SPEEDUP = (KeyboardKey)cfg_dat.KEY_SPEEDUP;
     KEY_SAVE = (KeyboardKey)cfg_dat.KEY_SAVE;
+    KEY_SPRINT = (KeyboardKey)cfg_dat.KEY_SPRINT;
 
     
 }

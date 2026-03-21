@@ -6,7 +6,7 @@ GUI_data gui;
 Texture2D inventory_tex;
 Texture2D inventory_cursor_tex;
 Texture2D items_tex;
-Texture2D health_bar_tex;
+Texture2D gui_bar_segments_tex;
 Texture2D hotbar_tex;
 Texture2D textbox_tex;
 Texture2D start_menu_tex;
@@ -302,17 +302,33 @@ void health_bar_draw(){
     //but, it works, so im happy
     //* KEEP THIS - IT WORKS
     //oh gee willikers these are some AWFUL draw calls, but whatever >:)
-    DrawTexturePro(health_bar_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
-    DrawTexturePro(health_bar_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(gui_bar_segments_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(gui_bar_segments_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
     for(int i = 0; i < player.max_health*10; i++){
         //put stuff here to draw the empty healthbar
-        DrawTexturePro(health_bar_tex, health_bar_middle_dead, {((i*health_bar_middle_dead.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle_dead.width*scale, health_bar_middle_dead.height*scale}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui_bar_segments_tex, health_bar_middle_dead, {((i*health_bar_middle_dead.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle_dead.width*scale, health_bar_middle_dead.height*scale}, {0, 0}, 0, WHITE); 
     }
     for(int i = 0; i < player.current_health*10; i++){
         //put stuff here to draw the health in the healthbar
-        DrawTexturePro(health_bar_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui_bar_segments_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
     }
 }
+
+
+void stamina_bar_draw(){
+    if(player.current_stamina < player.max_stamina){
+
+        
+        for(int i = 0; i < player.max_stamina; i++){
+            //put stuff here to draw the empty healthbar
+            DrawTexturePro(gui_bar_segments_tex, stamina_bar_dead, {float((i*stamina_bar_dead.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE); 
+        }
+        for(int i = 0; i < player.current_stamina; i++){
+            //put stuff here to draw the health in the healthbar
+            DrawTexturePro(gui_bar_segments_tex, stamina_bar_segment, {float((i*stamina_bar_segment.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE);
+        }
+    }
+};
 
 
 
@@ -461,7 +477,7 @@ void init_gui()
     inventory_tex = LoadTexture(INVENTORY_PATH);
     items_tex = LoadTexture(ITEM_SHEET_PATH);
     inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
-    health_bar_tex = LoadTexture(HEALTH_BAR_PATH);
+    gui_bar_segments_tex = LoadTexture(GUI_BAR_SEGMENTS_PATH);
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
     
     textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
@@ -515,6 +531,7 @@ void draw_gui()
     // } //uncomment for testing!
     hotbar_draw();
     health_bar_draw();
+    stamina_bar_draw();
     textbox_update_draw();
     if (gui.is_inv_open)
     {

@@ -71,7 +71,7 @@ int main()
         // Game Logic
 
         update_all();
-        std::cout << player.current_stamina << "\n";
+        // std::cout << player.current_stamina << "\n";
 
         BeginDrawing();
         ClearBackground(BLACK);

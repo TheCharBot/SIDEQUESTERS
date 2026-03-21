@@ -388,6 +388,8 @@ struct Config_dat
     int KEY_INTERACT;
     int KEY_SPEEDUP;
     int KEY_SAVE;
+
+    int KEY_SPRINT;
 };
 // #pragma pack(pop)
 

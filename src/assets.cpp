@@ -13,6 +13,7 @@ KeyboardKey KEY_OPEN_INVENTORY = KEY_TAB;
 KeyboardKey KEY_INTERACT = KEY_X;
 KeyboardKey KEY_SPEEDUP = KEY_Z;
 KeyboardKey KEY_SAVE = KEY_ENTER;
+KeyboardKey KEY_SPRINT = KEY_LEFT_SHIFT;
 
 
 // 23, 24, 25

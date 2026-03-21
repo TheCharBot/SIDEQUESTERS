@@ -8,6 +8,9 @@ Rectangle health_bar_left_middle = {8, 1, 1, 6};
 Rectangle health_bar_middle_dead = {10, 1, 1, 6};
 Rectangle health_bar_middle_left_dead = {12, 1, 1, 6};
 
+Rectangle stamina_bar_dead = {1, 8, 1, 5};
+Rectangle stamina_bar_segment = {3, 8, 1, 5};
+
 Rectangle start_menu_text_rect = {0, 0, 288, 96};
 Rectangle start_menu_emination = {0, 96, 320, 112};
 Rectangle start_menu_options_rect = {288, 16, 112, 64};

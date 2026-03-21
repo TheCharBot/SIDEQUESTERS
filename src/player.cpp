@@ -75,6 +75,7 @@ void hotbar_slot_stuff(int slot){
         // implement item 1 usage here
         if (inventory_slots[slot].filled_with->type == COMBAT_MELEE)
         {
+            player.current_stamina -= PLAYER_SWORD_SWING_STAMINA_DEGEN;
             float pitch_rand = (rand() % 10)+1;
             pitch_rand /= 10;
             SetSoundPitch(sound_effects[SFX::PLAYER_SWING_SWORD], pitch_rand+1);
@@ -194,7 +195,7 @@ void update_player()
                 PlaySound(sound_effects[SFX::PLAYER_FOOTSTEPS]); //do something bout this later. make it so sfx knows its playing
             }
         }
-        if(!IsKeyDown(KEY_LEFT_SHIFT) || player.reloading_stamina){
+        if(!IsKeyDown(KEY_SPRINT) || player.reloading_stamina){
             player.stamina_reload_timer -= 2;
             if (player.movement.y < 0)
             {
@@ -246,10 +247,11 @@ void update_player()
                 
             }
         }
-        else if(IsKeyDown(KEY_LEFT_SHIFT) && !player.reloading_stamina){
-            player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
+        else if(IsKeyDown(KEY_SPRINT) && !player.reloading_stamina){
+            player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
             if (player.movement.y < 0)
             {
+                player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
                 player.facing = UP;
                 player.speed = PLAYER_SPRINT_SPEED;
                 player.current_anim_arr = player_sprint_up;
@@ -263,6 +265,7 @@ void update_player()
             }
             else if (player.movement.y > 0)
             {
+                player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
                 player.facing = DOWN;
                 player.speed = PLAYER_SPRINT_SPEED;
                 player.current_anim_arr = player_sprint_down;
@@ -275,6 +278,7 @@ void update_player()
             }
             else if (player.movement.x > 0)
             {
+                player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
                 player.facing = RIGHT;
                 player.speed = PLAYER_SPRINT_SPEED;
                 player.current_anim_arr = player_sprint_right;
@@ -287,6 +291,7 @@ void update_player()
             }
             else if (player.movement.x < 0)
             {
+                player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
                 player.facing = LEFT;
                 player.speed = PLAYER_SPRINT_SPEED;
                 player.current_anim_arr = player_sprint_left;
@@ -410,6 +415,21 @@ void update_player()
             player.pos.x = Clamp(player.pos.x, -23, (game.map_to_load.width) - (DEFAULT_SPRITE_WIDTH - 40));
             player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (DEFAULT_SPRITE_HEIGHT - 12));
         }
+        if (!gui.is_inv_open)
+        {
+            if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
+            {
+                hotbar_slot_stuff(23);
+            }
+            else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
+            {
+                hotbar_slot_stuff(24);
+            }
+            else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
+            {
+                hotbar_slot_stuff(25);
+            }
+        }
     }
 
     // dont move and keep animation - for attacking
@@ -490,21 +510,7 @@ void update_player()
     }
     
     // item use for 3 slots
-    if (!gui.is_inv_open)
-    {
-        if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
-        {
-            hotbar_slot_stuff(23);
-        }
-        else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
-        {
-            hotbar_slot_stuff(24);
-        }
-        else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
-        {
-            hotbar_slot_stuff(25);
-        }
-    }
+    
     player_update_iframes();
     
     if (player.current_health <= 0)

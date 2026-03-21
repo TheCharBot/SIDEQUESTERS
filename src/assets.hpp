@@ -47,7 +47,7 @@ extern Player player;
 extern Texture2D inventory_tex;
 extern Texture2D inventory_cursor_tex;
 extern Texture2D items_tex;
-extern Texture2D health_bar_tex;
+extern Texture2D gui_bar_segments_tex;
 extern Texture2D hotbar_tex;
 extern Texture2D textbox_tex;
 extern Texture2D slot_icons[3];
@@ -81,6 +81,7 @@ extern KeyboardKey KEY_OPEN_INVENTORY; //KEY_TAB
 extern KeyboardKey KEY_INTERACT; //KEY_X
 extern KeyboardKey KEY_SPEEDUP; //KEY_Z
 extern KeyboardKey KEY_SAVE; //KEY_ENTER
+extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
@@ -108,6 +109,8 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 #define HOTBAR_SLOT_3_OFFSET_X 67
 #define HEALTHBAR_OFFSET_X 1
 #define HEALTHBAR_OFFSET_Y 1
+#define STAMINA_BAR_OFFSET_X 1
+#define STAMINA_BAR_OFFSET_Y 174
 #define SCREEN_FADE_TIME 0.3f
 #define HOTBAR_POS {208, 3}
 #define TEXTBOX_POS {0, 110}
@@ -191,9 +194,10 @@ extern KeyboardKey KEY_SAVE; //KEY_ENTER
 #define PLAYER_WALK_SPEED 2
 #define PLAYER_SPRINT_SPEED 3
 #define PLAYER_DEFAULT_MAX_STAMINA 100
-#define PLAYER_DEFAULT_STAMINA_RELOAD_TIME 100
+#define PLAYER_DEFAULT_STAMINA_RELOAD_TIME 200
 #define PLAYER_DEFAULT_STAMINA_REGEN 0.2
-#define PLAYER_DEFAULT_STAMINA_DEGEN 0.5
+#define PLAYER_DEFAULT_STAMINA_DEGEN 0.4
+#define PLAYER_SWORD_SWING_STAMINA_DEGEN 4
 
 #define PLAYER_START_MAP_POS_X 209
 #define PLAYER_START_MAP_POS_Y 196
@@ -497,7 +501,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define INVENTORY_PATH "gfx/gui/inventory_tex.png"
 #define ITEM_SHEET_PATH "gfx/items_tex.png"
 #define INV_CURSOR_PATH "gfx/gui/inventory_cursor.png"
-#define HEALTH_BAR_PATH "gfx/gui/health_bar_tex.png"
+#define GUI_BAR_SEGMENTS_PATH "gfx/gui/gui_bar_segments_tex.png"
 #define HOTBAR_TEX_PATH "gfx/gui/hotbar_tex.png"
 #define GLOB_FONT_PATH "gfx/font/BoldPixels.ttf"
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"

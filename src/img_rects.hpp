@@ -17,8 +17,7 @@
 #define START_PORTAL_WIDTH 32
 #define START_PORTAL_HEIGHT 44
 
-extern Rectangle inv_cursor_1;
-extern Rectangle inv_cursor_2;
+
 extern Rectangle inv_cursor_anim[2];
 extern Rectangle health_bar_left_end;
 extern Rectangle health_bar_right_end;
@@ -27,6 +26,9 @@ extern Rectangle health_bar_middle;
 extern Rectangle health_bar_left_middle;
 extern Rectangle health_bar_middle_dead;
 extern Rectangle health_bar_middle_left_dead;
+
+extern Rectangle stamina_bar_dead;
+extern Rectangle stamina_bar_segment;
 
 // Player-focused image rect arrays
 extern Rectangle player_idle_up_arr[1];
