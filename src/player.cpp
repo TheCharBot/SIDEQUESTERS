@@ -25,7 +25,53 @@ void init_player()
     player.current_stamina = PLAYER_DEFAULT_MAX_STAMINA;
     player.reloading_stamina = false;
     player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
+    player.taking_knockback = false;
 };
+
+void player_stamina_update(){
+    if(player.current_stamina < 0){
+        player.current_stamina = 0;
+        player.reloading_stamina = true;
+    }
+
+
+    if(player.reloading_stamina){
+        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
+        
+    }
+
+    else if(player.stamina_reload_timer < 0){
+        player.stamina_reload_timer = 0;
+        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
+    }
+    
+    if(player.current_stamina > player.max_stamina){
+        player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
+        player.current_stamina = player.max_stamina;
+        player.reloading_stamina = false;
+    }
+};
+
+void damage_player_with_knockback(float damage, Vector2 damage_pos)
+{
+    damage_player(damage);
+    player.taking_knockback = true;
+    player.knockback_origin = damage_pos;
+};
+
+void update_knockback(){
+    if(player.taking_knockback){
+        player.move_mode = 0;
+        player.pos = Vector2Lerp(player.pos, player.knockback_origin, 0.1);
+        if(CheckCollisionRecs(player.normal_hitbox, {player.knockback_origin.x+PLAYER_HITBOX_X_OFFSET, player.knockback_origin.y+PLAYER_HITBOX_Y_OFFSET, PLAYER_HITBOX_WIDTH, PLAYER_HITBOX_HEIGHT})){
+            player.taking_knockback = false;
+            player.move_mode = 1;
+        }
+    }
+    else{
+        
+    }
+}
 
 void damage_player(float damage)
 {
@@ -79,8 +125,8 @@ void hotbar_slot_stuff(int slot){
             float pitch_rand = (rand() % 10)+1;
             pitch_rand /= 10;
             SetSoundPitch(sound_effects[SFX::PLAYER_SWING_SWORD], pitch_rand+1);
-            PlaySound(sound_effects[SFX::PLAYER_SWING_SWORD]); //do something bout this later. make it so sfx knows its playing
-            
+            PlaySound(sound_effects[SFX::PLAYER_SWING_SWORD]); 
+            // std::cout << player.facing << "\n";
             if (player.facing == DOWN)
             {
                 player.current_anim_arr = player_sword_slash_down_arr;
@@ -108,6 +154,7 @@ void hotbar_slot_stuff(int slot){
             player.current_animation_frame = 0;
             player.max_animation_frames = 5;
             player.move_mode = 2;
+            
         }
         if (inventory_slots[slot].filled_with->type == COMBAT_RANGED)
         {
@@ -134,8 +181,11 @@ void hotbar_slot_stuff(int slot){
 
 void update_player()
 {
-    
+    if(player.attack_hitbox.x > 0 || player.attack_hitbox.y > 0 || player.attack_hitbox.width > 0 || player.attack_hitbox.height > 0){
+        player.attack_hitbox = {0, 0, 0, 0};
+    }
     // dont move at all - mostly for cutscenes
+    update_knockback();
     if (player.move_mode == 0)
     {
         player.current_animation_frame = 0;
@@ -415,21 +465,20 @@ void update_player()
             player.pos.x = Clamp(player.pos.x, -23, (game.map_to_load.width) - (DEFAULT_SPRITE_WIDTH - 40));
             player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (DEFAULT_SPRITE_HEIGHT - 12));
         }
-        if (!gui.is_inv_open)
+        
+        if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
         {
-            if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
-            {
-                hotbar_slot_stuff(23);
-            }
-            else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
-            {
-                hotbar_slot_stuff(24);
-            }
-            else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
-            {
-                hotbar_slot_stuff(25);
-            }
+            hotbar_slot_stuff(23);
         }
+        else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
+        {
+            hotbar_slot_stuff(24);
+        }
+        else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
+        {
+            hotbar_slot_stuff(25);
+        }
+        
     }
 
     // dont move and keep animation - for attacking
@@ -485,29 +534,9 @@ void update_player()
             
         }
     }
-    player.attack_hitbox = {};
     
-    if(player.current_stamina < 0){
-        player.current_stamina = 0;
-        player.reloading_stamina = true;
-    }
-
-
-    if(player.reloading_stamina){
-        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
-        
-    }
-
-    else if(player.stamina_reload_timer < 0){
-        player.stamina_reload_timer = 0;
-        player.current_stamina += PLAYER_DEFAULT_STAMINA_REGEN;
-    }
+    player_stamina_update();
     
-    if(player.current_stamina > player.max_stamina){
-        player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
-        player.current_stamina = player.max_stamina;
-        player.reloading_stamina = false;
-    }
     
     // item use for 3 slots
     
@@ -527,5 +556,5 @@ void update_player()
 void draw_player()
 {
     DrawTexturePro(player.tex, player.current_anim_arr[player.current_animation_frame], {player.pos.x, player.pos.y, float(DEFAULT_SPRITE_WIDTH), float(DEFAULT_SPRITE_HEIGHT)}, {0, 0}, 0, WHITE); 
-    
+    // DrawRectangle(player.attack_hitbox.x*scale, player.attack_hitbox.y*scale, player.attack_hitbox.width*scale, player.attack_hitbox.height*scale, RED);
 };

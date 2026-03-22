@@ -422,7 +422,7 @@ void Enemy_forest_scourge::attack()
     attack_hit_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, FOREST_SCOURGE_ATTACK_WIDTH, FOREST_SCOURGE_ATTACK_HEIGHT};
     if (CheckCollisionRecs(attack_hit_rect, player.normal_hitbox))
     {
-        damage_player(FOREST_SCOURGE_DAMAGE);
+        damage_player_with_knockback(FOREST_SCOURGE_DAMAGE, pos);
     }
 }
 
@@ -442,6 +442,7 @@ void Enemy_forest_scourge::decide_action()
         {
             // make a player.active_damage thing or whatever
             take_damage(player.active_damage, player.pos);
+            
         }
         else if (CheckCollisionRecs(chase_detect_rect, player.normal_hitbox))
         {
@@ -524,6 +525,8 @@ void The_Regrown::update()
             {
                 PlaySound(sound_effects[SFX::THE_REGROWN_FALL]);
                 started_fight = true;
+                game.current_music = LoadMusicStream(THE_REGROWN_THEME_PATH);
+                
                 game.collision_rects.push_back(col_rect_1);
                 game.collision_rects.push_back(col_rect_2);
                 game.collision_rects.push_back(col_rect_3);
@@ -569,7 +572,11 @@ void The_Regrown::update()
         remove_collision_rect(col_rect_1);
         remove_collision_rect(col_rect_2);
         remove_collision_rect(col_rect_3);
-
+        if(game.current_music.stream.buffer != nullptr){
+            StopMusicStream(game.current_music);
+            UnloadMusicStream(game.current_music);
+            game.current_music = {};
+        }
         // collision_rects.push_back(BIG_TREE_LEVEL_RECT_20); //I HAVE NO IDEA WHY THIS RECT GETS NUKED - BUT OKAY
         // collision_rects.push_back(BIG_TREE_LEVEL_RECT_2); //same here ^
     }

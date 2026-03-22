@@ -82,7 +82,7 @@ int main()
         // uncomment these for helpful debug stuff!
         // std::cout << GetFPS() << "\n";
         
-        // DrawRectangle(player.attack_hitbox.x*scale, player.attack_hitbox.y*scale, player.attack_hitbox.width*scale, player.attack_hitbox.height*scale, RED);
+        
         EndDrawing();
         
     }

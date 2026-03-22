@@ -9,6 +9,7 @@
 
 extern void init_player();
 
+extern void damage_player_with_knockback(float damage, Vector2 damage_pos);
 extern void damage_player(float damage);
 
 extern void player_update_iframes();

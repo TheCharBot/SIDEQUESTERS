@@ -320,11 +320,11 @@ void stamina_bar_draw(){
 
         
         for(int i = 0; i < player.max_stamina; i++){
-            //put stuff here to draw the empty healthbar
+            //put stuff here to draw the empty stamina bar
             DrawTexturePro(gui_bar_segments_tex, stamina_bar_dead, {float((i*stamina_bar_dead.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE); 
         }
         for(int i = 0; i < player.current_stamina; i++){
-            //put stuff here to draw the health in the healthbar
+            //put stuff here to draw the health in the stamina bar
             DrawTexturePro(gui_bar_segments_tex, stamina_bar_segment, {float((i*stamina_bar_segment.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE);
         }
     }

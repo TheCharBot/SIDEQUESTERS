@@ -429,6 +429,9 @@ struct Player
     int dungeon_keys = 0;
     
     Facing facing;
+
+    bool taking_knockback;
+    Vector2 knockback_origin;
     
 };
 
