@@ -404,8 +404,10 @@ void Enemy_forest_scourge::chase()
     {
         current_anim_arr = forest_scourge_walk_down_right;
     }
-
-    max_animation_frames = 7;
+    if(max_animation_frames != 7){
+        current_animation_frame = 0;
+        max_animation_frames = 7;
+    }
     
 }
 
@@ -418,11 +420,15 @@ void Enemy_forest_scourge::attack()
     //     PlaySound(sound_effects[SFX::GLOB_SWING_SWORD]);
     // }
     current_anim_arr = forest_scourge_attack_down_right;
-    max_animation_frames = 6;
+    if(max_animation_frames != 6){
+        max_animation_frames = 6;
+        current_animation_frame = 0;
+        
+    }
     attack_hit_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, FOREST_SCOURGE_ATTACK_WIDTH, FOREST_SCOURGE_ATTACK_HEIGHT};
-    if (CheckCollisionRecs(attack_hit_rect, player.normal_hitbox))
+    if (CheckCollisionRecs(attack_hit_rect, player.hitbox))
     {
-        damage_player_with_knockback(FOREST_SCOURGE_DAMAGE, pos);
+        damage_player_with_knockback(FOREST_SCOURGE_DAMAGE, pos, 300);
     }
 }
 
@@ -444,12 +450,12 @@ void Enemy_forest_scourge::decide_action()
             take_damage(player.active_damage, player.pos);
             
         }
-        else if (CheckCollisionRecs(chase_detect_rect, player.normal_hitbox))
+        if (CheckCollisionRecs(chase_detect_rect, player.hitbox) && !CheckCollisionRecs(attack_detect_rect, player.hitbox))
         {
             chase();
             attack_hit_rect = {};
         }
-        if (CheckCollisionRecs(attack_detect_rect, player.normal_hitbox))
+        if (CheckCollisionRecs(attack_detect_rect, player.hitbox))
             attack();
 
         else
@@ -662,7 +668,7 @@ void The_Regrown::right_arm_attack()
     current_animation_frame = 0;
 
     active_damaging_rect = {pos.x + THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_RIGHT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_RIGHT_ARM_DAMAGE_RECT_W_H};
-    if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
+    if (CheckCollisionRecs(active_damaging_rect, player.hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
     }
@@ -676,7 +682,7 @@ void The_Regrown::left_arm_attack()
     max_animation_frames = 5;
     current_animation_frame = 0;
     active_damaging_rect = {pos.x + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_X, pos.y + THE_REGROWN_LEFT_ARM_DAMAGE_OFFSET_Y, THE_REGROWN_LEFT_ARM_DAMAGE_RECT_W_H};
-    if (CheckCollisionRecs(active_damaging_rect, player.normal_hitbox))
+    if (CheckCollisionRecs(active_damaging_rect, player.hitbox))
     {
         damage_player(THE_REGROWN_ARM_DAMAGE);
     }
@@ -706,11 +712,11 @@ void The_Regrown::decide_action()
 
     //  ground_shake_attack();
     idle_animation();
-    if (CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
+    if (CheckCollisionRecs({THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_RIGHT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.collision_rect))
     {
         right_arm_attack();
     }
-    else if (CheckCollisionRecs({THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.normal_hitbox))
+    else if (CheckCollisionRecs({THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_X + pos.x, THE_REGROWN_LEFT_ATTACK_DETECT_OFFSET_Y + pos.y, THE_REGROWN_ARM_ATTACK_DETECT_WIDTH, THE_REGROWN_ARM_ATTACK_DETECT_HEIGHT}, player.collision_rect))
     {
         left_arm_attack();
     }
@@ -744,7 +750,7 @@ void The_Regrown::break_random_floor_tiles(int amount)
         int y = GetRandomValue(0, game.map_to_load.height / 16);
         x *= 16;
         y *= 16;
-        if (CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.normal_hitbox) && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area))
+        if (CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_possible_destructable_tile_area) && !CheckCollisionRecs({float(x), float(y), 16, 16}, player.collision_rect) && !CheckCollisionRecs({float(x), float(y), 16, 16}, the_regrown_impossible_destructable_tile_area))
         {
             // implement actually breaking the tiles here
             game.map_load_rects.push_back(Load_rects({x, y, 16, 16}, BIG_TREE_LEVEL_9, {x - 23, y - 37})); // TODO: figure out what this code is going to do. move to vfx? player? idk, but thats for later

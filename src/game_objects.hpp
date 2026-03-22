@@ -396,12 +396,13 @@ struct Config_dat
 struct Player
 {
     Vector2 pos;
+    Vector2 pos_save;
     Vector2 movement;
     Rectangle *current_anim_arr;
-    Rectangle normal_hitbox;
+    Rectangle collision_rect;
+    Rectangle hitbox;
 
-    int pos_x_save;
-    int pos_y_save;
+    
     int move_mode;
     int max_animation_frames;
     int current_animation_frame;
@@ -430,8 +431,9 @@ struct Player
     
     Facing facing;
 
-    bool taking_knockback;
-    Vector2 knockback_origin;
+    
+    float knockback_time;
+    Vector2 knockback_vel;
     
 };
 

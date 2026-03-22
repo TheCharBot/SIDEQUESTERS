@@ -71,12 +71,12 @@ void Start_bulldozer::update()
 {
     rect = {pos.x, pos.y, START_BULLDOZER_WIDTH, START_BULLDOZER_HEIGHT};
     // checking if the player is at a Specific y value
-    if (player.normal_hitbox.y <= BULLDOZER_TRIGGER_Y)
+    if (player.collision_rect.y <= BULLDOZER_TRIGGER_Y)
     {
         gui.is_inv_open = false;
         // running cutscene magic
         player.move_mode = 0;
-        if (player.normal_hitbox.y > 160)
+        if (player.collision_rect.y > 160)
         {
             player.pos.y -= player.speed;
         }
@@ -84,7 +84,7 @@ void Start_bulldozer::update()
         {
             pos.x += BULLDOZER_SPEED;
         }
-        if (CheckCollisionRecs(player.normal_hitbox, rect))
+        if (CheckCollisionRecs(player.collision_rect, rect))
         {
             // why is this number not in assets?
             if (pos.x >= 232)
@@ -307,7 +307,7 @@ void Village_questgiver_1::load()
 
 void Village_questgiver_1::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.normal_hitbox) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT)){
             for (int i = 0; i < 28; i++) {
                 if (inventory_slots[i].filled_with->name== SACRED_BARK) {

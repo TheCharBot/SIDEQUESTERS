@@ -119,7 +119,7 @@ void draw_all()
     draw_player();
     for (auto &e : game.entities)
     {
-        if (e->rect.y > player.normal_hitbox.y)
+        if (e->rect.y > player.collision_rect.y)
         {
             e->draw();
             
@@ -137,7 +137,7 @@ void draw_all()
         //drawing lock texture
         DrawTextureEx(game.door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE); //just the offsets - i dont think macros are too nessecary
     }
-    // DrawRectangle(player.normal_hitbox.x, player.normal_hitbox.y, player.normal_hitbox.width, player.normal_hitbox.height, GREEN);
+    // DrawRectangle(player.collision_rect.x, player.collision_rect.y, player.collision_rect.width, player.collision_rect.height, GREEN);
     EndMode2D();
     draw_gui();
 
