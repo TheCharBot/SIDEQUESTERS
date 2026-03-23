@@ -481,7 +481,7 @@ void init_gui()
     hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
     
     textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
-    add_item_to_inventory(Stick);
+    add_item_to_inventory(item_ids[Item_names::STICK]);
 
     gui.global_font = LoadFont(GLOB_FONT_PATH);
 

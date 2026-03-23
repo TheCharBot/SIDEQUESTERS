@@ -266,7 +266,7 @@ void Big_tree_level_tree_trunk::update()
     }
     if(health == 0){
         if(game.current_map == BIG_TREE_LEVEL_5){
-            add_ground_item(Big_tree_level_5_key);
+            add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_5_KEY]);
         }
         player.defeated_entities.push_back(name);
         remove_collision_rect(rect);
@@ -310,7 +310,7 @@ void Village_questgiver_1::update()
     if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT)){
             for (int i = 0; i < 28; i++) {
-                if (inventory_slots[i].filled_with->name== SACRED_BARK) {
+                if (inventory_slots[i].filled_with->name== Item_names::SACRED_BARK) {
                     found_wanted_item = true;
                     break;
                 };

@@ -729,7 +729,7 @@ void load_big_tree_level_1(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
 
-    add_ground_item(Big_tree_level_1_stick);
+    add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_1_STICK]);
 
     for (auto &e : game.entities)
         e->load();
@@ -774,7 +774,7 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_1, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
-    add_ground_item(Big_tree_level_2_key);
+    add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY]);
     add_locked_rect({BIG_TREE_LEVELS_BOTTOM_UP_LOCK_RECT, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); 
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
@@ -1096,7 +1096,7 @@ void load_big_tree_level_10(){
         
     });
     
-    add_entity<The_Regrown>(Entity_names::THE_REGROWN);
+    add_entity<Boss_The_Regrown>(Entity_names::THE_REGROWN);
         
     
     for (auto &e : game.entities)

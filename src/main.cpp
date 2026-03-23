@@ -53,7 +53,7 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
-    // SetExitKey(KEY_NULL); //uncomment for turning off esc key close window
+    SetExitKey(KEY_F10); //uncomment for turning off esc key close window
     InitAudioDevice();
     SetTargetFPS(60);
     Image icon;

@@ -28,6 +28,23 @@ void init_player()
     player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
 };
 
+void rebuild_hitbox()
+{
+    player.collision_rect = {
+        player.pos.x + PLAYER_COLLISION_RECT_X_OFFSET,
+        player.pos.y + PLAYER_COLLISION_RECT_Y_OFFSET,
+        float(PLAYER_COLLISION_RECT_WIDTH),
+        float(PLAYER_COLLISION_RECT_HEIGHT)};
+    player.hitbox = {
+        player.pos.x+PLAYER_HITBOX_X_OFFSET, 
+        player.pos.y+PLAYER_HITBOX_Y_OFFSET, 
+        PLAYER_HITBOX_WIDTH, 
+        PLAYER_HITBOX_HEIGHT};
+
+    
+    
+}
+
 void player_stamina_update(){
     if(player.current_stamina < 0){
         player.current_stamina = 0;
@@ -66,29 +83,28 @@ void damage_player_with_knockback(float damage, Vector2 damage_pos, float streng
 };
 
 void update_knockback(){
-    if (player.knockback_time > 0.0f)
-    {
-        Vector2 new_pos = Vector2Add(player.pos, Vector2Scale(player.knockback_vel, GetFrameTime()));
+    
+    Vector2 new_pos = Vector2Add(player.pos, Vector2Scale(player.knockback_vel, GetFrameTime()));
 
-        // try X
-        player.pos.x = new_pos.x;
-        for(Rectangle &r : game.collision_rects){
-            if (CheckCollisionRecs(player.collision_rect, r)) player.pos.x = player.pos_save.x;
-        }
-        // try Y
-        player.pos.y = new_pos.y;
-        for(Rectangle &r : game.collision_rects){
-            if (CheckCollisionRecs(player.collision_rect, r)) player.pos.y = player.pos_save.y;
-        }
-
-        // decay the velocity (this is your "lerp feel")
-        player.knockback_vel = Vector2Lerp(player.knockback_vel, {0, 0}, GetFrameTime() * 10);
-
-        player.knockback_time -= GetFrameTime();
+    // try X
+    player.pos.x = new_pos.x;
+    rebuild_hitbox();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(player.collision_rect, r)) player.pos.x = player.pos_save.x;
     }
-    else{
-        
+    // try Y
+    player.pos.y = new_pos.y;
+    rebuild_hitbox();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(player.collision_rect, r)) player.pos.y = player.pos_save.y;
     }
+
+    // decay the velocity (this is your "lerp feel")
+    player.knockback_vel = Vector2Lerp(player.knockback_vel, {0, 0}, GetFrameTime() * 10);
+
+    player.knockback_time -= GetFrameTime();
+    
+    
 }
 
 void damage_player(float damage)
@@ -123,22 +139,7 @@ void player_update_iframes()
     }
 }
 
-void rebuild_hitbox()
-{
-    player.collision_rect = {
-        player.pos.x + PLAYER_COLLISION_RECT_X_OFFSET,
-        player.pos.y + PLAYER_COLLISION_RECT_Y_OFFSET,
-        float(PLAYER_COLLISION_RECT_WIDTH),
-        float(PLAYER_COLLISION_RECT_HEIGHT)};
-    player.hitbox = {
-        player.pos.x+PLAYER_HITBOX_X_OFFSET, 
-        player.pos.y+PLAYER_HITBOX_Y_OFFSET, 
-        PLAYER_HITBOX_WIDTH, 
-        PLAYER_HITBOX_HEIGHT};
 
-    
-    
-}
 // you can basically copy/paste these 3
 
 void hotbar_slot_stuff(int slot){
@@ -226,8 +227,10 @@ void update_player()
         player.attack_hitbox = {0, 0, 0, 0};
     }
     player.pos_save = player.pos;
-    
-    update_knockback();
+    if (player.knockback_time > 0.0f){ 
+        update_knockback(); 
+        return;
+    }
     switch(player.move_mode){
         case 0: // dont move at all - mostly for cutscenes
         {
@@ -569,7 +572,7 @@ void update_player()
             PlaySound(sound_effects[SFX::PICKUP_ITEM]);
             g.picked_up = true;
             player.picked_up_items.push_back(g.ground_item_name);
-            if(g.item.name == DUNGEON_KEY){
+            if(g.item.name == Item_names::DUNGEON_KEY){
                 
                 player.dungeon_keys++;
                 continue;
@@ -602,6 +605,7 @@ void update_player()
     if (player.current_health <= 0)
     {
         // implement game over screen or something here
+        game.state = Game_states::PLAYER_GAME_OVER;
         CloseWindow();
         std::cout << "YOU LOSE!\n";
     }

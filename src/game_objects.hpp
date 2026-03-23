@@ -78,7 +78,7 @@ enum Buff_types
 
 };
 
-enum Item_names
+enum class Item_names
 {
 
     STICK,
@@ -164,7 +164,7 @@ enum Game_states{ //add endings and other menu things
     ACHIEVEMENTS,
     OPTIONS,
     GAMEPLAY,
-    DIED,
+    PLAYER_GAME_OVER,
     END_QUESTED,
 };
 
@@ -440,15 +440,14 @@ struct Player
 
 extern std::unordered_map<SFX, Sound> sound_effects;
 extern std::unordered_map<Music_names, Music> music_names;
-// extern std::unordered_map<Item_names, Item> items; //maybe later
+extern std::unordered_map<Item_names, Item> item_ids;
+extern std::unordered_map<Ground_item_names, Ground_item> ground_item_ids;
+
+// extern std::unordered_map<Item_names, Item> item_ids; //maybe later
 
 //globally define items here
-extern Item Stick;
-extern Item Sacred_bark;
-extern Item Dungeon_key;
-extern Ground_item Big_tree_level_1_stick;
-extern Ground_item Big_tree_level_2_key;
-extern Ground_item Big_tree_level_5_key; 
+
+
 
 
 #endif

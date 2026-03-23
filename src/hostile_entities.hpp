@@ -65,9 +65,15 @@ class Enemy_forest_scourge: public Entity{
         Vector2 wander_dir = {0, 0};
         Vector2 move{};
         Vector2 vel;
+        enum Behavior_mode{
+            ATTACK,
+            CHASE,
+            WANDER
+        };
+        Enemy_forest_scourge::Behavior_mode behavior_mode;
 };
 
-class The_Regrown: public Entity{
+class Boss_The_Regrown: public Entity{
     public:
         Vector2 pos{};
         
@@ -77,9 +83,9 @@ class The_Regrown: public Entity{
         //use static shared when there are multiple instances
         
 
-        The_Regrown();
+        Boss_The_Regrown();
 
-        ~The_Regrown() override;
+        ~Boss_The_Regrown() override;
         //load for loading texture data, dont load in constructor
         void load() override;
         void update() override;
@@ -115,7 +121,13 @@ class The_Regrown: public Entity{
         float ground_attack_cooldown;
         bool can_use_ground_attack;
         Ground_item item_drop;
-        
+        enum Behavior_mode{
+            RIGHT_ATTACK,
+            LEFT_ATTACK,
+            GROUND_ATTACK,
+            IDLE,
+        };
+        Boss_The_Regrown::Behavior_mode behavior_mode;
 };
 
 
