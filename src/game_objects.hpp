@@ -376,10 +376,10 @@ struct Game_data{
     int save_slot = 0;
     int new_scale = 0;
     Vector2 wanted_cam_pos = {};
-    std::unordered_map<std::string, Texture2D> texture_cache;
-    std::unordered_map<SFX_ids, Sound> sfx_manager;
-    std::unordered_map<Item_names, Item> item_ids;
-    std::unordered_map<Ground_item_names, Ground_item> ground_item_ids;
+    std::unordered_map<std::string, Texture2D> texture_cache = {};
+    std::unordered_map<SFX_ids, Sound> sfx_manager = {};
+    std::unordered_map<Item_names, Item> item_ids = {};
+    std::unordered_map<Ground_item_names, Ground_item> ground_item_ids = {};
     // Game_save start_save_index[3];//???
 };
 
@@ -449,6 +449,11 @@ struct Player
     Vector2 knockback_vel = {};
     
 };
+
+extern Game_data game;
+extern GUI_data gui;
+extern Player player;
+
 
 
 //then entity classes

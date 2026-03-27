@@ -45,9 +45,6 @@ extern void unload_all_textures();
 
 
 
-extern Game_data game;
-extern GUI_data gui;
-extern Player player;
 
 // GUI globals
 extern Texture2D inventory_tex;
