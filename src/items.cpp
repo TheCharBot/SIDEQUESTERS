@@ -9,12 +9,13 @@ void add_item_to_inventory(Item item)
 {
     if(item.type == CONSUMABLE){
         for (Inventory_slot &s : inventory_slots){
-            if(s.filled_with->name == item.name){
+            if(s.filled_with && s.filled_with->name == item.name){
+                std::cout << "adding";
                 s.filled_with->consumable.amount++;
                 return;
             }
             else{
-                break;
+                continue;
             }
         }
     }
@@ -66,5 +67,5 @@ void init_items()
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY].item = game.item_ids[Item_names::DUNGEON_KEY];
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY].ground_item_name = Ground_item_names::BIG_TREE_LEVEL_2_KEY;
 
-    game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP].item = game.item_ids[Item_names::RED_BERRIES];
+    
 }

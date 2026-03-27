@@ -336,35 +336,26 @@ void hotbar_draw(){
     DrawTextureEx(hotbar_tex, Vector2Scale(gui.hotbar_pos, scale), 0, scale, WHITE);
     if(inventory_slots[23].filled_with){
         DrawTexturePro(items_tex, inventory_slots[23].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+
         if(inventory_slots[23].filled_with->type == CONSUMABLE){
             inventory_slots[23].amount_in_slot = inventory_slots[23].filled_with->consumable.amount;
             DrawText(std::to_string(inventory_slots[23].filled_with->consumable.amount).c_str(), (gui.hotbar_pos.x+HOTBAR_SLOT_1_OFFSET_X+14)*scale, (gui.hotbar_pos.y+14)*scale, 5*scale, WHITE);
         }
     }
     if(inventory_slots[24].filled_with){
-        DrawTexturePro(
-                items_tex,
-                inventory_slots[24].filled_with->img_rect,
-                {gui.hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, gui.hotbar_pos.y*scale,
-                 float(ITEM_SPRITE_WIDTH*scale),
-                 float(ITEM_SPRITE_HEIGHT*scale)},
-                {0, 0}, 0, WHITE);
+        DrawTexturePro(items_tex, inventory_slots[24].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+
         if(inventory_slots[24].filled_with->type == CONSUMABLE){
             inventory_slots[24].amount_in_slot = inventory_slots[24].filled_with->consumable.amount;
-            DrawText(std::to_string(inventory_slots[24].filled_with->consumable.amount).c_str(), (gui.hotbar_pos.x+HOTBAR_SLOT_1_OFFSET_X+14)*scale, (gui.hotbar_pos.y+14)*scale, 5*scale, WHITE);
+            DrawText(std::to_string(inventory_slots[24].filled_with->consumable.amount).c_str(), (gui.hotbar_pos.x+HOTBAR_SLOT_2_OFFSET_X+14)*scale, (gui.hotbar_pos.y+14)*scale, 5*scale, WHITE);
         }
     }
     if(inventory_slots[25].filled_with){
-        DrawTexturePro(
-                items_tex,
-                inventory_slots[25].filled_with->img_rect,
-                {gui.hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, gui.hotbar_pos.y*scale,
-                 float(ITEM_SPRITE_WIDTH*scale),
-                 float(ITEM_SPRITE_HEIGHT*scale)},
-                {0, 0}, 0, WHITE);
+        DrawTexturePro(items_tex, inventory_slots[25].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+
         if(inventory_slots[25].filled_with->type == CONSUMABLE){
             inventory_slots[25].amount_in_slot = inventory_slots[25].filled_with->consumable.amount;
-            DrawText(std::to_string(inventory_slots[25].filled_with->consumable.amount).c_str(), (gui.hotbar_pos.x+HOTBAR_SLOT_1_OFFSET_X+14)*scale, (gui.hotbar_pos.y+14)*scale, 5*scale, WHITE);
+            DrawText(std::to_string(inventory_slots[25].filled_with->consumable.amount).c_str(), (gui.hotbar_pos.x+HOTBAR_SLOT_3_OFFSET_X+14)*scale, (gui.hotbar_pos.y+14)*scale, 5*scale, WHITE);
         }
     }
     // DrawText(std::to_string(player.dungeon_keys).c_str(), (hotbar_pos.x+104)*scale, (hotbar_pos.y-1)*scale, 17, (Color){51, 57, 65, 255});
@@ -488,13 +479,13 @@ void init_gui()
     
     textbox_tex = get_texture(TEXTBOX_TEX_PATH);
     add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
     add_item_to_inventory(game.item_ids[Item_names::STICK]);
 
     gui.global_font = LoadFont(GLOB_FONT_PATH);

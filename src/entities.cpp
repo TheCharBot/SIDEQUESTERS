@@ -373,6 +373,9 @@ Berry_bush::Berry_bush()
     pos = {273, 817};
     rect = {pos.x+5, pos.y+7, 25, 13};
     health = BERRY_BUSH_HEALTH;
+    item_drop.ground_item_name = {};
+    item_drop.pos = {pos.x+13, pos.y+10};
+    item_drop.item = game.item_ids[Item_names::RED_BERRIES];
 }
 
 Berry_bush::~Berry_bush()
@@ -397,9 +400,9 @@ void Berry_bush::update()
         
     }
     if(health < 0){
-        game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP].pos = {pos.x+13, pos.y+10};
-        add_ground_item(game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP]);
-        player.defeated_entities.push_back(name);
+        
+        game.ground_items.push_back(item_drop);
+        // player.defeated_entities.push_back(name);
         dead = true;
     }
 }

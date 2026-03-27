@@ -585,7 +585,7 @@ class Berry_bush : public Entity{
     private:
         Texture2D tex;
         float health;
-        
+        Ground_item item_drop;
 };
 
 
