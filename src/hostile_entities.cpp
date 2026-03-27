@@ -455,7 +455,7 @@ void Enemy_forest_scourge::decide_action()
     }
     if (move_mode == 1)
     {
-        if (CheckCollisionRecs(rect, player.attack_hitbox))
+        if (CheckCollisionRecs(rect, player.active_attack_hitbox))
         {
             // make a player.active_damage thing or whatever
             take_damage(player.active_damage, player.pos);
@@ -560,7 +560,7 @@ void Boss_The_Regrown::update()
     }
     if (hit_flash_timer > 0.0f)
         hit_flash_timer -= GetFrameTime();
-    if (CheckCollisionRecs(rect, player.attack_hitbox))
+    if (CheckCollisionRecs(rect, player.active_attack_hitbox))
     {
         take_damage(player.active_damage);
     }

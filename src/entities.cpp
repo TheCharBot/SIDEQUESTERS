@@ -237,7 +237,7 @@ void Big_tree_level_tree_trunk::update()
 {
     if (hit_flash_timer > 0.0f)
         hit_flash_timer -= GetFrameTime();
-    if(CheckCollisionRecs(rect, player.attack_hitbox)){
+    if(CheckCollisionRecs(rect, player.active_attack_hitbox)){
         if (!can_take_damage)
             return;
         if (can_take_damage)
@@ -372,11 +372,14 @@ Berry_bush::Berry_bush()
 {
     pos = {273, 817};
     rect = {pos.x+5, pos.y+7, 25, 13};
+    health = BERRY_BUSH_HEALTH;
 }
 
 Berry_bush::~Berry_bush()
 {
-    
+    if(tex.id != 0){
+        UnloadTexture(tex);
+    }
 }
 
 void Berry_bush::load()
@@ -389,6 +392,16 @@ void Berry_bush::load()
 
 void Berry_bush::update()
 {
+    if(CheckCollisionRecs(rect, player.active_attack_hitbox)){
+        health -= player.active_damage;
+        
+    }
+    if(health < 0){
+        game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP].pos = {pos.x+13, pos.y+10};
+        add_ground_item(game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP]);
+        player.defeated_entities.push_back(name);
+        dead = true;
+    }
 }
 
 void Berry_bush::draw()

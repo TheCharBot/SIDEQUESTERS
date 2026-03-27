@@ -116,6 +116,7 @@ enum Ground_item_names{
     BIG_TREE_LEVEL_1_STICK,
     BIG_TREE_LEVEL_2_KEY,
     BIG_TREE_LEVEL_5_KEY,
+    BERRY_BUSH_DROP,
 
 };
 
@@ -433,7 +434,7 @@ struct Player
 
     bool can_take_damage = true;
     float iframe_timer = 0.0f;
-    Rectangle attack_hitbox = {};
+    Rectangle active_attack_hitbox = {};
     int active_damage = 0;
 
     std::vector<Ground_item_names> picked_up_items = {};
@@ -578,6 +579,7 @@ class Berry_bush : public Entity{
         
     private:
         Texture2D tex;
+        float health;
         
 };
 

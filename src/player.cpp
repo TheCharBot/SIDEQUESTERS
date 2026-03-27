@@ -20,7 +20,7 @@ void init_player()
     player.collision_rect = {player.pos.x, player.pos.y, float(PLAYER_COLLISION_RECT_WIDTH), float(PLAYER_COLLISION_RECT_HEIGHT)};
     player.hitbox = {player.pos.x+PLAYER_HITBOX_X_OFFSET, player.pos.y+PLAYER_HITBOX_Y_OFFSET, PLAYER_HITBOX_WIDTH, PLAYER_HITBOX_HEIGHT};
     player.tex = get_texture(PLAYER_TEX_PATH);
-    player.attack_hitbox = {};
+    player.active_attack_hitbox = {};
     player.speed = PLAYER_WALK_SPEED;
     player.max_stamina = PLAYER_DEFAULT_MAX_STAMINA;
     player.current_stamina = PLAYER_DEFAULT_MAX_STAMINA;
@@ -154,34 +154,34 @@ void item_combat_melee_stuff(Item* item, int slot){
         case DOWN:
         {
             player.current_anim_arr = player_sword_slash_down_arr;
-            player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+            player.active_attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
             player.active_damage = item->melee.damage;
             break;
         }
         case UP:
         {
             player.current_anim_arr = player_sword_slash_up_arr;
-            player.attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
+            player.active_attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
             player.active_damage = item->melee.damage;
             break;
         }
         case LEFT:
         {
             player.current_anim_arr = player_sword_slash_left_arr;
-            player.attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
+            player.active_attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
             player.active_damage = item->melee.damage;
             break;
         }
         case RIGHT:
         {
             player.current_anim_arr = player_sword_slash_right_arr;
-            player.attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
+            player.active_attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
             player.active_damage = item->melee.damage;
             break;
         }
         default:{
             player.current_anim_arr = player_sword_slash_down_arr;
-            player.attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
+            player.active_attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
             player.active_damage = item->melee.damage;
             break;
         }
@@ -586,8 +586,8 @@ void animation_player_movement(){
 
 void update_player()
 {
-    if(player.attack_hitbox.x > 0 || player.attack_hitbox.y > 0 || player.attack_hitbox.width > 0 || player.attack_hitbox.height > 0){
-        player.attack_hitbox = {0, 0, 0, 0};
+    if(player.active_attack_hitbox.x > 0 || player.active_attack_hitbox.y > 0 || player.active_attack_hitbox.width > 0 || player.active_attack_hitbox.height > 0){
+        player.active_attack_hitbox = {0, 0, 0, 0};
     }
     player.pos_save = player.pos;
     if (player.knockback_time > 0.0f){ 

@@ -65,4 +65,6 @@ void init_items()
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY].pos = BIG_TREE_LEVEL_2_KEY_POS;
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY].item = game.item_ids[Item_names::DUNGEON_KEY];
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY].ground_item_name = Ground_item_names::BIG_TREE_LEVEL_2_KEY;
+
+    game.ground_item_ids[Ground_item_names::BERRY_BUSH_DROP].item = game.item_ids[Item_names::RED_BERRIES];
 }
