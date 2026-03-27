@@ -23,7 +23,7 @@ Village_windmill::~Village_windmill()
 
 void Village_windmill::load()
 {
-    tex = LoadTexture(VILLAGE_WINDMILL_PATH);
+    tex = get_texture(VILLAGE_WINDMILL_PATH);
 }
 
 void Village_windmill::update()
@@ -65,7 +65,7 @@ Start_bulldozer::~Start_bulldozer()
 
 void Start_bulldozer::load()
 {
-    tex = LoadTexture(BULLDOZER_TEX_PATH);
+    tex = get_texture(BULLDOZER_TEX_PATH);
 }
 void Start_bulldozer::update()
 {
@@ -136,7 +136,7 @@ Start_portal::~Start_portal()
 void Start_portal::load()
 {
 
-    tex = LoadTexture(PORTAL_TEX_PATH);
+    tex = get_texture(PORTAL_TEX_PATH);
 }
 
 void Start_portal::update()
@@ -185,7 +185,7 @@ Big_tree::~Big_tree()
 
 void Big_tree::load()
 {
-    tex = LoadTexture(BIG_TREE_TEX_PATH);
+    tex = get_texture(BIG_TREE_TEX_PATH);
 }
 
 void Big_tree::update()
@@ -230,7 +230,7 @@ Big_tree_level_tree_trunk::~Big_tree_level_tree_trunk()
 
 void Big_tree_level_tree_trunk::load()
 {
-    tex = LoadTexture(BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH);
+    tex = get_texture(BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH);
 }
 
 void Big_tree_level_tree_trunk::update()
@@ -266,7 +266,7 @@ void Big_tree_level_tree_trunk::update()
     }
     if(health == 0){
         if(game.current_map == BIG_TREE_LEVEL_5){
-            add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_5_KEY]);
+            add_ground_item(game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_5_KEY]);
         }
         player.defeated_entities.push_back(name);
         remove_collision_rect(rect);
@@ -302,7 +302,7 @@ Village_questgiver_1::~Village_questgiver_1()
 
 void Village_questgiver_1::load()
 {
-    tex = LoadTexture(VILLAGE_QUESTGIVER_1_PATH);
+    tex = get_texture(VILLAGE_QUESTGIVER_1_PATH);
 }
 
 void Village_questgiver_1::update()
@@ -342,9 +342,9 @@ void Village_questgiver_1::update()
         }
         
         else if(is_text_finished(VILLAGE_QUESTGIVER_1_STORY_TEXT) && !is_text_finished(VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT) && found_wanted_item){
-            set_textbox_indice_text(0, {"Wow! I wasn't expecting you to have actually completed that! I guess my initial judgement of you was a bit harsh . . .", NONE});
+            set_textbox_indice_text(0, {"Oh! I wasn't expecting you to have actually done that! I guess my initial judgement of you was a bit harsh . . .", NONE});
             set_textbox_indice_text(1, {"Good job, in fact, you can keep that piece of bark, I just wanted that Regrown dead.", NONE});
-            set_textbox_indice_text(2, {"Oh! You want to learn more about the Regrown? I'll tell you then!", NONE});
+            set_textbox_indice_text(2, {"Ah! You want to learn more about the Regrown? I'll tell you then!", NONE});
             set_textbox_indice_text(3, {"It is an evil tree spirit, mentally connected to every single Forest Scourge everywhere. At all times.", NONE});
             set_textbox_indice_text(4, {"You don't even know what a Forest Scourge is? I won't go too in-depth with them, just know that those little guys with the spears are what I'm talking about.", NONE});
             set_textbox_indice_text(5, {"But essentially, the Regrown controls them all, and by killing it, you have given them a taste of Freedom.", NONE});
@@ -366,4 +366,32 @@ void Village_questgiver_1::update()
 void Village_questgiver_1::draw()
 {
     DrawTexturePro(tex, current_animation_arr[current_animation_frame], {pos.x, pos.y, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}, {0, 0}, 0, WHITE);
+}
+
+Berry_bush::Berry_bush()
+{
+    pos = {273, 817};
+    rect = {pos.x+5, pos.y+7, 25, 13};
+}
+
+Berry_bush::~Berry_bush()
+{
+    
+}
+
+void Berry_bush::load()
+{
+    
+    tex = get_texture(BERRY_BUSH_TEX_PATH);
+        
+    
+}
+
+void Berry_bush::update()
+{
+}
+
+void Berry_bush::draw()
+{
+    DrawTexture(tex, pos.x, pos.y, WHITE);
 }

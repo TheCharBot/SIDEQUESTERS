@@ -2,8 +2,7 @@
 #define MAP_HPP
 
 
-#include "entities.hpp"
-#include "hostile_entities.hpp"
+#include "game_funcs.hpp"
 
 extern void init_map();
 

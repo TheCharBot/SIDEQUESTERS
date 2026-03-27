@@ -57,6 +57,11 @@ extern Rectangle player_dash_left[8];
 extern Rectangle player_dash_up[6];
 extern Rectangle player_dash_down[6];
 
+extern Rectangle player_consume_down[8];
+extern Rectangle player_consume_up[8];
+extern Rectangle player_consume_right[8];
+extern Rectangle player_consume_left[8];
+
 
 extern Rectangle start_portal_animation[4];
 

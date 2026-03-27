@@ -87,9 +87,9 @@ int main()
         
     }
     // game.new_scale = 3;
-    if(game.state == Game_states::GAMEPLAY){
-        save_index_state(game.save_slot);
-    }
+    // if(game.state == Game_states::GAMEPLAY){
+    //     save_index_state(game.save_slot);
+    // } //TODO: Uncomment in final release
     if(scale != game.new_scale){
         scale = game.new_scale;
     }

@@ -30,6 +30,12 @@ extern void load_index_save(int start_menu_slot_index);
 extern void save_config_state();
 extern void load_config_state();
 
+extern void load_map(Map_names map, Vector2 new_player_pos); //only here cuz it has to be
+
+extern Texture2D& get_texture(const std::string& path);
+
+
+extern void unload_all_textures();
 
 // editable globals
 
@@ -51,6 +57,7 @@ extern Texture2D gui_bar_segments_tex;
 extern Texture2D hotbar_tex;
 extern Texture2D textbox_tex;
 extern Texture2D slot_icons[3];
+extern Texture2D start_menu_tex;
 
 extern Inventory_slot inventory_slots[28];
 
@@ -360,7 +367,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 
 #define BIG_TREE_STAIRS_BOTTOM_UP_RECT_1 {194, 259, 13, 10}
 #define BIG_TREE_STAIRS_BOTTOM_UP_RECT_2 {184, 269, 23, 9}
-#define BIG_TREE_STAIRS_BOTTOM_UP_RECT_3 {173, 278, 34, 25}
+#define BIG_TREE_STAIRS_BOTTOM_UP_RECT_3 {174, 278, 34, 24}
 
 
 
@@ -502,6 +509,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
 #define VILLAGE_QUESTGIVER_1_PATH "gfx/npc/village_questgiver_1/village_questgiver_1_tex.png"
+#define BERRY_BUSH_TEX_PATH "gfx/assets/berry_bush/berry_bush_tex.png"
 // player texture path
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 // gui and items sheet paths

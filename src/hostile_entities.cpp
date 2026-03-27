@@ -1,18 +1,11 @@
 #include "hostile_entities.hpp"
 
 // should probably put this somewhere
-Texture2D Enemy_forest_scourge::shared_tex = {};
-bool Enemy_forest_scourge::texture_loaded = false;
 
-void unload_enemy_textures()
-{
-    // add all the enemy textures that spawn more than one per map, call when loading map, in reset_loaded
-    if (Enemy_forest_scourge::texture_loaded)
-    {
-        UnloadTexture(Enemy_forest_scourge::shared_tex);
-        Enemy_forest_scourge::texture_loaded = false;
-    }
-}
+
+
+
+
 
 Enemy_forest_scourge::Enemy_forest_scourge()
 {
@@ -42,12 +35,11 @@ Enemy_forest_scourge::~Enemy_forest_scourge()
 
 void Enemy_forest_scourge::load()
 {
-    if (!texture_loaded)
-    {
-        shared_tex = LoadTexture(
-            FOREST_SCOURGE_TEX_PATH);
-        texture_loaded = true;
-    }
+    
+    tex = get_texture(
+        FOREST_SCOURGE_TEX_PATH);
+        
+    
     if (game.current_map == DARK_FOREST_SOUTH)
     {
         random_index = rand() % 6;
@@ -178,6 +170,9 @@ void Enemy_forest_scourge::load()
         case 1:
             pos = FOREST_SCOURGE_BIG_TREE_LEVELS_POS_2;
             break;
+        default:
+            pos = FOREST_SCOURGE_BIG_TREE_LEVELS_POS_1;
+            break;
         }
     }
 }
@@ -232,7 +227,7 @@ void Enemy_forest_scourge::update()
 
 void Enemy_forest_scourge::draw()
 {
-    DrawTexturePro(shared_tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH), float(DEFAULT_SPRITE_HEIGHT)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
+    DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH), float(DEFAULT_SPRITE_HEIGHT)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
 }
 
 void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
@@ -428,11 +423,11 @@ void Enemy_forest_scourge::chase()
 
 void Enemy_forest_scourge::attack()
 {
-    // if(!IsSoundPlaying(sound_effects[SFX::GLOB_SWING_SWORD])){
+    // if(!IsSoundPlaying(sound_effects[SFX_ids::GLOB_SWING_SWORD])){
     //     float pitch_rand = (rand() % 10)+1;
     //     pitch_rand /= 10;
-    //     SetSoundPitch(sound_effects[SFX::GLOB_SWING_SWORD], pitch_rand+1);
-    //     PlaySound(sound_effects[SFX::GLOB_SWING_SWORD]);
+    //     SetSoundPitch(sound_effects[SFX_ids::GLOB_SWING_SWORD], pitch_rand+1);
+    //     PlaySound(sound_effects[SFX_ids::GLOB_SWING_SWORD]);
     // }
     current_anim_arr = forest_scourge_attack_down_right;
     behavior_mode = ATTACK;
@@ -522,7 +517,7 @@ Boss_The_Regrown::~Boss_The_Regrown()
 
 void Boss_The_Regrown::load()
 {
-    tex = LoadTexture(THE_REGROWN_TEX_PATH);
+    tex = get_texture(THE_REGROWN_TEX_PATH);
 }
 
 void Boss_The_Regrown::update()
@@ -545,7 +540,7 @@ void Boss_The_Regrown::update()
             }
             if (pos.y >= THE_REGROWN_FINAL_Y)
             {
-                PlaySound(sound_effects[SFX::THE_REGROWN_FALL]);
+                PlaySound(game.sfx_manager[SFX_ids::THE_REGROWN_FALL]);
                 started_fight = true;
                 game.current_music = LoadMusicStream(THE_REGROWN_THEME_PATH);
                 
@@ -581,7 +576,7 @@ void Boss_The_Regrown::update()
     }
     if (health <= 0 && !death_anim_started)
     {
-        PlaySound(sound_effects[SFX::THE_REGROWN_DIE]);
+        PlaySound(game.sfx_manager[SFX_ids::THE_REGROWN_DIE]);
         death_anim_started = true;
         move_mode = 2;
         current_anim_arr = the_regrown_die_arr;
@@ -678,7 +673,7 @@ void Boss_The_Regrown::draw()
 void Boss_The_Regrown::init_item_drop()
 {
     item_drop.pos = THE_REGROWN_ITEM_DROP_POS;
-    item_drop.item = item_ids[Item_names::SACRED_BARK];
+    item_drop.item = game.item_ids[Item_names::SACRED_BARK];
 }
 
 void Boss_The_Regrown::take_damage(float damage)
@@ -702,7 +697,7 @@ void Boss_The_Regrown::take_damage(float damage)
 
 void Boss_The_Regrown::right_arm_attack()
 {
-    PlaySound(sound_effects[SFX::THE_REGROWN_ARM_ATTACK]);
+    PlaySound(game.sfx_manager[SFX_ids::THE_REGROWN_ARM_ATTACK]);
     move_mode = 2;
     current_anim_arr = the_regrown_attack_right_arr;
     if(max_animation_frames != 5){
@@ -716,7 +711,7 @@ void Boss_The_Regrown::right_arm_attack()
 
 void Boss_The_Regrown::left_arm_attack()
 {
-    PlaySound(sound_effects[SFX::THE_REGROWN_ARM_ATTACK]);
+    PlaySound(game.sfx_manager[SFX_ids::THE_REGROWN_ARM_ATTACK]);
     move_mode = 2;
     current_anim_arr = the_regrown_attack_left_arr;
     if(max_animation_frames != 5){
@@ -740,7 +735,7 @@ void Boss_The_Regrown::ground_shake_attack()
         behavior_mode = GROUND_ATTACK;
         start_screen_shake(1.5, 5);
         break_random_floor_tiles(5);
-        PlaySound(sound_effects[SFX::THE_REGROWN_GROUND_ATTACK]);   
+        PlaySound(game.sfx_manager[SFX_ids::THE_REGROWN_GROUND_ATTACK]);   
     }
     else
     {

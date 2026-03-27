@@ -65,7 +65,7 @@ enum Item_types
 
     COMBAT_MELEE,
     COMBAT_RANGED,
-    SHEILD,
+    SHIELD,
     QUEST_ITEM,
     CONSUMABLE,
     DUNGEON
@@ -86,6 +86,7 @@ enum class Item_names
     WEAK_SWORD,
     SACRED_BARK,
     DUNGEON_KEY,
+    RED_BERRIES,
 
 };
 
@@ -104,7 +105,8 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     BIG_TREE_LEVEL_9_TREE_TRUNK,
     THE_REGROWN,
     FOREST_SCOURGE,
-    VILLAGE_QUESTGIVER_1
+    VILLAGE_QUESTGIVER_1,
+    BERRY_BUSH,
 };
 
 
@@ -129,7 +131,7 @@ enum Dialog_effects{
     FADE,
 };
 
-enum class SFX {
+enum class SFX_ids {
     TEST_SOUND,
     PLAYER_SWING_SWORD,
     PLAYER_FOOTSTEPS,
@@ -148,6 +150,8 @@ enum class SFX {
 enum class Music_names{ //put the names of the music or the names of the maps here
     DARK_FOREST,
 };
+
+
 
 enum Facing
 {
@@ -170,7 +174,7 @@ enum Game_states{ //add endings and other menu things
 
 
 // figure out good way to document quests - this works for now though
-enum Quests
+enum Quest_names
 {
     SACRED_BARK_FROM_DARK_FOREST,
 
@@ -179,37 +183,37 @@ enum Quests
 // Map-focused stuff
 struct Load_rects
 {
-    Rectangle rect;
-    int map_to_load_struct;
-    Vector2 spawnpoint;
+    Rectangle rect = {};
+    int map_to_load_struct = 0;
+    Vector2 spawnpoint = {};
 };
 
 struct Dialog_chunk{
-    std::string text;
-    Dialog_effects effect;
+    std::string text = {};
+    Dialog_effects effect = {};
 };
 
 struct Melee_weapon_item
 {
-    int damage;
-    double speed;
+    int damage = 0;
+    double speed = 0;
 };
 
 struct Range_weapon_item
 {
-    int damage;
-    double speed;
-    double range;
-    Rectangle hitbox;
+    int damage = 0;
+    double speed = 0;
+    double range = 0;
+    Rectangle hitbox = {};
 
-    Rectangle projectile_img_rect;
+    Rectangle projectile_img_rect = {};
 };
 
-struct Consumable
+struct Consumable_item
 {
-    Buff_types buff_type;
-    int buff_strength;
-    Rectangle img_rect;
+    Buff_types buff_type = {};
+    float buff_strength = 0;
+    int amount = 0;
 };
 
 
@@ -217,26 +221,30 @@ struct Dungeon_item
 {
 };
 
+struct Custom_item_function{
+    void func(){};
+};
+
 struct Item
 {
-    Item_names name;
-    Rectangle img_rect;
-    Item_types type;
-    union
-    {
-        Melee_weapon_item melee;
-        Range_weapon_item ranged;
-        Consumable consumable;
-        Quests quest;
-    };
+    Item_names name = {};
+    Rectangle img_rect = {};
+    Item_types type = {};
+    
+    Melee_weapon_item melee;
+    Range_weapon_item ranged;
+    Consumable_item consumable;
+    Quest_names quest;
+    Custom_item_function custom_func;
+    
 };
 
 
 
 struct Locked_rect{
     
-    Rectangle rect;
-    Locked_door_names name;
+    Rectangle rect = {};
+    Locked_door_names name = {};
 };
 
 
@@ -253,8 +261,8 @@ struct Textbox_dat{
     int dialog_index_state = 0;
     int dialog_max_indecies = 0;
     int current_dialog_character = 0;
-    bool is_textbox_open;
-    Entity_names current_speaker;
+    bool is_textbox_open = false;
+    Entity_names current_speaker = {};
     Dialog_chunk current_dialog[MAX_DIALOG_INDICIES];
 };
 
@@ -266,39 +274,39 @@ struct Textbox_dat{
 
 struct Inventory_slot
 {
-    Vector2 pos;
-    int amount_in_slot;
-    std::optional<Item> filled_with;
+    Vector2 pos = {};
+    int amount_in_slot = 0;
+    std::optional<Item> filled_with = {};
 };
 
 struct Inventory_cursor
 {
-    int inv_slot_index;
-    std::optional<Item> held_item;
-    int current_anim_frame;
-    int max_anim_frames;
-    int anim_frame_5;
+    int inv_slot_index = 0;
+    std::optional<Item> held_item = {};
+    int current_anim_frame = 0;
+    int max_anim_frames = 0;
+    int anim_frame_5 = 0;
 };
 
 struct Ground_item{
-    Vector2 pos{};
-    Rectangle rect;
-    Item item;
+    Vector2 pos = {};
+    Rectangle rect = {};
+    Item item = {};
     bool picked_up = false;
-    Ground_item_names ground_item_name;
+    Ground_item_names ground_item_name = {};
 };
 
 class Entity
 {
 public:
-    Entity_names name;
-    Vector2 pos{};
-    Rectangle img_rect;
-    Rectangle rect;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
-    int move_mode;
+    Entity_names name = {};
+    Vector2 pos = {};
+    Rectangle img_rect = {};
+    Rectangle rect = {};
+    int max_animation_frames = 0;
+    int current_animation_frame = 0;
+    int animation_frame_5 = 0;
+    int move_mode = 0;
 
     bool dead = false;
     virtual ~Entity() = default;
@@ -310,138 +318,273 @@ public:
 };
 
 struct Game_save{
-    Vector2 player_posSV;
-    Map_names current_mapSV;
-    std::vector<Ground_item_names> picked_up_itemsSV;
-    std::vector<Locked_door_names> unlocked_doorsSV;
-    std::vector<Entity_names> defeated_entitiesSV;
-    std::vector<Dialog_names> finished_dialogSV;
-    Inventory_slot inventory_slotsSV[28];
-    int player_dungeon_keysSV;
-    float player_current_healthSV;
-    float player_max_healthSV;
-    int player_move_modeSV;
+    Vector2 player_posSV = {};
+    Map_names current_mapSV = {};
+    std::vector<Ground_item_names> picked_up_itemsSV = {};
+    std::vector<Locked_door_names> unlocked_doorsSV = {};
+    std::vector<Entity_names> defeated_entitiesSV = {};
+    std::vector<Dialog_names> finished_dialogSV = {};
+    Inventory_slot inventory_slotsSV[28] = {};
+    int player_dungeon_keysSV = 0;
+    float player_current_healthSV = 0;
+    float player_max_healthSV = 0;
+    int player_move_modeSV = 0;
 };
 
 
 struct GUI_data{
-    Font global_font;
+    Font global_font = {};
     
-    Inventory_cursor inv_cursor;
-    std::vector<Dialog_names> finished_dialog;
-    Vector2 hotbar_pos;
-    bool is_inv_open;
-    Textbox_dat global_textbox;
-    Item inv_cursor_held_item;
-    Vector2 textbox_pos;
-    bool start_menu_unloaded;
-    Vector2 start_menu_logo_pos;
-    Vector2 start_menu_enimation_pos;
-    Vector2 start_menu_options_pos;
-    Vector2 start_menu_select_right_pos;
-    Vector2 start_menu_select_offset;
-    Vector2 start_menu_select_left_pos;
-    Vector2 start_menu_save_selecter_pos;
-    int start_menu_sel_mode;
+    Inventory_cursor inv_cursor = {};
+    std::vector<Dialog_names> finished_dialog = {};
+    Vector2 hotbar_pos = {};
+    bool is_inv_open = 0;
+    Textbox_dat global_textbox = {};
+    Item inv_cursor_held_item = {};
+    Vector2 textbox_pos = {};
+    bool start_menu_unloaded = 0;
+    Vector2 start_menu_logo_pos = {};
+    Vector2 start_menu_enimation_pos = {};
+    Vector2 start_menu_options_pos = {};
+    Vector2 start_menu_select_right_pos = {};
+    Vector2 start_menu_select_offset = {};
+    Vector2 start_menu_select_left_pos = {};
+    Vector2 start_menu_save_selecter_pos = {};
+    int start_menu_sel_mode = 0;
     
 };
 
 
 
 struct Game_data{
-    std::vector<Load_rects> map_load_rects;
-    Texture2D map_to_load;
-    std::vector<Rectangle> collision_rects;
-    std::vector<Locked_rect> locked_rects;
-    Map_names current_map;
-    Map_names requested_map;
-    Vector2 requested_player_pos;
-    Texture2D broken_tile_tex;
-    Texture2D door_lock_tex;
-    std::vector<Vector2> broken_floor_tiles;
-    std::vector<Ground_item> ground_items;
-    float fade_frame_timer;
-    Music current_music;
-    std::vector<std::unique_ptr<Entity>> entities;
-    Game_states state;
-    int save_slot;
-    int new_scale;
-    Vector2 wanted_cam_pos;
+    std::vector<Load_rects> map_load_rects = {};
+    Texture2D map_to_load = {};
+    std::vector<Rectangle> collision_rects = {};
+    std::vector<Locked_rect> locked_rects = {};
+    Map_names current_map = {};
+    Map_names requested_map = {};
+    Vector2 requested_player_pos = {};
+    Texture2D broken_tile_tex = {};
+    Texture2D door_lock_tex = {};
+    std::vector<Vector2> broken_floor_tiles = {};
+    std::vector<Ground_item> ground_items = {};
+    float fade_frame_timer = 0;
+    Music current_music = {};
+    std::vector<std::unique_ptr<Entity>> entities = {};
+    Game_states state = {};
+    int save_slot = 0;
+    int new_scale = 0;
+    Vector2 wanted_cam_pos = {};
+    std::unordered_map<std::string, Texture2D> texture_cache;
+    std::unordered_map<SFX_ids, Sound> sfx_manager;
+    std::unordered_map<Item_names, Item> item_ids;
+    std::unordered_map<Ground_item_names, Ground_item> ground_item_ids;
     // Game_save start_save_index[3];//???
 };
 
 // #pragma pack(push, 1)
 struct Config_dat
 {
-    float scale;
+    float scale = 0;
 
-    int KEY_CONTROLS_UP;
-    int KEY_CONTROLS_DOWN;
-    int KEY_CONTROLS_RIGHT;
-    int KEY_CONTROLS_LEFT;
+    int KEY_CONTROLS_UP = 0;
+    int KEY_CONTROLS_DOWN = 0;
+    int KEY_CONTROLS_RIGHT = 0;
+    int KEY_CONTROLS_LEFT = 0;
 
-    int KEY_ITEM_HOTBAR_1;
-    int KEY_ITEM_HOTBAR_2;
-    int KEY_ITEM_HOTBAR_3;
+    int KEY_ITEM_HOTBAR_1 = 0;
+    int KEY_ITEM_HOTBAR_2 = 0;
+    int KEY_ITEM_HOTBAR_3 = 0;
 
-    int KEY_OPEN_INVENTORY;
-    int KEY_INTERACT;
-    int KEY_SPEEDUP;
-    int KEY_SAVE;
+    int KEY_OPEN_INVENTORY = 0;
+    int KEY_INTERACT = 0;
+    int KEY_SPEEDUP = 0;
+    int KEY_SAVE = 0;
 
-    int KEY_SPRINT;
+    int KEY_SPRINT = 0;
 };
 // #pragma pack(pop)
 
 struct Player
 {
-    Vector2 pos;
-    Vector2 pos_save;
-    Vector2 movement;
-    Rectangle *current_anim_arr;
-    Rectangle collision_rect;
-    Rectangle hitbox;
+    Vector2 pos = {};
+    Vector2 pos_save = {};
+    Vector2 movement = {};
+    Rectangle *current_anim_arr = {};
+    Rectangle collision_rect = {};
+    Rectangle hitbox = {};
 
     
-    int move_mode;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
+    int move_mode = 0;
+    int max_animation_frames = 0;
+    int current_animation_frame = 0;
+    int animation_frame_5 = 0;
 
-    Texture2D tex;
+    Texture2D tex = {};
 
-    float current_health;
-    float max_health;
+    float current_health = 0;
+    float max_health = 0;
 
-    int speed;
-    double current_stamina;
-    double max_stamina;
-    bool reloading_stamina;
-    int stamina_reload_timer;
+    int speed = 0;
+    double current_stamina = 0;
+    double max_stamina = 0;
+    bool reloading_stamina = 0;
+    int stamina_reload_timer = 0;
 
     bool can_take_damage = true;
     float iframe_timer = 0.0f;
-    Rectangle attack_hitbox;
-    int active_damage;
+    Rectangle attack_hitbox = {};
+    int active_damage = 0;
 
-    std::vector<Ground_item_names> picked_up_items;
-    std::vector<Locked_door_names> unlocked_doors;
-    std::vector<Entity_names> defeated_entities;
+    std::vector<Ground_item_names> picked_up_items = {};
+    std::vector<Locked_door_names> unlocked_doors = {};
+    std::vector<Entity_names> defeated_entities = {};
     int dungeon_keys = 0;
     
-    Facing facing;
+    Facing facing = {};
 
     
-    float knockback_time;
-    Vector2 knockback_vel;
+    float knockback_time = 0;
+    Vector2 knockback_vel = {};
     
 };
 
 
-extern std::unordered_map<SFX, Sound> sound_effects;
-extern std::unordered_map<Music_names, Music> music_names;
-extern std::unordered_map<Item_names, Item> item_ids;
-extern std::unordered_map<Ground_item_names, Ground_item> ground_item_ids;
+//then entity classes
+class Village_windmill : public Entity{
+    public:
+        Village_windmill();
+        ~Village_windmill() override;
+        
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Texture2D tex{};
+};
+
+
+
+class Start_bulldozer : public Entity {
+public:
+    Start_bulldozer();
+    ~Start_bulldozer() override;
+    
+    void load() override;
+    void update() override;
+    void draw() override;
+
+private:
+    bool fallen;
+    Texture2D tex{};
+};
+
+
+class Start_portal : public Entity {
+public:
+    Start_portal();
+    ~Start_portal() override;
+    int max_animation_frames;
+    int current_animation_frame;
+    int animation_frame_5;
+    
+    void load() override;
+    void update() override;
+    void draw() override;
+
+private:
+    
+    Texture2D tex{};
+};
+
+
+class Big_tree : public Entity {
+    public:
+        Big_tree();
+        ~Big_tree() override;
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+        
+        void load() override;
+        void update() override;
+        void draw() override;
+    private:
+        Rectangle rect1;
+        Rectangle rect2;
+        Rectangle rect3;
+        
+        Texture2D tex;
+};
+
+class Big_tree_level_tree_trunk : public Entity {
+    public:
+        
+        Big_tree_level_tree_trunk(int which_trunk);
+        ~Big_tree_level_tree_trunk() override;
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+        
+        void load() override;
+        void update() override;
+        void draw() override;
+        
+    private:
+        
+        float health;
+        Texture2D tex;
+        bool can_take_damage;
+        float hit_flash_timer;
+        float iframe_timer;
+};
+
+class Village_questgiver_1 : public Entity{
+    public:
+        Village_questgiver_1();
+        ~Village_questgiver_1() override;
+        
+        int max_animation_frames;
+        int current_animation_frame;
+        int animation_frame_5;
+
+        Rectangle *current_animation_arr;
+
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Rectangle interact_rect;
+        Texture2D tex{};
+        bool story_text_done = false;
+        bool found_wanted_item = false;
+        bool found_item_text_done = false;
+};
+
+class Berry_bush : public Entity{
+    public:
+        Berry_bush();
+        ~Berry_bush();
+        void load() override;
+        void update() override;
+        void draw() override;
+        
+    private:
+        Texture2D tex;
+        
+};
+
+
+
+
+// extern std::unordered_map<Tex_ids, Texture2D> tex_manager;
 
 // extern std::unordered_map<Item_names, Item> item_ids; //maybe later
 

@@ -19,7 +19,7 @@ void unload_start_menu_assets(){
 
 
 void init_start_menu(){
-    start_menu_tex = LoadTexture(START_MENU_TEX_PATH);
+    start_menu_tex = get_texture(START_MENU_TEX_PATH);
     gui.start_menu_logo_pos = START_MENU_LOGO_POS;
     gui.start_menu_enimation_pos = START_MENU_EMINATION_POS;
     gui.start_menu_options_pos = START_MENU_OPTIONS_POS;
@@ -35,17 +35,17 @@ void start_menu_update(){
     switch(game.state){
         case START_MENU:
             if(IsKeyPressed(KEY_CONTROLS_DOWN)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
                 gui.start_menu_sel_mode += 1;
                 gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
             }
             if(IsKeyPressed(KEY_CONTROLS_UP)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
                 gui.start_menu_sel_mode -= 1;
                 gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
             }
             if(IsKeyPressed(KEY_INTERACT)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 switch(gui.start_menu_sel_mode){
                     case 0:
                         
@@ -57,7 +57,7 @@ void start_menu_update(){
 
                             if (FileExists(path))
                             {
-                                slot_icons[i] = LoadTexture(path);
+                                slot_icons[i] = get_texture(path);
                             }
                         }
                         // gui.start_menu_unloaded = true;
@@ -100,24 +100,24 @@ void start_menu_update(){
             break;
         case SAVE_SLOTS: 
             if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 gui.start_menu_sel_mode = 0;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
                 // gui.start_menu_unloaded = true;
             }
             if(IsKeyPressed(KEY_CONTROLS_RIGHT)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
                 gui.start_menu_sel_mode += 1;
                 gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
             }
             else if(IsKeyPressed(KEY_CONTROLS_LEFT)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
                 gui.start_menu_sel_mode -= 1;
                 gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
             }
             if(IsKeyPressed(KEY_INTERACT)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 switch(gui.start_menu_sel_mode){
                     case 0:
                         
@@ -160,7 +160,7 @@ void start_menu_update(){
         
         case OPTIONS:
             if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 gui.start_menu_sel_mode = 1;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
@@ -169,7 +169,7 @@ void start_menu_update(){
             break;
         case ACHIEVEMENTS:
             if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 gui.start_menu_sel_mode = 2;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
@@ -178,7 +178,7 @@ void start_menu_update(){
             break;
         case CREDITS:
             if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
                 gui.start_menu_sel_mode = 3;
                 // unload_start_menu_assets();
                 game.state = Game_states::START_MENU; 
@@ -253,22 +253,22 @@ void inv_cursor_update()
     if (IsKeyPressed(KEY_CONTROLS_UP))
     {
         gui.inv_cursor.inv_slot_index -= 7;
-        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_DOWN))
     {
         gui.inv_cursor.inv_slot_index += 7;
-        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_RIGHT))
     {
         gui.inv_cursor.inv_slot_index += 1;
-        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
     if (IsKeyPressed(KEY_CONTROLS_LEFT))
     {
         gui.inv_cursor.inv_slot_index -= 1;
-        PlaySound(sound_effects[SFX::INV_CURSOR_SELECT]);
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
     if (gui.inv_cursor.inv_slot_index > 27)
     {
@@ -283,7 +283,7 @@ void inv_cursor_update()
     {
         // works!!!!!!! was not expecting that!!!!!
         if(inventory_slots[gui.inv_cursor.inv_slot_index].filled_with){
-            PlaySound(sound_effects[SFX::INV_CURSOR_PICKUP]);
+            PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         }
 
         auto &slot = inventory_slots[gui.inv_cursor.inv_slot_index];
@@ -474,14 +474,22 @@ void add_finished_text(Dialog_names text_name){
 void init_gui()
 {
     inv_cursor_init();
-    inventory_tex = LoadTexture(INVENTORY_PATH);
-    items_tex = LoadTexture(ITEM_SHEET_PATH);
-    inventory_cursor_tex = LoadTexture(INV_CURSOR_PATH);
-    gui_bar_segments_tex = LoadTexture(GUI_BAR_SEGMENTS_PATH);
-    hotbar_tex = LoadTexture(HOTBAR_TEX_PATH);
+    inventory_tex = get_texture(INVENTORY_PATH);
+    items_tex = get_texture(ITEM_SHEET_PATH);
+    inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
+    gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
+    hotbar_tex = get_texture(HOTBAR_TEX_PATH);
     
-    textbox_tex = LoadTexture(TEXTBOX_TEX_PATH);
-    add_item_to_inventory(item_ids[Item_names::STICK]);
+    textbox_tex = get_texture(TEXTBOX_TEX_PATH);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
+    add_item_to_inventory(game.item_ids[Item_names::STICK]);
 
     gui.global_font = LoadFont(GLOB_FONT_PATH);
 
@@ -559,7 +567,10 @@ void draw_gui()
         {
             if (!s.filled_with)
                 continue; // IMPORTANT
-
+            if(s.filled_with->type == CONSUMABLE){
+                s.amount_in_slot = s.filled_with->consumable.amount;
+                DrawText(std::to_string(s.filled_with->consumable.amount).c_str(), (s.pos.x+14)*scale, (s.pos.y+14)*scale, 4*scale, WHITE);
+            }
             DrawTexturePro(
                 items_tex,
                 s.filled_with->img_rect,

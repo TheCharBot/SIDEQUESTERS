@@ -1,17 +1,22 @@
 #include "map_loader.hpp"
-Game_data game;
+
+//all functions nessecary for map loading and stuff
 
 
 
-
-void init_map()
-{
-    
-    game.broken_tile_tex = LoadTexture(BROKEN_TILE_TEX_PATH);
-    game.door_lock_tex = LoadTexture(DOOR_LOCK_TEX_PATH);
-    // starting_map = LoadTexture("gfx/maps/map_1.png");
-    // wrong_map = LoadTexture("gfx/maps/wrong_map.png");
+void reload_needed_textures(){
+    player.tex = get_texture(PLAYER_TEX_PATH);
+    start_menu_tex = get_texture(START_MENU_TEX_PATH);
+    inventory_tex = get_texture(INVENTORY_PATH);
+    items_tex = get_texture(ITEM_SHEET_PATH);
+    inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
+    gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
+    hotbar_tex = get_texture(HOTBAR_TEX_PATH);
+    textbox_tex = get_texture(TEXTBOX_TEX_PATH);
+    game.broken_tile_tex = get_texture(BROKEN_TILE_TEX_PATH);
+    game.door_lock_tex = get_texture(DOOR_LOCK_TEX_PATH);
 }
+
 
 template<typename T, typename... Args>
 void add_entity(Entity_names name, Args&&... args)
@@ -28,7 +33,6 @@ void add_entity(Entity_names name, Args&&... args)
         game.entities.push_back(std::move(entity));
     }
 }
-
 
 void add_ground_item(Ground_item item){
     if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
@@ -65,18 +69,18 @@ void reset_player(Vector2 spawn)
 
 void reset_loaded()
 {
-    unload_enemy_textures();
+    unload_all_textures();
+    // unload_shared_entity_textures();
     game.entities.clear();
     game.map_load_rects.clear();
     game.collision_rects.clear();
     game.locked_rects.clear();
     game.broken_floor_tiles.clear();
     game.ground_items.clear();
+    reload_needed_textures();
+    
     // unloading current map for efficiency
-    if (game.map_to_load.id != 0)
-    {
-        UnloadTexture(game.map_to_load);
-    }
+    
     
     // unloading the current music to prevent mem leak
     // add back in when you have good music
@@ -104,23 +108,7 @@ void kill_things_that_are_dead()
     game.ground_items.end());
 }
 
-void load_requested_map(){
-    if (game.requested_map != WRONG_MAP)
-    {
-        if (game.current_map != game.requested_map)
-        {
-            game.fade_frame_timer = SCREEN_FADE_TIME;
-            load_map(game.requested_map, game.requested_player_pos);
-            
-        }
-        game.requested_map = WRONG_MAP;
-    }
-}
 
-void load_map_save(Map_names wanted_map, Vector2 wanted_player_spawn){ //force load a map - cuz its a save, u want it to actually work!
-    game.fade_frame_timer = SCREEN_FADE_TIME;
-    load_map(wanted_map, wanted_player_spawn);
-}
 
 void remove_collision_rect(Rectangle rect)
 {
@@ -157,217 +145,6 @@ void remove_locked_rect(Locked_rect l_rect){
     );
 };
 
-template<typename T>
-void write_vector(std::ofstream& file, const std::vector<T>& vec)
-{
-    size_t size = vec.size();
-    file.write((char*)&size, sizeof(size));
-    if(size > 0)
-        file.write((char*)vec.data(), size * sizeof(T));
-}
-
-template<typename T>
-void read_vector(std::ifstream& file, std::vector<T>& vec)
-{
-    size_t size;
-    file.read((char*)&size, sizeof(size));
-
-    vec.resize(size);
-
-    if(size > 0)
-        file.read((char*)vec.data(), size * sizeof(T));
-}
-//
-Game_save save_current_state(){
-    Game_save save;
-
-    save.current_mapSV = game.current_map;
-    save.player_posSV = player.pos;
-    save.defeated_entitiesSV = player.defeated_entities;
-    save.picked_up_itemsSV = player.picked_up_items;
-    save.unlocked_doorsSV = player.unlocked_doors;
-    save.finished_dialogSV = gui.finished_dialog;
-    save.player_dungeon_keysSV = player.dungeon_keys;
-    save.player_current_healthSV = player.current_health;
-    save.player_max_healthSV = player.max_health;
-    for(int i = 0; i < 28; i++){
-        save.inventory_slotsSV[i] = inventory_slots[i];
-    }
-    // std::cout << "saving";
-    return save;
-    //just save the current save and return the save generated :)
-}
-
-void load_save(Game_save save){
-    
-    player.defeated_entities = save.defeated_entitiesSV;
-    player.picked_up_items = save.picked_up_itemsSV;
-    player.unlocked_doors = save.unlocked_doorsSV;
-    gui.finished_dialog = save.finished_dialogSV;
-    player.dungeon_keys = save.player_dungeon_keysSV;
-    player.current_health =  save.player_current_healthSV;
-    player.max_health = save.player_max_healthSV;
-    for(int i = 0; i < 28; i++){
-        inventory_slots[i] = save.inventory_slotsSV[i];
-    }
-    load_map_save(save.current_mapSV, save.player_posSV);
-    // std::cout << "loading";
-    
-}
-void load_index_save(int start_menu_slot_index)
-{
-    Game_save dat;
-
-    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
-
-    if(!FileExists(path.c_str())){
-        
-        return;
-    }
-    
-    std::ifstream file(path, std::ios::binary);
-
-    // primitives
-    file.read((char*)&dat.current_mapSV, sizeof(dat.current_mapSV));
-    file.read((char*)&dat.player_posSV, sizeof(dat.player_posSV));
-
-    // vectors
-    read_vector(file, dat.defeated_entitiesSV);
-    read_vector(file, dat.picked_up_itemsSV);
-    read_vector(file, dat.unlocked_doorsSV);
-    read_vector(file, dat.finished_dialogSV);
-
-    // primitives
-    file.read((char*)&dat.player_dungeon_keysSV, sizeof(dat.player_dungeon_keysSV));
-    file.read((char*)&dat.player_current_healthSV, sizeof(dat.player_current_healthSV));
-    file.read((char*)&dat.player_max_healthSV, sizeof(dat.player_max_healthSV));
-
-    // fixed array
-    file.read((char*)dat.inventory_slotsSV, sizeof(dat.inventory_slotsSV));
-
-    file.close();
-
-    load_save(dat);
-}
-void save_index_state(int start_menu_slot_index)
-{
-    Game_save dat = save_current_state();
-
-    std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
-
-    std::ofstream file(path, std::ios::binary);
-
-    // primitives
-    file.write((char*)&dat.current_mapSV, sizeof(dat.current_mapSV));
-    file.write((char*)&dat.player_posSV, sizeof(dat.player_posSV));
-
-    // vectors
-    write_vector(file, dat.defeated_entitiesSV);
-    write_vector(file, dat.picked_up_itemsSV);
-    write_vector(file, dat.unlocked_doorsSV);
-    write_vector(file, dat.finished_dialogSV);
-
-    // more primitives
-    file.write((char*)&dat.player_dungeon_keysSV, sizeof(dat.player_dungeon_keysSV));
-    file.write((char*)&dat.player_current_healthSV, sizeof(dat.player_current_healthSV));
-    file.write((char*)&dat.player_max_healthSV, sizeof(dat.player_max_healthSV));
-
-    // fixed array
-    file.write((char*)dat.inventory_slotsSV, sizeof(dat.inventory_slotsSV));
-
-    file.close();
-
-
-    // screenshot thumbnail
-    Image img = LoadImageFromScreen();
-
-    Vector2 screenPos = GetWorldToScreen2D(player.pos, cam);
-
-    Rectangle crop = {
-        screenPos.x - 7*scale,
-        screenPos.y - 37*scale,
-        float(78*scale),
-        float(142*scale)
-    };
-
-    ImageCrop(&img, crop);
-    ImageResizeNN(&img, img.width/scale, img.height/scale);
-
-    ExportImage(img, TextFormat("saves/start_menu_index_icon_%i.png", start_menu_slot_index));
-
-    UnloadImage(img);
-}
-
-void save_config_state()
-{
-    Config_dat cfg_dat{};
-
-    cfg_dat.scale = scale;
-    cfg_dat.KEY_CONTROLS_UP = KEY_CONTROLS_UP;
-    cfg_dat.KEY_CONTROLS_DOWN = KEY_CONTROLS_DOWN;
-    cfg_dat.KEY_CONTROLS_RIGHT = KEY_CONTROLS_RIGHT;
-    cfg_dat.KEY_CONTROLS_LEFT = KEY_CONTROLS_LEFT;
-    cfg_dat.KEY_ITEM_HOTBAR_1 = KEY_ITEM_HOTBAR_1;
-    cfg_dat.KEY_ITEM_HOTBAR_2 = KEY_ITEM_HOTBAR_2;
-    cfg_dat.KEY_ITEM_HOTBAR_3 = KEY_ITEM_HOTBAR_3;
-    cfg_dat.KEY_OPEN_INVENTORY = KEY_OPEN_INVENTORY;
-    cfg_dat.KEY_INTERACT = KEY_INTERACT;
-    cfg_dat.KEY_SPEEDUP = KEY_SPEEDUP;
-    cfg_dat.KEY_SAVE = KEY_SAVE;
-    cfg_dat.KEY_SPRINT = KEY_SPRINT;
-
-    std::ofstream file("saves/config.dat", std::ios::binary);
-
-    if(!file.is_open())
-        return;
-
-    file.write((char*)&CONFIG_MAGIC, sizeof(CONFIG_MAGIC));
-    file.write((char*)&CONFIG_VERSION, sizeof(CONFIG_VERSION));
-    file.write((char*)&cfg_dat, sizeof(cfg_dat));
-}
-void load_config_state()
-{
-    std::ifstream file("saves/config.dat", std::ios::binary);
-
-    if(!file.is_open())
-        return;
-
-    int magic;
-    int version;
-
-    file.read((char*)&magic, sizeof(magic));
-    file.read((char*)&version, sizeof(version));
-
-    if(magic != CONFIG_MAGIC)
-        return;
-
-    if(version != CONFIG_VERSION)
-        return;
-
-    Config_dat cfg_dat{};
-
-    if(!file.read((char*)&cfg_dat, sizeof(cfg_dat)))
-        return;
-
-    scale = cfg_dat.scale;
-
-    KEY_CONTROLS_UP = (KeyboardKey)cfg_dat.KEY_CONTROLS_UP;
-    KEY_CONTROLS_DOWN = (KeyboardKey)cfg_dat.KEY_CONTROLS_DOWN;
-    KEY_CONTROLS_RIGHT = (KeyboardKey)cfg_dat.KEY_CONTROLS_RIGHT;
-    KEY_CONTROLS_LEFT = (KeyboardKey)cfg_dat.KEY_CONTROLS_LEFT;
-    KEY_ITEM_HOTBAR_1 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_1;
-    KEY_ITEM_HOTBAR_2 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_2;
-    KEY_ITEM_HOTBAR_3 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_3;
-    KEY_OPEN_INVENTORY = (KeyboardKey)cfg_dat.KEY_OPEN_INVENTORY;
-    KEY_INTERACT = (KeyboardKey)cfg_dat.KEY_INTERACT;
-    KEY_SPEEDUP = (KeyboardKey)cfg_dat.KEY_SPEEDUP;
-    KEY_SAVE = (KeyboardKey)cfg_dat.KEY_SAVE;
-    KEY_SPRINT = (KeyboardKey)cfg_dat.KEY_SPRINT;
-
-    
-}
-
-
 // map loader helper functions for easier organization and readability
 void load_wrong_map()
 {
@@ -375,10 +152,23 @@ void load_wrong_map()
     reset_player({0, 0});
     reset_loaded();
     // setting the map texture, i didn't want to figure out how to use any tmx software
-    game.map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+    game.map_to_load = get_texture(WRONG_MAP_TEX_PATH);
     // setting the current map for sanity
     game.current_map = WRONG_MAP;
 };
+
+void load_requested_map(){
+    if (game.requested_map != WRONG_MAP)
+    {
+        if (game.current_map != game.requested_map)
+        {
+            game.fade_frame_timer = SCREEN_FADE_TIME;
+            load_map(game.requested_map, game.requested_player_pos);
+            
+        }
+        game.requested_map = WRONG_MAP;
+    }
+}
 
 
 
@@ -387,7 +177,7 @@ void load_start_map()
 
     reset_loaded();
 
-    game.map_to_load = LoadTexture(STARTING_MAP_TEX_PATH);
+    game.map_to_load = get_texture(STARTING_MAP_TEX_PATH);
 
     game.current_map = START_MAP;
     // proprietary collisions for map 1 (can't reuse - sorry)
@@ -407,7 +197,7 @@ void load_village_map()
 {
     reset_loaded();
     game.current_music = LoadMusicStream(VILLAGE_MUS_PATH);
-    game.map_to_load = LoadTexture(VILLAGE_MAP_PATH);
+    game.map_to_load = get_texture(VILLAGE_MAP_PATH);
     game.current_map = VILLAGE_MAP;
     add_collisions({
         MAP_2_RECT_1,
@@ -453,7 +243,7 @@ void load_village_map()
 void load_village_house_1()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_1_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_1_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_1;
 
     add_collisions({
@@ -470,7 +260,7 @@ void load_village_house_1()
 void load_village_house_2()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_2_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_2_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_2;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -484,7 +274,7 @@ void load_village_house_2()
 void load_village_house_3()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_3_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_3_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_3;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -498,7 +288,7 @@ void load_village_house_3()
 void load_village_house_4()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_4_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_4_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_4;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -512,7 +302,7 @@ void load_village_house_4()
 void load_village_house_5()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_5_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_5_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_5;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -526,7 +316,7 @@ void load_village_house_5()
 void load_village_house_6()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_6_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_6_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_6;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -540,7 +330,7 @@ void load_village_house_6()
 void load_village_house_7()
 {
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_HOUSE_7_PATH);
+    game.map_to_load = get_texture(VILLAGE_HOUSE_7_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_7;
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
@@ -554,7 +344,7 @@ void load_village_house_7()
 
 void load_village_windmill(){
     reset_loaded();
-    game.map_to_load = LoadTexture(VILLAGE_WINDMILL_INSIDE_PATH);
+    game.map_to_load = get_texture(VILLAGE_WINDMILL_INSIDE_PATH);
     game.current_map = INSIDE_VILLAGE_WINDMILL;
     add_collisions({
         INSIDE_WINDMILL_RECT_1,
@@ -587,7 +377,7 @@ void load_dark_forest_north()
 {
     reset_loaded();
     game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    game.map_to_load = LoadTexture(DARK_FOREST_NORTH_PATH);
+    game.map_to_load = get_texture(DARK_FOREST_NORTH_PATH);
     game.current_map = DARK_FOREST_NORTH;
     add_collisions({MAP_3_RECT_1,
                     MAP_3_RECT_2,
@@ -614,7 +404,7 @@ void load_dark_forest_south()
 {
     reset_loaded();
     game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    game.map_to_load = LoadTexture(DARK_FOREST_SOUTH_PATH);
+    game.map_to_load = get_texture(DARK_FOREST_SOUTH_PATH);
     game.current_map = DARK_FOREST_SOUTH;
     add_collisions({
         MAP_4_RECT_1,
@@ -652,7 +442,7 @@ void load_dark_forest_south()
 void load_dark_forest_center(){
     reset_loaded();
     game.current_music = LoadMusicStream(DARK_FOREST_MUS_PATH);
-    game.map_to_load = LoadTexture(DARK_FOREST_CENTER_PATH);
+    game.map_to_load = get_texture(DARK_FOREST_CENTER_PATH);
     game.current_map = DARK_FOREST_CENTER;
     add_collisions({
         MAP_5_RECT_1,
@@ -685,6 +475,7 @@ void load_dark_forest_center(){
         add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     }
     add_entity<Big_tree>(BIG_TREE);
+    add_entity<Berry_bush>(BERRY_BUSH);
     
     for (auto &e : game.entities)
         e->load();
@@ -695,7 +486,7 @@ void load_dark_forest_center(){
 
 void load_big_tree_level_1(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_1_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_1_PATH);
     game.current_map = BIG_TREE_LEVEL_1;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -729,7 +520,7 @@ void load_big_tree_level_1(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
 
-    add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_1_STICK]);
+    add_ground_item(game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_1_STICK]);
 
     for (auto &e : game.entities)
         e->load();
@@ -741,7 +532,7 @@ void load_big_tree_level_1(){
 
 void load_big_tree_level_2(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_2_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_2_PATH);
     game.current_map = BIG_TREE_LEVEL_2;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -774,7 +565,7 @@ void load_big_tree_level_2(){
         {BIG_TREE_STAIRS_TOP_DOWN_LOAD_RECT, BIG_TREE_LEVEL_1, BIG_TREE_DEFAULT_TOP_SPAWNPOINT},
         {BIG_TREE_STAIRS_BOTTOM_UP_LOAD_RECT, BIG_TREE_LEVEL_3, BIG_TREE_DEFAULT_BOTTOM_SPAWNPOINT}
     });
-    add_ground_item(ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY]);
+    add_ground_item(game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_2_KEY]);
     add_locked_rect({BIG_TREE_LEVELS_BOTTOM_UP_LOCK_RECT, BIG_TREE_LEVEL_2_TO_BIG_TREE_LEVEL_3_LOCK}); 
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
@@ -785,7 +576,7 @@ void load_big_tree_level_2(){
 
 void load_big_tree_level_3(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_3_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_3_PATH);
     game.current_map = BIG_TREE_LEVEL_3;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -824,7 +615,7 @@ void load_big_tree_level_3(){
 }
 void load_big_tree_level_4(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_4_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_4_PATH);
     game.current_map = BIG_TREE_LEVEL_4;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -865,7 +656,7 @@ void load_big_tree_level_4(){
 }
 void load_big_tree_level_5(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_5_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_5_PATH);
     game.current_map = BIG_TREE_LEVEL_5;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -905,7 +696,7 @@ void load_big_tree_level_5(){
 }
 void load_big_tree_level_6(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_6_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_6_PATH);
     game.current_map = BIG_TREE_LEVEL_6;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -947,7 +738,7 @@ void load_big_tree_level_6(){
 }
 void load_big_tree_level_7(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_7_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_7_PATH);
     game.current_map = BIG_TREE_LEVEL_7;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -985,7 +776,7 @@ void load_big_tree_level_7(){
 }
 void load_big_tree_level_8(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_8_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_8_PATH);
     game.current_map = BIG_TREE_LEVEL_8;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -1026,7 +817,7 @@ void load_big_tree_level_8(){
 }
 void load_big_tree_level_9(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_9_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_9_PATH);
     game.current_map = BIG_TREE_LEVEL_9;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -1065,7 +856,7 @@ void load_big_tree_level_9(){
 }
 void load_big_tree_level_10(){
     reset_loaded();
-    game.map_to_load = LoadTexture(BIG_TREE_LEVEL_10_PATH);
+    game.map_to_load = get_texture(BIG_TREE_LEVEL_10_PATH);
     game.current_map = BIG_TREE_LEVEL_10;
     add_collisions({
         BIG_TREE_LEVEL_RECT_1,
@@ -1187,7 +978,7 @@ void load_map(Map_names map, Vector2 new_player_pos)
         reset_player({0, 0});
         reset_loaded();
 
-        game.map_to_load = LoadTexture(WRONG_MAP_TEX_PATH);
+        game.map_to_load = get_texture(WRONG_MAP_TEX_PATH);
 
         game.current_map = WRONG_MAP;
 
