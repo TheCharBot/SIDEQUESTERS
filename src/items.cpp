@@ -52,7 +52,7 @@ void init_items()
     game.item_ids[Item_names::RED_BERRIES].img_rect = RED_BERRIES_IMG_RECT;
     game.item_ids[Item_names::RED_BERRIES].consumable.amount = 1;
     game.item_ids[Item_names::RED_BERRIES].consumable.buff_type = Buff_types::HEAL;
-    game.item_ids[Item_names::RED_BERRIES].consumable.buff_strength = 0.5;
+    game.item_ids[Item_names::RED_BERRIES].consumable.buff_strength = 0.8;
 
     
     game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_1_STICK].pos = BIG_TREE_LEVEL_1_STICK_POS;

@@ -5,7 +5,7 @@
 
 
 
-
+ 
 
 Enemy_forest_scourge::Enemy_forest_scourge()
 {
@@ -179,10 +179,19 @@ void Enemy_forest_scourge::load()
 
 void Enemy_forest_scourge::update()
 {
-   
+    
+
+    player.knockback_time -= GetFrameTime();
     if (health <= 0)
     {
-        dead = true;
+        
+        behavior_mode = Behavior_mode::DIE;
+        move_mode = 0;
+        current_anim_arr = forest_scourge_die;
+        if(max_animation_frames != 5 && current_animation_frame != 0){
+            max_animation_frames = 5;
+            current_animation_frame = 0;
+        }
     }
     animation_frame_5++;
     if (animation_frame_5 >= ANIMATION_INTERVAL)
@@ -193,21 +202,23 @@ void Enemy_forest_scourge::update()
                 attack_hit_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, FOREST_SCOURGE_ATTACK_WIDTH, FOREST_SCOURGE_ATTACK_HEIGHT};
                 behavior_mode = WANDER;
                 break;
+            case DIE:
+
             default:
                 break;
             }
         if (current_animation_frame >= max_animation_frames)
         {
             current_animation_frame = 0;
-            
+            if(behavior_mode == DIE){
+                dead = true;
+            }
         }
         animation_frame_5 = 0;
     }
     if (hit_flash_timer > 0.0f)
         hit_flash_timer -= GetFrameTime();
-    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
-    chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
-    attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
+    rect_rebuild();
     pos.x = Clamp(pos.x, -FOREST_SCOURGE_HITBOX_OFFSET_X, game.map_to_load.width - FOREST_SCOURGE_HITBOX_WIDTH - FOREST_SCOURGE_HITBOX_OFFSET_X);
     pos.y = Clamp(pos.y, -FOREST_SCOURGE_HITBOX_OFFSET_Y, game.map_to_load.height - FOREST_SCOURGE_HITBOX_HEIGHT - FOREST_SCOURGE_HITBOX_OFFSET_Y);
 
@@ -220,8 +231,12 @@ void Enemy_forest_scourge::update()
             iframe_timer = 0.0f;
         }
     }
-
-    decide_action();
+    if(move_mode == 1){
+        decide_action();
+    }
+    if(knockback_time > 0){
+        update_knockback();
+    }
     
 }
 
@@ -230,27 +245,32 @@ void Enemy_forest_scourge::draw()
     DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, float(DEFAULT_SPRITE_WIDTH), float(DEFAULT_SPRITE_HEIGHT)}, {0, 0}, 0, hit_flash_timer > 0.0f ? RED : WHITE);
 }
 
-void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos)
+void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos, int strength)
 {
     if (!can_take_damage)
         return;
     if (can_take_damage)
     {
         // implement knockback
-        start_hitstop(player.active_damage);
+        start_hitstop(player.active_damage); // doesnt do anything, so . . .
+
         health -= damage;
+
         hit_flash_timer = HIT_FLASH_TIME;
+        
+        can_take_damage = false;
+        iframe_timer = ENEMY_IFRAME_TIME;
+        
+        Vector2 dir = Vector2Subtract(pos, hit_source_pos);
+        dir = Vector2Normalize(dir);
+        knockback_vel = Vector2Scale(dir, strength);
+        knockback_vel = Vector2Scale(player.knockback_vel, 0.95f);
+        knockback_time = 0.2f; // duration in seconds
+    
         if (health < 0)
         {
             health = 0;
         }
-        can_take_damage = false;
-        iframe_timer = ENEMY_IFRAME_TIME;
-        start_hitstop(player.active_damage);
-        Vector2 dir = Vector2Normalize(
-            Vector2Subtract(pos, hit_source_pos));
-
-        pos = Vector2Add(pos, Vector2Scale(dir, KNOCKBACK_DIST));
     }
 }
 
@@ -350,15 +370,14 @@ void Enemy_forest_scourge::wander()
 
 void Enemy_forest_scourge::chase()
 {
-    if(behavior_mode != ATTACK){
+    if(behavior_mode != CHASE){
         behavior_mode = CHASE;
     }
     Vector2 pos_save = pos;
 
-    // Lerp toward player
+        // Lerp toward player
     Vector2 target = Vector2Lerp(pos, player.pos, GetFrameTime()*1.5f);
-
-    // Calculate movement delta
+    
     Vector2 move = {
         target.x - pos.x,
         target.y - pos.y
@@ -458,7 +477,7 @@ void Enemy_forest_scourge::decide_action()
         if (CheckCollisionRecs(rect, player.active_attack_hitbox))
         {
             // make a player.active_damage thing or whatever
-            take_damage(player.active_damage, player.pos);
+            take_damage(player.active_damage, {player.pos.x+32, player.pos.y+32}, 500);
             
         }
         if (CheckCollisionRecs(chase_detect_rect, player.hitbox) && !CheckCollisionRecs(attack_detect_rect, player.hitbox))
@@ -477,6 +496,37 @@ void Enemy_forest_scourge::decide_action()
         
     }
     
+}
+
+void Enemy_forest_scourge::update_knockback()
+{
+    Vector2 pos_save = pos;
+    Vector2 new_pos = Vector2Add(pos, Vector2Scale(knockback_vel, GetFrameTime()));
+
+    // try X
+    pos.x = new_pos.x;
+    rect_rebuild();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(rect, r)) pos.x = pos_save.x;
+    }
+    // try Y
+    pos.y = new_pos.y;
+    rect_rebuild();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(rect, r)) pos.y = pos_save.y;
+    }
+
+    // decay the velocity 
+    knockback_vel = Vector2Lerp(knockback_vel, {0, 0}, GetFrameTime() * 10);
+
+    knockback_time -= GetFrameTime();
+}
+
+void Enemy_forest_scourge::rect_rebuild()
+{
+    rect = {pos.x + FOREST_SCOURGE_HITBOX_OFFSET_X, pos.y + FOREST_SCOURGE_HITBOX_OFFSET_Y, FOREST_SCOURGE_HITBOX_WIDTH, FOREST_SCOURGE_HITBOX_HEIGHT};
+    chase_detect_rect = {pos.x - FOREST_SCOURGE_CHASE_DETECT_OFFSET_X, pos.y - FOREST_SCOURGE_CHASE_DETECT_OFFSET_Y, FOREST_SCOURGE_CHASE_DETECT_WIDTH, FOREST_SCOURGE_CHASE_DETECT_HEIGHT};
+    attack_detect_rect = {pos.x + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_X, pos.y + FOREST_SCOURGE_ATTACK_DETECT_OFFSET_Y, FOREST_SCOURGE_ATTACK_DETECT_WIDTH, FOREST_SCOURGE_ATTACK_DETECT_HEIGHT};
 }
 
 // dang - 400+ lines for a single enemy? thats crazy

@@ -43,12 +43,14 @@ class Enemy_forest_scourge: public Entity{
         void update() override;
         void draw() override;
 
-        void take_damage(float damage, Vector2 hit_source_pos);
+        void take_damage(float damage, Vector2 hit_source_pos, int strength);
         void wander();
         void chase();
         void attack();
         void run_away();
         void decide_action();
+        void update_knockback();
+        void rect_rebuild();
     private:
         Texture2D tex;
         int random_index;
@@ -68,9 +70,12 @@ class Enemy_forest_scourge: public Entity{
         enum Behavior_mode{
             ATTACK,
             CHASE,
-            WANDER
+            WANDER,
+            DIE
         };
-        Enemy_forest_scourge::Behavior_mode behavior_mode;
+        Enemy_forest_scourge::Behavior_mode behavior_mode = {};
+        Vector2 knockback_vel = {};
+        float knockback_time;
 };
 
 class Boss_The_Regrown: public Entity{

@@ -475,7 +475,13 @@ void load_dark_forest_center(){
         add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     }
     add_entity<Big_tree>(BIG_TREE);
-    add_entity<Berry_bush>(BERRY_BUSH);
+    add_entity<Berry_bush>(BERRY_BUSH, 0);
+    add_entity<Berry_bush>(BERRY_BUSH, 1);
+    add_entity<Berry_bush>(BERRY_BUSH, 2);
+    add_entity<Berry_bush>(BERRY_BUSH, 3);
+    add_entity<Berry_bush>(BERRY_BUSH, 4);
+    add_entity<Berry_bush>(BERRY_BUSH, 5);
+    add_entity<Berry_bush>(BERRY_BUSH, 6);
     
     for (auto &e : game.entities)
         e->load();

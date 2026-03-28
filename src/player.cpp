@@ -100,7 +100,7 @@ void update_knockback(){
         if (CheckCollisionRecs(player.collision_rect, r)) player.pos.y = player.pos_save.y;
     }
 
-    // decay the velocity (this is your "lerp feel")
+    // decay the velocity 
     player.knockback_vel = Vector2Lerp(player.knockback_vel, {0, 0}, GetFrameTime() * 10);
 
     player.knockback_time -= GetFrameTime();

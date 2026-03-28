@@ -43,7 +43,7 @@ void update_vfx()
         vfx.shake_time -= GetFrameTime();
     }
     
-    pause_for_hitstop();
+    // pause_for_hitstop();
     if(vfx.hitstop_time > 0.0f){
         
         vfx.hitstop_time -= GetFrameTime();

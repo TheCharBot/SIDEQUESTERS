@@ -89,16 +89,13 @@ extern Rectangle Big_tree_levels_tree_trunk_bottom;
 
 //forest scourge stuff
 //idle arrays
-extern Rectangle forest_scourge_idle_down_right[3];
-extern Rectangle forest_scourge_idle_up_right[3];
-extern Rectangle forest_scourge_idle_down_left[3];
-extern Rectangle forest_scourge_idle_up_left[3];
+
 //walking arrays
 extern Rectangle forest_scourge_walk_down_right[7];
 extern Rectangle forest_scourge_walk_up_left[7];
 //attacking arrays
 extern Rectangle forest_scourge_attack_down_right[6];
-extern Rectangle forest_scourge_attack_up_left[6];
+extern Rectangle forest_scourge_die[5];
 
 //idle animations - before it sees the player
 

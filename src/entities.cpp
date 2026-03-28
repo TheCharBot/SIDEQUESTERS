@@ -368,21 +368,48 @@ void Village_questgiver_1::draw()
     DrawTexturePro(tex, current_animation_arr[current_animation_frame], {pos.x, pos.y, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}, {0, 0}, 0, WHITE);
 }
 
-Berry_bush::Berry_bush()
+Berry_bush::Berry_bush(int index)
 {
-    pos = {273, 817};
+    //TODO: MACROS!!!
+    switch(index){
+        case 0:
+            pos = {529, 335};
+            break;
+        case 1:
+            pos = {791, 335};
+            break;
+        case 2:
+            pos = {682, 702};
+            break;
+        case 3:
+            pos = {647, 857};
+            break;
+        case 4:
+            pos = {823, 857};
+            break;
+        case 5:
+            pos = {587, 555};
+            break;
+        case 6:
+            pos = {331, 762};
+            break;
+        default:
+            pos = {529, 335};
+            break;
+    }
     rect = {pos.x+5, pos.y+7, 25, 13};
     health = BERRY_BUSH_HEALTH;
     item_drop.ground_item_name = {};
     item_drop.pos = {pos.x+13, pos.y+10};
     item_drop.item = game.item_ids[Item_names::RED_BERRIES];
+    flash_time = 0.0f;
 }
 
 Berry_bush::~Berry_bush()
 {
-    if(tex.id != 0){
-        UnloadTexture(tex);
-    }
+    // if(tex.id != 0){
+    //     UnloadTexture(tex);
+    // } really only put if thres one - otherwise NO! it will MESS THINGS UP!
 }
 
 void Berry_bush::load()
@@ -397,17 +424,23 @@ void Berry_bush::update()
 {
     if(CheckCollisionRecs(rect, player.active_attack_hitbox)){
         health -= player.active_damage;
-        
+        flash_time = ENEMY_IFRAME_TIME;
     }
     if(health < 0){
-        
-        game.ground_items.push_back(item_drop);
+        switch(GetRandomValue(0, 2)){
+            case 0:
+                break;
+            default:
+                game.ground_items.push_back(item_drop);
+                break;
+        }
         // player.defeated_entities.push_back(name);
         dead = true;
     }
+    flash_time-=GetFrameTime();
 }
 
 void Berry_bush::draw()
 {
-    DrawTexture(tex, pos.x, pos.y, WHITE);
+    DrawTexture(tex, pos.x, pos.y, flash_time > 0.0f ? RED : WHITE);
 }

@@ -576,7 +576,7 @@ class Village_questgiver_1 : public Entity{
 
 class Berry_bush : public Entity{
     public:
-        Berry_bush();
+        Berry_bush(int index);
         ~Berry_bush();
         void load() override;
         void update() override;
@@ -586,6 +586,7 @@ class Berry_bush : public Entity{
         Texture2D tex;
         float health;
         Ground_item item_drop;
+        float flash_time;
 };
 
 
