@@ -34,6 +34,13 @@ void add_entity(Entity_names name, Args&&... args)
     }
 }
 
+template<typename T, typename... Args>
+void add_entity_without_death_check(Args&&... args)
+{
+    auto entity = std::make_unique<T>(std::forward<Args>(args)...);
+    game.entities.push_back(std::move(entity));
+}
+
 void add_ground_item(Ground_item item){
     if(std::find(player.picked_up_items.begin(), player.picked_up_items.end(), item.ground_item_name) != player.picked_up_items.end()){}
     else{game.ground_items.push_back(item);}
@@ -256,9 +263,9 @@ void load_village_house_1()
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT}});
     for(int i = 0; i < 4; i++){
-        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 34}); //TODO: MACROS
-        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 50});
-        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 66});
+        add_entity_without_death_check<Ground_pot>((Vector2){float((i*21)+37), 34}); //TODO: MACROS
+        add_entity_without_death_check<Ground_pot>((Vector2){float((i*21)+37), 50});
+        add_entity_without_death_check<Ground_pot>((Vector2){float((i*21)+37), 66});
     }
     for (auto &e : game.entities)
         e->load();

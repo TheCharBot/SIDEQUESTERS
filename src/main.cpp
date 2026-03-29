@@ -48,7 +48,7 @@
 int main()
 {
     
-    load_config_state();
+    // load_config_state();
     // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     

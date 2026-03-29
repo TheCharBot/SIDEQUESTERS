@@ -22,15 +22,13 @@
 //     ├── Condition (IsHealthLow)
 //     └── Action (Flee)
 
-extern void unload_shared_entity_textures();
+
 
 class Enemy_forest_scourge: public Entity{
     public:
         Vector2 pos{};
         
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
         //use static shared when there are multiple instances
         
         
@@ -52,21 +50,21 @@ class Enemy_forest_scourge: public Entity{
         void update_knockback();
         void rect_rebuild();
     private:
-        Texture2D tex;
-        int random_index;
-        int wander_state;
-        Rectangle *current_anim_arr;
-        Rectangle chase_detect_rect;
-        Rectangle attack_detect_rect;
-        Rectangle attack_hit_rect;
-        float hit_flash_timer;
-        float health;
-        bool can_take_damage;
-        float iframe_timer;
+        Texture2D tex = {};
+        int random_index = 0;
+        int wander_state = 0;
+        Rectangle *current_anim_arr = {};
+        Rectangle chase_detect_rect = {};
+        Rectangle attack_detect_rect = {};
+        Rectangle attack_hit_rect = {};
+        float hit_flash_timer = 0;
+        float health = 0;
+        bool can_take_damage = 0;
+        float iframe_timer = 0;
         float wander_timer = 0.0f;
         Vector2 wander_dir = {0, 0};
-        Vector2 move{};
-        Vector2 vel;
+        Vector2 move = {};
+        Vector2 vel = {};
         enum Behavior_mode{
             ATTACK,
             CHASE,
@@ -75,16 +73,14 @@ class Enemy_forest_scourge: public Entity{
         };
         Enemy_forest_scourge::Behavior_mode behavior_mode = {};
         Vector2 knockback_vel = {};
-        float knockback_time;
+        float knockback_time = 0;
 };
 
 class Boss_The_Regrown: public Entity{
     public:
         Vector2 pos{};
         
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
         //use static shared when there are multiple instances
         
 
@@ -108,31 +104,31 @@ class Boss_The_Regrown: public Entity{
         void break_random_floor_tiles(int amount);
         
     private:
-        Texture2D tex;
-        int random_index;
-        Rectangle *current_anim_arr;
-        Rectangle attack_detect_rect;
-        Rectangle attack_hit_rect;
+        Texture2D tex = {};
+        int random_index = 0;
+        Rectangle *current_anim_arr = {};
+        Rectangle attack_detect_rect = {};
+        Rectangle attack_hit_rect = {};
         float hit_flash_timer = 0;
-        float health;
+        float health = 0;
         bool can_take_damage = 0;
         float iframe_timer = 0;
-        Rectangle col_rect_1;
-        Rectangle col_rect_2;
-        Rectangle col_rect_3;
-        bool started_fight;
-        bool death_anim_started;
-        Rectangle active_damaging_rect;
-        float ground_attack_cooldown;
-        bool can_use_ground_attack;
-        Ground_item item_drop;
+        Rectangle col_rect_1 = {};
+        Rectangle col_rect_2 = {};
+        Rectangle col_rect_3 = {};
+        bool started_fight = 0;
+        bool death_anim_started = 0;
+        Rectangle active_damaging_rect = {};
+        float ground_attack_cooldown = 0;
+        bool can_use_ground_attack = 0;
+        Ground_item item_drop = {};
         enum Behavior_mode{
             RIGHT_ATTACK,
             LEFT_ATTACK,
             GROUND_ATTACK,
             IDLE,
         };
-        Boss_The_Regrown::Behavior_mode behavior_mode;
+        Boss_The_Regrown::Behavior_mode behavior_mode = {};
 };
 
 

@@ -495,7 +495,7 @@ public:
     void draw() override;
 
 private:
-    bool fallen;
+    bool fallen = 0;
     Texture2D tex{};
 };
 
@@ -504,9 +504,7 @@ class Start_portal : public Entity {
 public:
     Start_portal();
     ~Start_portal() override;
-    int max_animation_frames;
-    int current_animation_frame;
-    int animation_frame_5;
+    
     
     void load() override;
     void update() override;
@@ -522,19 +520,17 @@ class Big_tree : public Entity {
     public:
         Big_tree();
         ~Big_tree() override;
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
         
         void load() override;
         void update() override;
         void draw() override;
     private:
-        Rectangle rect1;
-        Rectangle rect2;
-        Rectangle rect3;
+        Rectangle rect1 = {};
+        Rectangle rect2 = {};
+        Rectangle rect3 = {};
         
-        Texture2D tex;
+        Texture2D tex = {};
 };
 
 class Big_tree_level_tree_trunk : public Entity {
@@ -542,9 +538,7 @@ class Big_tree_level_tree_trunk : public Entity {
         
         Big_tree_level_tree_trunk(int which_trunk);
         ~Big_tree_level_tree_trunk() override;
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
         
         void load() override;
         void update() override;
@@ -552,11 +546,11 @@ class Big_tree_level_tree_trunk : public Entity {
         
     private:
         
-        float health;
-        Texture2D tex;
-        bool can_take_damage;
-        float hit_flash_timer;
-        float iframe_timer;
+        float health = 0;
+        Texture2D tex = {};
+        bool can_take_damage = 0;
+        float hit_flash_timer = 0;
+        float iframe_timer = 0;
 };
 
 class Village_questgiver_1 : public Entity{
@@ -564,11 +558,9 @@ class Village_questgiver_1 : public Entity{
         Village_questgiver_1();
         ~Village_questgiver_1() override;
         
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
 
-        Rectangle *current_animation_arr;
+        
 
 
         void load() override;
@@ -576,7 +568,8 @@ class Village_questgiver_1 : public Entity{
         void draw() override;
 
     private:
-        Rectangle interact_rect;
+        Rectangle *current_animation_arr = {};
+        Rectangle interact_rect = {};
         Texture2D tex{};
         bool story_text_done = false;
         bool found_wanted_item = false;
@@ -592,10 +585,10 @@ class Berry_bush : public Entity{
         void draw() override;
         
     private:
-        Texture2D tex;
-        float health;
-        Ground_item item_drop;
-        float flash_time;
+        Texture2D tex = {};
+        float health = 0;
+        Ground_item item_drop = {};
+        float flash_time = 0;
 };
 
 class Ground_pot : public Entity{
@@ -610,12 +603,12 @@ class Ground_pot : public Entity{
         void rect_rebuild();
         void pot_break();
     private:
-        Texture2D tex;
-        float health;
-        Ground_item item_drop;
-        float flash_time;
-        Vector2 knockback_vel;
-        float knockback_time;
+        Texture2D tex = {};
+        float health = 0;
+        Ground_item item_drop = {};
+        float flash_time = 0;
+        Vector2 knockback_vel = {};
+        float knockback_time = 0;
         bool broken = false;
         Rectangle *current_anim_arr;
 };
