@@ -252,10 +252,16 @@ void load_village_house_1()
         VILLAGE_HOUSE_RECT_3,
         VILLAGE_HOUSE_RECT_4,
         VILLAGE_HOUSE_RECT_5,
-        VILLAGE_HOUSE_1_RECT_6,
-        VILLAGE_HOUSE_1_RECT_7,
+        VILLAGE_HOUSE_1_RECT_7
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT}});
+    for(int i = 0; i < 4; i++){
+        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 34}); //TODO: MACROS
+        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 50});
+        add_entity<Ground_pot>(GROUND_POT, (Vector2){float((i*21)+37), 66});
+    }
+    for (auto &e : game.entities)
+        e->load();
 };
 void load_village_house_2()
 {

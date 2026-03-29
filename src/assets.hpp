@@ -32,6 +32,7 @@ extern void load_config_state();
 
 extern void load_map(Map_names map, Vector2 new_player_pos); //only here cuz it has to be
 
+//put the wanted texture into a pool of textures that get unloaded every new map load
 extern Texture2D& get_texture(const std::string& path);
 
 
@@ -509,6 +510,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
 #define VILLAGE_QUESTGIVER_1_PATH "gfx/npc/village_questgiver_1/village_questgiver_1_tex.png"
 #define BERRY_BUSH_TEX_PATH "gfx/assets/berry_bush/berry_bush_tex.png"
+#define POT_TEX_PATH "gfx/assets/pot/pot_tex.png"
 // player texture path
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 // gui and items sheet paths

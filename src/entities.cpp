@@ -1,4 +1,5 @@
 #include "entities.hpp"
+#include "game_objects.hpp"
 
 // 358, 302, coords for windmill
 
@@ -443,4 +444,110 @@ void Berry_bush::update()
 void Berry_bush::draw()
 {
     DrawTexture(tex, pos.x, pos.y, flash_time > 0.0f ? RED : WHITE);
+}
+
+
+Ground_pot::Ground_pot(Vector2 wanted_pos)
+{
+    
+    pos = wanted_pos;
+    rect_rebuild();
+    current_animation_frame = 0;
+    animation_frame_5 = 0;
+    max_animation_frames = 6;
+    current_anim_arr = ground_pot_normal;
+    broken = false;
+}
+
+Ground_pot::~Ground_pot()
+{
+}
+
+void Ground_pot::load()
+{
+    
+    tex = get_texture(POT_TEX_PATH);
+}
+
+void Ground_pot::update()
+{
+    
+    if(CheckCollisionRecs(rect, player.collision_rect) && knockback_time <= 0){
+        if(player.behavior_mode == Player::Behavior_mode::SPRINTING){
+            // std::cout<< "yes sprint it worked";
+            pot_break();
+        }
+        take_knockback({player.collision_rect.x + player.collision_rect.width  * 0.5f, player.collision_rect.y + player.collision_rect.height * 0.5f}, 200);
+    }
+
+    if(knockback_time > 0){
+        update_knockback();
+    }
+    if(broken){
+        animation_frame_5++;
+        if (animation_frame_5 >= ANIMATION_INTERVAL)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                dead = true;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+    
+}
+
+void Ground_pot::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}
+
+void Ground_pot::take_knockback(Vector2 origin, int strength)
+{
+    Vector2 pot_center = {rect.x + rect.width * 0.5f, rect.y + rect.height * 0.5f};
+    Vector2 dir = Vector2Subtract(pot_center, origin);
+
+    if (Vector2Length(dir) < 0.001f) {
+        dir = Vector2Negate(Vector2Normalize(player.movement));
+    }
+
+    dir = Vector2Normalize(dir);
+    knockback_vel = Vector2Scale(dir, strength);
+    knockback_time = 0.2f;
+}
+
+void Ground_pot::update_knockback()
+{
+    Vector2 pos_save = pos;
+    Vector2 new_pos = Vector2Add(pos, Vector2Scale(knockback_vel, GetFrameTime()));
+
+    // try X
+    pos.x = new_pos.x;
+    rect_rebuild();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(rect, r)) pos.x = pos_save.x;
+    }
+    // try Y
+    pos.y = new_pos.y;
+    rect_rebuild();
+    for(Rectangle &r : game.collision_rects){
+        if (CheckCollisionRecs(rect, r)) pos.y = pos_save.y;
+    }
+
+    // decay the velocity 
+    knockback_vel = Vector2Lerp(knockback_vel, {0, 0}, GetFrameTime() * 10);
+
+    knockback_time -= GetFrameTime();
+}
+
+void Ground_pot::rect_rebuild()
+{
+    rect = {pos.x+25, pos.y+38, 14, 4}; //TODO: MACROS
+}
+
+void Ground_pot::pot_break()
+{
+    current_anim_arr = ground_pot_break;
+    broken = true;
 }

@@ -35,16 +35,16 @@
 //later TODO: FIGURE OUT DIALOG STORAGE SYSTEM
 
 //done TODO: get default save to work
-// slightly done TODO: make Start menu
+//TODO: finish options, credits, and achievements in Start menu
 //done TODO: make save/load system <- CURRENT
 //done TODO: GET IMAGES TO WORK ON START MENU
 //done TODO: make the save selector, then save/load system, then picture/icon system on the save selector
 
-//TODO: Make Stamina GUI
-
-//TODO: make better player gfx
-//TODO: particles?
-//TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
+//done TODO: Make Stamina GUI
+//TODO: make a more populated village, and furnish the rest of the homes
+//done TODO: make better player gfx
+//nope TODO: particles?
+//maybe later TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 int main()
 {
     
@@ -57,7 +57,7 @@ int main()
     InitAudioDevice();
     SetTargetFPS(60);
     Image icon;
-    icon = LoadImage("gfx/icon/icon.png");
+    icon = LoadImage("gfx/icon/icon.png");  
     SetWindowIcon(icon);
     
     UnloadImage(icon);

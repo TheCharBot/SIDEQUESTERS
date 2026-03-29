@@ -115,6 +115,9 @@ extern Rectangle the_regrown_ground_shake_arr[6];
 extern Rectangle the_regrown_die_arr[14];
 
 
+extern Rectangle ground_pot_normal[1];
+extern Rectangle ground_pot_break[6];
+
 
 
 

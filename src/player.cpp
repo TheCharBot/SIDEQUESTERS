@@ -237,7 +237,7 @@ void item_dungeon_stuff(Item* item, int slot){
 }
 
 void use_item_in_slot(int slot){
-    
+    player.behavior_mode = Player::Behavior_mode::USING_ITEM;
     if (!inventory_slots[slot].filled_with) return;
     
     auto& item = *inventory_slots[slot].filled_with;
@@ -278,33 +278,30 @@ void use_item_in_slot(int slot){
 void frozen_player_movement(){
     player.current_animation_frame = 0;
     player.max_animation_frames = 1;
+    player.behavior_mode = Player::Behavior_mode::IDLE;
     switch(player.facing){
         case DOWN: {
             player.current_anim_arr = player_idle_down_arr;
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
+           
             break;
         }
             
         case UP: {
             player.current_anim_arr = player_idle_up_arr;
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
+            
             break;
         }
         
         case LEFT: {
             player.current_anim_arr = player_idle_left_arr;
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
+            
             break;
         }
         
         
         case RIGHT: {
             player.current_anim_arr = player_idle_right_arr;
-            game.wanted_cam_pos.x = player.pos.x - ((WINDOW_WIDTH) / 2) + (DEFAULT_SPRITE_WIDTH/2);
-            game.wanted_cam_pos.y = player.pos.y - ((WINDOW_HEIGHT) / 2) + (DEFAULT_SPRITE_HEIGHT/2);
+            
             break;
         }
     }
@@ -334,6 +331,7 @@ void default_player_movement(){
         player.stamina_reload_timer -= 2;
         if (player.movement.y < 0)
         {
+            player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = UP;
             player.speed = PLAYER_WALK_SPEED;
             player.current_anim_arr = player_walk_up;
@@ -347,6 +345,7 @@ void default_player_movement(){
         }
         else if (player.movement.y > 0)
         {
+            player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = DOWN;
             player.speed = PLAYER_WALK_SPEED;
             player.current_anim_arr = player_walk_down;
@@ -359,6 +358,7 @@ void default_player_movement(){
         }
         else if (player.movement.x > 0)
         {
+            player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = RIGHT;
             player.speed = PLAYER_WALK_SPEED;
             player.current_anim_arr = player_walk_right;
@@ -371,6 +371,7 @@ void default_player_movement(){
         }
         else if (player.movement.x < 0)
         {
+            player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = LEFT;
             player.speed = PLAYER_WALK_SPEED;
             player.current_anim_arr = player_walk_left;
@@ -386,6 +387,7 @@ void default_player_movement(){
         player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
         if (player.movement.y < 0)
         {
+            player.behavior_mode = Player::Behavior_mode::SPRINTING;
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = UP;
             player.speed = PLAYER_SPRINT_SPEED;
@@ -400,6 +402,7 @@ void default_player_movement(){
         }
         else if (player.movement.y > 0)
         {
+            player.behavior_mode = Player::Behavior_mode::SPRINTING;
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = DOWN;
             player.speed = PLAYER_SPRINT_SPEED;
@@ -413,6 +416,7 @@ void default_player_movement(){
         }
         else if (player.movement.x > 0)
         {
+            player.behavior_mode = Player::Behavior_mode::SPRINTING;
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = RIGHT;
             player.speed = PLAYER_SPRINT_SPEED;
@@ -426,6 +430,7 @@ void default_player_movement(){
         }
         else if (player.movement.x < 0)
         {
+            player.behavior_mode = Player::Behavior_mode::SPRINTING;
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = LEFT;
             player.speed = PLAYER_SPRINT_SPEED;
@@ -442,6 +447,7 @@ void default_player_movement(){
     // idle animation calculations
     if (player.movement.x == 0 && player.movement.y == 0)
     {
+        player.behavior_mode = Player::Behavior_mode::IDLE;
         switch(player.facing){
             case UP:
             {
@@ -579,7 +585,7 @@ void animation_player_movement(){
     if (player.current_animation_frame >= player.max_animation_frames - 1)
     {
         player.move_mode = 1;
-
+        player.behavior_mode = Player::Behavior_mode::IDLE;
         // player.current_animation_frame = 0;
     }
 }

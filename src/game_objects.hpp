@@ -107,6 +107,7 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     FOREST_SCOURGE,
     VILLAGE_QUESTGIVER_1,
     BERRY_BUSH,
+    GROUND_POT,
 };
 
 
@@ -375,7 +376,6 @@ struct Game_data{
     Game_states state = {};
     int save_slot = 0;
     int new_scale = 0;
-    Vector2 wanted_cam_pos = {};
     std::unordered_map<std::string, Texture2D> texture_cache = {};
     std::unordered_map<SFX_ids, Sound> sfx_manager = {};
     std::unordered_map<Item_names, Item> item_ids = {};
@@ -447,6 +447,15 @@ struct Player
     
     float knockback_time = 0;
     Vector2 knockback_vel = {};
+
+    enum Behavior_mode{
+        IDLE,
+        WALKING,
+        SPRINTING,
+        USING_ITEM,
+    };
+
+    Behavior_mode behavior_mode = IDLE;
     
 };
 
@@ -587,6 +596,28 @@ class Berry_bush : public Entity{
         float health;
         Ground_item item_drop;
         float flash_time;
+};
+
+class Ground_pot : public Entity{
+    public:
+        Ground_pot(Vector2 wanted_pos);
+        ~Ground_pot();
+        void load() override;
+        void update() override;
+        void draw() override;
+        void take_knockback(Vector2 origin, int strength);
+        void update_knockback();
+        void rect_rebuild();
+        void pot_break();
+    private:
+        Texture2D tex;
+        float health;
+        Ground_item item_drop;
+        float flash_time;
+        Vector2 knockback_vel;
+        float knockback_time;
+        bool broken = false;
+        Rectangle *current_anim_arr;
 };
 
 
