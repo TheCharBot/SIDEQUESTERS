@@ -493,14 +493,17 @@ void default_player_movement(){
         }
     }
 
-    // normalize diagonal movement
+    // do all the actual position updating
     if (player.movement.x != 0 || player.movement.y != 0)
     {
         if(!IsSoundPlaying(game.sfx_manager[SFX_ids::PLAYER_FOOTSTEPS])){
             // std::cout <<"wow sound is playing!";
-            float pitch_rand = (rand() % 10)/10.0f;
+            float pitch_rand = (rand() % 5)/10.0f;
+            pitch_rand+=0.5F;
+
             // pitch_rand /= 100;
             SetSoundPitch(game.sfx_manager[SFX_ids::PLAYER_FOOTSTEPS], pitch_rand);
+            
             PlaySound(game.sfx_manager[SFX_ids::PLAYER_FOOTSTEPS]); //do something bout this later. make it so sfx knows its playing
         }
 
@@ -566,6 +569,7 @@ void default_player_movement(){
         player.pos.y = Clamp(player.pos.y, -16, (game.map_to_load.height) - (DEFAULT_SPRITE_HEIGHT - 12));
     }
     
+    //then item stuff
     if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
     {
         use_item_in_slot(23);
@@ -608,7 +612,7 @@ void update_player()
         case 1:
             default_player_movement();
             break;
-        // dont move and keep animation - for attacking
+        // dont move and keep animation - then switch back to 1 once anim is over
         // actually unexpectedly works!
         case 2:
             animation_player_movement();

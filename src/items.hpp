@@ -1,7 +1,7 @@
 #ifndef ITEMS_HPP
 #define ITEMS_HPP
 
-#include "config.hpp"
+
 
 #include "assets.hpp"
 #include "item_data.hpp"
