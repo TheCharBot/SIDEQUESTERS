@@ -503,6 +503,8 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define VILLAGE_MUS_PATH "mus/Village.ogg"
 #define ELEVATOR_MUS_PATH "mus/Elevator.ogg"
 #define THE_REGROWN_THEME_PATH "mus/REGROWN.ogg"
+#define TENSION_MUS_PATH "mus/TENSION.ogg"
+#define VILLAGE_INSIDE_MUS_PATH "mus/Village_inside.ogg"
 
 // entities and misc assets paths
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"

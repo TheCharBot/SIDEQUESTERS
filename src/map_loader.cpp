@@ -185,7 +185,7 @@ void load_start_map()
     reset_loaded();
 
     game.map_to_load = get_texture(STARTING_MAP_TEX_PATH);
-
+    game.current_music = LoadMusicStream(TENSION_MUS_PATH);
     game.current_map = START_MAP;
     // proprietary collisions for map 1 (can't reuse - sorry)
     add_collisions({MAP_1_RECT_1,
@@ -252,7 +252,7 @@ void load_village_house_1()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_1_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_1;
-
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -275,6 +275,7 @@ void load_village_house_2()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_2_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_2;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -289,6 +290,7 @@ void load_village_house_3()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_3_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_3;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -303,6 +305,7 @@ void load_village_house_4()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_4_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_4;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -317,6 +320,7 @@ void load_village_house_5()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_5_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_5;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -331,6 +335,7 @@ void load_village_house_6()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_6_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_6;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -345,6 +350,7 @@ void load_village_house_7()
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_HOUSE_7_PATH);
     game.current_map = INSIDE_VILLAGE_HOUSE_7;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         VILLAGE_HOUSE_RECT_1,
         VILLAGE_HOUSE_RECT_2,
@@ -359,6 +365,7 @@ void load_village_windmill(){
     reset_loaded();
     game.map_to_load = get_texture(VILLAGE_WINDMILL_INSIDE_PATH);
     game.current_map = INSIDE_VILLAGE_WINDMILL;
+    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
     add_collisions({
         INSIDE_WINDMILL_RECT_1,
         INSIDE_WINDMILL_RECT_2,
