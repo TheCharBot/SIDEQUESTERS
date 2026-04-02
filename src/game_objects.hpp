@@ -57,8 +57,8 @@ enum Map_names
 };
 
 enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QUESTGIVER_1_STORY_TEXT
-    VILLAGE_QUESTGIVER_1_STORY_TEXT,
-    VILLAGE_QUESTGIVER_1_FOUND_ITEM_TEXT,
+    NPC_DAN_VILLAGE_STORY_TEXT,
+    NPC_DAN_VILLAGE_FOUND_ITEM_TEXT,
 };
 
 enum Item_types
@@ -92,6 +92,7 @@ enum class Item_names
 };
 
 enum Entity_names{ //stuff for identification - suprisingly helpful!
+    //world entity names
     DEFAULT,
     START_PORTAL,
     BIG_TREE,
@@ -104,11 +105,14 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     BIG_TREE_LEVEL_6_TREE_TRUNK,
     BIG_TREE_LEVEL_8_TREE_TRUNK,
     BIG_TREE_LEVEL_9_TREE_TRUNK,
+    //hostile entity names
     THE_REGROWN,
     FOREST_SCOURGE,
-    VILLAGE_QUESTGIVER_1,
     BERRY_BUSH,
     GROUND_POT,
+    //NPC entity names
+    NPC_DAN_VILLAGE,
+    NPC_BOB_VILLAGE
 };
 
 
@@ -156,13 +160,7 @@ enum class Music_names{ //put the names of the music or the names of the maps he
 
 
 
-enum Facing
-{
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT
-};
+
 
 enum Game_states{ //add endings and other menu things
     START_MENU,

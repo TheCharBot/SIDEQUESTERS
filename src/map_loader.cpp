@@ -241,8 +241,9 @@ void load_village_map()
         {MAP_2_VILLAGE_HOUSE_7_LOAD, INSIDE_VILLAGE_HOUSE_7, PLAYER_VILLAGE_HOUSE_START_POS},
 
     });
-    add_entity<Village_questgiver_1>(VILLAGE_QUESTGIVER_1);
-    add_entity<Village_windmill>(VILLAGE_WINDMILL);
+    add_entity<NPC_Dan_Village>(NPC_DAN_VILLAGE);
+    add_entity<NPC_Bob_Village>(NPC_BOB_VILLAGE);
+    add_entity_without_death_check<Village_windmill>();
     for (auto &e : game.entities)
         e->load();
 }

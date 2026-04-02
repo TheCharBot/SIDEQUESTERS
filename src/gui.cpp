@@ -368,41 +368,46 @@ void hotbar_draw(){
 
 void set_textbox_indice_text(int index, Dialog_chunk dialog){
     //it works. fine whatever
-    if(dialog.text.length() > MAX_TEXTBOX_CHARACTERS){
+    if (dialog.text.length() > MAX_TEXTBOX_CHARACTERS) {
         dialog.text.resize(MAX_TEXTBOX_CHARACTERS);
     }
-    if(dialog.text.length() > MAX_ONE_LINE_CHARACTERS){
-        
-        for(int i = 0; i < int(dialog.text.length()); i++){
-            if(dialog.text[MAX_ONE_LINE_CHARACTERS-i] == ' '){
-                dialog.text.erase(MAX_ONE_LINE_CHARACTERS-i, 1);
-                dialog.text.insert(MAX_ONE_LINE_CHARACTERS-i, "\n");
+
+    int offset = 0;
+
+    if ((int)dialog.text.length() > MAX_ONE_LINE_CHARACTERS + offset) {
+        for (int i = 1; i <= MAX_ONE_LINE_CHARACTERS; i++) {
+            if (dialog.text[MAX_ONE_LINE_CHARACTERS + offset - i] == ' ') {
+                int pos = MAX_ONE_LINE_CHARACTERS + offset - i;
+                dialog.text.erase(pos, 1);
+                dialog.text.insert(pos, "\n");
+                offset++;
                 break;
             }
         }
-        
-        
     }
-    if(dialog.text.length() > MAX_TWO_LINE_CHARACTERS){
-        
-        for(int i = 0; i < int(dialog.text.length()); i++){
-            if(dialog.text[MAX_TWO_LINE_CHARACTERS-i] == ' '){
-                dialog.text.erase(MAX_TWO_LINE_CHARACTERS-i, 1);
-                dialog.text.insert(MAX_TWO_LINE_CHARACTERS-i, "\n");
+
+    if ((int)dialog.text.length() > MAX_TWO_LINE_CHARACTERS + offset) {
+        for (int i = 1; i <= MAX_ONE_LINE_CHARACTERS; i++) {
+            if (dialog.text[MAX_TWO_LINE_CHARACTERS + offset - i] == ' ') {
+                int pos = MAX_TWO_LINE_CHARACTERS + offset - i;
+                dialog.text.erase(pos, 1);
+                dialog.text.insert(pos, "\n");
+                offset++;
                 break;
             }
         }
-        
     }
-    if(dialog.text.length() > MAX_THREE_LINE_CHARACTERS){
-        for(int i = 0; i < int(dialog.text.length()); i++){
-            if(dialog.text[MAX_THREE_LINE_CHARACTERS-i] == ' '){
-                dialog.text.erase(MAX_THREE_LINE_CHARACTERS-i, 1);
-                dialog.text.insert(MAX_THREE_LINE_CHARACTERS-i, "\n");
+
+    if ((int)dialog.text.length() > MAX_THREE_LINE_CHARACTERS + offset) {
+        for (int i = 1; i <= MAX_ONE_LINE_CHARACTERS; i++) {
+            if (dialog.text[MAX_THREE_LINE_CHARACTERS + offset - i] == ' ') {
+                int pos = MAX_THREE_LINE_CHARACTERS + offset - i;
+                dialog.text.erase(pos, 1);
+                dialog.text.insert(pos, "\n");
+                offset++;
                 break;
             }
         }
-        
     }
     
     gui.global_textbox.current_dialog[index] = dialog;
@@ -505,7 +510,7 @@ void update_gui()
         inv_cursor_update();
     }
 
-    if (IsKeyPressed(KEY_OPEN_INVENTORY))
+    if (IsKeyPressed(KEY_OPEN_INVENTORY) && !gui.global_textbox.is_textbox_open)
     {
         gui.is_inv_open = !gui.is_inv_open;
         if (gui.is_inv_open)

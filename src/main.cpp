@@ -45,6 +45,7 @@
 //done TODO: make better player gfx
 //nope TODO: particles?
 //maybe later TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
+//TODO: Full game: make dialog choice system
 int main()
 {
     

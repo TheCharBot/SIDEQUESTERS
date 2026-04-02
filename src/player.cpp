@@ -7,6 +7,7 @@ Player player;
 void init_player()
 {
     //make the health stuff in constants later
+    init_player_sprite_maps();
     player.current_health = 3.0f;
     player.max_health = 3.0f;
     player.active_damage = 0;
@@ -26,6 +27,8 @@ void init_player()
     player.current_stamina = PLAYER_DEFAULT_MAX_STAMINA;
     player.reloading_stamina = false;
     player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
+    
+    
 };
 
 void rebuild_hitbox()
@@ -77,7 +80,7 @@ void damage_player_with_knockback(float damage, Vector2 damage_pos, float streng
         Vector2 dir = Vector2Subtract(player.pos, damage_pos);
         dir = Vector2Normalize(dir);
         player.knockback_vel = Vector2Scale(dir, strength);
-        player.knockback_vel = Vector2Scale(player.knockback_vel, 0.85f);
+        player.knockback_vel = Vector2Scale(player.knockback_vel, 0.90f);
         player.knockback_time = 0.2f; // duration in seconds
     }
     damage_player(damage);
@@ -115,7 +118,7 @@ void damage_player(float damage)
     if (player.can_take_damage)
     {
         // implement damage taking here
-        start_screen_shake(0.2, 8);
+        start_screen_shake(0.4, 20);
         PlaySound(game.sfx_manager[SFX_ids::DAMAGE_PLAYER]);
         player.current_health -= damage;
         if (player.current_health < 0)
@@ -150,42 +153,37 @@ void item_combat_melee_stuff(Item* item, int slot){
     SetSoundPitch(game.sfx_manager[SFX_ids::PLAYER_SWING_SWORD], pitch_rand+1);
     PlaySound(game.sfx_manager[SFX_ids::PLAYER_SWING_SWORD]); 
     // std::cout << player.facing << "\n";
+    
     switch(player.facing){
         case DOWN:
         {
-            player.current_anim_arr = player_sword_slash_down_arr;
             player.active_attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-            player.active_damage = item->melee.damage;
             break;
         }
         case UP:
         {
-            player.current_anim_arr = player_sword_slash_up_arr;
             player.active_attack_hitbox = {player.pos.x + 16, player.pos.y, 32, 32};
-            player.active_damage = item->melee.damage;
             break;
         }
         case LEFT:
         {
-            player.current_anim_arr = player_sword_slash_left_arr;
             player.active_attack_hitbox = {player.pos.x, player.pos.y, 32, 64};
-            player.active_damage = item->melee.damage;
             break;
         }
         case RIGHT:
         {
-            player.current_anim_arr = player_sword_slash_right_arr;
             player.active_attack_hitbox = {player.pos.x+32, player.pos.y, 32, 64};
-            player.active_damage = item->melee.damage;
             break;
         }
-        default:{
-            player.current_anim_arr = player_sword_slash_down_arr;
+        default:
+        {
             player.active_attack_hitbox = {player.pos.x + 16, player.pos.y + 32, 32, 32};
-            player.active_damage = item->melee.damage;
             break;
         }
     }
+    player.active_damage = item->melee.damage;
+
+    player.current_anim_arr = player_sword_slashes[player.facing];
     player.current_animation_frame = 0;
     player.max_animation_frames = 5;
     player.move_mode = 2;
@@ -204,23 +202,12 @@ void item_consumable_stuff(Item* item, int slot){
         case HEAL:
             if(player.current_health < player.max_health){
                 player.current_health+=item->consumable.buff_strength;
-                switch(player.facing){
-                    case UP: 
-                        player.current_anim_arr = player_consume_up;
-                        break;
-                    case DOWN:
-                        player.current_anim_arr = player_consume_down;
-                        break;
-                    case RIGHT:
-                        player.current_anim_arr = player_consume_right;
-                        break;
-                    case LEFT:
-                        player.current_anim_arr = player_consume_left;
-                        break;
-                }
+
+                player.current_anim_arr = player_consumes[player.facing];
                 player.max_animation_frames = 8;
                 player.current_animation_frame = 0;
                 player.move_mode = 2;
+                
                 item->consumable.amount--;
                 if(item->consumable.amount==0){
                     inventory_slots[slot].filled_with = {};
@@ -279,32 +266,7 @@ void frozen_player_movement(){
     player.current_animation_frame = 0;
     player.max_animation_frames = 1;
     player.behavior_mode = Player::Behavior_mode::IDLE;
-    switch(player.facing){
-        case DOWN: {
-            player.current_anim_arr = player_idle_down_arr;
-           
-            break;
-        }
-            
-        case UP: {
-            player.current_anim_arr = player_idle_up_arr;
-            
-            break;
-        }
-        
-        case LEFT: {
-            player.current_anim_arr = player_idle_left_arr;
-            
-            break;
-        }
-        
-        
-        case RIGHT: {
-            player.current_anim_arr = player_idle_right_arr;
-            
-            break;
-        }
-    }
+    player.current_anim_arr = player_idles[player.facing];
         
     rebuild_hitbox();
 }
@@ -334,7 +296,7 @@ void default_player_movement(){
             player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = UP;
             player.speed = PLAYER_WALK_SPEED;
-            player.current_anim_arr = player_walk_up;
+            player.current_anim_arr = player_walk_up_arr;
             if (player.max_animation_frames != 12)
             {
                 player.current_animation_frame = 0;
@@ -348,7 +310,7 @@ void default_player_movement(){
             player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = DOWN;
             player.speed = PLAYER_WALK_SPEED;
-            player.current_anim_arr = player_walk_down;
+            player.current_anim_arr = player_walk_down_arr;
             if (player.max_animation_frames != 12)
             {
                 player.current_animation_frame = 0;
@@ -361,7 +323,7 @@ void default_player_movement(){
             player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = RIGHT;
             player.speed = PLAYER_WALK_SPEED;
-            player.current_anim_arr = player_walk_right;
+            player.current_anim_arr = player_walk_right_arr;
             if (player.max_animation_frames != 8)
             {
                 player.current_animation_frame = 0;
@@ -374,7 +336,7 @@ void default_player_movement(){
             player.behavior_mode = Player::Behavior_mode::WALKING;
             player.facing = LEFT;
             player.speed = PLAYER_WALK_SPEED;
-            player.current_anim_arr = player_walk_left;
+            player.current_anim_arr = player_walk_left_arr;
             if (player.max_animation_frames != 8)
             {
                 player.current_animation_frame = 0;
@@ -391,7 +353,7 @@ void default_player_movement(){
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = UP;
             player.speed = PLAYER_SPRINT_SPEED;
-            player.current_anim_arr = player_sprint_up;
+            player.current_anim_arr = player_sprint_up_arr;
             if (player.max_animation_frames != 6)
             {
                 player.current_animation_frame = 0;
@@ -406,7 +368,7 @@ void default_player_movement(){
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = DOWN;
             player.speed = PLAYER_SPRINT_SPEED;
-            player.current_anim_arr = player_sprint_down;
+            player.current_anim_arr = player_sprint_down_arr;
             if (player.max_animation_frames != 6)
             {
                 player.current_animation_frame = 0;
@@ -420,7 +382,7 @@ void default_player_movement(){
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = RIGHT;
             player.speed = PLAYER_SPRINT_SPEED;
-            player.current_anim_arr = player_sprint_right;
+            player.current_anim_arr = player_sprint_right_arr;
             if (player.max_animation_frames != 8)
             {
                 player.current_animation_frame = 0;
@@ -434,7 +396,7 @@ void default_player_movement(){
             player.current_stamina -= PLAYER_DEFAULT_STAMINA_DEGEN;
             player.facing = LEFT;
             player.speed = PLAYER_SPRINT_SPEED;
-            player.current_anim_arr = player_sprint_left;
+            player.current_anim_arr = player_sprint_left_arr;
             if (player.max_animation_frames != 8)
             {
                 player.current_animation_frame = 0;
@@ -448,49 +410,9 @@ void default_player_movement(){
     if (player.movement.x == 0 && player.movement.y == 0)
     {
         player.behavior_mode = Player::Behavior_mode::IDLE;
-        switch(player.facing){
-            case UP:
-            {
-                player.current_anim_arr = player_idle_up_arr;
-                if (player.max_animation_frames != 1)
-                {
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 1;
-                }
-                break;
-            }
-            case DOWN:
-            {
-                player.current_anim_arr = player_idle_down_arr;
-                if (player.max_animation_frames != 1)
-                {
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 1;
-                }
-                break;
-            }
-            case RIGHT:
-            {
-                player.current_anim_arr = player_idle_right_arr;
-                if (player.max_animation_frames != 1)
-                {
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 1;
-                }
-                break;
-                
-            }
-            case LEFT:
-            {
-                player.current_anim_arr = player_idle_left_arr;
-                if (player.max_animation_frames != 1)
-                {
-                    player.current_animation_frame = 0;
-                    player.max_animation_frames = 1;
-                }
-                break;
-            }
-        }
+        player.current_anim_arr = player_idles[player.facing];
+        player.max_animation_frames = 1;
+        player.current_animation_frame = 0;
     }
 
     // do all the actual position updating

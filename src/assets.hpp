@@ -119,10 +119,10 @@ extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
 #define SCREEN_FADE_TIME 0.4f
 #define HOTBAR_POS {208, 3}
 #define TEXTBOX_POS {0, 110}
-#define MAX_ONE_LINE_CHARACTERS 47
-#define MAX_TWO_LINE_CHARACTERS 94
-#define MAX_THREE_LINE_CHARACTERS 141
-#define MAX_TEXTBOX_CHARACTERS 180
+#define MAX_ONE_LINE_CHARACTERS (int)44
+#define MAX_TWO_LINE_CHARACTERS (int)88
+#define MAX_THREE_LINE_CHARACTERS (int)130
+#define MAX_TEXTBOX_CHARACTERS (int)176
 #define START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET {23, 0}
 #define START_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET {14, 16}
 #define START_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET {-10, 32}
@@ -186,10 +186,17 @@ extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
 #define BIG_TREE_LEVELS_TREE_TRUNKS_HEALTH 4
 
 #define VILLAGE_QUESTGIVER_1_POS {142, 146}
-#define VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_X 25
-#define VILLAGE_QUESTGIVER_1_HITBOX_OFFSET_Y 42
-#define VILLAGE_QUESTGIVER_1_HITBOX_WIDTH 13
-#define VILLAGE_QUESTGIVER_1_HITBOX_HEIGHT 10
+
+
+#define DEFAULT_NPC_COLLISION_BOX_OFFSET_X 25
+#define DEFAULT_NPC_COLLISION_BOX_OFFSET_Y 42
+#define DEFAULT_NPC_COLLISION_BOX_WIDTH 13
+#define DEFAULT_NPC_COLLISION_BOX_HEIGHT 10
+#define DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_X 22
+#define DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_Y 45
+#define DEFAULT_NPC_DOWN_INTERACT_RECT_WIDTH 19
+#define DEFAULT_NPC_DOWN_INTERACT_RECT_HEIGHT 15
+
 
 #define BERRY_BUSH_HEALTH 2
 
@@ -219,6 +226,8 @@ extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
 
 #define ITEM_SPRITE_WIDTH 16
 #define ITEM_SPRITE_HEIGHT 16
+
+
 
 // start portal image and rects
 
@@ -493,8 +502,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BIG_TREE_LEVEL_9_PATH "gfx/maps/big_tree_levels/big_tree_level_9.png"
 #define BIG_TREE_LEVEL_10_PATH "gfx/maps/big_tree_levels/big_tree_level_10.png"
 
-#define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
-#define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"
+
 
 #define BIG_TREE_LEVELS_TREE_TRUNKS_TEX_PATH "gfx/assets/big_tree/tree_trunks/tree_trunks_tex.png"
 
@@ -510,9 +518,14 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define PORTAL_TEX_PATH "gfx/assets/start_portal/start_portal_tex.png"
 #define BULLDOZER_TEX_PATH "gfx/assets/bulldozer/bulldozer_tex.png"
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
-#define VILLAGE_QUESTGIVER_1_PATH "gfx/npc/village_questgiver_1/village_questgiver_1_tex.png"
 #define BERRY_BUSH_TEX_PATH "gfx/assets/berry_bush/berry_bush_tex.png"
 #define POT_TEX_PATH "gfx/assets/pot/pot_tex.png"
+
+#define NPC_DAN_VILLAGE_TEX_PATH "gfx/npc/NPC_dan_village/NPC_dan_village_tex.png"
+#define NPC_BOB_VILLAGE_TEX_PATH "gfx/npc/NPC_bob_village/NPC_bob_village_tex.png"
+
+#define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
+#define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"
 // player texture path
 #define PLAYER_TEX_PATH "gfx/player/player_tex.png"
 // gui and items sheet paths

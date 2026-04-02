@@ -458,7 +458,7 @@ void Enemy_forest_scourge::attack()
     
     if (CheckCollisionRecs(attack_hit_rect, player.hitbox))
     {
-        damage_player_with_knockback(FOREST_SCOURGE_DAMAGE, pos, 300);
+        damage_player_with_knockback(FOREST_SCOURGE_DAMAGE, pos, 500);
     }
 }
 

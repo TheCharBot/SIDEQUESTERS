@@ -59,6 +59,43 @@ Rectangle Big_tree_levels_tree_trunk_top = {256, 0, DEFAULT_SPRITE_WIDTH_128, DE
 // player-focused stuff
 
 //(i know i can use pointers but they scary)
+
+std::unordered_map<Facing, Rectangle *> player_idles;
+std::unordered_map<Facing, Rectangle *> player_sword_slashes;
+std::unordered_map<Facing, Rectangle *> player_sprints;
+std::unordered_map<Facing, Rectangle *> player_dashes;
+std::unordered_map<Facing, Rectangle *> player_consumes;
+std::unordered_map<Facing, Rectangle *> player_walks;
+
+void init_player_sprite_maps(){
+    player_idles[Facing::UP] = player_idle_up_arr;
+    player_idles[Facing::DOWN] = player_idle_down_arr;
+    player_idles[Facing::LEFT] = player_idle_left_arr;
+    player_idles[Facing::RIGHT] = player_idle_right_arr;
+    player_walks[Facing::UP] = player_walk_up_arr;
+    player_walks[Facing::DOWN] = player_walk_down_arr;
+    player_walks[Facing::LEFT] = player_walk_left_arr;
+    player_walks[Facing::RIGHT] = player_walk_right_arr;
+    player_sword_slashes[Facing::UP] = player_sword_slash_up_arr;
+    player_sword_slashes[Facing::DOWN] = player_sword_slash_down_arr;
+    player_sword_slashes[Facing::LEFT] = player_sword_slash_left_arr;
+    player_sword_slashes[Facing::RIGHT] = player_sword_slash_right_arr;
+    player_sprints[Facing::UP] = player_sprint_up_arr;
+    player_sprints[Facing::DOWN] = player_sprint_down_arr;
+    player_sprints[Facing::LEFT] = player_sprint_left_arr;
+    player_sprints[Facing::RIGHT] = player_sprint_right_arr;
+    player_dashes[Facing::UP] = player_dash_up_arr;
+    player_dashes[Facing::DOWN] = player_dash_down_arr;
+    player_dashes[Facing::LEFT] = player_dash_left_arr;
+    player_dashes[Facing::RIGHT] = player_dash_right_arr;
+    player_consumes[Facing::UP] = player_consume_up_arr;
+    player_consumes[Facing::DOWN] = player_consume_down_arr;
+    player_consumes[Facing::LEFT] = player_consume_left_arr;
+    player_consumes[Facing::RIGHT] = player_consume_right_arr;
+}
+
+
+
 Rectangle player_idle_up_arr[1] = {
     {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}};
 Rectangle player_idle_down_arr[1] = {
@@ -68,7 +105,7 @@ Rectangle player_idle_right_arr[1] = {
 Rectangle player_idle_left_arr[1] = {
     {192, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}};
 // player-focused rects, in player_tex
-Rectangle player_walk_down[12] = {
+Rectangle player_walk_down_arr[12] = {
     {0, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -81,7 +118,7 @@ Rectangle player_walk_down[12] = {
     {576, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {640, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {704, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}};
-Rectangle player_walk_up[12] = {
+Rectangle player_walk_up_arr[12] = {
     {0, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -94,7 +131,7 @@ Rectangle player_walk_up[12] = {
     {576, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {640, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {704, 128, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}};
-Rectangle player_walk_right[8] = {
+Rectangle player_walk_right_arr[8] = {
     {0, 192, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 192, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 192, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -104,7 +141,7 @@ Rectangle player_walk_right[8] = {
     {384, 192, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 192, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_walk_left[8] = {
+Rectangle player_walk_left_arr[8] = {
     {0, 256, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 256, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 256, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -144,7 +181,7 @@ Rectangle player_sword_slash_left_arr[5] = {
     {256, 512, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
 
-Rectangle player_sprint_right[8] = {
+Rectangle player_sprint_right_arr[8] = {
     {0, 576, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 576, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 576, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -154,7 +191,7 @@ Rectangle player_sprint_right[8] = {
     {384, 576, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 576, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_sprint_left[8] = {
+Rectangle player_sprint_left_arr[8] = {
     {0, 640, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 640, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 640, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -164,7 +201,7 @@ Rectangle player_sprint_left[8] = {
     {384, 640, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 640, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_sprint_up[6] = {
+Rectangle player_sprint_up_arr[6] = {
     {0, 704, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 704, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 704, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -172,7 +209,7 @@ Rectangle player_sprint_up[6] = {
     {256, 704, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {320, 704, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_sprint_down[6] = {
+Rectangle player_sprint_down_arr[6] = {
     {0, 768, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 768, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 768, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -180,7 +217,7 @@ Rectangle player_sprint_down[6] = {
     {256, 768, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {320, 768, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_dash_right[8] = {
+Rectangle player_dash_right_arr[8] = {
     {0, 832, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 832, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 832, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -190,7 +227,7 @@ Rectangle player_dash_right[8] = {
     {384, 832, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 832, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_dash_left[8] = {
+Rectangle player_dash_left_arr[8] = {
     {0, 896, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 896, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 896, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -200,7 +237,7 @@ Rectangle player_dash_left[8] = {
     {384, 896, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 896, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_dash_up[6] = {
+Rectangle player_dash_up_arr[6] = {
     {0, 960, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 960, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 960, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -208,7 +245,7 @@ Rectangle player_dash_up[6] = {
     {256, 960, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {320, 960, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_dash_down[6] = {
+Rectangle player_dash_down_arr[6] = {
     {0, 1024, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 1024, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 1024, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -217,7 +254,7 @@ Rectangle player_dash_down[6] = {
     {320, 1024, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
 
-Rectangle player_consume_down[8] = {
+Rectangle player_consume_down_arr[8] = {
     {0, 1088, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 1088, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 1088, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -227,7 +264,7 @@ Rectangle player_consume_down[8] = {
     {384, 1088, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 1088, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_consume_up[8] = {
+Rectangle player_consume_up_arr[8] = {
     {0, 1152, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 1152, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 1152, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -237,7 +274,7 @@ Rectangle player_consume_up[8] = {
     {384, 1152, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 1152, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_consume_right[8] = {
+Rectangle player_consume_right_arr[8] = {
     {0, 1216, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 1216, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 1216, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -247,7 +284,7 @@ Rectangle player_consume_right[8] = {
     {384, 1216, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {448, 1216, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
 };
-Rectangle player_consume_left[8] = {
+Rectangle player_consume_left_arr[8] = {
     {0, 1280, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 1280, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 1280, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
@@ -366,8 +403,8 @@ Rectangle the_regrown_default_sprite_arr[1] = {{0, 0, DEFAULT_SPRITE_WIDTH_128, 
 
 
 
-Rectangle village_questgiver_idle[1] = {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
-Rectangle village_questgiver_point[3] = {
+Rectangle NPC_dan_village_idle[1] = {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT};
+Rectangle NPC_dan_village_point[3] = {
     {0, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {64, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT},
     {128, 64, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}
@@ -383,4 +420,11 @@ Rectangle ground_pot_break[6] = {
     {256, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
     {320, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
     {384, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
+};
+
+Rectangle NPC_bob_village_idle[4] = {
+    {0, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
+    {64, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
+    {128, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
+    {192, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
 };

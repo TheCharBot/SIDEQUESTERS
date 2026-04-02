@@ -27,40 +27,61 @@ extern Rectangle health_bar_left_middle;
 extern Rectangle health_bar_middle_dead;
 extern Rectangle health_bar_middle_left_dead;
 
+extern Rectangle start_menu_text_rect;
+extern Rectangle start_menu_emination;
+extern Rectangle start_menu_options_rect;
+extern Rectangle start_menu_select_right;
+extern Rectangle start_menu_select_left;
+extern Rectangle start_menu_saves_select_screen;
+extern Rectangle start_menu_saves_select_screen_selecter;
+extern Rectangle start_menu_credits_screen;
+extern Rectangle start_menu_achievements_screen;
+extern Rectangle start_menu_options_screen;
+
 extern Rectangle stamina_bar_dead;
 extern Rectangle stamina_bar_segment;
 
 // Player-focused image rect arrays
+extern std::unordered_map<Facing, Rectangle *> player_idles;
+extern std::unordered_map<Facing, Rectangle *> player_sword_slashes;
+extern std::unordered_map<Facing, Rectangle *> player_sprints;
+extern std::unordered_map<Facing, Rectangle *> player_dashes;
+extern std::unordered_map<Facing, Rectangle *> player_consumes;
+extern std::unordered_map<Facing, Rectangle *> player_walks;
+
+extern void init_player_sprite_maps();
+
 extern Rectangle player_idle_up_arr[1];
 extern Rectangle player_idle_down_arr[1];
 extern Rectangle player_idle_right_arr[1];
 extern Rectangle player_idle_left_arr[1];
-extern Rectangle player_walk_down[12];
-extern Rectangle player_walk_up[12];
-extern Rectangle player_walk_right[8];
-extern Rectangle player_walk_left[8];
 
-
+extern Rectangle player_walk_down_arr[12];
+extern Rectangle player_walk_up_arr[12];
+extern Rectangle player_walk_right_arr[8];
+extern Rectangle player_walk_left_arr[8];
 
 extern Rectangle player_sword_slash_down_arr[5];
 extern Rectangle player_sword_slash_up_arr[5];
 extern Rectangle player_sword_slash_right_arr[5];
 extern Rectangle player_sword_slash_left_arr[5];
 
-extern Rectangle player_sprint_right[8];
-extern Rectangle player_sprint_left[8];
-extern Rectangle player_sprint_up[6];
-extern Rectangle player_sprint_down[6];
+extern Rectangle player_sprint_right_arr[8];
+extern Rectangle player_sprint_left_arr[8];
+extern Rectangle player_sprint_up_arr[6];
+extern Rectangle player_sprint_down_arr[6];
 
-extern Rectangle player_dash_right[8];
-extern Rectangle player_dash_left[8];
-extern Rectangle player_dash_up[6];
-extern Rectangle player_dash_down[6];
 
-extern Rectangle player_consume_down[8];
-extern Rectangle player_consume_up[8];
-extern Rectangle player_consume_right[8];
-extern Rectangle player_consume_left[8];
+extern Rectangle player_dash_right_arr[8];
+extern Rectangle player_dash_left_arr[8];
+extern Rectangle player_dash_up_arr[6];
+extern Rectangle player_dash_down_arr[6];
+
+
+extern Rectangle player_consume_down_arr[8];
+extern Rectangle player_consume_up_arr[8];
+extern Rectangle player_consume_right_arr[8];
+extern Rectangle player_consume_left_arr[8];
 
 
 extern Rectangle start_portal_animation[4];
@@ -121,18 +142,11 @@ extern Rectangle ground_pot_break[6];
 
 
 
-extern Rectangle village_questgiver_idle[1];
-extern Rectangle village_questgiver_point[3];
+extern Rectangle NPC_dan_village_idle[1];
+extern Rectangle NPC_dan_village_point[3];
 
-extern Rectangle start_menu_text_rect;
-extern Rectangle start_menu_emination;
-extern Rectangle start_menu_options_rect;
-extern Rectangle start_menu_select_right;
-extern Rectangle start_menu_select_left;
-extern Rectangle start_menu_saves_select_screen;
-extern Rectangle start_menu_saves_select_screen_selecter;
-extern Rectangle start_menu_credits_screen;
-extern Rectangle start_menu_achievements_screen;
-extern Rectangle start_menu_options_screen;
+extern Rectangle NPC_bob_village_idle[4];
+
+
 
 #endif

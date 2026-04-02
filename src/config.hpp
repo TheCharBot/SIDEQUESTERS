@@ -31,6 +31,16 @@ const int CONFIG_VERSION = 1;
 
 extern Camera2D cam;
 
+//pretty important
+//also, hear me out, this BELONGS here
+enum Facing
+{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+};
+
 
 
 #define ANIMATION_INTERVAL 5
