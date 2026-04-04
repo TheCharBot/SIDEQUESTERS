@@ -110,21 +110,29 @@ void NPC_Bob_Village::load()
 void NPC_Bob_Village::update()
 {
     if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
-        set_textbox_indice_text(0, {"Hey you! You like trees?", NONE});
-        set_textbox_indice_text(1, {"I really do, especially cutting them down and making things!", NONE});
-        set_textbox_indice_text(2, {"Whenever I cut them down, I turn my back for one second, and there they are, as good as new!", NONE});
-        set_textbox_indice_text(3, {"I'm interested to find out what that means, but in the meantime, Infinite Wood!", NONE});
-        set_textbox_indice_text(4, {"Although, every once in a while, normally around when a new Chosen is chosen, they stop growing for a little bit.", NONE});
-        set_textbox_indice_text(5, {"It's as if they're waiting for something to change, as if they don't like their seemingly infinite cycle of regrowth.", NONE});
-        set_textbox_indice_text(6, {"Anyway, enough 'bout me, tell me about yourself.", NONE});
-        set_textbox_indice_text(7, {"Oh, I see, You're the new Chosen. I guess that makes sense.", NONE});
-        set_textbox_indice_text(8, {"Well, see ya 'round, and remember; I can help you here, I pretty much built this entire Village, so I could get you out of a bad spot here and there.", NONE});
-        // set_textbox_indice_text(0, {"W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W", NONE});
-        // set_textbox_indice_text(1, {"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", NONE});
-        // set_textbox_indice_text(2, {"M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M", NONE});
-        // set_textbox_indice_text(3, {"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", NONE}); //hehe testing stuff
-        
-        setup_textbox(9, NPC_BOB_VILLAGE);
+        if(!is_text_finished(NPC_BOB_STORY_TEXT)){
+            set_textbox_indice_text(0, {"Hey you! You like trees?", NONE});
+            set_textbox_indice_text(1, {"I really do, especially cutting them down and making things!", NONE});
+            set_textbox_indice_text(2, {"Whenever I cut them down, I turn my back for one second, and there they are, as good as new!", NONE});
+            set_textbox_indice_text(3, {"I'm interested to find out what that means, but in the meantime, Infinite Wood!", NONE});
+            set_textbox_indice_text(4, {"Although, every once in a while, normally around when a new Chosen is chosen, they stop growing for a little bit.", NONE});
+            set_textbox_indice_text(5, {"It's as if they're waiting for something to change, as if they don't like their seemingly infinite cycle of regrowth.", NONE});
+            set_textbox_indice_text(6, {"Anyway, enough 'bout me, tell me about yourself.", NONE});
+            set_textbox_indice_text(7, {"Oh, I see, You're the new Chosen. I guess that makes sense.", NONE});
+            set_textbox_indice_text(8, {"Well, see ya 'round, and remember; I can help you here, I pretty much built this entire Village, so I could get you out of a bad spot here and there.", NONE});
+            // set_textbox_indice_text(0, {"W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W", NONE});
+            // set_textbox_indice_text(1, {"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", NONE});
+            // set_textbox_indice_text(2, {"M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M M", NONE});
+            // set_textbox_indice_text(3, {"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", NONE}); //hehe testing stuff
+            add_finished_text(NPC_BOB_STORY_TEXT);
+            setup_textbox(9, NPC_BOB_VILLAGE);
+        }
+        else if(is_text_finished(NPC_BOB_STORY_TEXT)){
+            set_textbox_indice_text(0, {"Well, I've got to wait here till the dang trees start to grow again", NONE});
+            set_textbox_indice_text(1, {"Thanks for that.", NONE});
+            set_textbox_indice_text(2, {"Maybe you could help me later . . . \n\nmaybe", NONE});
+            setup_textbox(3, NPC_BOB_VILLAGE);
+        }
     }
     animation_frame_5++;
     

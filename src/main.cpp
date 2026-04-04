@@ -46,19 +46,26 @@
 //nope TODO: particles?
 //maybe later TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 //TODO: Full game: make dialog choice system
+
+// #define _DEBUG
+
 int main()
 {
     
-    // load_config_state();
+    // load_config_state();//TODO: uncomment in final release
     // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     
     InitWindow(WINDOW_WIDTH * scale, WINDOW_HEIGHT * scale, "SIDEQUESTERS");
+    if(!IsWindowFullscreen() && GetScreenWidth() >= GetMonitorWidth(GetCurrentMonitor()) && GetScreenHeight() >= GetMonitorHeight(GetCurrentMonitor())){
+        ToggleFullscreen();
+        scale = GetMonitorWidth(GetCurrentMonitor())/WINDOW_WIDTH;
+    }
     SetExitKey(KEY_F10); //uncomment for turning off esc key close window
     InitAudioDevice();
     SetTargetFPS(60);
     Image icon;
-    icon = LoadImage("gfx/icon/icon.png");  
+    icon = LoadImage("gfx/icon/icon.png");
     SetWindowIcon(icon);
     
     UnloadImage(icon);

@@ -130,6 +130,8 @@ endif
 # RAYLIB_RELEASE_PATH points to provided binaries or your freshly built version
 RAYLIB_RELEASE_PATH 	?= $(RAYLIB_PATH)/src
 
+
+
 # EXAMPLE_RUNTIME_PATH embeds a custom runtime location of libraylib.so or other desired libraries
 # into each example binary compiled with RAYLIB_LIBTYPE=SHARED. It defaults to RAYLIB_RELEASE_PATH
 # so that these examples link at runtime with your version of libraylib.so in ../release/libs/linux
@@ -208,7 +210,7 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),WINDOWS)
         # resource file contains windows executable icon and properties
         # -Wl,--subsystem,windows hides the console window
-        CFLAGS += $(RAYLIB_PATH)/src/raylib.rc.data
+        CFLAGS += $(RAYLIB_PATH)/src/raylib.rc.data #-mwindows #!: REMEBER TO COMMENT THIS IF YOU EVER WANT TO USE TERMINAL
     endif
     ifeq ($(PLATFORM_OS),LINUX)
         ifeq ($(RAYLIB_LIBTYPE),STATIC)

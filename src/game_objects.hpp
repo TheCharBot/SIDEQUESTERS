@@ -59,6 +59,7 @@ enum Map_names
 enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QUESTGIVER_1_STORY_TEXT
     NPC_DAN_VILLAGE_STORY_TEXT,
     NPC_DAN_VILLAGE_FOUND_ITEM_TEXT,
+    NPC_BOB_STORY_TEXT,
 };
 
 enum Item_types
