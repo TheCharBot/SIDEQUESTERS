@@ -22,9 +22,7 @@ class NPC_Dan_Village : public Entity{
         Rectangle *current_animation_arr = {};
         Rectangle interact_rect = {};
         Texture2D tex{};
-        bool story_text_done = false;
         bool found_wanted_item = false;
-        bool found_item_text_done = false;
 };
 
 class NPC_Bob_Village : public Entity{
@@ -45,9 +43,28 @@ class NPC_Bob_Village : public Entity{
         Rectangle *current_animation_arr = {};
         Rectangle interact_rect = {};
         Texture2D tex{};
-        bool story_text_done = false;
-        bool found_wanted_item = false;
-        bool found_item_text_done = false;
+        
+};
+
+class NPC_Clarence_Village : public Entity{
+    public:
+        NPC_Clarence_Village();
+        ~NPC_Clarence_Village() override;
+        
+        
+
+        
+
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Rectangle *current_animation_arr = {};
+        Rectangle interact_rect = {};
+        Texture2D tex{};
+        
 };
 
 #endif

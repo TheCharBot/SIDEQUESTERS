@@ -87,7 +87,7 @@ void NPC_Dan_Village::draw()
 }
 
 NPC_Bob_Village::NPC_Bob_Village()
-{ //TODO: Make Bob, the treecutter!
+{ //TODO: MACROS
     pos = {516, 69};
     current_animation_arr = NPC_bob_village_idle;
     current_animation_frame = 0;
@@ -148,6 +148,73 @@ void NPC_Bob_Village::update()
 }
 
 void NPC_Bob_Village::draw()
+{
+    DrawTextureRec(tex, current_animation_arr[current_animation_frame], pos, WHITE);
+}
+
+NPC_Clarence_Village::NPC_Clarence_Village()
+{
+    pos = {105, 26};
+    current_animation_arr = NPC_clarence_village_idle;
+    current_animation_frame = 0;
+    animation_frame_5 = 0;
+    max_animation_frames = 2; //TODO: MACROS
+    rect = {pos.x+1, pos.y+38, 65, 39};
+    interact_rect = {pos.x+14, pos.y+78, 54, 9};
+    add_collisions({rect});
+}
+
+NPC_Clarence_Village::~NPC_Clarence_Village()
+{
+}
+
+void NPC_Clarence_Village::load()
+{
+    tex = LoadTexture(NPC_CLARENCE_VILLAGE_TEX_PATH);
+}
+
+void NPC_Clarence_Village::update()
+{
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        if(!is_text_finished(NPC_CLARENCE_STORY_TEXT)){
+            set_textbox_indice_text(0, {"What do you want?", NONE});
+            set_textbox_indice_text(1, {"Can't you see I'm working?!", NONE});
+            set_textbox_indice_text(2, {"Never come in like that again!", NONE});
+            set_textbox_indice_text(3, {"It's already been predicted if you do . . .", NONE});
+            set_textbox_indice_text(4, {"Fine. I'm sorry, I just got to a very important part in this old book", NONE});
+            set_textbox_indice_text(5, {"I'm trying to learn everything there is to know, starting with before the Loop", NONE});
+            set_textbox_indice_text(6, {"You wanna learn more about why you're here?", NONE});
+            set_textbox_indice_text(7, {"Well, a long time ago, some idiots put some magnets together and stopped time, killing themselves in the process somehow.", NONE});
+            set_textbox_indice_text(8, {"That's why there is a Time Loop, then the magic imbued in this world took a hold of the magnetic feild and created Similarity, an incredible force of evil.", NONE});
+            set_textbox_indice_text(9, {"With the magnet's help, Similarity ravanged the lands, converting many to their goal of 'keeping the land perfect.'", NONE});
+            set_textbox_indice_text(10, {"So, the few of us who still believed in change pooled together many forms of magic and created Difference, another strong force.", NONE});
+            set_textbox_indice_text(11, {"You, as you should know, are fighting for difference, and so you must never repeat yourself in your actions.", NONE});
+            set_textbox_indice_text(12, {"On top of that, try to help as many people out as possible.", NONE});
+            set_textbox_indice_text(13, {"If you want, go talk to my friend Chad over in the house on the other side of the windmill. He knows more about the way all of it works", NONE});
+            set_textbox_indice_text(14, {"I help him with some of his experiments, teaching him about how one type of magic interacts with another.", NONE});
+            set_textbox_indice_text(15, {"Alright, glad you could say hi, but you've been too long, you must DO something now! Get yourself out there! GO!", NONE});
+            add_finished_text(NPC_CLARENCE_STORY_TEXT);
+            setup_textbox(16, NPC_CLARENCE_VILLAGE);
+        }
+        else if(is_text_finished(NPC_CLARENCE_STORY_TEXT)){
+            set_textbox_indice_text(0, {"GO! GO! GO! YOU'RE WASTING TIME! GO TALK TO SOMEONE! HELP SOMEONE! KILL SOMETHING! JUST GO HAVE FUN AND MESS UP!!!!", NONE});
+            setup_textbox(1, NPC_CLARENCE_VILLAGE);
+        }
+    }
+    animation_frame_5++;
+    
+    if (animation_frame_5 >= ANIMATION_INTERVAL*10)
+    {
+        current_animation_frame++;
+        if (current_animation_frame >= max_animation_frames)
+        {
+            current_animation_frame = 0;
+        }
+        animation_frame_5 = 0;
+    }
+}
+
+void NPC_Clarence_Village::draw()
 {
     DrawTextureRec(tex, current_animation_arr[current_animation_frame], pos, WHITE);
 }

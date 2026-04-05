@@ -147,6 +147,8 @@ extern Rectangle NPC_dan_village_point[3];
 
 extern Rectangle NPC_bob_village_idle[4];
 
+extern Rectangle NPC_clarence_village_idle[2];
+
 
 
 #endif

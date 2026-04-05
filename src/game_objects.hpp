@@ -60,6 +60,7 @@ enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QU
     NPC_DAN_VILLAGE_STORY_TEXT,
     NPC_DAN_VILLAGE_FOUND_ITEM_TEXT,
     NPC_BOB_STORY_TEXT,
+    NPC_CLARENCE_STORY_TEXT,
 };
 
 enum Item_types
@@ -113,7 +114,8 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     GROUND_POT,
     //NPC entity names
     NPC_DAN_VILLAGE,
-    NPC_BOB_VILLAGE
+    NPC_BOB_VILLAGE,
+    NPC_CLARENCE_VILLAGE,
 };
 
 

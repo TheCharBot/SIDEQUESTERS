@@ -428,3 +428,8 @@ Rectangle NPC_bob_village_idle[4] = {
     {128, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
     {192, 0, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_WIDTH},
 };
+
+Rectangle NPC_clarence_village_idle[2] = {
+    {0, 0, 112, 96},
+    {112, 0, 112, 96}
+};

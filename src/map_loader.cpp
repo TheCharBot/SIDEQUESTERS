@@ -285,6 +285,9 @@ void load_village_house_2()
         VILLAGE_HOUSE_RECT_5,
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT}});
+    add_entity<NPC_Clarence_Village>(NPC_CLARENCE_VILLAGE);
+    for (auto &e : game.entities)
+        e->load();
 };
 void load_village_house_3()
 {
