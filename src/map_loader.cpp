@@ -17,7 +17,7 @@ void reload_needed_textures(){
     game.door_lock_tex = get_texture(DOOR_LOCK_TEX_PATH);
 }
 
-
+//automatically creates and loads an entity. took me so long to figure out, still dont fully understand, thanks google
 template<typename T, typename... Args>
 void add_entity(Entity_names name, Args&&... args)
 {
@@ -30,6 +30,7 @@ void add_entity(Entity_names name, Args&&... args)
     {
         auto entity = std::make_unique<T>(std::forward<Args>(args)...);
         entity->name = name;
+        entity->load();
         game.entities.push_back(std::move(entity));
     }
 }
@@ -38,6 +39,7 @@ template<typename T, typename... Args>
 void add_entity_without_death_check(Args&&... args)
 {
     auto entity = std::make_unique<T>(std::forward<Args>(args)...);
+    entity->load();
     game.entities.push_back(std::move(entity));
 }
 
@@ -196,8 +198,7 @@ void load_start_map()
     // then filling the entity list with moving things to put in the map
     add_entity<Start_portal>(START_PORTAL);
     add_entity<Start_bulldozer>(START_BULLDOZER);
-    for (auto &e : game.entities)
-        e->load();
+    
 };
 
 void load_village_map()
@@ -244,8 +245,7 @@ void load_village_map()
     add_entity<NPC_Dan_Village>(NPC_DAN_VILLAGE);
     add_entity<NPC_Bob_Village>(NPC_BOB_VILLAGE);
     add_entity_without_death_check<Village_windmill>();
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 // village houses helper functions
 void load_village_house_1()
@@ -268,8 +268,7 @@ void load_village_house_1()
         add_entity_without_death_check<Ground_pot>((Vector2){float((i*21)+37), 50});
         add_entity_without_death_check<Ground_pot>((Vector2){float((i*21)+37), 66});
     }
-    for (auto &e : game.entities)
-        e->load();
+    
 };
 void load_village_house_2()
 {
@@ -286,8 +285,7 @@ void load_village_house_2()
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_2_OUTSIDE_SPAWNPOINT}});
     add_entity<NPC_Clarence_Village>(NPC_CLARENCE_VILLAGE);
-    for (auto &e : game.entities)
-        e->load();
+    
 };
 void load_village_house_3()
 {
@@ -303,6 +301,7 @@ void load_village_house_3()
         VILLAGE_HOUSE_RECT_5,
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_3_OUTSIDE_SPAWNPOINT}});
+    add_entity<NPC_Chad_Village>(NPC_CHAD_VILLAGE);
 };
 void load_village_house_4()
 {
@@ -395,6 +394,7 @@ void load_village_windmill(){
     add_load_rects({
         {WINDMILL_INSIDE_TO_VILLAGE, VILLAGE_MAP, VILLAGE_WINDMILL_OUTSIDE_SPAWNPOINT}
     });
+    add_entity_without_death_check<Village_windmill_grinder>();
 };
 
 void load_dark_forest_north()
@@ -420,8 +420,7 @@ void load_dark_forest_north()
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 
 void load_dark_forest_south()
@@ -458,8 +457,7 @@ void load_dark_forest_south()
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : game.entities)
-        e->load();
+    
     
 }
 
@@ -507,8 +505,7 @@ void load_dark_forest_center(){
     add_entity<Berry_bush>(BERRY_BUSH, 5);
     add_entity<Berry_bush>(BERRY_BUSH, 6);
     
-    for (auto &e : game.entities)
-        e->load();
+    
     // PlayMusicStream(game.current_music);
 }
 
@@ -552,8 +549,7 @@ void load_big_tree_level_1(){
 
     add_ground_item(game.ground_item_ids[Ground_item_names::BIG_TREE_LEVEL_1_STICK]);
 
-    for (auto &e : game.entities)
-        e->load();
+    
      //probably should find another way to do this 
      //actually its better now, slightly. still have to hardcode every map item. dangit
      //the drawbacks from not using an engine w/ a gui ^
@@ -600,8 +596,7 @@ void load_big_tree_level_2(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_2_TREE_TRUNK, 2);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 
 void load_big_tree_level_3(){
@@ -640,8 +635,8 @@ void load_big_tree_level_3(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_3_TREE_TRUNK, 1);
-    for (auto &e : game.entities)
-        e->load();
+    
+    
 }
 void load_big_tree_level_4(){
     reset_loaded();
@@ -681,8 +676,7 @@ void load_big_tree_level_4(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_4_TREE_TRUNK, 1);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_5(){
     reset_loaded();
@@ -721,8 +715,7 @@ void load_big_tree_level_5(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_5_TREE_TRUNK, 1);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_6(){
     reset_loaded();
@@ -763,8 +756,7 @@ void load_big_tree_level_6(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_6_TREE_TRUNK, 3);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_7(){
     reset_loaded();
@@ -801,8 +793,7 @@ void load_big_tree_level_7(){
     });
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_8(){
     reset_loaded();
@@ -842,8 +833,7 @@ void load_big_tree_level_8(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_8_TREE_TRUNK, 2);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_9(){
     reset_loaded();
@@ -881,8 +871,7 @@ void load_big_tree_level_9(){
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Enemy_forest_scourge>(FOREST_SCOURGE);
     add_entity<Big_tree_level_tree_trunk>(Entity_names::BIG_TREE_LEVEL_9_TREE_TRUNK, 1);
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 void load_big_tree_level_10(){
     reset_loaded();
@@ -920,8 +909,7 @@ void load_big_tree_level_10(){
     add_entity<Boss_The_Regrown>(Entity_names::THE_REGROWN);
         
     
-    for (auto &e : game.entities)
-        e->load();
+    
 }
 
 void load_map(Map_names map, Vector2 new_player_pos)

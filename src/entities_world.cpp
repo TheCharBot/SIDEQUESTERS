@@ -468,3 +468,40 @@ void Ground_pot::pot_break()
     current_anim_arr = ground_pot_break;
     broken = true;
 }
+
+Village_windmill_grinder::Village_windmill_grinder()
+{
+    pos = {87, 14}; // TODO: MACROS
+    current_anim_arr = village_windmill_grinder_idle;
+    max_animation_frames = 8;
+    rect = {pos.x+3, pos.y+111, 107, 40};
+    add_collisions({rect});
+}
+
+Village_windmill_grinder::~Village_windmill_grinder()
+{
+}
+
+void Village_windmill_grinder::load()
+{
+    tex = get_texture(VILLAGE_WINDMILL_GRINDER_TEX_PATH);
+}
+
+void Village_windmill_grinder::update()
+{
+    animation_frame_5++;
+    if (animation_frame_5 >= ANIMATION_INTERVAL*5)
+    {
+        current_animation_frame++;
+        if (current_animation_frame >= max_animation_frames)
+        {
+            current_animation_frame = 0;
+        }
+        animation_frame_5 = 0;
+    }   
+}
+
+void Village_windmill_grinder::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}

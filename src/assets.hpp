@@ -520,10 +520,12 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define VILLAGE_WINDMILL_PATH "gfx/assets/windmill/windmill_tex.png"
 #define BERRY_BUSH_TEX_PATH "gfx/assets/berry_bush/berry_bush_tex.png"
 #define POT_TEX_PATH "gfx/assets/pot/pot_tex.png"
+#define VILLAGE_WINDMILL_GRINDER_TEX_PATH "gfx/assets/windmill_grinder/windmill_grinder_tex.png"
 
 #define NPC_DAN_VILLAGE_TEX_PATH "gfx/npc/NPC_dan_village/NPC_dan_village_tex.png"
 #define NPC_BOB_VILLAGE_TEX_PATH "gfx/npc/NPC_bob_village/NPC_bob_village_tex.png"
 #define NPC_CLARENCE_VILLAGE_TEX_PATH "gfx/npc/NPC_clarence_village/NPC_clarence_village_tex.png"
+#define NPC_CHAD_VILLAGE_TEX_PATH "gfx/npc/NPC_chad_village/NPC_chad_village_tex.png"
 
 #define THE_REGROWN_TEX_PATH "gfx/enemies/bosses/the_regrown/the_regrown_tex.png"
 #define FOREST_SCOURGE_TEX_PATH "gfx/enemies/forest_scourge/forest_scourge_tex.png"

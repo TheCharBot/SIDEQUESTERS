@@ -8,9 +8,22 @@ class Village_windmill : public Entity{
         Village_windmill();
         ~Village_windmill() override;
         
-        int max_animation_frames;
-        int current_animation_frame;
-        int animation_frame_5;
+        
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Texture2D tex{};
+};
+
+class Village_windmill_grinder : public Entity{
+    public:
+        Village_windmill_grinder();
+        ~Village_windmill_grinder() override;
+        
+        
 
         void load() override;
         void update() override;
@@ -126,7 +139,6 @@ class Ground_pot : public Entity{
         Vector2 knockback_vel = {};
         float knockback_time = 0;
         bool broken = false;
-        Rectangle *current_anim_arr;
 };
 
 

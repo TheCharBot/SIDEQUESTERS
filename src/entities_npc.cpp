@@ -4,7 +4,7 @@ NPC_Dan_Village::NPC_Dan_Village()
 {
     pos = VILLAGE_QUESTGIVER_1_POS;
     current_animation_frame = 0;
-    current_animation_arr = NPC_dan_village_idle;
+    current_anim_arr = NPC_dan_village_idle;
     rect = {pos.x+DEFAULT_NPC_COLLISION_BOX_OFFSET_X, pos.y+DEFAULT_NPC_COLLISION_BOX_OFFSET_Y, DEFAULT_NPC_COLLISION_BOX_WIDTH, DEFAULT_NPC_COLLISION_BOX_WIDTH};
     interact_rect = {pos.x+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_X, pos.y+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_Y, DEFAULT_NPC_DOWN_INTERACT_RECT_WIDTH, DEFAULT_NPC_DOWN_INTERACT_RECT_HEIGHT};
     add_collisions({rect});
@@ -83,13 +83,13 @@ void NPC_Dan_Village::update()
 
 void NPC_Dan_Village::draw()
 {
-    DrawTexturePro(tex, current_animation_arr[current_animation_frame], {pos.x, pos.y, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}, {0, 0}, 0, WHITE);
+    DrawTexturePro(tex, current_anim_arr[current_animation_frame], {pos.x, pos.y, DEFAULT_SPRITE_WIDTH, DEFAULT_SPRITE_HEIGHT}, {0, 0}, 0, WHITE);
 }
 
 NPC_Bob_Village::NPC_Bob_Village()
 { //TODO: MACROS
     pos = {516, 69};
-    current_animation_arr = NPC_bob_village_idle;
+    current_anim_arr = NPC_bob_village_idle;
     current_animation_frame = 0;
     animation_frame_5 = 0;
     max_animation_frames = 4;
@@ -149,13 +149,13 @@ void NPC_Bob_Village::update()
 
 void NPC_Bob_Village::draw()
 {
-    DrawTextureRec(tex, current_animation_arr[current_animation_frame], pos, WHITE);
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }
 
 NPC_Clarence_Village::NPC_Clarence_Village()
 {
     pos = {105, 26};
-    current_animation_arr = NPC_clarence_village_idle;
+    current_anim_arr = NPC_clarence_village_idle;
     current_animation_frame = 0;
     animation_frame_5 = 0;
     max_animation_frames = 2; //TODO: MACROS
@@ -170,7 +170,7 @@ NPC_Clarence_Village::~NPC_Clarence_Village()
 
 void NPC_Clarence_Village::load()
 {
-    tex = LoadTexture(NPC_CLARENCE_VILLAGE_TEX_PATH);
+    tex = get_texture(NPC_CLARENCE_VILLAGE_TEX_PATH);
 }
 
 void NPC_Clarence_Village::update()
@@ -186,7 +186,7 @@ void NPC_Clarence_Village::update()
             set_textbox_indice_text(6, {"You wanna learn more about why you're here?", NONE});
             set_textbox_indice_text(7, {"Well, a long time ago, some idiots put some magnets together and stopped time, killing themselves in the process somehow.", NONE});
             set_textbox_indice_text(8, {"That's why there is a Time Loop, then the magic imbued in this world took a hold of the magnetic feild and created Similarity, an incredible force of evil.", NONE});
-            set_textbox_indice_text(9, {"With the magnet's help, Similarity ravanged the lands, converting many to their goal of 'keeping the land perfect.'", NONE});
+            set_textbox_indice_text(9, {"With the magnet's help, Similarity ravanged the lands, converting many to its goal of 'keeping the land perfect.'", NONE});
             set_textbox_indice_text(10, {"So, the few of us who still believed in change pooled together many forms of magic and created Difference, another strong force.", NONE});
             set_textbox_indice_text(11, {"You, as you should know, are fighting for difference, and so you must never repeat yourself in your actions.", NONE});
             set_textbox_indice_text(12, {"On top of that, try to help as many people out as possible.", NONE});
@@ -197,7 +197,7 @@ void NPC_Clarence_Village::update()
             setup_textbox(16, NPC_CLARENCE_VILLAGE);
         }
         else if(is_text_finished(NPC_CLARENCE_STORY_TEXT)){
-            set_textbox_indice_text(0, {"GO! GO! GO! YOU'RE WASTING TIME! GO TALK TO SOMEONE! HELP SOMEONE! KILL SOMETHING! JUST GO HAVE FUN AND MESS UP!!!!", NONE});
+            set_textbox_indice_text(0, {"GO! GO! GO! YOU'RE WASTING TIME! GO TALK TO SOMEONE! HELP SOMEONE! KILL SOMETHING! GO HAVE FUN AND DO SOMETHING!!!!", NONE});
             setup_textbox(1, NPC_CLARENCE_VILLAGE);
         }
     }
@@ -216,5 +216,82 @@ void NPC_Clarence_Village::update()
 
 void NPC_Clarence_Village::draw()
 {
-    DrawTextureRec(tex, current_animation_arr[current_animation_frame], pos, WHITE);
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}
+
+NPC_Chad_Village::NPC_Chad_Village()
+{
+    pos = {94, 29};
+    max_animation_frames = 2; 
+    current_anim_arr = NPC_chad_village_idle;
+    rect = {pos.x+10, pos.y+43, 85, 21};
+    interact_rect = {pos.x+73, pos.y+61, 25, 12};
+    add_collisions({rect});
+    move_mode = 1;
+}
+
+NPC_Chad_Village::~NPC_Chad_Village()
+{
+}
+
+void NPC_Chad_Village::load()
+{
+    tex = get_texture(NPC_CHAD_VILLAGE_TEX_PATH);
+}
+
+void NPC_Chad_Village::update()
+{
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        player.move_mode = 0;
+        if(current_anim_arr != NPC_chad_village_talking){
+            move_mode = 2;
+            current_anim_arr = NPC_chad_village_idle_to_talking;
+            next_anim_arr = NPC_chad_village_talking;
+            max_animation_frames = 3;
+            current_animation_frame = 0;
+        }
+        set_textbox_indice_text(0, {"hello there nerd", NONE});
+        setup_textbox(1, NPC_CHAD_VILLAGE);
+    }
+    if(!gui.global_textbox.is_textbox_open && (current_anim_arr != NPC_chad_village_idle)){
+        move_mode = 2;
+        current_anim_arr = NPC_chad_village_talking_to_idle;
+        next_anim_arr = NPC_chad_village_idle;
+        max_animation_frames = 3;
+        player.move_mode = 1;
+    }
+    if(move_mode == 1){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*10)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+    if(move_mode == 2){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*10)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+                current_anim_arr = next_anim_arr;
+                max_animation_frames = 2;
+                move_mode = 1;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+}
+
+void NPC_Chad_Village::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }

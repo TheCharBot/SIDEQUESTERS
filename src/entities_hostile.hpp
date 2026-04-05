@@ -51,7 +51,6 @@ class Enemy_forest_scourge: public Entity{
         Texture2D tex = {};
         int random_index = 0;
         int wander_state = 0;
-        Rectangle *current_anim_arr = {};
         Rectangle chase_detect_rect = {};
         Rectangle attack_detect_rect = {};
         Rectangle attack_hit_rect = {};
@@ -104,7 +103,6 @@ class Boss_The_Regrown: public Entity{
     private:
         Texture2D tex = {};
         int random_index = 0;
-        Rectangle *current_anim_arr = {};
         Rectangle attack_detect_rect = {};
         Rectangle attack_hit_rect = {};
         float hit_flash_timer = 0;

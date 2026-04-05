@@ -433,3 +433,33 @@ Rectangle NPC_clarence_village_idle[2] = {
     {0, 0, 112, 96},
     {112, 0, 112, 96}
 };
+
+Rectangle village_windmill_grinder_idle[8] = {
+    {0, 0, 128, 160},
+    {128, 0, 128, 160},
+    {256, 0, 128, 160},
+    {0, 160, 128, 160},
+    {128, 160, 128, 160},
+    {256, 160, 128, 160},
+    {0, 320, 128, 160},
+    {128, 320, 128, 160},
+};
+
+Rectangle NPC_chad_village_idle[2] = {
+    {0, 0, 112, DEFAULT_SPRITE_HEIGHT},
+    {0, 64, 112, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_chad_village_idle_to_talking[3] = {
+    {112, 0, 112, DEFAULT_SPRITE_HEIGHT},
+    {112, 64, 112, DEFAULT_SPRITE_HEIGHT},
+    {112, 128, 112, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_chad_village_talking[2] = {
+    {224, 0, 112, DEFAULT_SPRITE_HEIGHT},
+    {224, 64, 112, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_chad_village_talking_to_idle[3] = {
+    {336, 0, 112, DEFAULT_SPRITE_HEIGHT},
+    {336, 64, 112, DEFAULT_SPRITE_HEIGHT},
+    {336, 128, 112, DEFAULT_SPRITE_HEIGHT},
+};

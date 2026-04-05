@@ -518,9 +518,7 @@ void animation_player_movement(){
 
 void update_player()
 {
-    if(player.active_attack_hitbox.x > 0 || player.active_attack_hitbox.y > 0 || player.active_attack_hitbox.width > 0 || player.active_attack_hitbox.height > 0){
-        player.active_attack_hitbox = {0, 0, 0, 0};
-    }
+    player.active_attack_hitbox = {0, 0, 0, 0};
     player.pos_save = player.pos;
     if (player.knockback_time > 0.0f){ 
         update_knockback(); 

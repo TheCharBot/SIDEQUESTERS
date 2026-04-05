@@ -61,6 +61,7 @@ enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QU
     NPC_DAN_VILLAGE_FOUND_ITEM_TEXT,
     NPC_BOB_STORY_TEXT,
     NPC_CLARENCE_STORY_TEXT,
+    NPC_CHAD_STORY_TEXT,
 };
 
 enum Item_types
@@ -107,15 +108,17 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     BIG_TREE_LEVEL_6_TREE_TRUNK,
     BIG_TREE_LEVEL_8_TREE_TRUNK,
     BIG_TREE_LEVEL_9_TREE_TRUNK,
+    VILLAGE_WINDMILL_GRINDER,
+    BERRY_BUSH,
+    GROUND_POT,
     //hostile entity names
     THE_REGROWN,
     FOREST_SCOURGE,
-    BERRY_BUSH,
-    GROUND_POT,
     //NPC entity names
     NPC_DAN_VILLAGE,
     NPC_BOB_VILLAGE,
     NPC_CLARENCE_VILLAGE,
+    NPC_CHAD_VILLAGE,
 };
 
 
@@ -307,6 +310,7 @@ public:
     Vector2 pos = {};
     Rectangle img_rect = {};
     Rectangle rect = {};
+    Rectangle *current_anim_arr = {};
     int max_animation_frames = 0;
     int current_animation_frame = 0;
     int animation_frame_5 = 0;

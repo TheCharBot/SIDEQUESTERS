@@ -252,7 +252,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos, int
     if (can_take_damage)
     {
         // implement knockback
-        start_hitstop(player.active_damage); // doesnt do anything, so . . .
+        start_hitstop(damage); // doesnt do anything, so . . .
 
         health -= damage;
 
@@ -264,7 +264,7 @@ void Enemy_forest_scourge::take_damage(float damage, Vector2 hit_source_pos, int
         Vector2 dir = Vector2Subtract(pos, hit_source_pos);
         dir = Vector2Normalize(dir);
         knockback_vel = Vector2Scale(dir, strength);
-        knockback_vel = Vector2Scale(player.knockback_vel, 0.95f);
+        knockback_vel = Vector2Scale(knockback_vel, 0.95f);
         knockback_time = 0.2f; // duration in seconds
     
         if (health < 0)
