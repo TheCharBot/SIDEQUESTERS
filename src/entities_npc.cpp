@@ -222,7 +222,7 @@ void NPC_Clarence_Village::draw()
 NPC_Chad_Village::NPC_Chad_Village()
 {
     pos = {94, 29};
-    max_animation_frames = 2; 
+    max_animation_frames = 3; 
     current_anim_arr = NPC_chad_village_idle;
     rect = {pos.x+10, pos.y+43, 85, 21};
     interact_rect = {pos.x+73, pos.y+61, 25, 12};
@@ -247,17 +247,23 @@ void NPC_Chad_Village::update()
             move_mode = 2;
             current_anim_arr = NPC_chad_village_idle_to_talking;
             next_anim_arr = NPC_chad_village_talking;
-            max_animation_frames = 3;
             current_animation_frame = 0;
         }
-        set_textbox_indice_text(0, {"hello there nerd", NONE});
-        setup_textbox(1, NPC_CHAD_VILLAGE);
+        if(!is_text_finished(NPC_CHAD_STORY_TEXT)){
+            set_textbox_indice_text(0, {"hello there nerd", NONE});
+            setup_textbox(1, NPC_CHAD_VILLAGE);
+            add_finished_text(NPC_CHAD_STORY_TEXT);
+        }
+        else if(is_text_finished(NPC_CHAD_STORY_TEXT)){
+            set_textbox_indice_text(0, {"hello there nerd 2", NONE});
+            setup_textbox(1, NPC_CHAD_VILLAGE);
+        }
+        
     }
     if(!gui.global_textbox.is_textbox_open && (current_anim_arr != NPC_chad_village_idle)){
         move_mode = 2;
         current_anim_arr = NPC_chad_village_talking_to_idle;
         next_anim_arr = NPC_chad_village_idle;
-        max_animation_frames = 3;
         player.move_mode = 1;
     }
     if(move_mode == 1){
@@ -283,7 +289,6 @@ void NPC_Chad_Village::update()
             {
                 current_animation_frame = 0;
                 current_anim_arr = next_anim_arr;
-                max_animation_frames = 2;
                 move_mode = 1;
             }
             animation_frame_5 = 0;

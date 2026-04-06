@@ -52,7 +52,7 @@
 int main()
 {
     
-    // load_config_state();//TODO: uncomment in final release
+    load_config_state();//TODO: uncomment in final release
     // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 
     
@@ -95,9 +95,9 @@ int main()
         
     }
     // game.new_scale = 3;
-    // if(game.state == Game_states::GAMEPLAY){
-    //     save_index_state(game.save_slot);
-    // } //TODO: Uncomment in final release
+    if(game.state == Game_states::GAMEPLAY){
+        save_index_state(game.save_slot);
+    } //TODO: Uncomment in final release
     if(scale != game.new_scale){
         scale = game.new_scale;
     }

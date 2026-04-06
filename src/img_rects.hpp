@@ -151,9 +151,9 @@ extern Rectangle NPC_clarence_village_idle[2];
 
 extern Rectangle village_windmill_grinder_idle[8];
 
-extern Rectangle NPC_chad_village_idle[2];
+extern Rectangle NPC_chad_village_idle[3];
 extern Rectangle NPC_chad_village_idle_to_talking[3];
-extern Rectangle NPC_chad_village_talking[2];
+extern Rectangle NPC_chad_village_talking[3];
 extern Rectangle NPC_chad_village_talking_to_idle[3];
 
 

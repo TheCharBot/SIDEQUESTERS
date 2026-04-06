@@ -371,8 +371,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BIG_TREE_LEVEL_RECT_22 {208, 304, 16, 16}
 
 //big tree level-specific rects
-#define BIG_TREE_LEVEL_1_RECT_1 {}
-#define BIG_TREE_STAIRS_TOP_UP_RECT {173, 32, 33, 14}
+#define BIG_TREE_STAIRS_TOP_UP_RECT {174, 32, 33, 14}
 
 #define BIG_TREE_STAIRS_BOTTOM_UP_RECT_1 {194, 259, 13, 10}
 #define BIG_TREE_STAIRS_BOTTOM_UP_RECT_2 {184, 269, 23, 9}
