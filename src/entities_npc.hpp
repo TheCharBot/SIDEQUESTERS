@@ -85,4 +85,26 @@ class NPC_Chad_Village : public Entity{
         
 };
 
+class NPC_fallen_hero_Village : public Entity{
+    public:
+        NPC_fallen_hero_Village();
+        ~NPC_fallen_hero_Village() override;
+        
+        
+
+        
+
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Rectangle *next_anim_arr;
+        Rectangle interact_rect = {};
+        Texture2D tex{};
+        bool rolled_over = false;
+        
+};
+
 #endif

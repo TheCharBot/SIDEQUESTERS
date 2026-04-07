@@ -413,7 +413,7 @@ void set_textbox_indice_text(int index, Dialog_chunk dialog){
     gui.global_textbox.current_dialog[index] = dialog;
 }
 
-void setup_textbox(int max_indecies, Entity_names speaker){ //try to have more than just one text box. please
+void setup_textbox(int max_indecies, Entity_names speaker){ //try to have more than just one text box. please <- WRONG!!!! DON'T TRUST HIM!!!!!
     gui.global_textbox.dialog_max_indecies = max_indecies-1;
     gui.global_textbox.is_textbox_open = true;
     gui.global_textbox.dialog_index_state = 0;

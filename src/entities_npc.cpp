@@ -250,14 +250,32 @@ void NPC_Chad_Village::update()
             current_animation_frame = 0;
         }
         if(!is_text_finished(NPC_CHAD_STORY_TEXT)){
-            set_textbox_indice_text(0, {"hello there nerd", NONE});
-            setup_textbox(1, NPC_CHAD_VILLAGE);
+            set_textbox_indice_text(0, {"Well hello there!", NONE});
+            set_textbox_indice_text(1, {"Clarence must have sent you.", NONE});
+            set_textbox_indice_text(2, {"I'm Chad, known as the village scientist.", NONE});
+            set_textbox_indice_text(3, {"Science has been my entire life since the Time Loop started.", NONE});
+            set_textbox_indice_text(4, {"And yes, I have been alive for that long.", NONE});
+            set_textbox_indice_text(5, {"Basically, I was thinking of things that would keep me entertained while also seeming productive.", NONE});
+            set_textbox_indice_text(6, {"And my mind went straight to science.", NONE});
+            set_textbox_indice_text(7, {"So, I met with Clarence, and we have been helping each other ever since.", NONE});
+            set_textbox_indice_text(8, {"He knows an incredible amount about how the magic of this world behaves, and I have made some spells of my own.", NONE});
+            set_textbox_indice_text(9, {"They aren't perfect and could easily be misused, so I'm not goning to give them away just yet.", NONE});
+            set_textbox_indice_text(10, {"But, I also know about how the world works, not just the magic.", NONE});
+            set_textbox_indice_text(11, {"So if you're ever really lost, come to me and I may be able to help.", NONE});
+            setup_textbox(12, NPC_CHAD_VILLAGE);
             add_finished_text(NPC_CHAD_STORY_TEXT);
         }
-        else if(is_text_finished(NPC_CHAD_STORY_TEXT)){
-            set_textbox_indice_text(0, {"hello there nerd 2", NONE});
-            setup_textbox(1, NPC_CHAD_VILLAGE);
+        else if(is_text_finished(NPC_DAN_VILLAGE_STORY_TEXT) && !is_text_finished(NPC_DAN_VILLAGE_FOUND_ITEM_TEXT)){ //helping the payer
+            set_textbox_indice_text(0, {"You don't remember where to go?", NONE});
+            set_textbox_indice_text(1, {"I think I may have heard Dan say something about going south to the Big Tree deep in the dark forest.", NONE});
+            setup_textbox(2, NPC_CHAD_VILLAGE);
         }
+        else if(is_text_finished(NPC_CHAD_STORY_TEXT)){
+            set_textbox_indice_text(0, {"Just give me a little bit, and I may have something for you", NONE});
+            set_textbox_indice_text(1, {"Other than that, if you miss something, I'll help you try to remember", NONE});
+            setup_textbox(2, NPC_CHAD_VILLAGE);
+        }
+    
         
     }
     if(!gui.global_textbox.is_textbox_open && (current_anim_arr != NPC_chad_village_idle)){
@@ -297,6 +315,113 @@ void NPC_Chad_Village::update()
 }
 
 void NPC_Chad_Village::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}
+
+NPC_fallen_hero_Village::NPC_fallen_hero_Village()
+{
+    pos = {129, 60};
+    current_anim_arr = NPC_fallen_hero_idle;
+    max_animation_frames = 4; //TODO: MACROS
+    rect = {pos.x, pos.y, 34, 48};
+    interact_rect = {pos.x-6, pos.y, 46, 54};
+    
+    add_collisions({rect});
+}
+
+NPC_fallen_hero_Village::~NPC_fallen_hero_Village()
+{
+}
+
+void NPC_fallen_hero_Village::load()
+{
+    tex = get_texture(NPC_FALLEN_HERO_TEX_PATH);
+    if(is_text_finished(NPC_FALLEN_HERO_STORY_TEXT)){
+        rolled_over = true;
+        current_anim_arr = NPC_fallen_hero_rolled_over;
+    }
+}
+
+void NPC_fallen_hero_Village::update()
+{
+    
+    
+        
+    
+    if(!rolled_over){
+        switch(GetRandomValue(0, 50)){
+            case 50:
+                current_anim_arr = NPC_fallen_hero_blink;
+                next_anim_arr = NPC_fallen_hero_idle;
+                move_mode = 2;
+                break;
+        }
+    }
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        if(!is_text_finished(NPC_FALLEN_HERO_STORY_TEXT)){
+            set_textbox_indice_text(0, {"hey . . .", NONE});
+            set_textbox_indice_text(1, {"hey you . . .", NONE});
+            set_textbox_indice_text(2, {"you the new chosen?", NONE});
+            set_textbox_indice_text(3, {"good to know . . .", NONE});
+            set_textbox_indice_text(4, {"you don't understand what you're up against . . .", NONE});
+            set_textbox_indice_text(5, {"an entire sector of magic, as well as a timeloop that presumably requires more energy than every device in the City", NONE});
+            set_textbox_indice_text(6, {"you can't stop it . . .", NONE});
+            set_textbox_indice_text(7, {"it is inevitable . . .", NONE});
+            set_textbox_indice_text(8, {"it's rule over this land is too powerful for any one or thing to stop . . .", NONE});
+            set_textbox_indice_text(9, {"I used to be a chosen, just like you . . .", NONE});
+            set_textbox_indice_text(10, {"then, I got hit by some incredible force . . .", NONE});
+            set_textbox_indice_text(11, {"more than anything you could imagine . . .", NONE});
+            set_textbox_indice_text(12, {"they had to carry me all the way here, i couldn't move, or even think . . .", NONE});
+            set_textbox_indice_text(13, {"you need more power . . .", NONE});
+            set_textbox_indice_text(14, {"get better things . . . and better people . . .", NONE});
+            set_textbox_indice_text(15, {"good luck . . .", NONE});
+            
+            add_finished_text(NPC_FALLEN_HERO_STORY_TEXT);
+            setup_textbox(16, NPC_FALLEN_HERO_VILLAGE);
+            current_anim_arr = NPC_fallen_hero_roll_over;
+            next_anim_arr = NPC_fallen_hero_rolled_over;
+            move_mode = 2;
+            rolled_over = true;
+        }
+        else if(is_text_finished(NPC_FALLEN_HERO_STORY_TEXT)){
+            set_textbox_indice_text(0, {". . . . . . . . . . . . . . . . . . . . .good . . . . . . . . . . . . . . .", NONE});
+            set_textbox_indice_text(1, {". . . . . . . . . . . .luck . . . . . . .", NONE});
+            setup_textbox(2, NPC_FALLEN_HERO_VILLAGE);
+        }
+    }
+    if(move_mode == 1){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*10)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+    if(move_mode == 2){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*10)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+                current_anim_arr = next_anim_arr;
+                
+                move_mode = 1;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+}
+
+void NPC_fallen_hero_Village::draw()
 {
     DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }

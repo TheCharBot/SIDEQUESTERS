@@ -156,6 +156,11 @@ extern Rectangle NPC_chad_village_idle_to_talking[3];
 extern Rectangle NPC_chad_village_talking[3];
 extern Rectangle NPC_chad_village_talking_to_idle[3];
 
+extern Rectangle NPC_fallen_hero_idle[4];
+extern Rectangle NPC_fallen_hero_blink[4];
+extern Rectangle NPC_fallen_hero_roll_over[4];
+extern Rectangle NPC_fallen_hero_rolled_over[4];
+
 
 
 #endif

@@ -465,3 +465,28 @@ Rectangle NPC_chad_village_talking_to_idle[3] = {
     {336, 64, 112, DEFAULT_SPRITE_HEIGHT},
     {336, 128, 112, DEFAULT_SPRITE_HEIGHT},
 };
+
+Rectangle NPC_fallen_hero_idle[4] = {
+    {0, 0, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 0, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 0, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 0, 48, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_fallen_hero_blink[4] = {
+    {0, 64, 48, DEFAULT_SPRITE_HEIGHT},
+    {48, 64, 48, DEFAULT_SPRITE_HEIGHT},
+    {96, 64, 48, DEFAULT_SPRITE_HEIGHT},
+    {144, 64, 48, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_fallen_hero_roll_over[4] = {
+    {0, 128, 48, DEFAULT_SPRITE_HEIGHT},
+    {48, 128, 48, DEFAULT_SPRITE_HEIGHT},
+    {96, 128, 48, DEFAULT_SPRITE_HEIGHT},
+    {144, 128, 48, DEFAULT_SPRITE_HEIGHT},
+};
+Rectangle NPC_fallen_hero_rolled_over[4] = {
+    {0, 192, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 192, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 192, 48, DEFAULT_SPRITE_HEIGHT},
+    {0, 192, 48, DEFAULT_SPRITE_HEIGHT}
+};

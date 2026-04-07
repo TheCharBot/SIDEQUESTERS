@@ -217,7 +217,7 @@ void load_village_map()
         MAP_2_RECT_7,
         MAP_2_RECT_8,
         MAP_2_RECT_9,
-        MAP_2_RECT_10,
+        // MAP_2_RECT_10, //hehe bye bye house dont need u anymore
         MAP_2_RECT_11,
         MAP_2_RECT_12,
         MAP_2_RECT_13,
@@ -239,7 +239,6 @@ void load_village_map()
         {MAP_2_VILLAGE_HOUSE_4_LOAD, INSIDE_VILLAGE_HOUSE_4, PLAYER_VILLAGE_HOUSE_START_POS},         // check
         {MAP_2_VILLAGE_HOUSE_5_LOAD, INSIDE_VILLAGE_HOUSE_5, PLAYER_VILLAGE_HOUSE_START_POS},
         {MAP_2_VILLAGE_HOUSE_6_LOAD, INSIDE_VILLAGE_HOUSE_6, PLAYER_VILLAGE_HOUSE_START_POS},
-        {MAP_2_VILLAGE_HOUSE_7_LOAD, INSIDE_VILLAGE_HOUSE_7, PLAYER_VILLAGE_HOUSE_START_POS},
 
     });
     add_entity<NPC_Dan_Village>(NPC_DAN_VILLAGE);
@@ -317,6 +316,7 @@ void load_village_house_4()
         VILLAGE_HOUSE_RECT_5,
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_4_OUTSIDE_SPAWNPOINT}});
+    add_entity<NPC_fallen_hero_Village>(NPC_FALLEN_HERO_VILLAGE);
 };
 void load_village_house_5()
 {
@@ -348,21 +348,7 @@ void load_village_house_6()
     });
     add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_6_OUTSIDE_SPAWNPOINT}});
 };
-void load_village_house_7()
-{
-    reset_loaded();
-    game.map_to_load = get_texture(VILLAGE_HOUSE_7_PATH);
-    game.current_map = INSIDE_VILLAGE_HOUSE_7;
-    game.current_music = LoadMusicStream(VILLAGE_INSIDE_MUS_PATH);
-    add_collisions({
-        VILLAGE_HOUSE_RECT_1,
-        VILLAGE_HOUSE_RECT_2,
-        VILLAGE_HOUSE_RECT_3,
-        VILLAGE_HOUSE_RECT_4,
-        VILLAGE_HOUSE_RECT_5,
-    });
-    add_load_rects({{VILLAGE_HOUSE_OUTSIDE_LOAD_RECT, VILLAGE_MAP, VILLAGE_HOUSE_7_OUTSIDE_SPAWNPOINT}});
-};
+
 
 void load_village_windmill(){
     reset_loaded();
@@ -945,9 +931,6 @@ void load_map(Map_names map, Vector2 new_player_pos)
         break;
     case INSIDE_VILLAGE_HOUSE_6:
         load_village_house_6();
-        break;
-    case INSIDE_VILLAGE_HOUSE_7:
-        load_village_house_7();
         break;
     case INSIDE_VILLAGE_WINDMILL:
         load_village_windmill();
