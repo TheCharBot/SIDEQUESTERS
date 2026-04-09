@@ -161,6 +161,14 @@ extern Rectangle NPC_fallen_hero_blink[4];
 extern Rectangle NPC_fallen_hero_roll_over[4];
 extern Rectangle NPC_fallen_hero_rolled_over[4];
 
+extern Rectangle NPC_auctioneer_idle[1];
+extern Rectangle NPC_auctioneer_point[6];
+
+extern Rectangle NPC_cruller_idle[1];
+extern Rectangle NPC_cruller_fall_down[9];
+extern Rectangle NPC_cruller_idle_fall[1];
+extern Rectangle NPC_cruller_get_up[19];
+
 
 
 #endif

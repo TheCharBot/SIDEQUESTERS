@@ -63,6 +63,8 @@ enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QU
     NPC_CLARENCE_STORY_TEXT,
     NPC_CHAD_STORY_TEXT,
     NPC_FALLEN_HERO_STORY_TEXT,
+    NPC_AUCTIONEER_STORY_TEXT,
+    NPC_CRULLER_STORY_TEXT,
 };
 
 enum Item_types
@@ -121,6 +123,8 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     NPC_CLARENCE_VILLAGE,
     NPC_CHAD_VILLAGE,
     NPC_FALLEN_HERO_VILLAGE,
+    NPC_AUCTIONEER_VILLAGE,
+    NPC_CRULLER_VILLAGE,
 };
 
 
@@ -388,6 +392,7 @@ struct Game_data{
     std::unordered_map<SFX_ids, Sound> sfx_manager = {};
     std::unordered_map<Item_names, Item> item_ids = {};
     std::unordered_map<Ground_item_names, Ground_item> ground_item_ids = {};
+    std::vector<std::pair<int, int>> draw_order;
     // Game_save start_save_index[3];//???
 };
 

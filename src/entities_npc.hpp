@@ -107,4 +107,45 @@ class NPC_fallen_hero_Village : public Entity{
         
 };
 
+class NPC_auctioneer_Village : public Entity{
+    public:
+        NPC_auctioneer_Village();
+        ~NPC_auctioneer_Village() override;
+        
+        
+
+        
+
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Rectangle interact_rect = {};
+        Texture2D tex{};
+        
+};
+class NPC_cruller_Village : public Entity{
+    public:
+        NPC_cruller_Village();
+        ~NPC_cruller_Village() override;
+        
+        
+
+        
+
+
+        void load() override;
+        void update() override;
+        void draw() override;
+
+    private:
+        Rectangle *next_anim_arr;
+        int next_max_anim_frames = 1;
+        Rectangle interact_rect = {};
+        Texture2D tex{};
+        
+};
+
 #endif

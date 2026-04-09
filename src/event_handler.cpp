@@ -86,6 +86,7 @@ void update_all()
 
         //loading requested map at end of frame
         load_requested_map();
+        
     }
     update_gui();
     
@@ -109,20 +110,18 @@ void draw_all()
         DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // again ^
         
     }
-    for (auto &e : game.entities)
-    {
-        e->draw();
-        
-    }
+    game.draw_order = {};
+    //might not be the best idea to pt it here, but this game could run on a potato so far
+    for (int i = 0; i < (int)game.entities.size(); i++)
+    game.draw_order.push_back({ game.entities[i]->rect.y+game.entities[i]->rect.height, i });
 
-    draw_player();
-    for (auto &e : game.entities)
-    {
-        if (e->rect.y > player.collision_rect.y)
-        {
-            e->draw();
-            
-        }
+    game.draw_order.push_back({ player.collision_rect.y+player.collision_rect.height, -1 }); // -1 = player
+
+    std::sort(game.draw_order.begin(), game.draw_order.end());
+
+    for (auto &[y, i] : game.draw_order) {
+        if (i == -1) draw_player();
+        else         game.entities[i]->draw();
     }
     for(Locked_rect &l : game.locked_rects){
         DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, GUI_LIGHT_GRAY); //box around thing, using color from aap64

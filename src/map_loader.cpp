@@ -217,7 +217,7 @@ void load_village_map()
         MAP_2_RECT_7,
         MAP_2_RECT_8,
         MAP_2_RECT_9,
-        // MAP_2_RECT_10, //hehe bye bye house dont need u anymore
+        MAP_2_RECT_10, //hehe bye bye house dont need u anymore //just kidding you stil have a purpose im sorry 
         MAP_2_RECT_11,
         MAP_2_RECT_12,
         MAP_2_RECT_13,
@@ -243,6 +243,8 @@ void load_village_map()
     });
     add_entity<NPC_Dan_Village>(NPC_DAN_VILLAGE);
     add_entity<NPC_Bob_Village>(NPC_BOB_VILLAGE);
+    add_entity<NPC_auctioneer_Village>(NPC_AUCTIONEER_VILLAGE);
+    add_entity<NPC_cruller_Village>(NPC_CRULLER_VILLAGE);
     add_entity_without_death_check<Village_windmill>();
     
 }

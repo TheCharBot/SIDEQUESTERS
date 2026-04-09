@@ -365,7 +365,7 @@ void NPC_fallen_hero_Village::update()
             set_textbox_indice_text(2, {"you the new chosen?", NONE});
             set_textbox_indice_text(3, {"good to know . . .", NONE});
             set_textbox_indice_text(4, {"you don't understand what you're up against . . .", NONE});
-            set_textbox_indice_text(5, {"an entire sector of magic, as well as a timeloop that presumably requires more energy than every device in the City", NONE});
+            set_textbox_indice_text(5, {"an entire sector of magic, as well as a timeloop that presumably requires more energy than every device in the City . . .", NONE});
             set_textbox_indice_text(6, {"you can't stop it . . .", NONE});
             set_textbox_indice_text(7, {"it is inevitable . . .", NONE});
             set_textbox_indice_text(8, {"it's rule over this land is too powerful for any one or thing to stop . . .", NONE});
@@ -379,16 +379,20 @@ void NPC_fallen_hero_Village::update()
             
             add_finished_text(NPC_FALLEN_HERO_STORY_TEXT);
             setup_textbox(16, NPC_FALLEN_HERO_VILLAGE);
-            current_anim_arr = NPC_fallen_hero_roll_over;
-            next_anim_arr = NPC_fallen_hero_rolled_over;
-            move_mode = 2;
-            rolled_over = true;
+            
         }
         else if(is_text_finished(NPC_FALLEN_HERO_STORY_TEXT)){
-            set_textbox_indice_text(0, {". . . . . . . . . . . . . . . . . . . . .good . . . . . . . . . . . . . . .", NONE});
-            set_textbox_indice_text(1, {". . . . . . . . . . . .luck . . . . . . .", NONE});
+            set_textbox_indice_text(0, {". . . . . . . . . . . . . . . . . . . . .good . . . . . . . . . . . . . . . .", NONE});
+            set_textbox_indice_text(1, {". . . . . . . . . . . .luck . . . . . . . . . . . . . . . . . . . . . . . . .", NONE});
             setup_textbox(2, NPC_FALLEN_HERO_VILLAGE);
         }
+    }
+    if(gui.global_textbox.dialog_index_state == 15 && gui.global_textbox.current_speaker == NPC_FALLEN_HERO_VILLAGE && !rolled_over){
+        current_animation_frame = 0;
+        current_anim_arr = NPC_fallen_hero_roll_over;
+        next_anim_arr = NPC_fallen_hero_rolled_over;
+        move_mode = 2;
+        rolled_over = true;
     }
     if(move_mode == 1){
         animation_frame_5++;
@@ -422,6 +426,166 @@ void NPC_fallen_hero_Village::update()
 }
 
 void NPC_fallen_hero_Village::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}
+
+NPC_auctioneer_Village::NPC_auctioneer_Village()
+{
+    pos = {244, 517};
+    current_animation_frame = 0;
+    current_anim_arr = NPC_auctioneer_idle;
+    max_animation_frames = 1;
+    rect = {pos.x+DEFAULT_NPC_COLLISION_BOX_OFFSET_X, pos.y+DEFAULT_NPC_COLLISION_BOX_OFFSET_Y, DEFAULT_NPC_COLLISION_BOX_WIDTH, DEFAULT_NPC_COLLISION_BOX_WIDTH};
+    interact_rect = {pos.x+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_X, pos.y+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_Y, DEFAULT_NPC_DOWN_INTERACT_RECT_WIDTH, DEFAULT_NPC_DOWN_INTERACT_RECT_HEIGHT};
+    add_collisions({rect});
+}
+
+NPC_auctioneer_Village::~NPC_auctioneer_Village()
+{
+    
+}
+
+void NPC_auctioneer_Village::load()
+{
+    tex = get_texture(NPC_AUCTIONEER_TEX_PATH);
+}
+
+void NPC_auctioneer_Village::update()
+{
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        if(!is_text_finished(NPC_AUCTIONEER_STORY_TEXT)){
+            set_textbox_indice_text(0, {"Well well well! What do we have here?", NONE});
+            set_textbox_indice_text(1, {"Hello there, I'm the Auctioneer!", NONE});
+            set_textbox_indice_text(2, {"I can give you anything you could ever need, at a fair price as well!", NONE});
+            set_textbox_indice_text(3, {"Stop by me next time, I'm about to start the auction for this house!", NONE});
+            
+            add_finished_text(NPC_AUCTIONEER_STORY_TEXT);
+            setup_textbox(4, NPC_AUCTIONEER_VILLAGE);
+            
+        }
+        else if(is_text_finished(NPC_AUCTIONEER_STORY_TEXT)){
+            set_textbox_indice_text(0, {"The next Auction is starting soon! Be ready!", NONE});
+            setup_textbox(1, NPC_AUCTIONEER_VILLAGE);
+        }
+    }
+    if(gui.global_textbox.is_textbox_open && gui.global_textbox.current_speaker == NPC_AUCTIONEER_VILLAGE){
+        if(max_animation_frames != 6){
+            current_anim_arr = NPC_auctioneer_point;
+            max_animation_frames = 6;
+            current_animation_frame = 0;
+        }
+    }
+    else{
+        if(max_animation_frames != 1){
+            current_anim_arr = NPC_auctioneer_idle;
+            max_animation_frames = 1;
+            current_animation_frame = 0;
+        }
+    }
+    animation_frame_5++;
+    
+    if (animation_frame_5 >= ANIMATION_INTERVAL*6)
+    {
+        current_animation_frame++;
+        if (current_animation_frame >= max_animation_frames)
+        {
+            current_animation_frame = 0;
+        }
+        animation_frame_5 = 0;
+    }
+}
+
+void NPC_auctioneer_Village::draw()
+{
+    DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
+}
+
+NPC_cruller_Village::NPC_cruller_Village()
+{
+    pos = {306, 324};
+    current_animation_frame = 0;
+    current_anim_arr = NPC_cruller_idle;
+    max_animation_frames = 1;
+    rect = {pos.x+DEFAULT_NPC_COLLISION_BOX_OFFSET_X, pos.y+DEFAULT_NPC_COLLISION_BOX_OFFSET_Y, DEFAULT_NPC_COLLISION_BOX_WIDTH, DEFAULT_NPC_COLLISION_BOX_WIDTH};
+    interact_rect = {pos.x+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_X, pos.y+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_Y, DEFAULT_NPC_DOWN_INTERACT_RECT_WIDTH, DEFAULT_NPC_DOWN_INTERACT_RECT_HEIGHT};
+    add_collisions({rect});
+}
+
+NPC_cruller_Village::~NPC_cruller_Village()
+{
+}
+
+void NPC_cruller_Village::load()
+{
+    tex = get_texture(NPC_CRULLER_TEX_PATH);
+}
+
+void NPC_cruller_Village::update()
+{
+    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        if(!is_text_finished(NPC_CRULLER_STORY_TEXT)){
+            if(current_anim_arr != NPC_cruller_fall_down){
+                current_anim_arr = NPC_cruller_fall_down;
+                max_animation_frames = 9;
+                current_animation_frame = 0;
+                next_anim_arr = NPC_cruller_idle_fall;
+                move_mode = 2;
+                next_max_anim_frames = 1;
+            }
+            set_textbox_indice_text(0, {"text 1", NONE});
+            set_textbox_indice_text(1, {"text 2", NONE});
+            set_textbox_indice_text(2, {"text 3", NONE});
+            set_textbox_indice_text(3, {"text 4", NONE});
+            set_textbox_indice_text(4, {"text 5", NONE});
+            setup_textbox(5, NPC_CRULLER_VILLAGE);
+            add_finished_text(NPC_CRULLER_STORY_TEXT);
+        }
+        else if(is_text_finished(NPC_CRULLER_STORY_TEXT)){
+            set_textbox_indice_text(0, {"text dos", NONE});
+            setup_textbox(1, NPC_CRULLER_VILLAGE);
+        }
+    }
+    if(gui.global_textbox.current_speaker == NPC_CRULLER_VILLAGE && gui.global_textbox.dialog_index_state >= 4 && current_anim_arr != NPC_cruller_get_up){
+        current_anim_arr = NPC_cruller_get_up;
+        max_animation_frames = 19;
+        current_animation_frame = 0;
+        next_anim_arr = NPC_cruller_idle;
+        move_mode = 2;
+        next_max_anim_frames = 1;
+    }
+    if(move_mode == 1){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*3)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+    if(move_mode == 2){
+        animation_frame_5++;
+    
+        if (animation_frame_5 >= ANIMATION_INTERVAL*3)
+        {
+            current_animation_frame++;
+            if (current_animation_frame >= max_animation_frames)
+            {
+                current_animation_frame = 0;
+                current_anim_arr = next_anim_arr;
+                max_animation_frames = next_max_anim_frames;
+                move_mode = 1;
+            }
+            animation_frame_5 = 0;
+        }
+    }
+}
+
+void NPC_cruller_Village::draw()
 {
     DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }
