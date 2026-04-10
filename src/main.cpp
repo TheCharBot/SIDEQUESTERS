@@ -41,7 +41,7 @@
 //done TODO: make the save selector, then save/load system, then picture/icon system on the save selector
 
 //done TODO: Make Stamina GUI
-//TODO: make a more populated village, and furnish the rest of the homes
+//done TODO: make a more populated village, and furnish the rest of the homes
 //done TODO: make better player gfx
 //nope TODO: particles?
 //maybe later TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles

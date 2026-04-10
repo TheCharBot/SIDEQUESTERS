@@ -21,6 +21,7 @@ extern void setup_textbox(int max_indecies, Entity_names speaker);
 extern bool is_text_finished(Dialog_names text_name);
 extern void add_finished_text(Dialog_names text_name);
 extern void add_item_to_inventory(Item item);
+extern bool is_entity_dead(Entity_names entity);
 
 extern Game_save save_current_state();
 extern void save_index_state(int start_menu_slot_index);
@@ -38,6 +39,21 @@ extern Texture2D& get_texture(const std::string& path);
 
 extern void unload_all_textures();
 
+extern void draw_locked_doors();
+extern void sort_and_draw_player_and_entities();
+extern void draw_broken_floor_tiles();
+extern void draw_ground_items();
+
+extern void options_screen_draw();
+extern void options_screen_update();
+extern void achievements_screen_draw();
+extern void achievements_screen_update();
+extern void start_menu_save_slots_screen_update();
+extern void start_menu_credits_screen_update();
+
+extern void reset_loaded();
+
+extern Inventory_slot inventory_slots[28];
 // editable globals
 
 
@@ -48,16 +64,9 @@ extern void unload_all_textures();
 
 
 // GUI globals
-extern Texture2D inventory_tex;
-extern Texture2D inventory_cursor_tex;
-extern Texture2D items_tex;
-extern Texture2D gui_bar_segments_tex;
-extern Texture2D hotbar_tex;
-extern Texture2D textbox_tex;
-extern Texture2D slot_icons[3];
-extern Texture2D start_menu_tex;
 
-extern Inventory_slot inventory_slots[28];
+
+
 
 
 //basically, set the individual indicies of this to change the dialog
@@ -137,6 +146,14 @@ extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
 #define SAVE_SLOT_1_SELECTER_POS {23, 17}
 #define SAVE_SLOT_2_SELECTER_POS {119, 17}
 #define SAVE_SLOT_3_SELECTER_POS {215, 17}
+#define PAUSE_MENU_POS {47, 41}
+#define PAUSE_MENU_OPTIONS_POS {105, 65}
+#define PAUSE_MENU_OPTIONS_SAVEQUIT_LEFT_SELECT_OFFSET {6, 0}
+#define PAUSE_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET {15, 16}
+#define PAUSE_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET {-9, 32}
+#define PAUSE_MENU_OPTIONS_SAVEQUIT_RIGHT_SELECT_OFFSET {93, 0}
+#define PAUSE_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET {82, 16}
+#define PAUSE_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET {107, 32}
 
 
 
@@ -541,6 +558,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define GLOB_FONT_PATH "gfx/font/BoldPixels.ttf"
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
 #define START_MENU_TEX_PATH "gfx/gui/start_menu.png"
+#define PAUSE_MENU_TEX_PATH "gfx/gui/pause_menu.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"

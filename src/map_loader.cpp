@@ -6,13 +6,14 @@
 
 void reload_needed_textures(){
     player.tex = get_texture(PLAYER_TEX_PATH);
-    start_menu_tex = get_texture(START_MENU_TEX_PATH);
-    inventory_tex = get_texture(INVENTORY_PATH);
-    items_tex = get_texture(ITEM_SHEET_PATH);
-    inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
-    gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
-    hotbar_tex = get_texture(HOTBAR_TEX_PATH);
-    textbox_tex = get_texture(TEXTBOX_TEX_PATH);
+    gui.start_menu_tex = get_texture(START_MENU_TEX_PATH);
+    gui.inventory_tex = get_texture(INVENTORY_PATH);
+    gui.items_tex = get_texture(ITEM_SHEET_PATH);
+    gui.inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
+    gui.gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
+    gui.hotbar_tex = get_texture(HOTBAR_TEX_PATH);
+    gui.textbox_tex = get_texture(TEXTBOX_TEX_PATH);
+    gui.pause_menu_tex = get_texture(PAUSE_MENU_TEX_PATH);
     game.broken_tile_tex = get_texture(BROKEN_TILE_TEX_PATH);
     game.door_lock_tex = get_texture(DOOR_LOCK_TEX_PATH);
 }
@@ -152,6 +153,13 @@ void remove_locked_rect(Locked_rect l_rect){
         ),
         game.locked_rects.end()
     );
+};
+
+bool is_entity_dead(Entity_names entity){
+
+    if(std::find(player.defeated_entities.begin(), player.defeated_entities.end(), entity) == player.defeated_entities.end()) {return false;}
+    return true;
+
 };
 
 // map loader helper functions for easier organization and readability

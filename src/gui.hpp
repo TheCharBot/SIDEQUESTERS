@@ -9,6 +9,9 @@ extern void init_start_menu();
 extern void start_menu_update();
 extern void start_menu_draw();
 
+extern void pause_menu_update();
+extern void pause_menu_draw();
+
 extern void init_gui();
 extern void update_gui();
 extern void draw_gui();

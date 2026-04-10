@@ -524,6 +524,7 @@ void NPC_cruller_Village::load()
 void NPC_cruller_Village::update()
 {
     if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+        std::cout << is_entity_dead(THE_REGROWN);
         if(!is_text_finished(NPC_CRULLER_STORY_TEXT)){
             if(current_anim_arr != NPC_cruller_fall_down){
                 current_anim_arr = NPC_cruller_fall_down;
@@ -533,18 +534,27 @@ void NPC_cruller_Village::update()
                 move_mode = 2;
                 next_max_anim_frames = 1;
             }
-            set_textbox_indice_text(0, {"text 1", NONE});
-            set_textbox_indice_text(1, {"text 2", NONE});
-            set_textbox_indice_text(2, {"text 3", NONE});
-            set_textbox_indice_text(3, {"text 4", NONE});
-            set_textbox_indice_text(4, {"text 5", NONE});
-            setup_textbox(5, NPC_CRULLER_VILLAGE);
+            set_textbox_indice_text(0, {"Oh, hello there, traveller.", NONE});
+            set_textbox_indice_text(1, {"wait a minute . . .", NONE});
+            set_textbox_indice_text(2, {"are you the Chosen?", NONE});
+            set_textbox_indice_text(3, {"YOU ARE!", NONE});
+            set_textbox_indice_text(4, {"YOU ARE MY ABSOLUTE BIGGEST HERO AND MY OVERALL FAVORITE PERSON!!!!", NONE});
+            set_textbox_indice_text(5, {"I HOPE YOU EXCEL AT EVERYTHING YOU TRY TO DO!!!!!!", NONE});
+            set_textbox_indice_text(6, {"BUT NEVERMIND ALL OF THAT, GET TO SAVING THE WORLD!!!!!", NONE});
+            setup_textbox(7, NPC_CRULLER_VILLAGE);
             add_finished_text(NPC_CRULLER_STORY_TEXT);
         }
+        else if(is_entity_dead(THE_REGROWN) && is_text_finished(NPC_CRULLER_STORY_TEXT) && !is_text_finished(NPC_CRULLER_REGROWN_DEFEATED_TEXT)){
+            set_textbox_indice_text(0, {"YOU DID IT! YOU DEFEATED THE REGROWN! I KNEW YOU COULD! GREAT JOB!", NONE});
+            set_textbox_indice_text(1, {"THERE ARE MANY MORE THINGS TO DO! GO! GO! GO!", NONE});
+            setup_textbox(2, NPC_CRULLER_VILLAGE);
+            add_finished_text(NPC_CRULLER_REGROWN_DEFEATED_TEXT);
+        }
         else if(is_text_finished(NPC_CRULLER_STORY_TEXT)){
-            set_textbox_indice_text(0, {"text dos", NONE});
+            set_textbox_indice_text(0, {"GO! GO! GO! THERE'S NO TIME TO WASTE! I BELIEVE IN YOU!", NONE});
             setup_textbox(1, NPC_CRULLER_VILLAGE);
         }
+        
     }
     if(gui.global_textbox.current_speaker == NPC_CRULLER_VILLAGE && gui.global_textbox.dialog_index_state >= 4 && current_anim_arr != NPC_cruller_get_up){
         current_anim_arr = NPC_cruller_get_up;
@@ -589,3 +599,16 @@ void NPC_cruller_Village::draw()
 {
     DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }
+
+// void NPC_cruller_Village::wander()
+// {
+//     rebuild_rects();
+// }
+
+// void NPC_cruller_Village::rebuild_rects()
+// {
+//     rect = {pos.x+DEFAULT_NPC_COLLISION_BOX_OFFSET_X, pos.y+DEFAULT_NPC_COLLISION_BOX_OFFSET_Y, DEFAULT_NPC_COLLISION_BOX_WIDTH, DEFAULT_NPC_COLLISION_BOX_WIDTH};
+//     interact_rect = {pos.x+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_X, pos.y+DEFAULT_NPC_DOWN_INTERACT_RECT_OFFSET_Y, DEFAULT_NPC_DOWN_INTERACT_RECT_WIDTH, DEFAULT_NPC_DOWN_INTERACT_RECT_HEIGHT};
+//     remove_collision_rect(rect);
+//     add_collisions({rect});
+// }

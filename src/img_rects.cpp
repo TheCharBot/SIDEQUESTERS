@@ -22,6 +22,10 @@ Rectangle start_menu_credits_screen = {0, 208, 320, 180};
 Rectangle start_menu_achievements_screen = {320, 208, 320, 180};
 Rectangle start_menu_options_screen = {640, 208, 320, 180};
 
+Rectangle pause_menu_left_selector = {0, 0, 16, 16};
+Rectangle pause_menu_right_selector = {16, 0, 16, 16};
+Rectangle pause_menu_options = {0, 32, 112, 64};
+Rectangle pause_menu_background = {112, 0, 226, 98};
 
 Rectangle inv_cursor_anim[2] = {
     {0, 0, 32, 18},
@@ -33,7 +37,8 @@ Rectangle village_windmill_animation[4] = {
     {96, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT},
     {240, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT},
     {384, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT},
-    {528, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT}};
+    {528, 0, VILLAGE_WINDMILL_WIDTH, VILLAGE_WINDMILL_HEIGHT}
+};
 
 // map stuff
 

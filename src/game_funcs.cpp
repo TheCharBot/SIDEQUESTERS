@@ -110,7 +110,7 @@ void load_index_save(int start_menu_slot_index)
     std::string path = "saves/save" + std::to_string(start_menu_slot_index) + ".dat";
 
     if(!FileExists(path.c_str())){
-        
+        load_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y});
         return;
     }
     
@@ -180,6 +180,7 @@ void save_index_state(int start_menu_slot_index)
     };
 
     ImageCrop(&img, crop);
+    
     ImageResizeNN(&img, img.width/scale, img.height/scale);
 
     ExportImage(img, TextFormat("saves/start_menu_index_icon_%i.png", start_menu_slot_index));
@@ -254,4 +255,50 @@ void load_config_state()
     KEY_SPRINT = (KeyboardKey)cfg_dat.KEY_SPRINT;
 
     
+}
+
+
+void draw_locked_doors(){
+    for(Locked_rect &l : game.locked_rects){
+        DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, GUI_LIGHT_GRAY); //box around thing, using color from aap64
+        DrawRectangleLinesEx({l.rect.x, l.rect.y, l.rect.width, l.rect.height}, 1, BLACK); 
+        //drawing 4 corners, sorry it mess
+        DrawPixel(l.rect.x+1, l.rect.y+1, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+1, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+1, GUI_DARK_GRAY);
+        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
+
+        //drawing lock texture
+        DrawTextureEx(game.door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE); //just the offsets - i dont think macros are too nessecary
+    }
+}
+
+void sort_and_draw_player_and_entities(){
+    game.draw_order = {};
+    //might not be the best idea to put it here, but this game could run on a potato so far
+    for (int i = 0; i < (int)game.entities.size(); i++)
+    game.draw_order.push_back({ game.entities[i]->rect.y+game.entities[i]->rect.height, i });
+
+    game.draw_order.push_back({ player.collision_rect.y+player.collision_rect.height, -1 }); // -1 = player
+
+    std::sort(game.draw_order.begin(), game.draw_order.end());
+
+    for (auto &[y, i] : game.draw_order) {
+        if (i == -1) draw_player();
+        else         game.entities[i]->draw();
+    }
+}
+
+void draw_broken_floor_tiles(){
+    for(Vector2 &v : game.broken_floor_tiles){
+        DrawTexturePro(game.broken_tile_tex, BROKEN_TILE_RECT, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //look, i didnt want to make a whole new macro just for 16x16, deal with it
+    }
+}
+
+void draw_ground_items(){
+    for(Ground_item &g : game.ground_items){
+        
+        DrawTexturePro(gui.items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // again ^
+        
+    }
 }

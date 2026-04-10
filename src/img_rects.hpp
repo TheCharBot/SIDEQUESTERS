@@ -41,6 +41,11 @@ extern Rectangle start_menu_options_screen;
 extern Rectangle stamina_bar_dead;
 extern Rectangle stamina_bar_segment;
 
+extern Rectangle pause_menu_left_selector;
+extern Rectangle pause_menu_right_selector;
+extern Rectangle pause_menu_options;
+extern Rectangle pause_menu_background;
+
 // Player-focused image rect arrays
 extern std::unordered_map<Facing, Rectangle *> player_idles;
 extern std::unordered_map<Facing, Rectangle *> player_sword_slashes;

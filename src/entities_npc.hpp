@@ -139,13 +139,13 @@ class NPC_cruller_Village : public Entity{
         void load() override;
         void update() override;
         void draw() override;
-
+        void wander();
+        void rebuild_rects();
     private:
         Rectangle *next_anim_arr;
         int next_max_anim_frames = 1;
         Rectangle interact_rect = {};
         Texture2D tex{};
-        
 };
 
 #endif

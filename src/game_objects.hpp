@@ -65,6 +65,7 @@ enum Dialog_names{ //do something like "NAME" "DIALOG_PHASE", such as VILLAGE_QU
     NPC_FALLEN_HERO_STORY_TEXT,
     NPC_AUCTIONEER_STORY_TEXT,
     NPC_CRULLER_STORY_TEXT,
+    NPC_CRULLER_REGROWN_DEFEATED_TEXT,
 };
 
 enum Item_types
@@ -181,6 +182,7 @@ enum Game_states{ //add endings and other menu things
     ACHIEVEMENTS,
     OPTIONS,
     GAMEPLAY,
+    PAUSE_MENU,
     PLAYER_GAME_OVER,
     END_QUESTED,
 };
@@ -365,7 +367,23 @@ struct GUI_data{
     Vector2 start_menu_select_left_pos = {};
     Vector2 start_menu_save_selecter_pos = {};
     int start_menu_sel_mode = 0;
-    
+    int pause_menu_sel_mode = 0;
+    Texture2D inventory_tex = {};
+    Texture2D inventory_cursor_tex = {};
+    Texture2D items_tex = {};
+    Texture2D gui_bar_segments_tex = {};
+    Texture2D hotbar_tex = {};
+    Texture2D textbox_tex = {};
+    Texture2D start_menu_tex = {};
+    Texture2D pause_menu_tex = {};
+    Texture2D slot_icons[3] = {};
+    Vector2 pause_menu_background_pos = {};
+    Vector2 pause_menu_options_pos = {};
+    Vector2 pause_menu_select_right_pos = {};
+    Vector2 pause_menu_select_offset = {};
+    Vector2 pause_menu_select_left_pos = {};
+    bool pause_menu_versions_of_menus = false;
+    Game_states previous_state;
 };
 
 

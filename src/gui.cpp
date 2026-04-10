@@ -3,23 +3,16 @@
 GUI_data gui;
 
 
-Texture2D inventory_tex;
-Texture2D inventory_cursor_tex;
-Texture2D items_tex;
-Texture2D gui_bar_segments_tex;
-Texture2D hotbar_tex;
-Texture2D textbox_tex;
-Texture2D start_menu_tex;
-Texture2D slot_icons[3] = {0};
+
 
 void unload_start_menu_assets(){
-    UnloadTexture(start_menu_tex);
+    UnloadTexture(gui.start_menu_tex);
     // bool start_menu_unloaded = true;
 }
 
 
 void init_start_menu(){
-    start_menu_tex = get_texture(START_MENU_TEX_PATH);
+    gui.start_menu_tex = get_texture(START_MENU_TEX_PATH);
     gui.start_menu_logo_pos = START_MENU_LOGO_POS;
     gui.start_menu_enimation_pos = START_MENU_EMINATION_POS;
     gui.start_menu_options_pos = START_MENU_OPTIONS_POS;
@@ -31,200 +24,307 @@ void init_start_menu(){
     game.current_music = LoadMusicStream(ELEVATOR_MUS_PATH);
     
 }
-void start_menu_update(){
-    switch(game.state){
-        case START_MENU:
-            if(IsKeyPressed(KEY_CONTROLS_DOWN)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
-                gui.start_menu_sel_mode += 1;
-                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
-            }
-            if(IsKeyPressed(KEY_CONTROLS_UP)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
-                gui.start_menu_sel_mode -= 1;
-                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
-            }
-            if(IsKeyPressed(KEY_INTERACT)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                switch(gui.start_menu_sel_mode){
-                    case 0:
-                        
-                        // unload_start_menu_assets();
-                        game.state = Game_states::SAVE_SLOTS; 
-                        for (int i = 0; i < 3; i++)
-                        {
-                            const char* path = TextFormat("saves/start_menu_index_icon_%i.png", i);
 
-                            if (FileExists(path))
-                            {
-                                slot_icons[i] = get_texture(path);
-                            }
-                        }
-                        // gui.start_menu_unloaded = true;
-                        break;
-                    case 1:
-                        
-                        // unload_start_menu_assets();
-                        game.state = Game_states::OPTIONS;
-                        break;
-                    case 2:
-                        
-                        // unload_start_menu_assets();
-                        game.state = Game_states::ACHIEVEMENTS;
-                        break;
-                    case 3:
-                        
-                        // unload_start_menu_assets();
-                        game.state = Game_states::CREDITS;
-                        break;
-                }
-            } //TODO: merge ^ v (later)
-            switch(gui.start_menu_sel_mode){
-                case 0:
-                    gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_RIGHT_SELECT_OFFSET);
-                    gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET);
-                    break;
-                case 1:
-                    gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET);
-                    gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET);
-                    break;
-                case 2:
-                    gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET);
-                    gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET);
-                    break;
-                case 3:
-                    gui.start_menu_select_right_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_RIGHT_SELECT_OFFSET);
-                    gui.start_menu_select_left_pos = Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_LEFT_SELECT_OFFSET);
-                    break;
-            }
-            break;
-        case SAVE_SLOTS: 
-            if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                gui.start_menu_sel_mode = 0;
+
+
+void start_menu_save_slots_screen_update(){
+    if(IsKeyPressed(KEY_SPEEDUP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        gui.start_menu_sel_mode = 0;
+        // unload_start_menu_assets();
+        game.state = Game_states::START_MENU; 
+        // gui.start_menu_unloaded = true;
+    }
+    if(IsKeyPressed(KEY_CONTROLS_RIGHT)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode += 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
+    }
+    else if(IsKeyPressed(KEY_CONTROLS_LEFT)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode -= 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
+    }
+    if(IsKeyPressed(KEY_INTERACT)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        switch(gui.start_menu_sel_mode){
+            case 0:
+                
                 // unload_start_menu_assets();
-                game.state = Game_states::START_MENU; 
+                load_index_save(0);
+                game.save_slot = 0;
+                game.state = Game_states::GAMEPLAY; 
                 // gui.start_menu_unloaded = true;
-            }
-            if(IsKeyPressed(KEY_CONTROLS_RIGHT)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
-                gui.start_menu_sel_mode += 1;
-                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
-            }
-            else if(IsKeyPressed(KEY_CONTROLS_LEFT)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
-                gui.start_menu_sel_mode -= 1;
-                gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
-            }
-            if(IsKeyPressed(KEY_INTERACT)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                switch(gui.start_menu_sel_mode){
-                    case 0:
-                        
-                        // unload_start_menu_assets();
-                        load_index_save(0);
-                        game.save_slot = 0;
-                        game.state = Game_states::GAMEPLAY; 
-                        // gui.start_menu_unloaded = true;
-                        break;
-                    case 1:
-                        load_index_save(1);
-                        game.save_slot = 1;
-                        // unload_start_menu_assets();
-                        game.state = Game_states::GAMEPLAY;
-                        break;
-                    case 2:
-                        load_index_save(2);
-                        game.save_slot = 2;
-                        // unload_start_menu_assets();
-                        game.state = Game_states::GAMEPLAY;
-                        break;
-                    
-                }
-            } //TODO: merge ^ v (later)
-            switch(gui.start_menu_sel_mode){
-                case 0:
-                    gui.start_menu_save_selecter_pos = SAVE_SLOT_1_SELECTER_POS;
-                    
-                    break;
-                case 1:
-                    gui.start_menu_save_selecter_pos = SAVE_SLOT_2_SELECTER_POS;
-                    
-                    break;
-                case 2:
-                    gui.start_menu_save_selecter_pos = SAVE_SLOT_3_SELECTER_POS;
-                    
-                    break;
-            }
-            break;
-        
-        case OPTIONS:
-            if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                gui.start_menu_sel_mode = 1;
+                break;
+            case 1:
+                load_index_save(1);
+                game.save_slot = 1;
                 // unload_start_menu_assets();
-                game.state = Game_states::START_MENU; 
-                // gui.start_menu_unloaded = true;
-            }
-            break;
-        case ACHIEVEMENTS:
-            if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                gui.start_menu_sel_mode = 2;
+                game.state = Game_states::GAMEPLAY;
+                break;
+            case 2:
+                load_index_save(2);
+                game.save_slot = 2;
                 // unload_start_menu_assets();
-                game.state = Game_states::START_MENU; 
-                // gui.start_menu_unloaded = true;
-            }
+                game.state = Game_states::GAMEPLAY;
+                break;
+            
+        }
+    } //TODO: merge ^ v (later)
+    switch(gui.start_menu_sel_mode){
+        case 0:
+            gui.start_menu_save_selecter_pos = Vector2Lerp(gui.start_menu_save_selecter_pos, SAVE_SLOT_1_SELECTER_POS, 0.4);
+            
             break;
-        case CREDITS:
-            if(IsKeyPressed(KEY_SPEEDUP)){
-                PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
-                gui.start_menu_sel_mode = 3;
-                // unload_start_menu_assets();
-                game.state = Game_states::START_MENU; 
-                // gui.start_menu_unloaded = true;
-            }
+        case 1:
+            gui.start_menu_save_selecter_pos = Vector2Lerp(gui.start_menu_save_selecter_pos, SAVE_SLOT_2_SELECTER_POS, 0.4);
+            
             break;
-        default: 
+        case 2:
+            gui.start_menu_save_selecter_pos = Vector2Lerp(gui.start_menu_save_selecter_pos, SAVE_SLOT_3_SELECTER_POS, 0.4);
+            
             break;
     }
 }
+
+void start_menu_credits_screen_update(){
+    if(IsKeyPressed(KEY_SPEEDUP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        gui.start_menu_sel_mode = 3;
+        // unload_start_menu_assets();
+        game.state = Game_states::START_MENU; 
+        // gui.start_menu_unloaded = true;
+    }
+}
+
+void start_menu_update(){
+    if(IsKeyPressed(KEY_CONTROLS_DOWN)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode += 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
+    }
+    if(IsKeyPressed(KEY_CONTROLS_UP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.start_menu_sel_mode -= 1;
+        gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
+    }
+    if(IsKeyPressed(KEY_INTERACT)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        switch(gui.start_menu_sel_mode){
+            case 0:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::SAVE_SLOTS; 
+                for (int i = 0; i < 3; i++)
+                {
+                    const char* path = TextFormat("saves/start_menu_index_icon_%i.png", i);
+
+                    if (FileExists(path))
+                    {
+                        gui.slot_icons[i] = get_texture(path);
+                    }
+                }
+                // gui.start_menu_unloaded = true;
+                break;
+            case 1:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::OPTIONS;
+                gui.previous_state = START_MENU;
+                break;
+            case 2:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::ACHIEVEMENTS;
+                gui.previous_state = START_MENU;
+                break;
+            case 3:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::CREDITS;
+                gui.previous_state = START_MENU;
+                break;
+        }
+    } //TODO: merge ^ v (later)
+    switch(gui.start_menu_sel_mode){
+        case 0:
+            gui.start_menu_select_right_pos = Vector2Lerp(gui.start_menu_select_right_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_RIGHT_SELECT_OFFSET), 0.4);
+            gui.start_menu_select_left_pos = Vector2Lerp(gui.start_menu_select_left_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_START_LEFT_SELECT_OFFSET), 0.4);
+            break;
+        case 1:
+            gui.start_menu_select_right_pos = Vector2Lerp(gui.start_menu_select_right_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET), 0.4);
+            gui.start_menu_select_left_pos = Vector2Lerp(gui.start_menu_select_left_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET), 0.4);
+            break;
+        case 2:
+            gui.start_menu_select_right_pos = Vector2Lerp(gui.start_menu_select_right_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET), 0.4);
+            gui.start_menu_select_left_pos = Vector2Lerp(gui.start_menu_select_left_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET), 0.4);
+            break;
+        case 3:
+            gui.start_menu_select_right_pos = Vector2Lerp(gui.start_menu_select_right_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_RIGHT_SELECT_OFFSET), 0.4);
+            gui.start_menu_select_left_pos = Vector2Lerp(gui.start_menu_select_left_pos, Vector2Add(START_MENU_OPTIONS_POS, START_MENU_OPTIONS_CREDITS_LEFT_SELECT_OFFSET), 0.4);
+            break;
+    }
+}
+
 void start_menu_draw(){ //sorry ugly code. deal with it
     switch(game.state){
         case START_MENU:
-            DrawTexturePro(start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_emination, {gui.start_menu_enimation_pos.x*scale, gui.start_menu_enimation_pos.y*scale, start_menu_emination.width*scale, start_menu_emination.height*scale}, {0, 0}, 0, WHITE);
 
-            DrawTexturePro(start_menu_tex, start_menu_text_rect, {gui.start_menu_logo_pos.x*scale, gui.start_menu_logo_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_text_rect, {gui.start_menu_logo_pos.x*scale, gui.start_menu_logo_pos.y*scale, start_menu_text_rect.width*scale, start_menu_text_rect.height*scale}, {0, 0}, 0, WHITE);
 
-            DrawTexturePro(start_menu_tex, start_menu_options_rect, {gui.start_menu_options_pos.x*scale, gui.start_menu_options_pos.y*scale, start_menu_options_rect.width*scale, start_menu_options_rect.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_options_rect, {gui.start_menu_options_pos.x*scale, gui.start_menu_options_pos.y*scale, start_menu_options_rect.width*scale, start_menu_options_rect.height*scale}, {0, 0}, 0, WHITE);
 
-            DrawTexturePro(start_menu_tex, start_menu_select_right, {gui.start_menu_select_right_pos.x*scale, gui.start_menu_select_right_pos.y*scale, start_menu_select_right.width*scale, start_menu_select_right.height*scale}, {0, 0}, 0, WHITE);
-            DrawTexturePro(start_menu_tex, start_menu_select_left, {gui.start_menu_select_left_pos.x*scale, gui.start_menu_select_left_pos.y*scale, start_menu_select_left.width*scale, start_menu_select_left.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_select_right, {gui.start_menu_select_right_pos.x*scale, gui.start_menu_select_right_pos.y*scale, start_menu_select_right.width*scale, start_menu_select_right.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_select_left, {gui.start_menu_select_left_pos.x*scale, gui.start_menu_select_left_pos.y*scale, start_menu_select_left.width*scale, start_menu_select_left.height*scale}, {0, 0}, 0, WHITE);
             break;
         case SAVE_SLOTS:
-            DrawTexturePro(start_menu_tex, start_menu_saves_select_screen, {0, 0, start_menu_saves_select_screen.width*scale, start_menu_saves_select_screen.height*scale}, {0, 0}, 0, WHITE);
-            DrawTexturePro(start_menu_tex, start_menu_saves_select_screen_selecter, {gui.start_menu_save_selecter_pos.x*scale, gui.start_menu_save_selecter_pos.y*scale, start_menu_saves_select_screen_selecter.width*scale, start_menu_saves_select_screen_selecter.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_saves_select_screen, {0, 0, start_menu_saves_select_screen.width*scale, start_menu_saves_select_screen.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_saves_select_screen_selecter, {gui.start_menu_save_selecter_pos.x*scale, gui.start_menu_save_selecter_pos.y*scale, start_menu_saves_select_screen_selecter.width*scale, start_menu_saves_select_screen_selecter.height*scale}, {0, 0}, 0, WHITE);
             for (int i = 0; i < 3; i++)
             {
-                if (slot_icons[i].id != 0) // texture exists
+                if (gui.slot_icons[i].id != 0) // texture exists
                 {
-                    DrawTextureEx(slot_icons[i], Vector2Scale({float(25+(i*96)), 19}, scale), 0, scale, WHITE);//TODO: MACROS
+                    DrawTextureEx(gui.slot_icons[i], Vector2Scale({float(25+(i*96)), 19}, scale), 0, scale, WHITE);//TODO: MACROS
                     // std::cout <<"working?";
                 }
             }
             break;
-        case OPTIONS:
-            DrawTexturePro(start_menu_tex, start_menu_options_screen, {0, 0, start_menu_options_screen.width*scale, start_menu_options_screen.height*scale}, {0, 0}, 0, WHITE);
-            break;
-        case ACHIEVEMENTS:
-            DrawTexturePro(start_menu_tex, start_menu_achievements_screen, {0, 0, start_menu_achievements_screen.width*scale, start_menu_achievements_screen.height*scale}, {0, 0}, 0, WHITE);
-            break;
+        
         case CREDITS:
-            DrawTexturePro(start_menu_tex, start_menu_credits_screen, {0, 0, start_menu_credits_screen.width*scale, start_menu_credits_screen.height*scale}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.start_menu_tex, start_menu_credits_screen, {0, 0, start_menu_credits_screen.width*scale, start_menu_credits_screen.height*scale}, {0, 0}, 0, WHITE);
             break;
         default:
             break;
     }
+}
+
+
+
+void options_screen_update(){
+    if(IsKeyPressed(KEY_SPEEDUP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        gui.pause_menu_sel_mode = 1;
+        game.state = gui.previous_state; 
+    }
+}
+
+void achievements_screen_update(){
+    if(IsKeyPressed(KEY_SPEEDUP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        gui.pause_menu_sel_mode = 2;
+        game.state = gui.previous_state; 
+    }
+}
+
+void options_screen_draw(){
+    DrawTexturePro(gui.start_menu_tex, start_menu_options_screen, {0, 0, start_menu_options_screen.width*scale, start_menu_options_screen.height*scale}, {0, 0}, 0, WHITE);
+}
+
+void achievements_screen_draw(){
+    DrawTexturePro(gui.start_menu_tex, start_menu_achievements_screen, {0, 0, start_menu_achievements_screen.width*scale, start_menu_achievements_screen.height*scale}, {0, 0}, 0, WHITE);
+}
+
+
+void pause_menu_update()
+{   
+    if(IsKeyPressed(KEY_CONTROLS_DOWN)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.pause_menu_sel_mode += 1;
+        gui.pause_menu_sel_mode = Clamp(gui.pause_menu_sel_mode, 0, 2);
+    }
+    if(IsKeyPressed(KEY_CONTROLS_UP)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
+        gui.pause_menu_sel_mode -= 1;
+        gui.pause_menu_sel_mode = Clamp(gui.pause_menu_sel_mode, 0, 2);
+    }
+    if(IsKeyPressed(KEY_INTERACT)){
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
+        switch(gui.pause_menu_sel_mode){
+            case 0:
+                
+                // unload_start_menu_assets();
+                
+                
+                
+                
+                save_index_state(game.save_slot);
+                game.state = Game_states::START_MENU; 
+                reset_loaded();
+                game.current_music = LoadMusicStream(ELEVATOR_MUS_PATH);
+                gui.previous_state = GAMEPLAY;
+                
+                // gui.start_menu_unloaded = true;
+                break;
+            case 1:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::OPTIONS;
+                gui.previous_state = GAMEPLAY;
+                break;
+            case 2:
+                
+                // unload_start_menu_assets();
+                game.state = Game_states::ACHIEVEMENTS;
+                gui.previous_state = GAMEPLAY;
+                break;
+        }
+    }
+    switch(gui.pause_menu_sel_mode){
+        case 0:
+            gui.pause_menu_select_right_pos = Vector2Lerp(gui.pause_menu_select_right_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_RIGHT_SELECT_OFFSET), 0.4);
+            gui.pause_menu_select_left_pos = Vector2Lerp(gui.pause_menu_select_left_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_LEFT_SELECT_OFFSET), 0.4);
+            break;
+        case 1:
+            gui.pause_menu_select_right_pos = Vector2Lerp(gui.pause_menu_select_right_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_OPTIONS_RIGHT_SELECT_OFFSET), 0.4);
+            gui.pause_menu_select_left_pos = Vector2Lerp(gui.pause_menu_select_left_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_OPTIONS_LEFT_SELECT_OFFSET), 0.4);
+            break;
+        case 2:
+            gui.pause_menu_select_right_pos = Vector2Lerp(gui.pause_menu_select_right_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_ACHIEVEMENTS_RIGHT_SELECT_OFFSET), 0.4);
+            gui.pause_menu_select_left_pos = Vector2Lerp(gui.pause_menu_select_left_pos, Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_ACHIEVEMENTS_LEFT_SELECT_OFFSET), 0.4);
+            break;
+    }
+}
+
+void pause_menu_draw()
+{
+    
+    DrawTexturePro(
+        gui.pause_menu_tex, 
+        pause_menu_background, 
+        {gui.pause_menu_background_pos.x*scale, gui.pause_menu_background_pos.y*scale, pause_menu_background.width*scale, pause_menu_background.height*scale}, 
+        {0, 0}, 
+        0, 
+        WHITE);
+    DrawTexturePro(
+        gui.pause_menu_tex, 
+        pause_menu_options, 
+        {gui.pause_menu_options_pos.x*scale, gui.pause_menu_options_pos.y*scale, pause_menu_options.width*scale, pause_menu_options.height*scale}, 
+        {0, 0}, 
+        0, 
+        WHITE);
+    DrawTexturePro(
+        gui.pause_menu_tex, 
+        pause_menu_left_selector, 
+        {gui.pause_menu_select_left_pos.x*scale, gui.pause_menu_select_left_pos.y*scale, pause_menu_left_selector.width*scale, pause_menu_left_selector.height*scale}, 
+        {0, 0}, 
+        0, 
+        WHITE);
+    DrawTexturePro(
+        gui.pause_menu_tex, 
+        pause_menu_right_selector, 
+        {gui.pause_menu_select_right_pos.x*scale, gui.pause_menu_select_right_pos.y*scale, pause_menu_right_selector.width*scale, pause_menu_right_selector.height*scale}, 
+        {0, 0}, 
+        0,
+        WHITE);
+        // case OPTIONS:
+        //     
+        //     break;
+        // case ACHIEVEMENTS:
+        //     
+        //     break;
+        
+    
 }
 
 
@@ -302,18 +402,17 @@ void health_bar_draw(){
     //but, it works, so im happy
     //* KEEP THIS - IT WORKS
     //oh gee willikers these are some AWFUL draw calls, but whatever >:)
-    DrawTexturePro(gui_bar_segments_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
-    DrawTexturePro(gui_bar_segments_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(gui.gui_bar_segments_tex, health_bar_left_end, {float(HEALTHBAR_OFFSET_X*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_left_end.width*scale, health_bar_left_end.height*scale}, {0, 0}, 0, WHITE);
+    DrawTexturePro(gui.gui_bar_segments_tex, health_bar_right_end, {float(((player.max_health*10+2)+HEALTHBAR_OFFSET_X)*scale), float(HEALTHBAR_OFFSET_Y*scale), health_bar_right_end.width*scale, health_bar_right_end.height*scale}, {0, 0}, 0, WHITE);
     for(int i = 0; i < player.max_health*10; i++){
         //put stuff here to draw the empty healthbar
-        DrawTexturePro(gui_bar_segments_tex, health_bar_middle_dead, {((i*health_bar_middle_dead.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle_dead.width*scale, health_bar_middle_dead.height*scale}, {0, 0}, 0, WHITE); 
+        DrawTexturePro(gui.gui_bar_segments_tex, health_bar_middle_dead, {((i*health_bar_middle_dead.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle_dead.width*scale, health_bar_middle_dead.height*scale}, {0, 0}, 0, WHITE); 
     }
     for(int i = 0; i < player.current_health*10; i++){
         //put stuff here to draw the health in the healthbar
-        DrawTexturePro(gui_bar_segments_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui.gui_bar_segments_tex, health_bar_middle, {((i*health_bar_middle.width+2)+HEALTHBAR_OFFSET_X)*scale, float(HEALTHBAR_OFFSET_Y*scale), health_bar_middle.width*scale, health_bar_middle.height*scale}, {0, 0}, 0, WHITE);
     }
 }
-
 
 void stamina_bar_draw(){
     if(player.current_stamina < player.max_stamina){
@@ -321,21 +420,19 @@ void stamina_bar_draw(){
         
         for(int i = 0; i < player.max_stamina; i++){
             //put stuff here to draw the empty stamina bar
-            DrawTexturePro(gui_bar_segments_tex, stamina_bar_dead, {float((i*stamina_bar_dead.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE); 
+            DrawTexturePro(gui.gui_bar_segments_tex, stamina_bar_dead, {float((i*stamina_bar_dead.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE); 
         }
         for(int i = 0; i < player.current_stamina; i++){
             //put stuff here to draw the health in the stamina bar
-            DrawTexturePro(gui_bar_segments_tex, stamina_bar_segment, {float((i*stamina_bar_segment.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE);
+            DrawTexturePro(gui.gui_bar_segments_tex, stamina_bar_segment, {float((i*stamina_bar_segment.width+2)+STAMINA_BAR_OFFSET_X)*scale, float(STAMINA_BAR_OFFSET_Y*scale), float(stamina_bar_segment.width*scale), float(stamina_bar_segment.height*scale)}, {0, 0}, 0, WHITE);
         }
     }
 };
 
-
-
 void hotbar_draw(){
-    DrawTextureEx(hotbar_tex, Vector2Scale(gui.hotbar_pos, scale), 0, scale, WHITE);
+    DrawTextureEx(gui.hotbar_tex, Vector2Scale(gui.hotbar_pos, scale), 0, scale, WHITE);
     if(inventory_slots[23].filled_with){
-        DrawTexturePro(items_tex, inventory_slots[23].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui.items_tex, inventory_slots[23].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_1_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
 
         if(inventory_slots[23].filled_with->type == CONSUMABLE){
             inventory_slots[23].amount_in_slot = inventory_slots[23].filled_with->consumable.amount;
@@ -343,7 +440,7 @@ void hotbar_draw(){
         }
     }
     if(inventory_slots[24].filled_with){
-        DrawTexturePro(items_tex, inventory_slots[24].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui.items_tex, inventory_slots[24].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_2_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
 
         if(inventory_slots[24].filled_with->type == CONSUMABLE){
             inventory_slots[24].amount_in_slot = inventory_slots[24].filled_with->consumable.amount;
@@ -351,7 +448,7 @@ void hotbar_draw(){
         }
     }
     if(inventory_slots[25].filled_with){
-        DrawTexturePro(items_tex, inventory_slots[25].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+        DrawTexturePro(gui.items_tex, inventory_slots[25].filled_with->img_rect, {gui.hotbar_pos.x*scale+HOTBAR_SLOT_3_OFFSET_X*scale, gui.hotbar_pos.y*scale, float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
 
         if(inventory_slots[25].filled_with->type == CONSUMABLE){
             inventory_slots[25].amount_in_slot = inventory_slots[25].filled_with->consumable.amount;
@@ -365,6 +462,8 @@ void hotbar_draw(){
     DrawTextEx(gui.global_font, std::to_string(player.dungeon_keys).c_str(), Vector2Scale({gui.hotbar_pos.x+HOTBAR_KEY_TEXT_OFFSET_X, gui.hotbar_pos.y-HOTBAR_KEY_TEXT_OFFSET_Y}, scale), DEFAULT_FONT_SIZE*scale, scale, GUI_DARK_GRAY);
     
 }
+
+
 
 void set_textbox_indice_text(int index, Dialog_chunk dialog){
     //it works. fine whatever
@@ -421,13 +520,12 @@ void setup_textbox(int max_indecies, Entity_names speaker){ //try to have more t
     gui.global_textbox.current_speaker = speaker;
 }
 
-
 void textbox_update_draw(){
     if(gui.global_textbox.is_textbox_open){
     
         player.move_mode = 0;
         
-        DrawTextureEx(textbox_tex, Vector2Scale(gui.textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
+        DrawTextureEx(gui.textbox_tex, Vector2Scale(gui.textbox_pos, scale), 0, scale, WHITE); //drawing the textbox
 
         
 
@@ -473,24 +571,20 @@ void add_finished_text(Dialog_names text_name){
     }
 }
 
+
+
 void init_gui()
 {
     inv_cursor_init();
-    inventory_tex = get_texture(INVENTORY_PATH);
-    items_tex = get_texture(ITEM_SHEET_PATH);
-    inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
-    gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
-    hotbar_tex = get_texture(HOTBAR_TEX_PATH);
+    gui.pause_menu_tex = get_texture(PAUSE_MENU_TEX_PATH);
+    gui.inventory_tex = get_texture(INVENTORY_PATH);
+    gui.items_tex = get_texture(ITEM_SHEET_PATH);
+    gui.inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
+    gui.gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
+    gui.hotbar_tex = get_texture(HOTBAR_TEX_PATH);
     
-    textbox_tex = get_texture(TEXTBOX_TEX_PATH);
+    gui.textbox_tex = get_texture(TEXTBOX_TEX_PATH);
     add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
-    // add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
     add_item_to_inventory(game.item_ids[Item_names::STICK]);
 
     gui.global_font = LoadFont(GLOB_FONT_PATH);
@@ -498,7 +592,12 @@ void init_gui()
     gui.textbox_pos = TEXTBOX_POS;
     gui.hotbar_pos = HOTBAR_POS;
 
+    gui.pause_menu_background_pos = PAUSE_MENU_POS;
+    gui.pause_menu_options_pos = PAUSE_MENU_OPTIONS_POS;
     
+    gui.pause_menu_select_right_pos = Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_RIGHT_SELECT_OFFSET);
+    gui.pause_menu_select_left_pos = Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_LEFT_SELECT_OFFSET);
+
 }
 
 void update_gui()
@@ -513,22 +612,61 @@ void update_gui()
     if (IsKeyPressed(KEY_OPEN_INVENTORY) && !gui.global_textbox.is_textbox_open)
     {
         gui.is_inv_open = !gui.is_inv_open;
-        if (gui.is_inv_open)
-        {
-            player.move_mode = 0;
-            player.current_animation_frame = 0;
-            for(auto &e : game.entities){
-                e->move_mode = 0;
-            }
-        }
-        else
-        {
+        // if (gui.is_inv_open)
+        // {
+        //     player.move_mode = 0;
+        //     player.current_animation_frame = 0;
+        //     for(auto &e : game.entities){
+        //         e->move_mode = 0;
+        //     }
+        // }
+        // else
+        // {
 
-            player.move_mode = 1;
-            for(auto &e : game.entities){
-                e->move_mode = 1;
-            }
+        //     player.move_mode = 1;
+        //     for(auto &e : game.entities){
+        //         e->move_mode = 1;
+        //     }
+        // }
+    }
+}
+
+void draw_inventory(){
+    // drawing inventory
+    DrawTextureEx(gui.inventory_tex, {0, 0}, 0, scale, WHITE);
+    // drawing cursor
+
+    DrawTexturePro(
+        gui.inventory_cursor_tex, 
+        inv_cursor_anim[gui.inv_cursor.current_anim_frame], 
+        {(inventory_slots[gui.inv_cursor.inv_slot_index].pos.x - 3)*scale, 
+            (inventory_slots[gui.inv_cursor.inv_slot_index].pos.y - 1)*scale, 
+            inv_cursor_anim[gui.inv_cursor.current_anim_frame].width*scale, 
+            inv_cursor_anim[gui.inv_cursor.current_anim_frame].height*scale}, 
+        {0, 0}, 
+        0, 
+        WHITE);
+    // drawing held item if there is a held item
+    if (gui.inv_cursor.held_item)
+    {
+        DrawTexturePro(gui.items_tex, gui.inv_cursor.held_item->img_rect, {inventory_slots[gui.inv_cursor.inv_slot_index].pos.x*scale-(1*scale), inventory_slots[gui.inv_cursor.inv_slot_index].pos.y*scale-(1*scale), float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
+    }
+    // drawing items
+    for (Inventory_slot &s : inventory_slots)
+    {
+        if (!s.filled_with)
+            continue; // IMPORTANT
+        if(s.filled_with->type == CONSUMABLE){
+            s.amount_in_slot = s.filled_with->consumable.amount;
+            DrawText(std::to_string(s.filled_with->consumable.amount).c_str(), (s.pos.x+14)*scale, (s.pos.y+14)*scale, 5*scale, WHITE);
         }
+        DrawTexturePro(
+            gui.items_tex,
+            s.filled_with->img_rect,
+            {s.pos.x*scale, s.pos.y*scale,
+                float(ITEM_SPRITE_WIDTH*scale),
+                float(ITEM_SPRITE_HEIGHT*scale)},
+            {0, 0}, 0, WHITE);
     }
 }
 
@@ -545,41 +683,6 @@ void draw_gui()
     textbox_update_draw();
     if (gui.is_inv_open)
     {
-        // drawing inventory
-        DrawTextureEx(inventory_tex, {0, 0}, 0, scale, WHITE);
-        // drawing cursor
-
-        DrawTexturePro(
-            inventory_cursor_tex, 
-            inv_cursor_anim[gui.inv_cursor.current_anim_frame], 
-            {(inventory_slots[gui.inv_cursor.inv_slot_index].pos.x - 3)*scale, 
-                (inventory_slots[gui.inv_cursor.inv_slot_index].pos.y - 1)*scale, 
-                inv_cursor_anim[gui.inv_cursor.current_anim_frame].width*scale, 
-                inv_cursor_anim[gui.inv_cursor.current_anim_frame].height*scale}, 
-            {0, 0}, 
-            0, 
-            WHITE);
-        // drawing held item if there is a held item
-        if (gui.inv_cursor.held_item)
-        {
-            DrawTexturePro(items_tex, gui.inv_cursor.held_item->img_rect, {inventory_slots[gui.inv_cursor.inv_slot_index].pos.x*scale-(1*scale), inventory_slots[gui.inv_cursor.inv_slot_index].pos.y*scale-(1*scale), float(ITEM_SPRITE_WIDTH*scale), float(ITEM_SPRITE_HEIGHT*scale)}, {0, 0}, 0, WHITE);
-        }
-        // drawing items
-        for (Inventory_slot &s : inventory_slots)
-        {
-            if (!s.filled_with)
-                continue; // IMPORTANT
-            if(s.filled_with->type == CONSUMABLE){
-                s.amount_in_slot = s.filled_with->consumable.amount;
-                DrawText(std::to_string(s.filled_with->consumable.amount).c_str(), (s.pos.x+14)*scale, (s.pos.y+14)*scale, 5*scale, WHITE);
-            }
-            DrawTexturePro(
-                items_tex,
-                s.filled_with->img_rect,
-                {s.pos.x*scale, s.pos.y*scale,
-                 float(ITEM_SPRITE_WIDTH*scale),
-                 float(ITEM_SPRITE_HEIGHT*scale)},
-                {0, 0}, 0, WHITE);
-        }
+        draw_inventory();
     }
 }

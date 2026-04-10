@@ -17,7 +17,7 @@ void init_all()
     cam.offset = {0, 0};
     cam.rotation = 0.0f;
     cam.zoom = scale;
-    game.state = GAMEPLAY;
+    game.state = START_MENU;
     PlayMusicStream(game.current_music);
     SetMusicVolume(game.current_music, 1.0f);
     request_map(START_MAP, {PLAYER_START_MAP_POS_X, PLAYER_START_MAP_POS_Y}); // default
@@ -29,11 +29,11 @@ void init_all()
     // request_map(VILLAGE_MAP, VILLAGE_HOUSE_1_OUTSIDE_SPAWNPOINT);
     // request_map(BIG_TREE_LEVEL_9, {129, 32}); //placeholder for fighting the regrown
     load_requested_map();
-    if(game.state <= Game_states::OPTIONS){
-        init_start_menu();
-    }
+    
+    init_start_menu();
     
     
+    // player.defeated_entities.push_back(THE_REGROWN);
     
 
     
@@ -45,9 +45,7 @@ void init_all()
 
 void update_all()
 {
-    if(IsKeyPressed(KEY_SAVE) && game.state == Game_states::GAMEPLAY){
-        save_index_state(game.save_slot);
-    }
+    
     // if(IsKeyPressed(KEY_O)){
     //     save_index_state(1);
     // }
@@ -60,13 +58,45 @@ void update_all()
     UpdateMusicStream(game.current_music);
     
     update_sfx();
-    if(game.state <= Game_states::OPTIONS && !gui.start_menu_unloaded){
+    switch(game.state){
         //implement start menu code here
-        start_menu_update();
-        return;
+        case START_MENU:
+            start_menu_update();
+            return;
+        case SAVE_SLOTS:
+            start_menu_save_slots_screen_update(); //just cuz theyre only used once - im so done with the mess ive made
+            return;
+        case CREDITS:
+            start_menu_credits_screen_update();
+            return;
+        case OPTIONS:
+            options_screen_update();
+            return;
+        case ACHIEVEMENTS:
+            achievements_screen_update();
+            return;
+        default:
+            break;
     }
     
-    if(!gui.is_inv_open){    
+    if(IsKeyPressed(KEY_ESCAPE)){
+        if(game.state != PAUSE_MENU){
+            game.state = PAUSE_MENU;
+            gui.pause_menu_versions_of_menus = true;
+        }
+        else if(game.state == PAUSE_MENU){
+            game.state = GAMEPLAY;
+            gui.pause_menu_versions_of_menus = false;
+        }
+    }
+    if(game.state == Game_states::PAUSE_MENU){
+        pause_menu_update();
+    }
+    
+    if(!gui.is_inv_open && game.state == Game_states::GAMEPLAY){  
+        if(IsKeyPressed(KEY_SAVE) && game.state == Game_states::GAMEPLAY){
+            save_index_state(game.save_slot);
+        }  
         update_map();
         update_player();
         for (auto &e : game.entities)
@@ -94,51 +124,43 @@ void update_all()
 
 void draw_all()
 {
-    
-    if(game.state <= Game_states::OPTIONS && !gui.start_menu_unloaded){
+    switch(game.state){
         //implement start menu code here
-        start_menu_draw();
-        return;
+        case START_MENU:
+            start_menu_draw();
+            return;
+        case SAVE_SLOTS:
+            start_menu_draw(); //just cuz theyre only used once - im so done with the mess ive made
+            return;
+        case CREDITS:
+            start_menu_draw();
+            return;
+        case OPTIONS:
+            options_screen_draw();
+            return;
+        case ACHIEVEMENTS:
+            achievements_screen_draw();
+            return;
+        default:
+            break;
     }
+    
     BeginMode2D(cam);
     draw_map();
-    for(Vector2 &v : game.broken_floor_tiles){
-        DrawTexturePro(game.broken_tile_tex, BROKEN_TILE_RECT, {v.x, v.y, 16, 16}, {0, 0}, 0, WHITE); //look, i didnt want to make a whole new macro just for 16x16, deal with it
-    }
-    for(Ground_item &g : game.ground_items){
-        
-        DrawTexturePro(items_tex, g.item.img_rect, {g.pos.x, g.pos.y, 16, 16}, {0, 0}, 0, WHITE); // again ^
-        
-    }
-    game.draw_order = {};
-    //might not be the best idea to pt it here, but this game could run on a potato so far
-    for (int i = 0; i < (int)game.entities.size(); i++)
-    game.draw_order.push_back({ game.entities[i]->rect.y+game.entities[i]->rect.height, i });
 
-    game.draw_order.push_back({ player.collision_rect.y+player.collision_rect.height, -1 }); // -1 = player
+    draw_broken_floor_tiles();
+    draw_ground_items();
 
-    std::sort(game.draw_order.begin(), game.draw_order.end());
+    
+    sort_and_draw_player_and_entities();
+    draw_locked_doors();
 
-    for (auto &[y, i] : game.draw_order) {
-        if (i == -1) draw_player();
-        else         game.entities[i]->draw();
-    }
-    for(Locked_rect &l : game.locked_rects){
-        DrawRectangle(l.rect.x, l.rect.y, l.rect.width, l.rect.height, GUI_LIGHT_GRAY); //box around thing, using color from aap64
-        DrawRectangleLinesEx({l.rect.x, l.rect.y, l.rect.width, l.rect.height}, 1, BLACK); 
-        //drawing 4 corners, sorry it mess
-        DrawPixel(l.rect.x+1, l.rect.y+1, GUI_DARK_GRAY);
-        DrawPixel(l.rect.x+1, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
-        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+1, GUI_DARK_GRAY);
-        DrawPixel(l.rect.x+l.rect.width-2, l.rect.y+l.rect.height-2, GUI_DARK_GRAY);
-
-        //drawing lock texture
-        DrawTextureEx(game.door_lock_tex,{l.rect.x+(l.rect.width/2-8), l.rect.y+(l.rect.height/2-8)}, 0, 1, WHITE); //just the offsets - i dont think macros are too nessecary
-    }
     // DrawRectangle(player.collision_rect.x, player.collision_rect.y, player.collision_rect.width, player.collision_rect.height, GREEN);
     EndMode2D();
     draw_gui();
-
+    if(game.state == Game_states::PAUSE_MENU){
+        pause_menu_draw();
+    }
 
     
     
