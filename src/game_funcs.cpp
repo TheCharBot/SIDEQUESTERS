@@ -13,8 +13,32 @@ void init_map()
     // wrong_map = get_texture("gfx/maps/wrong_map.png");
 }
 
-
-
+void init_keybinds(){
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP]    = KEY_UP;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN]  = KEY_DOWN;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT] = KEY_RIGHT;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT]  = KEY_LEFT;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_1]  = KEY_A;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_2]  = KEY_S;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_3]  = KEY_D;
+    game.keybinds[Custom_keyboard_keys::KEY_OPEN_INVENTORY] = KEY_TAB;
+    game.keybinds[Custom_keyboard_keys::KEY_INTERACT]       = KEY_X;
+    game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP]        = KEY_Z;
+    game.keybinds[Custom_keyboard_keys::KEY_SAVE]           = KEY_ENTER;
+    game.keybinds[Custom_keyboard_keys::KEY_SPRINT]         = KEY_LEFT_SHIFT;
+};
+// KeyboardKey KEY_CONTROLS_UP    = KEY_UP;
+// KeyboardKey KEY_CONTROLS_DOWN  = KEY_DOWN;
+// KeyboardKey KEY_CONTROLS_RIGHT = KEY_RIGHT;
+// KeyboardKey KEY_CONTROLS_LEFT  = KEY_LEFT;
+// KeyboardKey KEY_ITEM_HOTBAR_1  = KEY_A;
+// KeyboardKey KEY_ITEM_HOTBAR_2  = KEY_S;
+// KeyboardKey KEY_ITEM_HOTBAR_3  = KEY_D;
+// KeyboardKey KEY_OPEN_INVENTORY = KEY_TAB;
+// KeyboardKey KEY_INTERACT       = KEY_X;
+// KeyboardKey KEY_SPEEDUP        = KEY_Z;
+// KeyboardKey KEY_SAVE           = KEY_ENTER;
+// KeyboardKey KEY_SPRINT         = KEY_LEFT_SHIFT; 
 Texture2D& get_texture(const std::string& path)
 {
     auto it = game.texture_cache.find(path);
@@ -193,18 +217,18 @@ void save_config_state()
     Config_dat cfg_dat{};
 
     cfg_dat.scale = scale;
-    cfg_dat.KEY_CONTROLS_UP = KEY_CONTROLS_UP;
-    cfg_dat.KEY_CONTROLS_DOWN = KEY_CONTROLS_DOWN;
-    cfg_dat.KEY_CONTROLS_RIGHT = KEY_CONTROLS_RIGHT;
-    cfg_dat.KEY_CONTROLS_LEFT = KEY_CONTROLS_LEFT;
-    cfg_dat.KEY_ITEM_HOTBAR_1 = KEY_ITEM_HOTBAR_1;
-    cfg_dat.KEY_ITEM_HOTBAR_2 = KEY_ITEM_HOTBAR_2;
-    cfg_dat.KEY_ITEM_HOTBAR_3 = KEY_ITEM_HOTBAR_3;
-    cfg_dat.KEY_OPEN_INVENTORY = KEY_OPEN_INVENTORY;
-    cfg_dat.KEY_INTERACT = KEY_INTERACT;
-    cfg_dat.KEY_SPEEDUP = KEY_SPEEDUP;
-    cfg_dat.KEY_SAVE = KEY_SAVE;
-    cfg_dat.KEY_SPRINT = KEY_SPRINT;
+    cfg_dat.KEY_CONTROLS_UP    = game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP];
+    cfg_dat.KEY_CONTROLS_DOWN  = game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN]; 
+    cfg_dat.KEY_CONTROLS_RIGHT = game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT];
+    cfg_dat.KEY_CONTROLS_LEFT  = game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT]; 
+    cfg_dat.KEY_ITEM_HOTBAR_1  = game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_1]; 
+    cfg_dat.KEY_ITEM_HOTBAR_2  = game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_2]; 
+    cfg_dat.KEY_ITEM_HOTBAR_3  = game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_3]; 
+    cfg_dat.KEY_OPEN_INVENTORY = game.keybinds[Custom_keyboard_keys::KEY_OPEN_INVENTORY];
+    cfg_dat.KEY_INTERACT       = game.keybinds[Custom_keyboard_keys::KEY_INTERACT];      
+    cfg_dat.KEY_SPEEDUP        = game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP];       
+    cfg_dat.KEY_SAVE           = game.keybinds[Custom_keyboard_keys::KEY_SAVE];          
+    cfg_dat.KEY_SPRINT         = game.keybinds[Custom_keyboard_keys::KEY_SPRINT];        
 
     std::ofstream file("saves/config.dat", std::ios::binary);
 
@@ -241,18 +265,18 @@ void load_config_state()
 
     scale = cfg_dat.scale;
 
-    KEY_CONTROLS_UP = (KeyboardKey)cfg_dat.KEY_CONTROLS_UP;
-    KEY_CONTROLS_DOWN = (KeyboardKey)cfg_dat.KEY_CONTROLS_DOWN;
-    KEY_CONTROLS_RIGHT = (KeyboardKey)cfg_dat.KEY_CONTROLS_RIGHT;
-    KEY_CONTROLS_LEFT = (KeyboardKey)cfg_dat.KEY_CONTROLS_LEFT;
-    KEY_ITEM_HOTBAR_1 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_1;
-    KEY_ITEM_HOTBAR_2 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_2;
-    KEY_ITEM_HOTBAR_3 = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_3;
-    KEY_OPEN_INVENTORY = (KeyboardKey)cfg_dat.KEY_OPEN_INVENTORY;
-    KEY_INTERACT = (KeyboardKey)cfg_dat.KEY_INTERACT;
-    KEY_SPEEDUP = (KeyboardKey)cfg_dat.KEY_SPEEDUP;
-    KEY_SAVE = (KeyboardKey)cfg_dat.KEY_SAVE;
-    KEY_SPRINT = (KeyboardKey)cfg_dat.KEY_SPRINT;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP]    = (KeyboardKey)cfg_dat.KEY_CONTROLS_UP;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN]  = (KeyboardKey)cfg_dat.KEY_CONTROLS_DOWN;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT] = (KeyboardKey)cfg_dat.KEY_CONTROLS_RIGHT;
+    game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT]  = (KeyboardKey)cfg_dat.KEY_CONTROLS_LEFT;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_1]  = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_1;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_2]  = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_2;
+    game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_3]  = (KeyboardKey)cfg_dat.KEY_ITEM_HOTBAR_3;
+    game.keybinds[Custom_keyboard_keys::KEY_OPEN_INVENTORY] = (KeyboardKey)cfg_dat.KEY_OPEN_INVENTORY;
+    game.keybinds[Custom_keyboard_keys::KEY_INTERACT]       = (KeyboardKey)cfg_dat.KEY_INTERACT;
+    game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP]        = (KeyboardKey)cfg_dat.KEY_SPEEDUP;
+    game.keybinds[Custom_keyboard_keys::KEY_SAVE]           = (KeyboardKey)cfg_dat.KEY_SAVE;
+    game.keybinds[Custom_keyboard_keys::KEY_SPRINT]         = (KeyboardKey)cfg_dat.KEY_SPRINT;
 
     
 }

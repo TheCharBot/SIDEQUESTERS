@@ -277,19 +277,19 @@ void default_player_movement(){
     player.movement = {0, 0};
 
     // movement calculations with a seperate vector
-    if (IsKeyDown(KEY_CONTROLS_UP))
+    if (IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP]))
         player.movement.y -= 1;
-    if (IsKeyDown(KEY_CONTROLS_DOWN))
+    if (IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN]))
         player.movement.y += 1;
-    if (IsKeyDown(KEY_CONTROLS_LEFT))
+    if (IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT]))
         player.movement.x -= 1;
-    if (IsKeyDown(KEY_CONTROLS_RIGHT))
+    if (IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT]))
         player.movement.x += 1;
 
     player.movement = Vector2Normalize(player.movement);
     // animation array calculations
     
-    if(!IsKeyDown(KEY_SPRINT) || player.reloading_stamina){
+    if(!IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_SPRINT]) || player.reloading_stamina){
         player.stamina_reload_timer -= 2;
         if (player.movement.y < 0)
         {
@@ -345,7 +345,7 @@ void default_player_movement(){
             
         }
     }
-    else if(IsKeyDown(KEY_SPRINT) && !player.reloading_stamina){
+    else if(IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_SPRINT]) && !player.reloading_stamina){
         player.stamina_reload_timer = PLAYER_DEFAULT_STAMINA_RELOAD_TIME;
         if (player.movement.y < 0)
         {
@@ -492,15 +492,15 @@ void default_player_movement(){
     }
     
     //then item stuff
-    if (IsKeyPressed(KEY_ITEM_HOTBAR_1))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_1]))
     {
         use_item_in_slot(23);
     }
-    else if (IsKeyPressed(KEY_ITEM_HOTBAR_2))
+    else if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_2]))
     {
         use_item_in_slot(24);
     }
-    else if (IsKeyPressed(KEY_ITEM_HOTBAR_3))
+    else if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_ITEM_HOTBAR_3]))
     {
         use_item_in_slot(25);
     }

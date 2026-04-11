@@ -24,7 +24,7 @@ void NPC_Dan_Village::load()
 
 void NPC_Dan_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(NPC_DAN_VILLAGE_FOUND_ITEM_TEXT)){
             for (int i = 0; i < 28; i++) {
                 if (inventory_slots[i].filled_with->name== Item_names::SACRED_BARK) {
@@ -109,7 +109,7 @@ void NPC_Bob_Village::load()
 
 void NPC_Bob_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(NPC_BOB_STORY_TEXT)){
             set_textbox_indice_text(0, {"Hey you! You like trees?", NONE});
             set_textbox_indice_text(1, {"I really do, especially cutting them down and making things!", NONE});
@@ -175,7 +175,7 @@ void NPC_Clarence_Village::load()
 
 void NPC_Clarence_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(NPC_CLARENCE_STORY_TEXT)){
             set_textbox_indice_text(0, {"What do you want?", NONE});
             set_textbox_indice_text(1, {"Can't you see I'm working?!", NONE});
@@ -241,7 +241,7 @@ void NPC_Chad_Village::load()
 
 void NPC_Chad_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         player.move_mode = 0;
         if(current_anim_arr != NPC_chad_village_talking){
             move_mode = 2;
@@ -358,7 +358,7 @@ void NPC_fallen_hero_Village::update()
                 break;
         }
     }
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(NPC_FALLEN_HERO_STORY_TEXT)){
             set_textbox_indice_text(0, {"hey . . .", NONE});
             set_textbox_indice_text(1, {"hey you . . .", NONE});
@@ -453,7 +453,7 @@ void NPC_auctioneer_Village::load()
 
 void NPC_auctioneer_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         if(!is_text_finished(NPC_AUCTIONEER_STORY_TEXT)){
             set_textbox_indice_text(0, {"Well well well! What do we have here?", NONE});
             set_textbox_indice_text(1, {"Hello there, I'm the Auctioneer!", NONE});
@@ -523,7 +523,7 @@ void NPC_cruller_Village::load()
 
 void NPC_cruller_Village::update()
 {
-    if(IsKeyPressed(KEY_INTERACT) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && CheckCollisionRecs(interact_rect, player.collision_rect) && !gui.global_textbox.is_textbox_open){
         std::cout << is_entity_dead(THE_REGROWN);
         if(!is_text_finished(NPC_CRULLER_STORY_TEXT)){
             if(current_anim_arr != NPC_cruller_fall_down){

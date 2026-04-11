@@ -16,6 +16,8 @@ void reload_needed_textures(){
     gui.pause_menu_tex = get_texture(PAUSE_MENU_TEX_PATH);
     game.broken_tile_tex = get_texture(BROKEN_TILE_TEX_PATH);
     game.door_lock_tex = get_texture(DOOR_LOCK_TEX_PATH);
+    gui.options_boxes_tex = get_texture(OPTIONS_BOXES_TEX_PATH);
+    gui.options_boxes_selector_tex = get_texture(OPTIONS_BOXES_SELECTOR_TEX_PATH);
 }
 
 //automatically creates and loads an entity. took me so long to figure out, still dont fully understand, thanks google

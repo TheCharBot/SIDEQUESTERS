@@ -94,7 +94,7 @@ void update_all()
     }
     
     if(!gui.is_inv_open && game.state == Game_states::GAMEPLAY){  
-        if(IsKeyPressed(KEY_SAVE) && game.state == Game_states::GAMEPLAY){
+        if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_SAVE]) && game.state == Game_states::GAMEPLAY){
             save_index_state(game.save_slot);
         }  
         update_map();

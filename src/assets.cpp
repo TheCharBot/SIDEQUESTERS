@@ -1,19 +1,9 @@
 #include "assets.hpp"
 
+
 // this file is for image and other constant rects
 
-KeyboardKey KEY_CONTROLS_UP = KEY_UP;
-KeyboardKey KEY_CONTROLS_DOWN = KEY_DOWN;
-KeyboardKey KEY_CONTROLS_RIGHT = KEY_RIGHT;
-KeyboardKey KEY_CONTROLS_LEFT = KEY_LEFT;
-KeyboardKey KEY_ITEM_HOTBAR_1 = KEY_A;
-KeyboardKey KEY_ITEM_HOTBAR_2 = KEY_S;
-KeyboardKey KEY_ITEM_HOTBAR_3 = KEY_D;
-KeyboardKey KEY_OPEN_INVENTORY = KEY_TAB;
-KeyboardKey KEY_INTERACT = KEY_X;
-KeyboardKey KEY_SPEEDUP = KEY_Z;
-KeyboardKey KEY_SAVE = KEY_ENTER;
-KeyboardKey KEY_SPRINT = KEY_LEFT_SHIFT;
+
 
 
 // 23, 24, 25
@@ -50,6 +40,22 @@ Inventory_slot inventory_slots[28] = {
 
 };
 
+Vector2 options_boxes_pos[14] = {
+    {3, 3},
+    {3, 35},
+    {3, 67},
+    {3, 99},
+    {3, 131},
+    {3, 163},
+    {3, 195},
+    {3, 227},
+    {3, 259},
+    {3, 291},
+    {3, 323},
+    {3, 355},
+    {3, 387},
+    {3, 419},
+};
 
 
 

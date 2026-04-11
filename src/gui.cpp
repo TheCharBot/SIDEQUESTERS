@@ -23,29 +23,30 @@ void init_start_menu(){
     gui.start_menu_save_selecter_pos = SAVE_SLOT_1_SELECTER_POS;
     game.current_music = LoadMusicStream(ELEVATOR_MUS_PATH);
     
+
 }
 
 
 
 void start_menu_save_slots_screen_update(){
-    if(IsKeyPressed(KEY_SPEEDUP)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         gui.start_menu_sel_mode = 0;
         // unload_start_menu_assets();
         game.state = Game_states::START_MENU; 
         // gui.start_menu_unloaded = true;
     }
-    if(IsKeyPressed(KEY_CONTROLS_RIGHT)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.start_menu_sel_mode += 1;
         gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
     }
-    else if(IsKeyPressed(KEY_CONTROLS_LEFT)){
+    else if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.start_menu_sel_mode -= 1;
         gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 2);
     }
-    if(IsKeyPressed(KEY_INTERACT)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         switch(gui.start_menu_sel_mode){
             case 0:
@@ -88,7 +89,7 @@ void start_menu_save_slots_screen_update(){
 }
 
 void start_menu_credits_screen_update(){
-    if(IsKeyPressed(KEY_SPEEDUP)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         gui.start_menu_sel_mode = 3;
         // unload_start_menu_assets();
@@ -98,17 +99,17 @@ void start_menu_credits_screen_update(){
 }
 
 void start_menu_update(){
-    if(IsKeyPressed(KEY_CONTROLS_DOWN)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.start_menu_sel_mode += 1;
         gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
     }
-    if(IsKeyPressed(KEY_CONTROLS_UP)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.start_menu_sel_mode -= 1;
         gui.start_menu_sel_mode = Clamp(gui.start_menu_sel_mode, 0, 3);
     }
-    if(IsKeyPressed(KEY_INTERACT)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         switch(gui.start_menu_sel_mode){
             case 0:
@@ -202,23 +203,73 @@ void start_menu_draw(){ //sorry ugly code. deal with it
 
 
 void options_screen_update(){
-    if(IsKeyPressed(KEY_SPEEDUP)){
+
+    gui.options_selector_move_mode = gui.selector_move_mode::IDLE;
+
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         gui.pause_menu_sel_mode = 1;
+        gui.start_menu_sel_mode = 1;
         game.state = gui.previous_state; 
     }
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN])){
+        gui.options_menu_select_index++;
+        gui.options_selector_move_mode = gui.selector_move_mode::DOWN;
+    }
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP])){
+        gui.options_menu_select_index--;
+        gui.options_selector_move_mode = gui.selector_move_mode::UP;
+    }
+    gui.options_menu_select_index = Clamp(gui.options_menu_select_index, 0, 13);
+    
+    gui.options_boxes_selector_pos = Vector2Add(Vector2SubtractValue(options_boxes_pos[gui.options_menu_select_index], 5), gui.options_boxes_pos);
+    if(gui.options_selector_move_mode == gui.selector_move_mode::DOWN){
+        switch(gui.options_menu_select_index){
+            case 4:
+                gui.options_boxes_wanted_pos = {5, -112};
+                break;
+            case 8:
+                gui.options_boxes_wanted_pos = {5, -240};
+                break;
+            case 12:
+                gui.options_boxes_wanted_pos = {5, -368};
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if(gui.options_selector_move_mode == gui.selector_move_mode::UP){
+        switch(gui.options_menu_select_index){
+            case 4:
+                gui.options_boxes_wanted_pos = {5, 32};
+                break;
+            case 8:
+                gui.options_boxes_wanted_pos = {5, -112};
+                break;
+            case 12:
+                gui.options_boxes_wanted_pos = {5, -240};
+                break;
+            default:
+                break;
+        }
+    }
+    gui.options_boxes_pos = Vector2Lerp(gui.options_boxes_pos, gui.options_boxes_wanted_pos, 0.4);
 }
 
 void achievements_screen_update(){
-    if(IsKeyPressed(KEY_SPEEDUP)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         gui.pause_menu_sel_mode = 2;
+        gui.start_menu_sel_mode = 2;
         game.state = gui.previous_state; 
     }
 }
 
 void options_screen_draw(){
     DrawTexturePro(gui.start_menu_tex, start_menu_options_screen, {0, 0, start_menu_options_screen.width*scale, start_menu_options_screen.height*scale}, {0, 0}, 0, WHITE);
+    DrawTextureEx(gui.options_boxes_tex, Vector2Scale(gui.options_boxes_pos, scale), 0, scale, WHITE);
+    DrawTextureEx(gui.options_boxes_selector_tex, Vector2Scale(gui.options_boxes_selector_pos, scale), 0, scale, WHITE);
 }
 
 void achievements_screen_draw(){
@@ -228,17 +279,17 @@ void achievements_screen_draw(){
 
 void pause_menu_update()
 {   
-    if(IsKeyPressed(KEY_CONTROLS_DOWN)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.pause_menu_sel_mode += 1;
         gui.pause_menu_sel_mode = Clamp(gui.pause_menu_sel_mode, 0, 2);
     }
-    if(IsKeyPressed(KEY_CONTROLS_UP)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
         gui.pause_menu_sel_mode -= 1;
         gui.pause_menu_sel_mode = Clamp(gui.pause_menu_sel_mode, 0, 2);
     }
-    if(IsKeyPressed(KEY_INTERACT)){
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT])){
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         switch(gui.pause_menu_sel_mode){
             case 0:
@@ -252,7 +303,7 @@ void pause_menu_update()
                 game.state = Game_states::START_MENU; 
                 reset_loaded();
                 game.current_music = LoadMusicStream(ELEVATOR_MUS_PATH);
-                gui.previous_state = GAMEPLAY;
+                gui.previous_state = PAUSE_MENU;
                 
                 // gui.start_menu_unloaded = true;
                 break;
@@ -260,13 +311,13 @@ void pause_menu_update()
                 
                 // unload_start_menu_assets();
                 game.state = Game_states::OPTIONS;
-                gui.previous_state = GAMEPLAY;
+                gui.previous_state = PAUSE_MENU;
                 break;
             case 2:
                 
                 // unload_start_menu_assets();
                 game.state = Game_states::ACHIEVEMENTS;
-                gui.previous_state = GAMEPLAY;
+                gui.previous_state = PAUSE_MENU;
                 break;
         }
     }
@@ -350,22 +401,22 @@ void inv_cursor_update()
         }
         gui.inv_cursor.anim_frame_5 = 0;
     }
-    if (IsKeyPressed(KEY_CONTROLS_UP))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP]))
     {
         gui.inv_cursor.inv_slot_index -= 7;
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
-    if (IsKeyPressed(KEY_CONTROLS_DOWN))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN]))
     {
         gui.inv_cursor.inv_slot_index += 7;
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
-    if (IsKeyPressed(KEY_CONTROLS_RIGHT))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT]))
     {
         gui.inv_cursor.inv_slot_index += 1;
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
-    if (IsKeyPressed(KEY_CONTROLS_LEFT))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT]))
     {
         gui.inv_cursor.inv_slot_index -= 1;
         PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
@@ -379,7 +430,7 @@ void inv_cursor_update()
         gui.inv_cursor.inv_slot_index = 0;
     }
     // picking up an item
-    if (IsKeyPressed(KEY_INTERACT))
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]))
     {
         // works!!!!!!! was not expecting that!!!!!
         if(inventory_slots[gui.inv_cursor.inv_slot_index].filled_with){
@@ -531,7 +582,7 @@ void textbox_update_draw(){
 
         
 
-        if(IsKeyPressed(KEY_INTERACT) && gui.global_textbox.current_dialog_character >= int(gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
+        if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT]) && gui.global_textbox.current_dialog_character >= int(gui.global_textbox.current_dialog[gui.global_textbox.dialog_index_state].text.length())){ //doin the checker to make sure it wants to stay at that specific dialog thing
             gui.global_textbox.dialog_index_state++;
             gui.global_textbox.current_dialog_character = 0;
             if(gui.global_textbox.dialog_index_state > gui.global_textbox.dialog_max_indecies){
@@ -541,7 +592,7 @@ void textbox_update_draw(){
                 gui.global_textbox.current_speaker = Entity_names::DEFAULT;
             }
         }
-        if(IsKeyDown(KEY_SPEEDUP)){
+        if(IsKeyDown(game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP])){
             gui.global_textbox.current_dialog_character+=5; //advancing the current characters to be drawn fastly
         }
         else{
@@ -582,6 +633,8 @@ void init_gui()
     gui.inventory_cursor_tex = get_texture(INV_CURSOR_PATH);
     gui.gui_bar_segments_tex = get_texture(GUI_BAR_SEGMENTS_PATH);
     gui.hotbar_tex = get_texture(HOTBAR_TEX_PATH);
+    gui.options_boxes_tex = get_texture(OPTIONS_BOXES_TEX_PATH);
+    gui.options_boxes_selector_tex = get_texture(OPTIONS_BOXES_SELECTOR_TEX_PATH);
     
     gui.textbox_tex = get_texture(TEXTBOX_TEX_PATH);
     add_item_to_inventory(game.item_ids[Item_names::RED_BERRIES]);
@@ -598,6 +651,13 @@ void init_gui()
     gui.pause_menu_select_right_pos = Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_RIGHT_SELECT_OFFSET);
     gui.pause_menu_select_left_pos = Vector2Add(PAUSE_MENU_OPTIONS_POS, PAUSE_MENU_OPTIONS_SAVEQUIT_LEFT_SELECT_OFFSET);
 
+    gui.options_boxes_pos = {5, 32}; //TODO: MACROS
+    gui.options_boxes_wanted_pos = {5, 32};
+
+    gui.options_boxes_selector_pos = Vector2SubtractValue(gui.options_boxes_pos, 2);
+    gui.options_menu_select_index = 0;
+
+    gui.options_selector_move_mode = gui.selector_move_mode::IDLE;
 }
 
 void update_gui()
@@ -609,7 +669,7 @@ void update_gui()
         inv_cursor_update();
     }
 
-    if (IsKeyPressed(KEY_OPEN_INVENTORY) && !gui.global_textbox.is_textbox_open)
+    if (IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_OPEN_INVENTORY]) && !gui.global_textbox.is_textbox_open)
     {
         gui.is_inv_open = !gui.is_inv_open;
         // if (gui.is_inv_open)

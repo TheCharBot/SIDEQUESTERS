@@ -47,11 +47,13 @@
 //maybe later TODO: Make better flashing gfx and stuff for ground items, plus make animations work for broken ground tiles
 //TODO: Full game: make dialog choice system
 
+//TODO: CURRENT: finish options screen
+
 // #define _DEBUG
 
 int main()
 {
-    
+    init_keybinds(); //right before loading any changed keybinds - to default it if there are any problems
     load_config_state();//TODO: uncomment in final release
     // std::cout << scale;
     SetConfigFlags(FLAG_MSAA_4X_HINT); 

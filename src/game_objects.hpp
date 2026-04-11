@@ -187,6 +187,21 @@ enum Game_states{ //add endings and other menu things
     END_QUESTED,
 };
 
+enum class Custom_keyboard_keys{
+    KEY_CONTROLS_UP,
+    KEY_CONTROLS_DOWN, 
+    KEY_CONTROLS_RIGHT,
+    KEY_CONTROLS_LEFT, 
+    KEY_ITEM_HOTBAR_1, 
+    KEY_ITEM_HOTBAR_2, 
+    KEY_ITEM_HOTBAR_3, 
+    KEY_OPEN_INVENTORY,
+    KEY_INTERACT,      
+    KEY_SPEEDUP,       
+    KEY_SAVE,          
+    KEY_SPRINT,        
+};
+
 
 // figure out good way to document quests - this works for now though
 enum Quest_names
@@ -377,13 +392,25 @@ struct GUI_data{
     Texture2D start_menu_tex = {};
     Texture2D pause_menu_tex = {};
     Texture2D slot_icons[3] = {};
+    Texture2D options_boxes_tex = {};
+    Texture2D options_boxes_selector_tex = {};
     Vector2 pause_menu_background_pos = {};
     Vector2 pause_menu_options_pos = {};
     Vector2 pause_menu_select_right_pos = {};
     Vector2 pause_menu_select_offset = {};
     Vector2 pause_menu_select_left_pos = {};
     bool pause_menu_versions_of_menus = false;
-    Game_states previous_state;
+    Game_states previous_state = {};
+    enum selector_move_mode{
+        UP,
+        DOWN,
+        IDLE
+    };
+    selector_move_mode options_selector_move_mode = {};
+    Vector2 options_boxes_pos = {};
+    Vector2 options_boxes_wanted_pos = {};
+    Vector2 options_boxes_selector_pos = {};
+    int options_menu_select_index = 0;
 };
 
 
@@ -411,6 +438,7 @@ struct Game_data{
     std::unordered_map<Item_names, Item> item_ids = {};
     std::unordered_map<Ground_item_names, Ground_item> ground_item_ids = {};
     std::vector<std::pair<int, int>> draw_order;
+    std::unordered_map<Custom_keyboard_keys, KeyboardKey> keybinds = {};
     // Game_save start_save_index[3];//???
 };
 

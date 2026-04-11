@@ -23,6 +23,8 @@ extern void add_finished_text(Dialog_names text_name);
 extern void add_item_to_inventory(Item item);
 extern bool is_entity_dead(Entity_names entity);
 
+extern void init_keybinds();
+
 extern Game_save save_current_state();
 extern void save_index_state(int start_menu_slot_index);
 extern void load_save(Game_save save);
@@ -54,6 +56,7 @@ extern void start_menu_credits_screen_update();
 extern void reset_loaded();
 
 extern Inventory_slot inventory_slots[28];
+extern Vector2 options_boxes_pos[14];
 // editable globals
 
 
@@ -84,18 +87,7 @@ extern Inventory_slot inventory_slots[28];
 #define GUI_DARK_GRAY Color{51, 57, 65, 255}
 
 //edit these to change controls
-extern KeyboardKey KEY_CONTROLS_UP; //KEY_UP
-extern KeyboardKey KEY_CONTROLS_DOWN; //KEY_DOWN
-extern KeyboardKey KEY_CONTROLS_RIGHT; //KEY_RIGHT
-extern KeyboardKey KEY_CONTROLS_LEFT; //KEY_LEFT
-extern KeyboardKey KEY_ITEM_HOTBAR_1; //KEY_A
-extern KeyboardKey KEY_ITEM_HOTBAR_2; //KEY_S
-extern KeyboardKey KEY_ITEM_HOTBAR_3; //KEY_D
-extern KeyboardKey KEY_OPEN_INVENTORY; //KEY_TAB
-extern KeyboardKey KEY_INTERACT; //KEY_X
-extern KeyboardKey KEY_SPEEDUP; //KEY_Z
-extern KeyboardKey KEY_SAVE; //KEY_ENTER
-extern KeyboardKey KEY_SPRINT; //KEY_LEFT_SHIFT
+
 
 #define HITSTOP_TIMER_DAMAGE_DIVIDER 10
 
@@ -559,6 +551,8 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define TEXTBOX_TEX_PATH "gfx/gui/textbox_tex.png"
 #define START_MENU_TEX_PATH "gfx/gui/start_menu.png"
 #define PAUSE_MENU_TEX_PATH "gfx/gui/pause_menu.png"
+#define OPTIONS_BOXES_TEX_PATH "gfx/gui/options_boxes.png"
+#define OPTIONS_BOXES_SELECTOR_TEX_PATH "gfx/gui/options_boxes_selector.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"
