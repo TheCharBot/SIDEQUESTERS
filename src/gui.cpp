@@ -202,7 +202,7 @@ void start_menu_draw(){ //sorry ugly code. deal with it
 
 
 
-void options_screen_update(){
+void options_screen_update(){ //bad logic - i know. fight me
 
     gui.options_selector_move_mode = gui.selector_move_mode::IDLE;
 
@@ -215,44 +215,106 @@ void options_screen_update(){
     if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_DOWN])){
         gui.options_menu_select_index++;
         gui.options_selector_move_mode = gui.selector_move_mode::DOWN;
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
     if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_UP])){
         gui.options_menu_select_index--;
         gui.options_selector_move_mode = gui.selector_move_mode::UP;
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_SELECT]);
     }
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_RIGHT])){
+        if(gui.options_menu_select_index == 0){
+            gui.current_res_step++;
+            gui.current_res_step = Clamp(gui.current_res_step, 0, 2);
+            game.new_scale = gui.resolution_steps[gui.current_res_step];
+        }
+        if(gui.options_menu_select_index == 13){
+            game.new_scale += 1;
+        }
+    }
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_CONTROLS_LEFT])){
+        if(gui.options_menu_select_index == 0){
+            gui.current_res_step--;
+            gui.current_res_step = Clamp(gui.current_res_step, 0, 2);
+            game.new_scale = gui.resolution_steps[gui.current_res_step];
+        }
+        if(gui.options_menu_select_index == 13){
+            game.new_scale -= 1;
+        }
+    }
+    
     gui.options_menu_select_index = Clamp(gui.options_menu_select_index, 0, 13);
     
-    gui.options_boxes_selector_pos = Vector2Add(Vector2SubtractValue(options_boxes_pos[gui.options_menu_select_index], 5), gui.options_boxes_pos);
-    if(gui.options_selector_move_mode == gui.selector_move_mode::DOWN){
+    gui.options_boxes_selector_pos = Vector2Add(Vector2SubtractValue(options_boxes_index_posses[gui.options_menu_select_index], 5), gui.options_boxes_pos);
+    if(gui.options_selector_move_mode != gui.selector_move_mode::IDLE){
+        if(gui.options_boxes_selector_pos.y < 0){
+            gui.options_boxes_wanted_pos.y += 32;
+        }
+        if(gui.options_boxes_selector_pos.y > 158){
+            gui.options_boxes_wanted_pos.y -= 32;
+        }
+        gui.options_boxes_selector_pos.y = Clamp(gui.options_boxes_selector_pos.y, 0, 158); //TODO: MACROSs
+    }
+
+    
+    if(gui.changing_settings){
+        int key = GetKeyPressed();
+        if(key != 0){
+            game.keybinds[gui.current_key_to_replace] = (KeyboardKey)key;
+            gui.changing_settings = false;
+        }
+        return;
+    }
+    if(IsKeyPressed(game.keybinds[Custom_keyboard_keys::KEY_INTERACT])){
+        gui.changing_settings = true;
+        PlaySound(game.sfx_manager[SFX_ids::INV_CURSOR_PICKUP]);
         switch(gui.options_menu_select_index){
+            case 0:
+                break;
+            case 1:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_CONTROLS_UP;
+                break;
+            case 2:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_CONTROLS_DOWN;
+                break;
+            case 3:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_CONTROLS_RIGHT;
+                break;
             case 4:
-                gui.options_boxes_wanted_pos = {5, -112};
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_CONTROLS_LEFT;
+                break;
+            case 5:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_SPRINT;
+                break;
+            case 6:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_INTERACT;
+                break;
+            case 7:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_SPEEDUP;
                 break;
             case 8:
-                gui.options_boxes_wanted_pos = {5, -240};
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_OPEN_INVENTORY;
+                break;
+            case 9:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_ITEM_HOTBAR_1;
+                break;
+            case 10:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_ITEM_HOTBAR_2;
+                break;
+            case 11:
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_ITEM_HOTBAR_3;
                 break;
             case 12:
-                gui.options_boxes_wanted_pos = {5, -368};
+                gui.current_key_to_replace = Custom_keyboard_keys::KEY_SAVE;
                 break;
-
+            case 13:
+                break;
             default:
                 break;
         }
     }
-    else if(gui.options_selector_move_mode == gui.selector_move_mode::UP){
-        switch(gui.options_menu_select_index){
-            case 4:
-                gui.options_boxes_wanted_pos = {5, 32};
-                break;
-            case 8:
-                gui.options_boxes_wanted_pos = {5, -112};
-                break;
-            case 12:
-                gui.options_boxes_wanted_pos = {5, -240};
-                break;
-            default:
-                break;
-        }
+    if(IsKeyPressed(KEY_F11)){
+        game.keybinds = game.default_keybinds;
     }
     gui.options_boxes_pos = Vector2Lerp(gui.options_boxes_pos, gui.options_boxes_wanted_pos, 0.4);
 }
@@ -270,6 +332,40 @@ void options_screen_draw(){
     DrawTexturePro(gui.start_menu_tex, start_menu_options_screen, {0, 0, start_menu_options_screen.width*scale, start_menu_options_screen.height*scale}, {0, 0}, 0, WHITE);
     DrawTextureEx(gui.options_boxes_tex, Vector2Scale(gui.options_boxes_pos, scale), 0, scale, WHITE);
     DrawTextureEx(gui.options_boxes_selector_tex, Vector2Scale(gui.options_boxes_selector_pos, scale), 0, scale, WHITE);
+
+    const Custom_keyboard_keys key_order[] = {
+        Custom_keyboard_keys::KEY_CONTROLS_UP,
+        Custom_keyboard_keys::KEY_CONTROLS_DOWN,
+        Custom_keyboard_keys::KEY_CONTROLS_RIGHT,
+        Custom_keyboard_keys::KEY_CONTROLS_LEFT,
+        Custom_keyboard_keys::KEY_SPRINT,
+        Custom_keyboard_keys::KEY_INTERACT,
+        Custom_keyboard_keys::KEY_SPEEDUP,
+        Custom_keyboard_keys::KEY_OPEN_INVENTORY,
+        Custom_keyboard_keys::KEY_ITEM_HOTBAR_1,
+        Custom_keyboard_keys::KEY_ITEM_HOTBAR_2,
+        Custom_keyboard_keys::KEY_ITEM_HOTBAR_3,
+        Custom_keyboard_keys::KEY_SAVE,
+    };
+    DrawTextEx(gui.global_font, TextFormat("%d", game.new_scale*WINDOW_HEIGHT),
+    Vector2Scale(Vector2Add(gui.options_boxes_pos, options_boxes_index_posses[0]), scale),
+    12*scale, 1, (Color){255, 213, 65, 255});
+
+    // indices 1-12 - keybinds
+    for(int i = 0; i < 12; i++){
+        const char* name = (gui.changing_settings && gui.current_key_to_replace == key_order[i])
+            ? "..."
+            : GetKeyNameCustom(game.keybinds[key_order[i]]);
+
+        DrawTextEx(gui.global_font, name,
+            Vector2Scale(Vector2Add(gui.options_boxes_pos, options_boxes_index_posses[i + 1]), scale),
+            12*scale, 1, (Color){255, 213, 65, 255});
+    }
+
+    // index 13 - raw game scale
+    DrawTextEx(gui.global_font, TextFormat("%d", game.new_scale),
+        Vector2Scale(Vector2Add(gui.options_boxes_pos, options_boxes_index_posses[13]), scale),
+        12*scale, 1, (Color){255, 213, 65, 255});
 }
 
 void achievements_screen_draw(){
@@ -658,6 +754,7 @@ void init_gui()
     gui.options_menu_select_index = 0;
 
     gui.options_selector_move_mode = gui.selector_move_mode::IDLE;
+    gui.changing_settings = false;
 }
 
 void update_gui()

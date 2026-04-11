@@ -22,6 +22,7 @@ extern bool is_text_finished(Dialog_names text_name);
 extern void add_finished_text(Dialog_names text_name);
 extern void add_item_to_inventory(Item item);
 extern bool is_entity_dead(Entity_names entity);
+extern const char* GetKeyNameCustom(KeyboardKey key);
 
 extern void init_keybinds();
 
@@ -56,7 +57,7 @@ extern void start_menu_credits_screen_update();
 extern void reset_loaded();
 
 extern Inventory_slot inventory_slots[28];
-extern Vector2 options_boxes_pos[14];
+extern Vector2 options_boxes_index_posses[14];
 // editable globals
 
 
@@ -553,6 +554,8 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define PAUSE_MENU_TEX_PATH "gfx/gui/pause_menu.png"
 #define OPTIONS_BOXES_TEX_PATH "gfx/gui/options_boxes.png"
 #define OPTIONS_BOXES_SELECTOR_TEX_PATH "gfx/gui/options_boxes_selector.png"
+#define OPTIONS_BOXES_CHANGE_KEY_TEX_PATH "gfx/gui/options_boxes_change_key.png"
+#define OPTIONS_BOXES_CHANGE_RES_TEX_PATH "gfx/gui/options_boxes_change_res.png"
 
 #define BROKEN_TILE_TEX_PATH "gfx/assets/broken_ground/broken_ground_tex.png"
 #define DOOR_LOCK_TEX_PATH "gfx/assets/door_locks/door_lock_tex.png"

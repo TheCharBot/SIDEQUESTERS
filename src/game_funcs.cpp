@@ -26,6 +26,7 @@ void init_keybinds(){
     game.keybinds[Custom_keyboard_keys::KEY_SPEEDUP]        = KEY_Z;
     game.keybinds[Custom_keyboard_keys::KEY_SAVE]           = KEY_ENTER;
     game.keybinds[Custom_keyboard_keys::KEY_SPRINT]         = KEY_LEFT_SHIFT;
+    game.default_keybinds = game.keybinds;
 };
 // KeyboardKey KEY_CONTROLS_UP    = KEY_UP;
 // KeyboardKey KEY_CONTROLS_DOWN  = KEY_DOWN;
@@ -59,7 +60,53 @@ void unload_all_textures()
     game.texture_cache.clear();
 }
 
+const char* GetKeyNameCustom(KeyboardKey key){
+    switch(key){
+        case KEY_SPACE:         return "SPACE";
+        case KEY_ENTER:         return "ENTER";
+        case KEY_TAB:           return "TAB";
+        case KEY_BACKSPACE:     return "BACKSPACE";
+        case KEY_ESCAPE:        return "ESCAPE";
+        case KEY_LEFT_SHIFT:    return "L.SHIFT";
+        case KEY_RIGHT_SHIFT:   return "R.SHIFT";
+        case KEY_LEFT_CONTROL:  return "L.CTRL";
+        case KEY_RIGHT_CONTROL: return "R.CTRL";
+        case KEY_LEFT_ALT:      return "L.ALT";
+        case KEY_RIGHT_ALT:     return "R.ALT";
+        case KEY_UP:            return "UP";
+        case KEY_DOWN:          return "DOWN";
+        case KEY_LEFT:          return "LEFT";
+        case KEY_RIGHT:         return "RIGHT";
+        case KEY_F1:            return "F1";
+        case KEY_F2:            return "F2";
+        case KEY_F3:            return "F3";
+        case KEY_F4:            return "F4";
+        case KEY_F5:            return "F5";
+        case KEY_F6:            return "F6";
+        case KEY_F7:            return "F7";
+        case KEY_F8:            return "F8";
+        case KEY_F9:            return "F9";
+        case KEY_F10:           return "F10";
+        case KEY_F11:           return "F11";
+        case KEY_F12:           return "F12";
 
+        // Letters — raylib key codes for letters are just their ASCII values
+        default:
+            if(key >= KEY_A && key <= KEY_Z){
+                static char buf[2];
+                buf[0] = 'A' + (key - KEY_A);
+                buf[1] = '\0';
+                return buf;
+            }
+            if(key >= KEY_ZERO && key <= KEY_NINE){
+                static char buf[2];
+                buf[0] = '0' + (key - KEY_ZERO);
+                buf[1] = '\0';
+                return buf;
+            }
+            return "???";
+    }
+}
 
 
 

@@ -40,7 +40,7 @@ Inventory_slot inventory_slots[28] = {
 
 };
 
-Vector2 options_boxes_pos[14] = {
+Vector2 options_boxes_index_posses[14] = {
     {3, 3},
     {3, 35},
     {3, 67},

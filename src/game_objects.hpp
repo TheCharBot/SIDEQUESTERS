@@ -411,6 +411,11 @@ struct GUI_data{
     Vector2 options_boxes_wanted_pos = {};
     Vector2 options_boxes_selector_pos = {};
     int options_menu_select_index = 0;
+    bool changing_settings = 0;
+    Custom_keyboard_keys current_key_to_replace = {};
+    KeyboardKey current_key_replacement;
+    const int resolution_steps[3] = {6, 8, 12};
+    int current_res_step = 0;
 };
 
 
@@ -439,6 +444,7 @@ struct Game_data{
     std::unordered_map<Ground_item_names, Ground_item> ground_item_ids = {};
     std::vector<std::pair<int, int>> draw_order;
     std::unordered_map<Custom_keyboard_keys, KeyboardKey> keybinds = {};
+    std::unordered_map<Custom_keyboard_keys, KeyboardKey> default_keybinds = {};
     // Game_save start_save_index[3];//???
 };
 
