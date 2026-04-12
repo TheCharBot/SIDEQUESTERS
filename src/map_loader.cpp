@@ -215,7 +215,8 @@ void load_start_map()
         MAP_1_RECT_12,
         MAP_1_RECT_13,
         MAP_1_RECT_14,
-        MAP_1_RECT_15
+        MAP_1_RECT_15,
+        MAP_1_RECT_16
                 });
 
     // then filling the entity list with moving things to put in the map

@@ -265,6 +265,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define MAP_1_RECT_13 {0, 192, 192, 128}
 #define MAP_1_RECT_14 {192, 272, 16, 48}
 #define MAP_1_RECT_15 {160, 848, 160, 16}
+#define MAP_1_RECT_16 {480, 432, 16, 192}
 
 #define MAP_2_RECT_1 {130, 0, 535, 65}
 #define MAP_2_RECT_2 {666, 0, 134, 97}

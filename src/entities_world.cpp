@@ -514,60 +514,66 @@ Message_board::Message_board(int init_type_index)
             msg_brd_typ = ARROW_KEYS;
             pos = {167, 848};
             img_rect = message_board_arrow_keys;
+            detect_and_appear_range = {pos.x-33, pos.y+22, 187, 72};
             break;
         case 1: 
             msg_brd_typ = X_ACTION;
             pos = {224, 720};
             img_rect = message_board_x_action;
+            detect_and_appear_range = {pos.x-15, pos.y+40, 154, 80};
             break;
         case 2: 
             msg_brd_typ = Z_ACTION;
             pos = {49, 623};
             img_rect = message_board_z_action;
+            detect_and_appear_range = {pos.x-2, pos.y+26, 156, 79};
             break;
         case 3: 
             msg_brd_typ = SHIFT_ACTION;
             pos = {0, 517};
             img_rect = message_board_shift_action;
+            detect_and_appear_range = {pos.x+5, pos.y+19, 177, 81};
             break;
         case 4: 
             msg_brd_typ = TAB_ACTION;
             pos = {229, 514};
             img_rect = message_board_tab_action;
+            detect_and_appear_range = {pos.x+1, pos.y+21, 218, 82};
             break;
         case 5: 
             msg_brd_typ = HOTBAR_SLOT_ACTIONS;
             pos = {272, 368};
             img_rect = message_board_hotbar_slot_actions;
+            detect_and_appear_range = {pos.x-13, pos.y+69, 208, 138};
             break;
         case 6: 
             msg_brd_typ = ENTER_ACTION;
             pos = {49, 417};
             img_rect = message_board_enter_action;
+            detect_and_appear_range = {pos.x, pos.y+22, 121, 67};
             break;
         case 7: 
             msg_brd_typ = F10_ACTION;
             pos = {0, 288};
             img_rect = message_board_f10_action;
+            detect_and_appear_range = {pos.x+4, pos.y+37, 152, 86};
             break;
         case 8: 
             msg_brd_typ = ESC_ACTION;
             pos = {3, 740};
             img_rect = message_board_esc_action;
+            detect_and_appear_range = {pos.x+2, pos.y-123, 42, 111};
             break;
         case 9: 
             msg_brd_typ = REWRITE_ACTION;
             pos = {258, 297};
             img_rect = message_board_rewrite_action;
+            detect_and_appear_range = {pos.x-47, pos.y-27, 42, 141};
             break;
         default:
             break;
     }
     
-    detect_and_appear_range = {pos.x-34, pos.y-49, 167, 114};
-    if(msg_brd_typ == HOTBAR_SLOT_ACTIONS){
-        detect_and_appear_range = {pos.x-17, pos.y-11, 104, 144};
-    }
 
     
     fade.r = 255;
