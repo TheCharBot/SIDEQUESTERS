@@ -505,3 +505,105 @@ void Village_windmill_grinder::draw()
 {
     DrawTextureRec(tex, current_anim_arr[current_animation_frame], pos, WHITE);
 }
+
+Message_board::Message_board(int init_type_index)
+{
+    init_type_index = Clamp(init_type_index, 0, 9);
+    switch(init_type_index){
+        case 0: 
+            msg_brd_typ = ARROW_KEYS;
+            pos = {167, 848};
+            img_rect = message_board_arrow_keys;
+            break;
+        case 1: 
+            msg_brd_typ = X_ACTION;
+            pos = {224, 720};
+            img_rect = message_board_x_action;
+            break;
+        case 2: 
+            msg_brd_typ = Z_ACTION;
+            pos = {49, 623};
+            img_rect = message_board_z_action;
+            break;
+        case 3: 
+            msg_brd_typ = SHIFT_ACTION;
+            pos = {0, 517};
+            img_rect = message_board_shift_action;
+            break;
+        case 4: 
+            msg_brd_typ = TAB_ACTION;
+            pos = {229, 514};
+            img_rect = message_board_tab_action;
+            break;
+        case 5: 
+            msg_brd_typ = HOTBAR_SLOT_ACTIONS;
+            pos = {272, 368};
+            img_rect = message_board_hotbar_slot_actions;
+            break;
+        case 6: 
+            msg_brd_typ = ENTER_ACTION;
+            pos = {49, 417};
+            img_rect = message_board_enter_action;
+            break;
+        case 7: 
+            msg_brd_typ = F10_ACTION;
+            pos = {0, 288};
+            img_rect = message_board_f10_action;
+            break;
+        case 8: 
+            msg_brd_typ = ESC_ACTION;
+            pos = {3, 740};
+            img_rect = message_board_esc_action;
+            break;
+        case 9: 
+            msg_brd_typ = REWRITE_ACTION;
+            pos = {258, 297};
+            img_rect = message_board_rewrite_action;
+            break;
+        default:
+            break;
+    }
+    
+    detect_and_appear_range = {pos.x-34, pos.y-49, 167, 114};
+    if(msg_brd_typ == HOTBAR_SLOT_ACTIONS){
+        detect_and_appear_range = {pos.x-17, pos.y-11, 104, 144};
+    }
+
+    
+    fade.r = 255;
+    fade.g = 255;
+    fade.b = 255;
+    fade.a = 0;//-16, -16, 103, 106
+    temp_fade = 0;
+}
+
+Message_board::~Message_board()
+{
+}
+
+void Message_board::load()
+{
+    tex = get_texture(MESSAGE_BOARDS_TEX_PATH);
+}
+
+void Message_board::update()
+{
+    if(CheckCollisionRecs(detect_and_appear_range, player.hitbox)){
+        temp_fade += 8;
+    }
+    else{
+        temp_fade -= 8;
+    }
+    if(temp_fade >= 254){
+        temp_fade = 254;
+    }
+    else if(temp_fade <= 1){
+        temp_fade = 1;
+    }
+    fade.a = temp_fade;
+}
+
+void Message_board::draw()
+{
+    DrawTextureRec(tex, img_rect, pos, fade);
+}

@@ -174,6 +174,15 @@ extern Rectangle NPC_cruller_fall_down[9];
 extern Rectangle NPC_cruller_idle_fall[1];
 extern Rectangle NPC_cruller_get_up[19];
 
-
+extern Rectangle message_board_arrow_keys;
+extern Rectangle message_board_x_action;
+extern Rectangle message_board_z_action;
+extern Rectangle message_board_shift_action;
+extern Rectangle message_board_tab_action;
+extern Rectangle message_board_hotbar_slot_actions;
+extern Rectangle message_board_enter_action;
+extern Rectangle message_board_f10_action;
+extern Rectangle message_board_esc_action;
+extern Rectangle message_board_rewrite_action;
 
 #endif

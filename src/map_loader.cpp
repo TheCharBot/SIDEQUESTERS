@@ -200,14 +200,37 @@ void load_start_map()
     game.current_music = LoadMusicStream(TENSION_MUS_PATH);
     game.current_map = START_MAP;
     // proprietary collisions for map 1 (can't reuse - sorry)
-    add_collisions({MAP_1_RECT_1,
-                    MAP_1_RECT_2,
-                    MAP_1_RECT_3,
-                    MAP_1_RECT_4});
+    add_collisions({
+        MAP_1_RECT_1,
+        MAP_1_RECT_2,
+        MAP_1_RECT_3, 
+        MAP_1_RECT_4, 
+        MAP_1_RECT_5, 
+        MAP_1_RECT_6, 
+        MAP_1_RECT_7, 
+        MAP_1_RECT_8, 
+        MAP_1_RECT_9, 
+        MAP_1_RECT_10,
+        MAP_1_RECT_11,
+        MAP_1_RECT_12,
+        MAP_1_RECT_13,
+        MAP_1_RECT_14,
+        MAP_1_RECT_15
+                });
 
     // then filling the entity list with moving things to put in the map
     add_entity<Start_portal>(START_PORTAL);
     add_entity<Start_bulldozer>(START_BULLDOZER);
+    add_entity_without_death_check<Message_board>(0);
+    add_entity_without_death_check<Message_board>(1);
+    add_entity_without_death_check<Message_board>(2);
+    add_entity_without_death_check<Message_board>(3);
+    add_entity_without_death_check<Message_board>(4);
+    add_entity_without_death_check<Message_board>(5);
+    add_entity_without_death_check<Message_board>(6);
+    add_entity_without_death_check<Message_board>(7);
+    add_entity_without_death_check<Message_board>(8);
+    add_entity_without_death_check<Message_board>(9);
     
 };
 

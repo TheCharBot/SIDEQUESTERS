@@ -100,6 +100,7 @@ int main()
     if(game.state == Game_states::GAMEPLAY && game.save_slot < 3){
         save_index_state(game.save_slot);
     } //TODO: Uncomment in final release
+    game.new_scale = Clamp(game.new_scale, 1, 1000); //should be enough, i hope
     if(scale != game.new_scale){
         scale = game.new_scale;
     }

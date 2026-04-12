@@ -115,6 +115,7 @@ enum Entity_names{ //stuff for identification - suprisingly helpful!
     VILLAGE_WINDMILL_GRINDER,
     BERRY_BUSH,
     GROUND_POT,
+    MESSAGE_BOARD,
     //hostile entity names
     THE_REGROWN,
     FOREST_SCOURGE,

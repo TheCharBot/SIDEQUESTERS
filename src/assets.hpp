@@ -229,8 +229,8 @@ extern Vector2 options_boxes_index_posses[14];
 #define PLAYER_DEFAULT_STAMINA_DEGEN 0.4
 #define PLAYER_SWORD_SWING_STAMINA_DEGEN 4
 
-#define PLAYER_START_MAP_POS_X 209
-#define PLAYER_START_MAP_POS_Y 196
+#define PLAYER_START_MAP_POS_X 217
+#define PLAYER_START_MAP_POS_Y 876
 #define PLAYER_VILLAGE_MAP_POS_X 267
 #define PLAYER_VILLAGE_MAP_POS_Y 128
 
@@ -250,10 +250,21 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 
 
 // ----------------------------------------------------------------- COLLISION RECTS AREA --------------------------------------------------------------------
-#define MAP_1_RECT_1 {0, 0, 480, 135}
-#define MAP_1_RECT_2 {0, 185, 198, 135}
-#define MAP_1_RECT_3 {198, 265, 282, 55}
-#define MAP_1_RECT_4 {282, 185, 198, 80}
+#define MAP_1_RECT_1 {0, 736, 160, 128}
+#define MAP_1_RECT_2 {0, 864, 128, 80}
+#define MAP_1_RECT_3 {368, 624, 112, 320}
+#define MAP_1_RECT_4 {208, 624, 160, 128}
+#define MAP_1_RECT_5 {48, 624, 160, 16}
+#define MAP_1_RECT_6 {0, 512, 448, 16}
+#define MAP_1_RECT_7 {48, 416, 208, 16}
+#define MAP_1_RECT_8 {256, 272, 224, 160}
+#define MAP_1_RECT_9 {288, 144, 192, 128}
+#define MAP_1_RECT_10 {304, 0, 176, 144}
+#define MAP_1_RECT_11 {176, 0, 128, 96}
+#define MAP_1_RECT_12 {0, 0, 176, 128}
+#define MAP_1_RECT_13 {0, 192, 192, 128}
+#define MAP_1_RECT_14 {192, 272, 16, 48}
+#define MAP_1_RECT_15 {160, 848, 160, 16}
 
 #define MAP_2_RECT_1 {130, 0, 535, 65}
 #define MAP_2_RECT_2 {666, 0, 134, 97}
@@ -529,6 +540,7 @@ extern Rectangle the_regrown_impossible_destructable_tile_area;
 #define BERRY_BUSH_TEX_PATH "gfx/assets/berry_bush/berry_bush_tex.png"
 #define POT_TEX_PATH "gfx/assets/pot/pot_tex.png"
 #define VILLAGE_WINDMILL_GRINDER_TEX_PATH "gfx/assets/windmill_grinder/windmill_grinder_tex.png"
+#define MESSAGE_BOARDS_TEX_PATH "gfx/assets/message_boards/message_boards.png"
 
 #define NPC_DAN_VILLAGE_TEX_PATH "gfx/npc/NPC_dan_village/NPC_dan_village_tex.png"
 #define NPC_BOB_VILLAGE_TEX_PATH "gfx/npc/NPC_bob_village/NPC_bob_village_tex.png"

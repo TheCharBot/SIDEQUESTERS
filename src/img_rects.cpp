@@ -61,6 +61,17 @@ Rectangle Big_tree_levels_tree_trunk_middle = {0, 0, DEFAULT_SPRITE_WIDTH_128, D
 Rectangle Big_tree_levels_tree_trunk_bottom = {128, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 Rectangle Big_tree_levels_tree_trunk_top = {256, 0, DEFAULT_SPRITE_WIDTH_128, DEFAULT_SPRITE_HEIGHT_128};
 
+Rectangle message_board_arrow_keys = {0, 0, 128, 32};
+Rectangle message_board_x_action = {0, 32, 144, 16};
+Rectangle message_board_z_action = {0, 64, 176, 32};
+Rectangle message_board_shift_action = {0, 96, 192, 16};
+Rectangle message_board_tab_action = {0, 128, 208, 32};
+Rectangle message_board_hotbar_slot_actions = {0, 160, 160, 80};
+Rectangle message_board_enter_action = {0, 240, 224, 16};
+Rectangle message_board_f10_action = {0, 272, 176, 32};
+Rectangle message_board_esc_action = {0, 304, 160, 32};
+Rectangle message_board_rewrite_action = {0, 336, 96, 48};
+
 // player-focused stuff
 
 //(i know i can use pointers but they scary)

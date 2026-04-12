@@ -141,6 +141,37 @@ class Ground_pot : public Entity{
         bool broken = false;
 };
 
+class Message_board : public Entity {
+    public:
+        Message_board(int init_type_index);
+        ~Message_board() override;
+        
+        
+        void load() override;
+        void update() override;
+        void draw() override;
+        enum Message_board_type{
+            ARROW_KEYS,
+            X_ACTION,
+            Z_ACTION,
+            SHIFT_ACTION,
+            TAB_ACTION,
+            HOTBAR_SLOT_ACTIONS,
+            ENTER_ACTION,
+            F10_ACTION,
+            ESC_ACTION,
+            REWRITE_ACTION
+        };
+    private:
+        
+        Message_board_type msg_brd_typ = {};
+        Rectangle detect_and_appear_range = {};
+        Rectangle img_rect;
+        Texture2D tex = {};
+        Color fade = {};
+        int temp_fade = 0;
+};
+
 
 
 #endif

@@ -252,7 +252,14 @@ void save_index_state(int start_menu_slot_index)
 
     ImageCrop(&img, crop);
     
-    ImageResizeNN(&img, img.width/scale, img.height/scale);
+    int newW = img.width / scale;
+    int newH = img.height / scale;
+
+    if (newW < 1) newW = 1;
+    if (newH < 1) newH = 1;
+
+
+    ImageResizeNN(&img, newW, newH);
 
     ExportImage(img, TextFormat("saves/start_menu_index_icon_%i.png", start_menu_slot_index));
 
